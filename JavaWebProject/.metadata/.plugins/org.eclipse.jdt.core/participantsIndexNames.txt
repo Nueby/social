@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-D:\gitworkspace\social\JavaWebProject\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1036947214.index
-\social\src\main\resources

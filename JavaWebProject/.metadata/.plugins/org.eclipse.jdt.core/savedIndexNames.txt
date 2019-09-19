@@ -1,2 +1,0 @@
-INDEX VERSION 1.131+D:\gitworkspace\social\JavaWebProject\.metadata\.plugins\org.eclipse.jdt.core
-3115981977.index
