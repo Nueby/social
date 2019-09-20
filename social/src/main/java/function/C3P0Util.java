@@ -19,7 +19,7 @@ public class C3P0Util {
 	
 	/**
 	 * 获取Connect连接
-	 * @return
+	 * @return	Connect对象
 	 * @throws SQLException
 	 */
 	public static Connection getConnection() throws SQLException {
