@@ -28,6 +28,7 @@ public class UserDao {
 	private Integer age = null;
 	private String hobby = null;
 	private String head = null;
+	private String tags = null;
 	
 	//是否是新账号
 	private boolean isNew = true;
@@ -48,22 +49,14 @@ public class UserDao {
 	/**
 	 * 设置新账号信息
 	 * @param password - 密码
-	 * @param email - 邮箱
-	 * @param sex - 性别
 	 * @throws NoSuchAlgorithmException MD5加密失败
 	 * @throws UnsupportedOperationException 老用户不支持操作
 	 */
-	public void setCreateInfo(String password, String email, String sex) throws NoSuchAlgorithmException, UnsupportedOperationException {
+	public void setCreateInfo(String password) throws NoSuchAlgorithmException, UnsupportedOperationException {
 		if(isNew) {
 			totalId++;
 			id = totalId;		//用户id
 			this.password = MD5.getMD5(password);		//密码MD5加密
-			this.email = email;
-			if(sex.equals("男")) {		//将性别男女转成mf
-				this.sex = "m";
-			} else {
-				this.sex = "f";
-			}
 		} else {
 			throw new UnsupportedOperationException();
 		}
@@ -81,12 +74,19 @@ public class UserDao {
 	 * @throws NoSuchAlgorithmException MD5加密失败
 	 * @throws UnsupportedOperationException 老用户不支持操作
 	 */
-	public void setCreateInfo(String password, String email, String sex, int phone, String position, int age, String hobby) throws NoSuchAlgorithmException, UnsupportedOperationException {
-		setCreateInfo(password,email,sex);
+	public void setCreateInfo(String password, String email, String sex, int phone, String position, int age, String hobby, String tags) throws NoSuchAlgorithmException, UnsupportedOperationException {
+		setCreateInfo(password);
+		this.email = email;
+		if(sex.equals("男")) {		//将性别男女转成mf
+			this.sex = "m";
+		} else {
+			this.sex = "f";
+		}
 		this.phone = phone;
 		this.position = position;
 		this.age = age;
 		this.hobby = hobby;
+		this.tags = tags;
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class UserDao {
 				file.mkdir();		//头像文件夹不存在时创建
 			}
 			head = url + "/" + account + ".png";
-			pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head) values(?,?,?,?,?,?,?,?,?,?)");
+			pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, id);
 			pstmt.setInt(2, account);
 			pstmt.setString(3, password);
@@ -115,6 +115,7 @@ public class UserDao {
 			pstmt.setInt(8, age);
 			pstmt.setString(9, hobby);
 			pstmt.setString(10, head);
+			pstmt.setString(11, tags);
 			pstmt.execute();
 			C3P0Util.release(pstmt);
 		} else {
@@ -154,6 +155,13 @@ public class UserDao {
 	}
 	
 	public Integer getId() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return id;
 	}
 	
@@ -174,6 +182,13 @@ public class UserDao {
 	}
 	
 	public Integer getPhone() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return phone;
 	}
 	
@@ -182,6 +197,13 @@ public class UserDao {
 	}
 	
 	public String getEmail() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return email;
 	}
 	
@@ -194,6 +216,13 @@ public class UserDao {
 	}
 	
 	public String getSex() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		if(sex.equals("m")) {
 			return "男";
 		} else {
@@ -206,6 +235,13 @@ public class UserDao {
 	}
 	
 	public String getPosition() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return position;
 	}
 	
@@ -214,6 +250,13 @@ public class UserDao {
 	}
 	
 	public Integer getAge() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return age;
 	}
 	
@@ -222,10 +265,55 @@ public class UserDao {
 	}
 	
 	public String getHobby() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return hobby;
 	}
 	
 	public String getHead() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
 		return head;
+	}
+	
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	
+	public String getTags() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		}
+		return tags;
+	}
+	
+	/**
+	 * 更新用户数据
+	 */
+	public void updateInfo() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+			pstmt = function.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? WHERE account=" + account);
+		} catch(UnsupportedOperationException e) {
+			System.out.println("未加载信息");
+		} catch(SQLException e) {
+			System.out.println("连接数据库失败");
+		}
 	}
 }
