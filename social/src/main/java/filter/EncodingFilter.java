@@ -11,7 +11,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 
-
+/**
+ * 
+ * @author ylr
+ *
+ */
 public class EncodingFilter implements Filter {
 
     public EncodingFilter() {
