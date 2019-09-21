@@ -1,10 +1,22 @@
 package dao;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 import function.C3P0Util;
 import function.MD5;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * 
@@ -30,6 +42,10 @@ public class UserDao {
 	private String head = null;
 	private String tags = null;
 	
+	//日志
+	private Logger log = null;
+	private ConsoleHandler consoleHandler = null;
+	
 	//是否是新账号
 	private boolean isNew = true;
 	
@@ -44,21 +60,36 @@ public class UserDao {
 	public UserDao(int account, boolean isNew) {
 		this.account = account;
 		this.isNew = isNew;
+		//日志设置
+		log = Logger.getLogger("social");
+		consoleHandler = new ConsoleHandler();
+		consoleHandler.setLevel(Level.INFO);
+		consoleHandler.setFormatter(new Formatter() {
+			@Override
+			public String format(LogRecord record) {
+				return record.getLevel() + ":" + record.getMessage() + "\n";
+			}
+		});
+		log.addHandler(consoleHandler);
 	}
 	
 	/**
 	 * 设置新账号信息
 	 * @param password - 密码
-	 * @throws NoSuchAlgorithmException MD5加密失败
-	 * @throws UnsupportedOperationException 老用户不支持操作
 	 */
-	public void setCreateInfo(String password) throws NoSuchAlgorithmException, UnsupportedOperationException {
-		if(isNew) {
-			totalId++;
-			id = totalId;		//用户id
-			this.password = MD5.getMD5(password);		//密码MD5加密
-		} else {
-			throw new UnsupportedOperationException();
+	public void setCreateInfo(String password) {
+		try {
+			if(isNew) {
+				totalId++;
+				id = totalId;		//用户id
+				this.password = MD5.getMD5(password);		//密码MD5加密
+			} else {
+				throw new UnsupportedOperationException();
+			}
+		} catch(NoSuchAlgorithmException e) {
+			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
+		} catch(UnsupportedOperationException e) {
+			log.severe("老用户不支持操作" + "\n" + e.getStackTrace());
 		}
 	}
 	
@@ -71,10 +102,8 @@ public class UserDao {
 	 * @param position - 位置
 	 * @param age - 年龄
 	 * @param hobby - 爱好
-	 * @throws NoSuchAlgorithmException MD5加密失败
-	 * @throws UnsupportedOperationException 老用户不支持操作
 	 */
-	public void setCreateInfo(String password, String email, String sex, int phone, String position, int age, String hobby, String tags) throws NoSuchAlgorithmException, UnsupportedOperationException {
+	public void setCreateInfo(String password, String email, String sex, int phone, String position, int age, String hobby, String tags) {
 		setCreateInfo(password);
 		this.email = email;
 		if(sex.equals("男")) {		//将性别男女转成mf
@@ -91,66 +120,75 @@ public class UserDao {
 	
 	/**
 	 * 确定创建用户
-	 * @throws SQLException 数据库连接失败
-	 * @throws UnsupportedOperationException 老用户不支持操作或新用户未设置用户信息
 	 */
-	public void sureCreate() throws SQLException, UnsupportedOperationException {
-		if(isSettedInfo() && isNew) {		//是新用户且设置了相关信息
-			isNew = false;
-			String url = UserDao.class.getClassLoader().getResource("./").getPath() + "head";		//获取存图路径
-			url.replace("\\", "/");		//将反斜杠转成斜杠使之可存入数据库中
-			File file = new File(url);
-			if(!file.exists()) {
-				file.mkdir();		//头像文件夹不存在时创建
+	public void sureCreate() {
+		try {
+			if(isSettedInfo() && isNew) {		//是新用户且设置了相关信息
+				isNew = false;
+				String url = UserDao.class.getClassLoader().getResource("./").getPath() + "head";		//获取存图路径
+				url.replace("\\", "/");		//将反斜杠转成斜杠使之可存入数据库中
+				File file = new File(url);
+				if(!file.exists()) {
+					file.mkdir();		//头像文件夹不存在时创建
+				}
+				head = url + "/" + account + ".png";
+				pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
+				pstmt.setInt(1, id);
+				pstmt.setInt(2, account);
+				pstmt.setString(3, password);
+				pstmt.setInt(4, phone);
+				pstmt.setString(5, email);
+				pstmt.setString(6, sex);
+				pstmt.setString(7, position);
+				pstmt.setInt(8, age);
+				pstmt.setString(9, hobby);
+				pstmt.setString(10, head);
+				pstmt.setString(11, tags);
+				pstmt.execute();
+				C3P0Util.release(pstmt);
+				log.info("用户 " + account + " 创建成功" + "\n");
+			} else {
+				throw new UnsupportedOperationException();
 			}
-			head = url + "/" + account + ".png";
-			pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
-			pstmt.setInt(1, id);
-			pstmt.setInt(2, account);
-			pstmt.setString(3, password);
-			pstmt.setInt(4, phone);
-			pstmt.setString(5, email);
-			pstmt.setString(6, sex);
-			pstmt.setString(7, position);
-			pstmt.setInt(8, age);
-			pstmt.setString(9, hobby);
-			pstmt.setString(10, head);
-			pstmt.setString(11, tags);
-			pstmt.execute();
-			C3P0Util.release(pstmt);
-		} else {
-			throw new UnsupportedOperationException();
+		} catch(SQLException e) {
+			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
+		} catch(UnsupportedOperationException e) {
+			log.severe("老用户不支持或新用户未设置相关信息" + e.getStackTrace());
 		}
 	}
 	
 	//新账号是否设置了信息
 	private boolean isSettedInfo() {
-		return (password != null && email != null && sex != null);
+		return (password != null && email != null);
 	}
 	
 	/**
 	 * 装载数据
-	 * @throws SQLException	连接数据库失败
-	 * @throws UnsupportedOperationException 新用户不支持操作
 	 */
-	public void loadInfo() throws SQLException, UnsupportedOperationException {
-		if(isNew) {
-			throw new UnsupportedOperationException();
-		} else {
-			pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
-			ResultSet rs = pstmt.executeQuery();
-			id = rs.getInt(1);
-			account = rs.getInt(2);
-			phone = rs.getInt(4);
-			email = rs.getString(5);
-			sex = rs.getString(6);
-			position = rs.getString(7);
-			age = rs.getInt(8);
-			hobby = rs.getString(9);
-			head = rs.getString(10);
-			C3P0Util.release(rs);
-			C3P0Util.release(pstmt);
-			isLoad = true;
+	public void loadInfo() {
+		try {
+			if(isNew) {
+				throw new UnsupportedOperationException();
+			} else {
+				pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
+				ResultSet rs = pstmt.executeQuery();
+				id = rs.getInt(1);
+				account = rs.getInt(2);
+				phone = rs.getInt(4);
+				email = rs.getString(5);
+				sex = rs.getString(6);
+				position = rs.getString(7);
+				age = rs.getInt(8);
+				hobby = rs.getString(9);
+				head = rs.getString(10);
+				C3P0Util.release(rs);
+				C3P0Util.release(pstmt);
+				isLoad = true;
+			}
+		} catch(SQLException e) {
+			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
+		} catch(UnsupportedOperationException e) {
+			log.severe("新用户不支持操作" + e.getStackTrace());
 		}
 	}
 	
@@ -160,7 +198,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return id;
 	}
@@ -173,7 +211,7 @@ public class UserDao {
 		try {
 			this.password = MD5.getMD5(password);
 		} catch (NoSuchAlgorithmException e) {
-			System.out.println("MD5加密失败");
+			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
 		}
 	}
 	
@@ -187,7 +225,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return phone;
 	}
@@ -202,7 +240,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return email;
 	}
@@ -221,7 +259,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		if(sex.equals("m")) {
 			return "男";
@@ -240,7 +278,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return position;
 	}
@@ -255,7 +293,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return age;
 	}
@@ -270,7 +308,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return hobby;
 	}
@@ -281,9 +319,47 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return head;
+	}
+	
+	public void setPicture(String base64) {
+		String picture = base64.replaceAll("%2F", "/").replaceAll("%2B", "+");
+		byte[] pictureByte = Base64.decodeBase64(picture);
+		try {
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(head));
+			out.write(pictureByte);
+			out.close();
+		} catch (FileNotFoundException e) {
+			log.severe("未找到文件" + "\n" + e.getStackTrace());
+		} catch (IOException e) {
+			log.severe("输入输出异常" + "\n" + e.getStackTrace());
+		}
+	}
+	
+	public String getPicture() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+			File f = new File(head);		//图片文件
+			if(f.exists()) {		//图片存在
+				BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+				byte[] picture = new byte[in.available()];
+				in.read(picture);
+				in.close();
+				String base64 = Base64.encodeBase64String(picture);
+				return base64;
+			}
+		} catch(UnsupportedOperationException e) {
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
+		} catch(FileNotFoundException e) {
+			log.severe("未找到文件" + "\n" + e.getStackTrace());
+		} catch(IOException e) {
+			log.severe("输入输出异常" + "\n" + e.getStackTrace());
+		}
+		return "";
 	}
 	
 	public void setTags(String tags) {
@@ -296,9 +372,22 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		}
 		return tags;
+	}
+	
+	/**
+	 * 更改用户信息
+	 */
+	public void changeInfo(Integer phone, String email, String sex, String position, Integer age, String hobby, String tags) {
+		setPhone(phone);
+		setEmail(email);
+		setSex(sex);
+		setPosition(position);
+		setAge(age);
+		setHobby(hobby);
+		setTags(tags);
 	}
 	
 	/**
@@ -310,10 +399,11 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 			pstmt = function.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? WHERE account=" + account);
+			log.info("用户 " + account + " 修改信息成功");
 		} catch(UnsupportedOperationException e) {
-			System.out.println("未加载信息");
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		} catch(SQLException e) {
-			System.out.println("连接数据库失败");
+			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
 		}
 	}
 }
