@@ -1,4 +1,4 @@
-package function;
+package util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -7,14 +7,14 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 
  * @author ylr
- * MD5¼ÓÃÜ
+ * MD5åŠ å¯†
  *
  */
 public class MD5 {
 	/**
 	 * 
-	 * @param str - ĞèÒªMD5¼ÓÃÜµÄ×Ö·û´®
-	 * @return	MD5¼ÓÃÜºóµÄ×Ö·û´®
+	 * @param str - éœ€è¦MD5åŠ å¯†çš„å­—ç¬¦ä¸²
+	 * @return	MD5åŠ å¯†åçš„å­—ç¬¦ä¸²
 	 * @throws NoSuchAlgorithmException 
 	 * @throws Exception
 	 */

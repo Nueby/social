@@ -1,4 +1,4 @@
-package function;
+package util;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.sql.*;
@@ -6,7 +6,7 @@ import java.sql.*;
 /**
  * 
  * @author ylr
- * c3p0Á¬½Ó³Ø
+ * c3p0è¿æ¥æ± 
  *
  */
 public class C3P0Util {
@@ -18,8 +18,8 @@ public class C3P0Util {
 	private C3P0Util() {};
 	
 	/**
-	 * »ñÈ¡ConnectÁ¬½Ó
-	 * @return	Connect¶ÔÏó
+	 * è·å–Connectè¿æ¥
+	 * @return	Connectå¯¹è±¡
 	 * @throws SQLException
 	 */
 	public static Connection getConnection() throws SQLException {

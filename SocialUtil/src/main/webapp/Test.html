@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script type="text/javascript">
+$.ajax({
+	url:"/SocialUtil/Test",
+	type:"get",
+	data:{},
+	dataType:"json",
+	success:function(data) {
+		document.getElementById("img1").src = "data:image/png;base64," + data.big;
+		document.getElementById("img2").src = "data:image/png;base64," + data.small;
+	},
+	error:function(err) {
+		alert(err.status);
+	}
+}) 
+</script>
+</head>
+<body>
+	<img src="" width="10%" id="img1"/>
+	<img src="" width="10%" id="img2"/>
+</body>
+</html> 

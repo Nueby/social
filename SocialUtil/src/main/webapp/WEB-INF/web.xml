@@ -12,26 +12,26 @@
   </filter>
   <filter-mapping>
   	<filter-name>EncodingFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/EncodingFilter</url-pattern>
   </filter-mapping>
-  <servlet>
-  	<servlet-name>UserController</servlet-name>
-  	<display-name>UserController</display-name>
-  	<description></description>
-  	<servlet-class>controller.UserController</servlet-class>
-  </servlet>
   <servlet>
   	<servlet-name>Test</servlet-name>
   	<display-name>Test</display-name>
   	<description></description>
   	<servlet-class>controller.Test</servlet-class>
   </servlet>
-  <servlet-mapping>
+  <servlet>
   	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/UserController</url-pattern>
-  </servlet-mapping>
+  	<display-name>UserController</display-name>
+  	<description></description>
+  	<servlet-class>controller.UserController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>Test</servlet-name>
   	<url-pattern>/Test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UserController</servlet-name>
+  	<url-pattern>/UserController</url-pattern>
   </servlet-mapping>
 </web-app>

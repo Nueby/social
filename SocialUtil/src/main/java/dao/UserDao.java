@@ -14,14 +14,14 @@ import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import function.C3P0Util;
-import function.MD5;
+import util.C3P0Util;
+import util.MD5;
 import org.apache.commons.codec.binary.Base64;
 
 /**
  * 
  * @author ylr
- * user±í
+ * userè¡¨
  *
  */
 public class UserDao {
@@ -29,7 +29,7 @@ public class UserDao {
 	
 	private static int totalId = 0;
 	
-	//ÓÃ»§ÊôĞÔ
+	//ç”¨æˆ·å±æ€§
 	private Integer id = null;
 	private Integer account = null;
 	private String password = null;
@@ -42,25 +42,25 @@ public class UserDao {
 	private String head = null;
 	private String tags = null;
 	
-	//ÈÕÖ¾
+	//æ—¥å¿—
 	private Logger log = null;
 	private ConsoleHandler consoleHandler = null;
 	
-	//ÊÇ·ñÊÇĞÂÕËºÅ
+	//æ˜¯å¦æ˜¯æ–°è´¦å·
 	private boolean isNew = true;
 	
-	//ÊÇ·ñÒÑ¾­×°ÔØÊı¾İ
+	//æ˜¯å¦å·²ç»è£…è½½æ•°æ®
 	private boolean isLoad = false;
 	
 	/**
-	 * ´´½¨user±í·â×°¶ÔÏó
-	 * @param account - ÕËºÅ
-	 * @param isNew	- ÊÇ·ñĞÂÕËºÅ
+	 * åˆ›å»ºuserè¡¨å°è£…å¯¹è±¡
+	 * @param account - è´¦å·
+	 * @param isNew	- æ˜¯å¦æ–°è´¦å·
 	 */
 	public UserDao(int account, boolean isNew) {
 		this.account = account;
 		this.isNew = isNew;
-		//ÈÕÖ¾ÉèÖÃ
+		//æ—¥å¿—è®¾ç½®
 		log = Logger.getLogger("social");
 		consoleHandler = new ConsoleHandler();
 		consoleHandler.setLevel(Level.INFO);
@@ -74,39 +74,39 @@ public class UserDao {
 	}
 	
 	/**
-	 * ÉèÖÃĞÂÕËºÅĞÅÏ¢
-	 * @param password - ÃÜÂë
+	 * è®¾ç½®æ–°è´¦å·ä¿¡æ¯
+	 * @param password - å¯†ç 
 	 */
 	public void setCreateInfo(String password) {
 		try {
 			if(isNew) {
 				totalId++;
-				id = totalId;		//ÓÃ»§id
-				this.password = MD5.getMD5(password);		//ÃÜÂëMD5¼ÓÃÜ
+				id = totalId;		//ç”¨æˆ·id
+				this.password = MD5.getMD5(password);		//å¯†ç MD5åŠ å¯†
 			} else {
 				throw new UnsupportedOperationException();
 			}
 		} catch(NoSuchAlgorithmException e) {
-			log.severe("MD5¼ÓÃÜÊ§°Ü" + "\n" + e.getStackTrace());
+			log.severe("MD5åŠ å¯†å¤±è´¥" + "\n" + e.getStackTrace());
 		} catch(UnsupportedOperationException e) {
-			log.severe("ÀÏÓÃ»§²»Ö§³Ö²Ù×÷" + "\n" + e.getStackTrace());
+			log.severe("è€ç”¨æˆ·ä¸æ”¯æŒæ“ä½œ" + "\n" + e.getStackTrace());
 		}
 	}
 	
 	/**
-	 * ÉèÖÃĞÂÕËºÅĞÅÏ¢
-	 * @param password - ÃÜÂë
-	 * @param email - ÓÊÏä
-	 * @param sex - ĞÔ±ğ
-	 * @param phone - µç»°
-	 * @param position - Î»ÖÃ
-	 * @param age - ÄêÁä
-	 * @param hobby - °®ºÃ
+	 * è®¾ç½®æ–°è´¦å·ä¿¡æ¯
+	 * @param password - å¯†ç 
+	 * @param email - é‚®ç®±
+	 * @param sex - æ€§åˆ«
+	 * @param phone - ç”µè¯
+	 * @param position - ä½ç½®
+	 * @param age - å¹´é¾„
+	 * @param hobby - çˆ±å¥½
 	 */
 	public void setCreateInfo(String password, String email, String sex, int phone, String position, int age, String hobby, String tags) {
 		setCreateInfo(password);
 		this.email = email;
-		if(sex.equals("ÄĞ")) {		//½«ĞÔ±ğÄĞÅ®×ª³Émf
+		if(sex.equals("ç”·")) {		//å°†æ€§åˆ«ç”·å¥³è½¬æˆmf
 			this.sex = "m";
 		} else {
 			this.sex = "f";
@@ -119,17 +119,17 @@ public class UserDao {
 	}
 	
 	/**
-	 * È·¶¨´´½¨ÓÃ»§
+	 * ç¡®å®šåˆ›å»ºç”¨æˆ·
 	 */
 	public void sureCreate() {
 		try {
-			if(isSettedInfo() && isNew) {		//ÊÇĞÂÓÃ»§ÇÒÉèÖÃÁËÏà¹ØĞÅÏ¢
+			if(isSettedInfo() && isNew) {		//æ˜¯æ–°ç”¨æˆ·ä¸”è®¾ç½®äº†ç›¸å…³ä¿¡æ¯
 				isNew = false;
-				String url = UserDao.class.getClassLoader().getResource("./").getPath() + "head";		//»ñÈ¡´æÍ¼Â·¾¶
-				url.replace("\\", "/");		//½«·´Ğ±¸Ü×ª³ÉĞ±¸ÜÊ¹Ö®¿É´æÈëÊı¾İ¿âÖĞ
+				String url = UserDao.class.getClassLoader().getResource("./").getPath() + "head";		//è·å–å­˜å›¾è·¯å¾„
+				url.replace("\\", "/");		//å°†åæ–œæ è½¬æˆæ–œæ ä½¿ä¹‹å¯å­˜å…¥æ•°æ®åº“ä¸­
 				File file = new File(url);
 				if(!file.exists()) {
-					file.mkdir();		//Í·ÏñÎÄ¼ş¼Ğ²»´æÔÚÊ±´´½¨
+					file.mkdir();		//å¤´åƒæ–‡ä»¶å¤¹ä¸å­˜åœ¨æ—¶åˆ›å»º
 				}
 				head = url + "/" + account + ".png";
 				pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
@@ -146,24 +146,24 @@ public class UserDao {
 				pstmt.setString(11, tags);
 				pstmt.execute();
 				C3P0Util.release(pstmt);
-				log.info("ÓÃ»§ " + account + " ´´½¨³É¹¦" + "\n");
+				log.info("ç”¨æˆ· " + account + " åˆ›å»ºæˆåŠŸ" + "\n");
 			} else {
 				throw new UnsupportedOperationException();
 			}
 		} catch(SQLException e) {
-			log.severe("Êı¾İ¿âÁ¬½ÓÊ§°Ü" + "\n" + e.getStackTrace());
+			log.severe("æ•°æ®åº“è¿æ¥å¤±è´¥" + "\n" + e.getStackTrace());
 		} catch(UnsupportedOperationException e) {
-			log.severe("ÀÏÓÃ»§²»Ö§³Ö»òĞÂÓÃ»§Î´ÉèÖÃÏà¹ØĞÅÏ¢" + e.getStackTrace());
+			log.severe("è€ç”¨æˆ·ä¸æ”¯æŒæˆ–æ–°ç”¨æˆ·æœªè®¾ç½®ç›¸å…³ä¿¡æ¯" + e.getStackTrace());
 		}
 	}
 	
-	//ĞÂÕËºÅÊÇ·ñÉèÖÃÁËĞÅÏ¢
+	//æ–°è´¦å·æ˜¯å¦è®¾ç½®äº†ä¿¡æ¯
 	private boolean isSettedInfo() {
 		return (password != null && email != null);
 	}
 	
 	/**
-	 * ×°ÔØÊı¾İ
+	 * è£…è½½æ•°æ®
 	 */
 	public void loadInfo() {
 		try {
@@ -186,9 +186,9 @@ public class UserDao {
 				isLoad = true;
 			}
 		} catch(SQLException e) {
-			log.severe("Êı¾İ¿âÁ¬½ÓÊ§°Ü" + "\n" + e.getStackTrace());
+			log.severe("æ•°æ®åº“è¿æ¥å¤±è´¥" + "\n" + e.getStackTrace());
 		} catch(UnsupportedOperationException e) {
-			log.severe("ĞÂÓÃ»§²»Ö§³Ö²Ù×÷" + e.getStackTrace());
+			log.severe("æ–°ç”¨æˆ·ä¸æ”¯æŒæ“ä½œ" + e.getStackTrace());
 		}
 	}
 	
@@ -198,7 +198,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return id;
 	}
@@ -211,7 +211,7 @@ public class UserDao {
 		try {
 			this.password = MD5.getMD5(password);
 		} catch (NoSuchAlgorithmException e) {
-			log.severe("MD5¼ÓÃÜÊ§°Ü" + "\n" + e.getStackTrace());
+			log.severe("MD5åŠ å¯†å¤±è´¥" + "\n" + e.getStackTrace());
 		}
 	}
 	
@@ -225,7 +225,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return phone;
 	}
@@ -240,13 +240,13 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return email;
 	}
 	
 	public void setSex(String sex) {
-		if(sex.equals("ÄĞ")) {
+		if(sex.equals("ç”·")) {
 			this.sex = "m";
 		} else {
 			this.sex = "f";
@@ -259,12 +259,12 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		if(sex.equals("m")) {
-			return "ÄĞ";
+			return "ç”·";
 		} else {
-			return "Å®";
+			return "å¥³";
 		}
 	}
 	
@@ -278,7 +278,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return position;
 	}
@@ -293,7 +293,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return age;
 	}
@@ -308,7 +308,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return hobby;
 	}
@@ -319,7 +319,7 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return head;
 	}
@@ -332,9 +332,9 @@ public class UserDao {
 			out.write(pictureByte);
 			out.close();
 		} catch (FileNotFoundException e) {
-			log.severe("Î´ÕÒµ½ÎÄ¼ş" + "\n" + e.getStackTrace());
+			log.severe("æœªæ‰¾åˆ°æ–‡ä»¶" + "\n" + e.getStackTrace());
 		} catch (IOException e) {
-			log.severe("ÊäÈëÊä³öÒì³£" + "\n" + e.getStackTrace());
+			log.severe("è¾“å…¥è¾“å‡ºå¼‚å¸¸" + "\n" + e.getStackTrace());
 		}
 	}
 	
@@ -343,8 +343,8 @@ public class UserDao {
 			if(!isLoad) {
 				throw new UnsupportedOperationException();
 			}
-			File f = new File(head);		//Í¼Æ¬ÎÄ¼ş
-			if(f.exists()) {		//Í¼Æ¬´æÔÚ
+			File f = new File(head);		//å›¾ç‰‡æ–‡ä»¶
+			if(f.exists()) {		//å›¾ç‰‡å­˜åœ¨
 				BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
 				byte[] picture = new byte[in.available()];
 				in.read(picture);
@@ -353,11 +353,11 @@ public class UserDao {
 				return base64;
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		} catch(FileNotFoundException e) {
-			log.severe("Î´ÕÒµ½ÎÄ¼ş" + "\n" + e.getStackTrace());
+			log.severe("æœªæ‰¾åˆ°æ–‡ä»¶" + "\n" + e.getStackTrace());
 		} catch(IOException e) {
-			log.severe("ÊäÈëÊä³öÒì³£" + "\n" + e.getStackTrace());
+			log.severe("è¾“å…¥è¾“å‡ºå¼‚å¸¸" + "\n" + e.getStackTrace());
 		}
 		return "";
 	}
@@ -372,13 +372,13 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		}
 		return tags;
 	}
 	
 	/**
-	 * ¸ü¸ÄÓÃ»§ĞÅÏ¢
+	 * æ›´æ”¹ç”¨æˆ·ä¿¡æ¯
 	 */
 	public void changeInfo(Integer phone, String email, String sex, String position, Integer age, String hobby, String tags) {
 		setPhone(phone);
@@ -391,19 +391,19 @@ public class UserDao {
 	}
 	
 	/**
-	 * ¸üĞÂÓÃ»§Êı¾İ
+	 * æ›´æ–°ç”¨æˆ·æ•°æ®
 	 */
 	public void updateInfo() {
 		try {
 			if(!isLoad) {
 				throw new UnsupportedOperationException();
 			}
-			pstmt = function.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? WHERE account=" + account);
-			log.info("ÓÃ»§ " + account + " ĞŞ¸ÄĞÅÏ¢³É¹¦");
+			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? WHERE account=" + account);
+			log.info("ç”¨æˆ· " + account + " ä¿®æ”¹ä¿¡æ¯æˆåŠŸ");
 		} catch(UnsupportedOperationException e) {
-			log.severe("Î´×°ÔØĞÅÏ¢" + "\n" + e.getStackTrace());
+			log.severe("æœªè£…è½½ä¿¡æ¯" + "\n" + e.getStackTrace());
 		} catch(SQLException e) {
-			log.severe("Êı¾İ¿âÁ¬½ÓÊ§°Ü" + "\n" + e.getStackTrace());
+			log.severe("æ•°æ®åº“è¿æ¥å¤±è´¥" + "\n" + e.getStackTrace());
 		}
 	}
 }

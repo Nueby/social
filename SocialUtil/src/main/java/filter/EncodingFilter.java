@@ -25,11 +25,11 @@ public class EncodingFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//utf-8编码
+		//utf-8缂栫爜
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
-		//获取json数据
+		//鑾峰彇json鏁版嵁
 		StringBuffer sb = new StringBuffer();
 		BufferedReader reader = request.getReader();
 		String temp;
@@ -38,7 +38,7 @@ public class EncodingFilter implements Filter {
 		}
 		JSONObject json = JSONObject.parseObject(sb.toString());
 		request.setAttribute("json", json);
-		//转发至原url
+		//杞彂鑷冲師url
 		request.getRequestDispatcher(((HttpServletRequest)request).getRequestURL().toString()).forward(request, response);
 	}
 
