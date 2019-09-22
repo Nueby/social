@@ -20,8 +20,18 @@
   	<description></description>
   	<servlet-class>controller.UserController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Test</servlet-name>
+  	<display-name>Test</display-name>
+  	<description></description>
+  	<servlet-class>controller.Test</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
   	<url-pattern>/UserController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Test</servlet-name>
+  	<url-pattern>/Test</url-pattern>
   </servlet-mapping>
 </web-app>

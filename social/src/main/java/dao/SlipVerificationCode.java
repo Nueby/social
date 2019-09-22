@@ -2,10 +2,13 @@ package dao;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * 
@@ -19,13 +22,11 @@ public class SlipVerificationCode {
 	private int bigHeight = 280;		//大图片高度
 	private int circleR = 20;		//小圆半径
 	private int good = 4;		//成功范围
-	private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	//private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	private String url = "D:/test/";
 	
-	/**
-	 * 
-	 * @return - 获取小图片样式
-	 */
-	public int[][] getSmallData() {
+	//获取小图片样式
+	private int[][] getSmallData() {
 		int[][] smallData = new int[smallWidth][smallHeight];		//0表示无颜色，1表示有颜色
 		int x = smallWidth - circleR;		//矩形宽度
 		int y = smallHeight - circleR;		//矩形高度
@@ -94,14 +95,11 @@ public class SlipVerificationCode {
 		}
 	}
 	
-	/**
-	 * 
-	 * @return	获取缩放后的大图BufferedImage
-	 */
-	public BufferedImage getBigPicture() {
+	//获取缩放后的大图BufferedImage
+	private BufferedImage getBigPicture() {
 		//随机获取图片
 		Random rand = new Random();
-		int picture = rand.nextInt(5);
+		int picture = rand.nextInt(4);
 		String bURL = url + "code" + picture + ".png";
 		File f = new File(bURL);
 		BufferedImage nBuff = null;		//缩放后的BufferedImage
@@ -117,5 +115,47 @@ public class SlipVerificationCode {
 		return nBuff;
 	}
 	
+	//挖图
+	private String[] cutPicture(BufferedImage obig, BufferedImage small, int[][] smallData) {
+		//左上角随机
+		Random rand = new Random();
+		int randX = rand.nextInt(bigWidth - smallWidth);
+		int randY = rand.nextInt(bigHeight - smallHeight);
+		BufferedImage big = new BufferedImage(bigWidth,bigHeight,BufferedImage.TYPE_4BYTE_ABGR);
+		for(int i = 0; i < bigWidth; i++) {
+			for(int j = 0; j < bigHeight; j++) {
+				if(smallData[i - randX][j - randY] == 1) {
+					big.setRGB(i, j, 0xAA000000);
+					small.setRGB(i - randX, j - randY, obig.getRGB(i, j));
+				} else {
+					if(i - randX >= 0 && j - randY >= 0) {
+						small.setRGB(i - randX, j - randY, 0x00FFFFFF);
+					}
+					big.setRGB(i, j, obig.getRGB(i, j));
+				}
+			}
+		}
+		String[] image = null;
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ImageIO.write(big, "png", bos);
+			String bigBase64 = Base64.encodeBase64String(bos.toByteArray());		//大图base64
+			bos = new ByteArrayOutputStream();
+			ImageIO.write(small,"png",bos);
+			String smallBase64 = Base64.encodeBase64String(bos.toByteArray());
+			image = new String[] {bigBase64, smallBase64};		//小图base64
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return image;
+	}
 	
+	/**
+	 * 
+	 * @return - String[0]为大图base64,String[1]为小图base64
+	 */
+	public String[] getSlipPicture() {
+		String[] image = cutPicture(getBigPicture(),new BufferedImage(smallWidth,smallHeight,BufferedImage.TYPE_4BYTE_ABGR),getSmallData());
+		return image;
+	}
 }
