@@ -180,9 +180,9 @@ body{
     flex: row;
     justify-content: center;
 }
-#bg_bar:hover #check_img{
+/* #bg_bar:hover #check_img{
 	display:block;
-}
+} */
 #forget{
 	color:black;
 	position:absolute;
@@ -330,4 +330,7 @@ body{
 	bottom:45px;
 	left:200px;
 	cursor:pointer;
+}
+input {
+	outline:none;
 }

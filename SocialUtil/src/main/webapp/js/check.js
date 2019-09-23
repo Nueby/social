@@ -54,8 +54,8 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
         if (ev.clientX - startX > 0 &&
             ev.clientX - startX < bg_bar.offsetWidth - touch_bar.offsetWidth &&
             isTouch) {
-            touch_bar.style.left = ev.clientX - startX + "px";
-            bg_new.style.width = ev.clientX - startX + touch_bar.offsetWidth / 2 + "px";
+				touch_bar.style.left = ev.clientX - startX + "px";
+				bg_new.style.width = ev.clientX - startX + touch_bar.offsetWidth / 2 + "px";
         }
     } 
 	
@@ -82,7 +82,12 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
         startX = 0;
         touch_bar.style.left = "0px";
         bg_new.style.width = "0px";
+		document.getElementById("check_img").style.display = "none";
     }
+	
+	touch_bar.onmouseenter = function(ev) {
+		document.getElementById("check_img").style.display = "block";
+	}
  
     //重置偏移量
     touch_bar.style.left = "0px";
@@ -119,19 +124,26 @@ function getStrLength(strValue) {
 }
 var number = getStrLength(textval); */
 
-
-//获取验证码后改变字体
-
 var getCode = document.querySelector("#get");
-var countdown = 60;
-getCode.onclick = function settime(){
-	if(countdown > 0){
-		countdown --;
-		getCode.innerHTML = countdown + "秒后重新发送";
-		settime();
-	}else if(countdown == 0){
-		countdown = 60;
+var countTime = 60;
+var interval;
+var click = false;
+function setTime() {
+	if(countTime > 0){
+		countTime--;
+		getCode.innerHTML = countTime + "秒后重新发送";
+	}else if(countTime == 0){
+		countTime = 60;
 		getCode.innerHTML = "获取验证码";
+		clearInterval(interval);
+		click = false;
 	}
 }
 
+//获取验证码后改变字体
+getCode.onclick = function() {
+	if(!click) {
+		interval = setInterval("setTime()", 1000);
+		click = true;
+	}
+}
