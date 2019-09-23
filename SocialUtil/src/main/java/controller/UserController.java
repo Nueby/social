@@ -24,7 +24,7 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
-    	UserDao user = new UserDao((Integer)reqJson.get("account"), false);
+    	UserDao user = new UserDao(reqJson.getInteger("account"), false);
     	user.loadInfo();
     	JSONObject json = new JSONObject();
     	json.put("phone", user.getPhone());
@@ -44,16 +44,31 @@ public class UserController extends HttpServlet {
 		//获取json数据
 		JSONObject json = (JSONObject)request.getAttribute("json");
 		//行为
-		String behaviour = (String)json.get("behaviour");
+		String behaviour = json.getString("behaviour");
 		if(behaviour.equals("logup")) {		//注册
 			UserDao user = new UserDao((Integer)json.get("account"), true);
-			user.setCreateInfo((String)json.get("password"), (String)json.get("email"), (String)json.get("sex"), (Integer)json.get("phone"), (String)json.get("position"), (Integer)json.get("age"), (String)json.get("hobby"), (String)json.get("tags"));
+			user.setCreateInfo(json.getString("password"), json.getString("email"), json.getString("sex"), json.getInteger("phone"), json.getString("position"), json.getInteger("age"), json.getString("hobby"), json.getString("tags"));
 			user.sureCreate();
 		} else if(behaviour.equals("change")) {		//修改
-			UserDao user = new UserDao((Integer)json.get("account"), false);
+			UserDao user = new UserDao(json.getInteger("account"), false);
 			user.loadInfo();
-			user.changeInfo((Integer)json.get("phone"), (String)json.get("email"), (String)json.get("sex"), (String)json.get("position"), (Integer)json.get("age"), (String)json.get("hobby"), (String)json.get("tags"));
+			user.changeInfo(json.getInteger("phone"), json.getString("email"), json.getString("sex"), json.getString("position"), json.getInteger("age"), json.getString("hobby"), json.getString("tags"));
 			user.updateInfo();
+		} else if(behaviour.equals("changePassword")) {		//修改密码
+			UserDao user = new UserDao(json.getInteger("account"), false);
+			user.loadInfo();
+			JSONObject jsonCP = new JSONObject();
+			if(user.judgePassword(json.getString("oPassword"))) {
+				user.setPassword(json.getString("password"));
+				user.updateInfo();
+				jsonCP.put("msg", "true");
+				response.getWriter().write(jsonCP.toString());
+				response.getWriter().close();
+			} else {
+				jsonCP.put("msg", "false");
+				response.getWriter().write(jsonCP.toString());
+				response.getWriter().close();
+			}
 		} else {
 			System.out.println("无法找到相应的behaviour");
 		}

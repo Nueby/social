@@ -23,7 +23,8 @@ public class SlipVerificationCode {
 	private int good = 4;		//成功范围
 	private int randX = 0;		//抠图x坐标
 	private int randY = 0;		//抠图y坐标
-	private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	//private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	private String url = "D:/test/";
 	
 	//获取小图片样式
 	private int[][] getSmallData() {
@@ -240,5 +241,14 @@ public class SlipVerificationCode {
 	public int[] getSlipXY() {
 		int[] imageXY = {randX, randY};
 		return imageXY;
+	}
+	
+	/**
+	 * 
+	 * @param d - 距离
+	 * @return - 是否成功
+	 */
+	public boolean verificationSuccess(int d) {
+		return d > randX - good || d < randX + good;
 	}
 }

@@ -174,6 +174,7 @@ public class UserDao {
 				ResultSet rs = pstmt.executeQuery();
 				id = rs.getInt(1);
 				account = rs.getInt(2);
+				password = rs.getString(3);
 				phone = rs.getInt(4);
 				email = rs.getString(5);
 				sex = rs.getString(6);
@@ -213,6 +214,17 @@ public class UserDao {
 		} catch (NoSuchAlgorithmException e) {
 			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
 		}
+	}
+	
+	public String getPassword() {
+		try {
+			if(!isLoad) {
+				throw new UnsupportedOperationException();
+			}
+		} catch(UnsupportedOperationException e) {
+			log.severe("未装载信息" + "\n" + e.getStackTrace());
+		}
+		return password;
 	}
 	
 	public void setPhone(Integer phone) {
@@ -398,12 +410,36 @@ public class UserDao {
 			if(!isLoad) {
 				throw new UnsupportedOperationException();
 			}
-			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? WHERE account=" + account);
+			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
+			pstmt.setInt(1, phone);
+			pstmt.setString(2, email);
+			pstmt.setString(3, sex);
+			pstmt.setString(4, position);
+			pstmt.setInt(5, age);
+			pstmt.setString(6, hobby);
+			pstmt.setString(7, tags);
+			pstmt.setString(8, password);
+			pstmt.execute();
+			C3P0Util.release(pstmt);
 			log.info("用户 " + account + " 修改信息成功");
 		} catch(UnsupportedOperationException e) {
 			log.severe("未装载信息" + "\n" + e.getStackTrace());
 		} catch(SQLException e) {
 			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
 		}
+	}
+	
+	/**
+	 * 
+	 * @param oPassword - 旧密码
+	 * @return - 是否一致
+	 */
+	public boolean judgePassword(String oPassword) {
+		try {
+			return MD5.getMD5(oPassword).equals(password);
+		} catch (NoSuchAlgorithmException e) {
+			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
+		}
+		return false;
 	}
 }

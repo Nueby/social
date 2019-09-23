@@ -12,7 +12,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>EncodingFilter</filter-name>
-  	<url-pattern>/EncodingFilter</url-pattern>
+  	<url-pattern>*.do</url-pattern>
   </filter-mapping>
   <servlet>
   	<servlet-name>Test</servlet-name>
@@ -26,6 +26,18 @@
   	<description></description>
   	<servlet-class>controller.UserController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SlipVerificationCode</servlet-name>
+  	<display-name>SlipVerificationCode</display-name>
+  	<description></description>
+  	<servlet-class>controller.SlipVerificationCode</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SlipVerificationCodeController</servlet-name>
+  	<display-name>SlipVerificationCodeController</display-name>
+  	<description></description>
+  	<servlet-class>controller.SlipVerificationCodeController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>Test</servlet-name>
   	<url-pattern>/Test</url-pattern>
@@ -33,5 +45,13 @@
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
   	<url-pattern>/UserController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SlipVerificationCode</servlet-name>
+  	<url-pattern>/SlipVerificationCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SlipVerificationCodeController</servlet-name>
+  	<url-pattern>/SlipVerificationCodeController</url-pattern>
   </servlet-mapping>
 </web-app>
