@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>软件设计大赛-匹配交友</title>
+		<link rel="stylesheet" type="text/css" href="css/Sign_in.css"/>
+	</head>
+	<body>
+		<div id="main">
+			<div id="background"></div>
+			<div id="title">
+				<i id="title_left">登录 |</i>
+				<i id="title_right">注册</i>
+			</div>
+			<div id="Sign_in">
+				<form>
+					<i id="icon_people"></i>
+					<input type="text" id="text" placeholder="请输入用户名/电话" />
+					<i id="icon_password"></i>
+					<input type="password" id="password" placeholder="请输入密码"/>
+					<div id="check_img">
+						<div id="big_img"></div>
+						<div id="small_img"></div>
+					</div>
+					<div id="bg_bar">
+					    <div id="bg_old">
+					        <span style="font-size: 30px">滑动登录</span>
+					    </div>
+					    <div id="touch_bar"></div>
+					    <div id="bg_new"></div>
+					</div>
+					<a href="other_html\find_password.html" target="_blank" id="forget">
+						忘记密码
+					</a>
+				</form>
+			</div>
+			<div id="register">
+				<form>
+					<i id="icon_phone"></i>
+					<input type="text" id="register_text" placeholder="请输入手机号" />
+					<i id="password_secret"></i>
+					<input type="password" id="register_password" placeholder="请输入密码"/>
+					<i id="password_confirm"></i>
+					<input type="password" id="confirm" placeholder="请再次输入确认密码"/>
+					<input type="submit" id="submit" value="立即注册" />
+				</form>
+				<div id="check_code">
+					<p id="code">验证码</p>
+					<input type="text" id="fill"/>
+					<div id="time">
+						<span id="get">
+							获取验证码
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/check.js"></script>
+	</body>
+</html>

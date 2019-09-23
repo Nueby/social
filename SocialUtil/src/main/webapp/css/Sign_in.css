@@ -1,0 +1,333 @@
+body{
+	margin: 0;
+	padding:0;
+	overflow-x: hidden;
+}
+#main{
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+#background{
+	height:720px;
+	width:1550px;
+	background:url(../img/matching_backgroung.jpg);
+	background-size:100%;
+}
+#Sign_in{
+	width:590px;
+	position:absolute;
+	top:137px;
+	left:764px;
+}
+#title{
+	position:absolute;
+	top:190px;
+	left:780px;
+	z-index:2;
+}
+#title_left{
+	font-style:normal;
+	margin-top:55px;
+	margin-left:162px;
+	font-size:35px;
+	letter-spacing: 15px;
+	font-weight:500;
+	cursor: pointer;
+}
+#title_right{
+	font-style:normal;
+	font-size:35px;
+	letter-spacing: 15px;
+	font-weight:500;
+	cursor: pointer;
+}
+#icon_people{
+	background:url(../img/people_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:144px;
+}
+#icon_people_2{
+	background:url(../img/people_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:144px;
+}
+#icon_password{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
+}
+#icon_password_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
+}
+#text{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:150px;
+}
+#register_text{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:150px;
+}
+
+#password{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:45px;
+}
+#check_img{
+	width:325px;
+	height:205px;
+	position:absolute;
+	left:152px;
+	top:194px;
+	z-index:5;
+	display:none;
+	background:black;
+}
+#bg_bar {
+	margin-top:120px;
+	margin-left:150px;
+	width:300px;
+    height: 40px;
+    border-radius: 38px;
+    background-color: grey;
+    opacity: 0.5;
+}
+#touch_bar {
+    position: relative;
+    top: -42px;
+    border: 2px solid blue;
+    width: 25%;
+    height: 40px;
+    border-radius: 38px;
+    background-color: white;
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+#bg_new {
+    position: relative;
+    top: -84px;
+    height: 40px;
+    border-radius: 18px;
+    background-color: blue;
+    z-index: 15;
+}
+#bg_old {
+    height: 40px;
+    z-index: 10;
+    display: flex;
+    flex: row;
+    justify-content: center;
+}
+#bg_bar:hover #check_img{
+	display:block;
+}
+#forget{
+	color:black;
+	position:absolute;
+	left:270px;
+	top:520px;
+}
+#register_password{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:45px;
+}
+#confirm{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:45px;
+}
+#icon_phone{
+	background:url(../img/phone_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:145px;
+}
+#password_secret{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
+}
+#password_secret_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
+}
+#password_confirm{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:318px;
+}
+#password_confirm_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:318px;
+}
+#register{
+	top:137px;
+	left:764px;
+	height:597px;
+	width:579px;
+	position:absolute;
+	display:none;
+}
+#check_code{
+	position:relative;
+	top:40px;
+	left:150px;
+}
+#code{
+	position:absolute;
+	font-size:19px;
+	font-weight:500;
+}
+#fill{
+	position:absolute;
+	left:65px;
+	width:90px;
+	border:0;
+	border-bottom:2px solid #000;
+	background:rgba(0,0,0,.0);
+	top:21px;
+}
+#time{
+	background:rgba(0,0,0,.4);
+	width:115px;
+	box-shadow:0 0 2px rgba(0,0,0,.3);
+	cursor:pointer;
+	border-radius:3px;
+	position:absolute;
+	left:180px;
+	top:15px;
+	padding:3px;
+	text-align:center;
+	color:whitesmoke;
+}
+#submit{
+	color:white;
+	width:200px;
+	padding:10px;
+	height:50px;
+	background:rgba(0,0,0,.5);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:20px;
+	position:absolute;
+	bottom:45px;
+	left:200px;
+	cursor:pointer;
+}
