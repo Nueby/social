@@ -5,7 +5,7 @@
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/socialDB</property>
 		<property name="user">root</property>
-		<property name="password">181549144</property>
+		<property name="password"></property>
 		
 		<!-- 连接池参数 -->
 		<!-- 初始化连接数量 -->
