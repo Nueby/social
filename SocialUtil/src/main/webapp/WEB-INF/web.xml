@@ -15,12 +15,6 @@
   	<url-pattern>*.do</url-pattern>
   </filter-mapping>
   <servlet>
-  	<servlet-name>Test</servlet-name>
-  	<display-name>Test</display-name>
-  	<description></description>
-  	<servlet-class>controller.Test</servlet-class>
-  </servlet>
-  <servlet>
   	<servlet-name>UserController</servlet-name>
   	<display-name>UserController</display-name>
   	<description></description>
@@ -38,8 +32,13 @@
   	<description></description>
   	<servlet-class>controller.SlipVerificationCodeController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SendEmailController</servlet-name>
+  	<display-name>SendEmailController</display-name>
+  	<description></description>
+  	<servlet-class>controller.SendEmailController</servlet-class>
+  </servlet>
   <servlet-mapping>
-  	<servlet-name>Test</servlet-name>
   	<url-pattern>/Test</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -53,5 +52,9 @@
   <servlet-mapping>
   	<servlet-name>SlipVerificationCodeController</servlet-name>
   	<url-pattern>/SlipVerificationCodeController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SendEmailController</servlet-name>
+  	<url-pattern>/SendEmailController</url-pattern>
   </servlet-mapping>
 </web-app>
