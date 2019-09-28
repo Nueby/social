@@ -24,24 +24,33 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
-    	UserDao user = new UserDao(reqJson.getInteger("account"), false);
-    	user.loadInfo();
-    	JSONObject json = new JSONObject();
-    	json.put("phone", user.getPhone());
-    	json.put("email", user.getEmail());
-    	json.put("sex", user.getSex());
-    	json.put("position", user.getPosition());
-    	json.put("age", user.getAge());
-    	json.put("hobby", user.getHobby());
-    	json.put("tags", user.getTags());
-    	json.put("picture", user.getPicture());
-    	response.getWriter().write(json.toString());
-    	response.getWriter().close();
+    	System.out.println(reqJson);
+    	if(reqJson.getString("behaviour").equals("check")) {		//检查账号是否存在
+    		UserDao user = new UserDao(reqJson.getInteger("account"), false);
+    		JSONObject json = new JSONObject();
+    		json.put("result",user.isHave());
+    		response.getWriter().write(json.toString());
+    		response.getWriter().close();
+    	} else {
+    		UserDao user = new UserDao(reqJson.getInteger("account"), false);
+    		user.loadInfo();
+    		JSONObject json = new JSONObject();
+    		json.put("phone", user.getPhone());
+    		json.put("email", user.getEmail());
+    		json.put("sex", user.getSex());
+    		json.put("position", user.getPosition());
+    		json.put("age", user.getAge());
+    		json.put("hobby", user.getHobby());
+    		json.put("tags", user.getTags());
+    		json.put("picture", user.getPicture());
+    		response.getWriter().write(json.toString());
+    		response.getWriter().close();
+    	}
 	}
     
     @SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//获取json数据
+    	//获取json数据
 		JSONObject json = (JSONObject)request.getAttribute("json");
 		//行为
 		String behaviour = json.getString("behaviour");

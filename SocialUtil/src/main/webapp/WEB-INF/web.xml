@@ -39,22 +39,19 @@
   	<servlet-class>controller.SendEmailController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<url-pattern>/Test</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/UserController</url-pattern>
+  	<url-pattern>/UserController.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SlipVerificationCode</servlet-name>
-  	<url-pattern>/SlipVerificationCode</url-pattern>
+  	<url-pattern>/SlipVerificationCode.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SlipVerificationCodeController</servlet-name>
-  	<url-pattern>/SlipVerificationCodeController</url-pattern>
+  	<url-pattern>/SlipVerificationCodeController.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SendEmailController</servlet-name>
-  	<url-pattern>/SendEmailController</url-pattern>
+  	<url-pattern>/SendEmailController.do</url-pattern>
   </servlet-mapping>
 </web-app>

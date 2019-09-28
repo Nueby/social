@@ -16,6 +16,8 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import util.C3P0Util;
 import util.MD5;
+import util.MySQLConnect;
+
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -87,9 +89,11 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(NoSuchAlgorithmException e) {
-			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
+			log.severe("MD5加密失败" + "\n");
+			e.getStackTrace();
 		} catch(UnsupportedOperationException e) {
-			log.severe("老用户不支持操作" + "\n" + e.getStackTrace());
+			log.severe("老用户不支持操作" + "\n");
+			e.getStackTrace();
 		}
 	}
 	
@@ -132,7 +136,8 @@ public class UserDao {
 					file.mkdir();		//头像文件夹不存在时创建
 				}
 				head = url + "/" + account + ".png";
-				pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
+				//pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
+				pstmt = MySQLConnect.conn.prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setInt(1, id);
 				pstmt.setInt(2, account);
 				pstmt.setString(3, password);
@@ -145,15 +150,18 @@ public class UserDao {
 				pstmt.setString(10, head);
 				pstmt.setString(11, tags);
 				pstmt.execute();
-				C3P0Util.release(pstmt);
+				//C3P0Util.release(pstmt);
+				pstmt.close();
 				log.info("用户 " + account + " 创建成功" + "\n");
 			} else {
 				throw new UnsupportedOperationException();
 			}
 		} catch(SQLException e) {
-			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
+			log.severe("数据库连接失败" + "\n");
+			e.getStackTrace();
 		} catch(UnsupportedOperationException e) {
-			log.severe("老用户不支持或新用户未设置相关信息" + e.getStackTrace());
+			log.severe("老用户不支持或新用户未设置相关信息");
+			e.getStackTrace();
 		}
 	}
 	
@@ -170,7 +178,8 @@ public class UserDao {
 			if(isNew) {
 				throw new UnsupportedOperationException();
 			} else {
-				pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
+				//pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
+				pstmt = MySQLConnect.conn.prepareStatement("SELECT * FROM user WHERE account=" + account);
 				ResultSet rs = pstmt.executeQuery();
 				id = rs.getInt(1);
 				account = rs.getInt(2);
@@ -182,14 +191,18 @@ public class UserDao {
 				age = rs.getInt(8);
 				hobby = rs.getString(9);
 				head = rs.getString(10);
-				C3P0Util.release(rs);
-				C3P0Util.release(pstmt);
+				//C3P0Util.release(rs);
+				//C3P0Util.release(pstmt);
+				rs.close();
+				pstmt.close();
 				isLoad = true;
 			}
 		} catch(SQLException e) {
-			log.severe("数据库连接失败" + "\n" + e.getStackTrace());
+			log.severe("数据库连接失败" + "\n");
+			e.getStackTrace();
 		} catch(UnsupportedOperationException e) {
-			log.severe("新用户不支持操作" + e.getStackTrace());
+			log.severe("新用户不支持操作");
+			e.getStackTrace();
 		}
 	}
 	
@@ -199,7 +212,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return id;
 	}
@@ -212,7 +226,8 @@ public class UserDao {
 		try {
 			this.password = MD5.getMD5(password);
 		} catch (NoSuchAlgorithmException e) {
-			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
+			log.severe("MD5加密失败" + "\n");
+			e.getStackTrace();
 		}
 	}
 	
@@ -222,7 +237,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return password;
 	}
@@ -237,7 +253,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return phone;
 	}
@@ -252,7 +269,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return email;
 	}
@@ -271,7 +289,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		if(sex.equals("m")) {
 			return "男";
@@ -290,7 +309,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return position;
 	}
@@ -305,7 +325,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return age;
 	}
@@ -320,7 +341,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return hobby;
 	}
@@ -331,7 +353,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return head;
 	}
@@ -344,9 +367,11 @@ public class UserDao {
 			out.write(pictureByte);
 			out.close();
 		} catch (FileNotFoundException e) {
-			log.severe("未找到文件" + "\n" + e.getStackTrace());
+			log.severe("未找到文件" + "\n");
+			e.getStackTrace();
 		} catch (IOException e) {
-			log.severe("输入输出异常" + "\n" + e.getStackTrace());
+			log.severe("输入输出异常" + "\n");
+			e.getStackTrace();
 		}
 	}
 	
@@ -365,11 +390,14 @@ public class UserDao {
 				return base64;
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		} catch(FileNotFoundException e) {
-			log.severe("未找到文件" + "\n" + e.getStackTrace());
+			log.severe("未找到文件" + "\n");
+			e.getStackTrace();
 		} catch(IOException e) {
-			log.severe("输入输出异常" + "\n" + e.getStackTrace());
+			log.severe("输入输出异常" + "\n");
+			e.getStackTrace();
 		}
 		return "";
 	}
@@ -384,7 +412,8 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 		} catch(UnsupportedOperationException e) {
-			log.severe("未装载信息" + "\n" + e.getStackTrace());
+			log.severe("未装载信息" + "\n");
+			e.getStackTrace();
 		}
 		return tags;
 	}
@@ -410,7 +439,8 @@ public class UserDao {
 			if(!isLoad) {
 				throw new UnsupportedOperationException();
 			}
-			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
+			//pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
+			pstmt = MySQLConnect.conn.prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
 			pstmt.setInt(1, phone);
 			pstmt.setString(2, email);
 			pstmt.setString(3, sex);
@@ -420,7 +450,8 @@ public class UserDao {
 			pstmt.setString(7, tags);
 			pstmt.setString(8, password);
 			pstmt.execute();
-			C3P0Util.release(pstmt);
+			//C3P0Util.release(pstmt);
+			pstmt.close();
 			log.info("用户 " + account + " 修改信息成功");
 		} catch(UnsupportedOperationException e) {
 			log.severe("未装载信息" + "\n" + e.getStackTrace());
@@ -438,8 +469,35 @@ public class UserDao {
 		try {
 			return MD5.getMD5(oPassword).equals(password);
 		} catch (NoSuchAlgorithmException e) {
-			log.severe("MD5加密失败" + "\n" + e.getStackTrace());
+			log.severe("MD5加密失败" + "\n");
+			e.getStackTrace();
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @return - 是否注册过
+	 */
+	public boolean isHave() {
+		boolean result = false;
+		try {
+			//Statement stmt = C3P0Util.getConnection().createStatement();
+			Statement stmt = MySQLConnect.conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+			rs.beforeFirst();
+			while(rs.next()) {
+				if(account == rs.getInt(2)) {
+					result = true;
+					break;
+				}
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			log.severe("数据库连接失败" + "\n");
+			e.getStackTrace();
+		}
+		return result;
 	}
 }

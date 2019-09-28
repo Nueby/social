@@ -1,3 +1,4 @@
+function load() {
 var sign_in = document.querySelector("#Sign_in");
 var title_right = document.querySelector("#title_right");
 var title_left = document.querySelector("#title_left");
@@ -6,7 +7,6 @@ var register = document.querySelector("#register");
 
 
 //登录和注册切换 
-
 
 title_right.onclick = function(){
 	sign_in.style.display = "none";
@@ -38,6 +38,26 @@ text.onclick = function (){
 	//点击是setAttribute改变id属性节点
 	icon_people.setAttribute("id","icon_people_2");
 	icon_password.setAttribute("id","icon_password");
+	
+	var account;
+	if(text.value == "") {
+		account = "";
+	} else {
+		account = parseInt(text.value);
+		var json = {"behaviour":"check","account":account};
+		$.ajax({
+			type:"GET",
+			url:"/SocialUtil/UserController.do",
+			data: {"json":JSON.stringify(json)},
+			dataType:"json",
+			success:function(data){
+				
+			},
+			error:function(err) {
+				alert(err.status);
+			}
+		})
+	}
 }
 
 //Ajax看密码与账号是否匹配
@@ -226,3 +246,4 @@ getCode.onclick = function() {
 	}
 }
 //Ajax检查验证码填写与发送的是否一样
+}

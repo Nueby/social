@@ -29,17 +29,33 @@ public class EncodingFilter implements Filter {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
-		//获取json数据
-		StringBuffer sb = new StringBuffer();
-		BufferedReader reader = request.getReader();
-		String temp;
-		while((temp = reader.readLine()) != null) {
-			sb.append(temp);
+		JSONObject json = null;
+		if(((HttpServletRequest) request).getMethod().equals("GET")) {
+			//获取json数据
+			String jsonParam = request.getParameter("json");
+			json = JSONObject.parseObject(jsonParam);
+		} else if(((HttpServletRequest) request).getMethod().equals("POST")) {
+			//获取json数据
+			StringBuffer sb = new StringBuffer();
+			BufferedReader reader = request.getReader();
+			String temp = null;
+			while((temp = reader.readLine()) != null) {
+				sb.append(temp);
+			}
+			json = JSONObject.parseObject(sb.toString());
+		} else {
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		JSONObject json = JSONObject.parseObject(sb.toString());
 		request.setAttribute("json", json);
 		//转发至原url
-		request.getRequestDispatcher(((HttpServletRequest)request).getRequestURL().toString()).forward(request, response);
+		String url = ((HttpServletRequest)request).getRequestURL().toString();
+		String[] tempURL = url.split("/");
+		String contorller = tempURL[tempURL.length - 1];
+		request.getRequestDispatcher(contorller).forward(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
