@@ -140,7 +140,6 @@ body{
 	top:194px;
 	z-index:5;
 	display:none;
-	background:black;
 }
 #bg_bar {
 	margin-top:120px;
@@ -180,9 +179,6 @@ body{
     flex: row;
     justify-content: center;
 }
-/* #bg_bar:hover #check_img{
-	display:block;
-} */
 #forget{
 	color:black;
 	position:absolute;
@@ -230,7 +226,18 @@ body{
 	left:145px;
 	top:145px;
 }
-#password_secret{
+#icon_phone_2{
+	background:url(../img/phone_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:145px;
+}
+#icon_password_secret{
 	background:url(../img/secret_1.png);
 	background-size:100%;
 	height:55px;
@@ -241,7 +248,7 @@ body{
 	left:145px;
 	top:232px;
 }
-#password_secret_2{
+#icon_password_secret_2{
 	background:url(../img/secret_2.png);
 	background-size:100%;
 	height:55px;
@@ -252,7 +259,7 @@ body{
 	left:145px;
 	top:232px;
 }
-#password_confirm{
+#icon_password_confirm{
 	background:url(../img/secret_1.png);
 	background-size:100%;
 	height:55px;
@@ -263,7 +270,7 @@ body{
 	left:145px;
 	top:318px;
 }
-#password_confirm_2{
+#icon_password_confirm_2{
 	background:url(../img/secret_2.png);
 	background-size:100%;
 	height:55px;

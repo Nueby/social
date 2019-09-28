@@ -1,12 +1,19 @@
+
 var sign_in = document.querySelector("#Sign_in");
 var title_right = document.querySelector("#title_right");
 var title_left = document.querySelector("#title_left");
 var register = document.querySelector("#register");
-//登录和注册切换
+
+
+//登录和注册切换 
+
+
 title_right.onclick = function(){
 	sign_in.style.display = "none";
 	register.style.display = "block";
 }
+
+
 title_left.onclick = function(){
 	if(sign_in.style.display == "none"){
 		sign_in.style.display = "block";
@@ -17,28 +24,68 @@ title_left.onclick = function(){
 }
 
 
-//输入时图标改变
+//登录页面输入时图标改变
 
 
 var text = document.getElementById("text");
 var password = document.getElementById("password");
 var icon_people = document.getElementById("icon_people");
 var icon_password = document.getElementById("icon_password");
+
+
+//Ajax看数据库验证号码有没有被注册过
 text.onclick = function (){
+	//点击是setAttribute改变id属性节点
 	icon_people.setAttribute("id","icon_people_2");
 	icon_password.setAttribute("id","icon_password");
 }
+
+//Ajax看密码与账号是否匹配
+
 password.onclick = function (){
 	icon_password.setAttribute("id","icon_password_2");
 	icon_people.setAttribute("id","icon_people");
 }
 
 
+//注册页面点击时图标改动
+
+var icon_phone = document.getElementById("icon_phone");
+var icon_password_secret = document.getElementById("icon_password_secret");
+var icon_password_confirm = document.getElementById("icon_password_confirm");
+var register_text = document.getElementById("register_text");
+var register_password = document.getElementById("register_password");
+var confirm = document.getElementById("confirm");
+
+register_text.onclick = function(){
+	icon_phone.setAttribute("id","icon_phone_2");
+	icon_password_secret.setAttribute("id","icon_password_secret");
+	icon_password_confirm.setAttribute("id","icon_password_confirm");
+}
+register_password.onclick = function(){
+	icon_phone.setAttribute("id","icon_phone");
+	icon_password_secret.setAttribute("id","icon_password_secret_2");
+	icon_password_confirm.setAttribute("id","icon_password_confirm");
+}
+confirm.onclick = function(){
+	icon_phone.setAttribute("id","icon_phone");
+	icon_password_secret.setAttribute("id","icon_password_secret");
+	icon_password_confirm.setAttribute("id","icon_password_confirm_2");
+}
+
+
+//注册页面验证号码长度
+//Ajax检验是否被注册过
+//检验两次密码是否一致
+
 //滑动登录
 
 
 var isTouch = false; //标志位，是否点击
 var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
+
+//Ajax传送X值给后端验证滑块是否到位
+//Ajax传送图片
 (function() {
     var touch_bar = document.getElementById("touch_bar");
     var bg_bar = document.getElementById("bg_bar");
@@ -49,8 +96,13 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
     是否移动要根据标志位检测滑块是否被点击
     */
     touch_bar.onmousemove = function(ev) {
-        var ev = ev || event;
-        // console.log(ev.clientX);
+		//给ev加window事件
+        var ev = ev || window.event;
+		/*
+		ev.cilenX - startX >0保证鼠标向左边滑动不会让滑块 也偏移
+		ev.clientX - startX < bg_bar.offsetWidth - touch_bar.offsetWidth
+		滑块要在滑动范围内移动
+		*/
         if (ev.clientX - startX > 0 &&
             ev.clientX - startX < bg_bar.offsetWidth - touch_bar.offsetWidth &&
             isTouch) {
@@ -94,6 +146,8 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
     bg_new.style.width = "0px";
 })();
 
+
+
 //insertAfter()函数是让元素节点可以插在另一个元素节点之后
 function insertAfter(newElement,targetElement){
 	var parent = targetElement.parseNode;
@@ -124,8 +178,14 @@ function getStrLength(strValue) {
 }
 var number = getStrLength(textval); */
 
+
+
+
+//Ajax发送短信验证码
+
+//发送验证码倒计时
 var getCode = document.querySelector("#get");
-var countTime = 60;
+var countTime = 60;//时间为60秒
 var interval;
 var click = false;
 function setTime() {
@@ -147,3 +207,4 @@ getCode.onclick = function() {
 		click = true;
 	}
 }
+//Ajax检查验证码填写与发送的是否一样
