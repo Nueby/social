@@ -1,8 +1,8 @@
-
 var sign_in = document.querySelector("#Sign_in");
 var title_right = document.querySelector("#title_right");
 var title_left = document.querySelector("#title_left");
 var register = document.querySelector("#register");
+
 
 
 //登录和注册切换 
@@ -74,13 +74,10 @@ confirm.onclick = function(){
 }
 
 
-//注册页面验证号码长度
-//Ajax检验是否被注册过
-//检验两次密码是否一致
+
+
 
 //滑动登录
-
-
 var isTouch = false; //标志位，是否点击
 var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
 
@@ -148,6 +145,7 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
 
 
 
+
 //insertAfter()函数是让元素节点可以插在另一个元素节点之后
 function insertAfter(newElement,targetElement){
 	var parent = targetElement.parseNode;
@@ -163,7 +161,7 @@ function insertAfter(newElement,targetElement){
 
 //电话号码长度验证
 
-/* var text = document.querySelector("#text");
+var text = document.querySelector("#text");
 var textval = text.value;
 
 //获取数组长度
@@ -176,9 +174,29 @@ function getStrLength(strValue) {
         }
     return strLength;
 }
-var number = getStrLength(textval); */
+var number = getStrLength(textval);
+
+//滑动滑块到指定位置后验证号码的正确性
+//Ajax发送数据检查号码是否被注册，若注册则检查密码是否正确
 
 
+
+//注册界面密码验证
+var submit =document.getElementById("submit");
+var reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+submit.onclick = function(){
+	if(!reg.test(register_text)){
+		alert("您输入的电话号码格式错误，请重新输入");
+		register_text.value = "";
+		register_password.value = "";
+		confirm.value = "";
+		return false;
+	}else if(register_text.value == ""){
+		alert("请输入电话号码");
+	}else{
+		alert("您已成功注册，点击确定可开始登录");
+	}
+}
 
 
 //Ajax发送短信验证码

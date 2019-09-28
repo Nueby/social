@@ -3,6 +3,12 @@ body{
 	padding:0;
 	overflow-x: hidden;
 }
+.para1{
+	color:red;
+	font-size:12px;
+	letter-spacing: 5px;
+	position:absolute;
+}
 #main{
 	position:absolute;
 	width:100%;
@@ -11,7 +17,7 @@ body{
 #background{
 	height:720px;
 	width:1550px;
-	background:url(../img/matching_backgroung.jpg);
+	background:url(../img/matching_backgroung.jpg) no-repeat;
 	background-size:100%;
 }
 #Sign_in{
