@@ -52,7 +52,7 @@ public class SendEmail {
 		//收件人
 		msg.setRecipient(RecipientType.TO, new InternetAddress(email));
 		//内容
-		msg.setContent("验证码为：<p style='font-color:#00A;'>" + randNum + "</p>", "text/html;charset=utf-8");
+		msg.setContent("验证码为：<p>" + randNum + "</p>", "text/html;charset=utf-8");
 		//发送
 		Transport.send(msg);
 		return randNum;

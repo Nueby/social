@@ -136,8 +136,8 @@ public class UserDao {
 					file.mkdir();		//头像文件夹不存在时创建
 				}
 				head = url + "/" + account + ".png";
-				//pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
-				pstmt = MySQLConnect.conn.prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
+				pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
+				//pstmt = MySQLConnect.conn.prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setInt(1, id);
 				pstmt.setInt(2, account);
 				pstmt.setString(3, password);
@@ -150,8 +150,8 @@ public class UserDao {
 				pstmt.setString(10, head);
 				pstmt.setString(11, tags);
 				pstmt.execute();
-				//C3P0Util.release(pstmt);
-				pstmt.close();
+				C3P0Util.release(pstmt);
+				//pstmt.close();
 				log.info("用户 " + account + " 创建成功" + "\n");
 			} else {
 				throw new UnsupportedOperationException();
@@ -178,8 +178,8 @@ public class UserDao {
 			if(isNew) {
 				throw new UnsupportedOperationException();
 			} else {
-				//pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
-				pstmt = MySQLConnect.conn.prepareStatement("SELECT * FROM user WHERE account=" + account);
+				pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
+				//pstmt = MySQLConnect.conn.prepareStatement("SELECT * FROM user WHERE account=" + account);
 				ResultSet rs = pstmt.executeQuery();
 				id = rs.getInt(1);
 				account = rs.getInt(2);
@@ -191,10 +191,10 @@ public class UserDao {
 				age = rs.getInt(8);
 				hobby = rs.getString(9);
 				head = rs.getString(10);
-				//C3P0Util.release(rs);
-				//C3P0Util.release(pstmt);
-				rs.close();
-				pstmt.close();
+				C3P0Util.release(rs);
+				C3P0Util.release(pstmt);
+				//rs.close();
+				//pstmt.close();
 				isLoad = true;
 			}
 		} catch(SQLException e) {
@@ -439,8 +439,8 @@ public class UserDao {
 			if(!isLoad) {
 				throw new UnsupportedOperationException();
 			}
-			//pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
-			pstmt = MySQLConnect.conn.prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
+			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
+			//pstmt = MySQLConnect.conn.prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
 			pstmt.setInt(1, phone);
 			pstmt.setString(2, email);
 			pstmt.setString(3, sex);
@@ -450,8 +450,8 @@ public class UserDao {
 			pstmt.setString(7, tags);
 			pstmt.setString(8, password);
 			pstmt.execute();
-			//C3P0Util.release(pstmt);
-			pstmt.close();
+			C3P0Util.release(pstmt);
+			//pstmt.close();
 			log.info("用户 " + account + " 修改信息成功");
 		} catch(UnsupportedOperationException e) {
 			log.severe("未装载信息" + "\n" + e.getStackTrace());
@@ -482,8 +482,8 @@ public class UserDao {
 	public boolean isHave() {
 		boolean result = false;
 		try {
-			//Statement stmt = C3P0Util.getConnection().createStatement();
-			Statement stmt = MySQLConnect.conn.createStatement();
+			Statement stmt = C3P0Util.getConnection().createStatement();
+			//Statement stmt = MySQLConnect.conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM user");
 			rs.beforeFirst();
 			while(rs.next()) {
@@ -492,8 +492,10 @@ public class UserDao {
 					break;
 				}
 			}
-			rs.close();
-			stmt.close();
+			C3P0Util.release(rs);
+			//rs.close();
+			C3P0Util.release(stmt);
+			//stmt.close();
 		} catch (SQLException e) {
 			log.severe("数据库连接失败" + "\n");
 			e.getStackTrace();
