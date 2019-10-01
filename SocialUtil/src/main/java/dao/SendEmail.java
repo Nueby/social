@@ -37,16 +37,16 @@ public class SendEmail {
 		//邮箱协议
 		pro.setProperty("mail.transport.protocol", "smtp");
 		//邮件服务器地址
-		pro.setProperty("mail.host", "stmp.qq.com");
+		pro.setProperty("mail.host", "smtp.qq.com");
 		Session session = Session.getInstance(pro, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("", "");		//发件人账号和密码
+				return new PasswordAuthentication("yoshinomikoto@vip.qq.com", "buztgabmycqwccca");		//发件人账号和密码
 			}
 		});
 		Message msg = new MimeMessage(session);
 		//发件人
-		msg.setFrom(new InternetAddress(""));
+		msg.setFrom(new InternetAddress("yoshinomikoto@vip.qq.com"));
 		//主题
 		msg.setSubject("Passer-by邮箱验证");
 		//收件人

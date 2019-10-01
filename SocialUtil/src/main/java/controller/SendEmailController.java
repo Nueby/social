@@ -30,27 +30,29 @@ public class SendEmailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
-    	String email = reqJson.getString("email");
-    	try {
-			int num = SendEmail.send(email);
-			HttpSession session = request.getSession();
-			session.setAttribute("emailNum", num);
-			Cookie cookie = new Cookie("JSESSIONID", session.getId());
-			response.addCookie(cookie);
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+    	if(reqJson.getString("behaviour").equals("getMsg")) {		//发送信息
+    		String email = reqJson.getString("email");
+    		try {
+    			int num = SendEmail.send(email);
+    			HttpSession session = request.getSession();
+    			session.setAttribute("emailNum", num);
+    			Cookie cookie = new Cookie("JSESSIONID", session.getId());
+    			response.addCookie(cookie);
+    		} catch (AddressException e) {
+    			e.printStackTrace();
+    		} catch (MessagingException e) {
+    			e.printStackTrace();
+    		}
+    	} else {		//验证
+        	Integer input = reqJson.getInteger("input");
+        	Integer create = (Integer)request.getSession().getAttribute("emailNum");
+        	response.getWriter().write(SendEmail.confirm(input, create).toString());
+        	response.getWriter().close();
+    	}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//获取json数据
-    	JSONObject reqJson = (JSONObject)request.getAttribute("json");
-    	Integer input = reqJson.getInteger("input");
-    	Integer create = (Integer)request.getSession().getAttribute("emailNum");
-    	response.getWriter().write(SendEmail.confirm(input, create).toString());
-    	response.getWriter().close();
+		doGet(request,response);
 	}
 
 }
