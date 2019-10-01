@@ -5,7 +5,6 @@ var title_left = document.querySelector("#title_left");
 var register = document.querySelector("#register");
 
 
-
 //登录和注册切换 
 
 title_right.onclick = function(){
@@ -33,31 +32,10 @@ var icon_people = document.getElementById("icon_people");
 var icon_password = document.getElementById("icon_password");
 
 
-//Ajax看数据库验证号码有没有被注册过
 text.onclick = function (){
 	//点击是setAttribute改变id属性节点
 	icon_people.setAttribute("id","icon_people_2");
 	icon_password.setAttribute("id","icon_password");
-	
-	var account;
-	if(text.value == "") {
-		account = "";
-	} else {
-		account = parseInt(text.value);
-		var json = {"behaviour":"check","account":account};
-		$.ajax({
-			type:"GET",
-			url:"/SocialUtil/UserController.do",
-			data: {"json":JSON.stringify(json)},
-			dataType:"json",
-			success:function(data){
-				
-			},
-			error:function(err) {
-				alert(err.status);
-			}
-		})
-	}
 }
 
 //Ajax看密码与账号是否匹配
@@ -82,6 +60,36 @@ register_text.onclick = function(){
 	icon_password_secret.setAttribute("id","icon_password_secret");
 	icon_password_confirm.setAttribute("id","icon_password_confirm");
 }
+
+//Ajax看数据库验证号码有没有被注册过
+register_text.onblur = function() {
+	var account;
+	if(register_text.value == "") {
+		account = "";
+		document.getElementById("accountMsg").innerHTML = "账号不可为空";
+	} else {
+		account = parseInt(register_text.value);
+		var json = {"behaviour":"check","account":account};
+		$.ajax({
+			type:"GET",
+			url:"/SocialUtil/UserController.do",
+			data: {"json":JSON.stringify(json)},
+			dataType:"json",
+			success:function(data){
+				if(data.result) {		//账号存在显示信息
+					document.getElementById("accountMsg").innerHTML = "该账号已存在";
+				} else {		//账号不存在显示信息
+					document.getElementById("accountMsg").innerHTML = "该账号可用";
+				}
+				
+			},
+			error:function(err) {
+				alert(err.status);
+			}
+		})
+	}
+}
+
 register_password.onclick = function(){
 	icon_phone.setAttribute("id","icon_phone");
 	icon_password_secret.setAttribute("id","icon_password_secret_2");
@@ -100,6 +108,11 @@ confirm.onclick = function(){
 //滑动登录
 var isTouch = false; //标志位，是否点击
 var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
+
+var big;		//大图
+var small;		//小图
+var posY;		//y坐标
+var havePic = false;		//是否有图
 
 //Ajax传送X值给后端验证滑块是否到位
 //Ajax传送图片
@@ -125,6 +138,7 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
             isTouch) {
 				touch_bar.style.left = ev.clientX - startX + "px";
 				bg_new.style.width = ev.clientX - startX + touch_bar.offsetWidth / 2 + "px";
+				document.getElementById("smallPic").style.marginLeft = touch_bar.style.left;
         }
     } 
 	
@@ -138,10 +152,25 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
     //设置滑块鼠标点击取消事件,改变标志位，重置偏移量 
 	
     touch_bar.onmouseup = function(ev) {
+    	var distance = parseInt(touch_bar.style.left);
+    	var json = {"distance":distance};
+    	$.ajax({
+    		type:"post",
+    		url:"/SocialUtil/SlipVerificationCodeController.do",
+    		data:JSON.stringify(json),
+    		dataType:"json",
+    		success:function(data) {
+    			alert(data.verification);
+    		},
+    		error:function(err) {
+    			alert(err.status);
+    		}
+    	})
         isTouch = false;
         startX = 0;
         touch_bar.style.left = "0px";
         bg_new.style.width = "0px";
+        document.getElementById("smallPic").style.marginLeft = touch_bar.style.left;
     }
 	
     //设置滑块鼠标移出事件,改变标志位，并重置偏移量
@@ -155,15 +184,36 @@ var startX = 0; //鼠标点击的偏移量，实现平滑移动的保证
     }
 	
 	touch_bar.onmouseenter = function(ev) {
+		document.getElementById("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
+		document.getElementById("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		document.getElementById("check_img").style.display = "block";
 	}
+	
  
     //重置偏移量
     touch_bar.style.left = "0px";
     bg_new.style.width = "0px";
 })();
 
+getPic();
 
+function getPic() {
+	$.ajax({
+		type:"GET",
+		url:"/SocialUtil/SlipVerificationCodeController.do",
+		data:{},
+		dataType:"json",
+		success:function(data) {
+			big =  data.big;		//大图
+			small = data.small;		//小图
+			posY = data.posY;		//y坐标
+			havePic = true;
+		},
+		error:function(err) {
+			alert(err.status);
+		}
+	})
+}
 
 
 //insertAfter()函数是让元素节点可以插在另一个元素节点之后

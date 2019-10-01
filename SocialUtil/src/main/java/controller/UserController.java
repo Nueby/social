@@ -24,7 +24,6 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
-    	System.out.println(reqJson);
     	if(reqJson.getString("behaviour").equals("check")) {		//检查账号是否存在
     		UserDao user = new UserDao(reqJson.getInteger("account"), false);
     		JSONObject json = new JSONObject();

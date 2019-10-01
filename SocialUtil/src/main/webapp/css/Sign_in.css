@@ -139,7 +139,7 @@ body{
 	margin-top:45px;
 }
 #check_img{
-	width:325px;
+	width:300px;
 	height:205px;
 	position:absolute;
 	left:152px;
@@ -346,4 +346,12 @@ body{
 }
 input {
 	outline:none;
+}
+#small_img {
+	z-index:7;
+	position:absolute;
+}
+#big_img {
+	z-index:6;
+	position:absolute;
 }

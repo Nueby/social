@@ -17,14 +17,14 @@ import org.apache.commons.codec.binary.Base64;
 public class SlipVerificationCode {
 	private int smallWidth = 60;		//小图片宽度
 	private int smallHeight = 60;		//小图片高度
-	private int bigWidth = 400;			//大图片宽度
-	private int bigHeight = 280;		//大图片高度
+	private int bigWidth = 300;			//大图片宽度
+	private int bigHeight = 205;		//大图片高度
 	private int circleR = 14;		//小圆半径
-	private int good = 4;		//成功范围
+	private int good = 10;		//成功范围
 	private int randX = 0;		//抠图x坐标
 	private int randY = 0;		//抠图y坐标
-	//private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
-	private String url = "D:/test/";
+	private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	//private String url = "D:/test/";
 	
 	//获取小图片样式
 	private int[][] getSmallData() {
@@ -151,7 +151,7 @@ public class SlipVerificationCode {
 							smallData[i][j] = 1;
 						}
 					} else {
-						if(i >= oX || j >= oY || (dX > r2 && i > oX && i < oX + circleR) || (dY > r2 && j > oY && j < oY + circleR)) {
+						if(i >= oX + circleR || j >= oY + circleR || (dX > r2 && i > oX && i < oX + circleR) || (dY > r2 && j > oY && j < oY + circleR)) {
 							smallData[i][j] = 0;
 						} else {
 							smallData[i][j] = 1;
@@ -174,7 +174,7 @@ public class SlipVerificationCode {
 		//随机获取图片
 		Random rand = new Random();
 		int picture = rand.nextInt(4);
-		String bURL = url + "code" + picture + ".png";
+		String bURL = (url + "picture/" + "code" + picture + ".png").replace("\\", "/");
 		File f = new File(bURL);
 		BufferedImage nBuff = null;		//缩放后的BufferedImage
 		BufferedImage buff = null;
@@ -194,7 +194,7 @@ public class SlipVerificationCode {
 	private String[] cutPicture(BufferedImage obig, BufferedImage small, int[][] smallData) {
 		//左上角随机
 		Random rand = new Random();
-		randX = rand.nextInt(bigWidth - smallWidth);
+		randX = rand.nextInt(bigWidth - smallWidth - 15);
 		randY = rand.nextInt(bigHeight - smallHeight);
 		BufferedImage big = new BufferedImage(bigWidth,bigHeight,BufferedImage.TYPE_4BYTE_ABGR);
 		for(int i = 0; i < bigWidth; i++) {
@@ -249,6 +249,6 @@ public class SlipVerificationCode {
 	 * @return - 是否成功
 	 */
 	public boolean verificationSuccess(int d) {
-		return d > randX - good || d < randX + good;
+		return d >= randX - good && d <= randX + good;
 	}
 }
