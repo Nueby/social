@@ -77,6 +77,20 @@ public class UserController extends HttpServlet {
 				response.getWriter().write(jsonCP.toString());
 				response.getWriter().close();
 			}
+		} else if(behaviour.equals("login")) {		//登录验证
+			UserDao user = new UserDao(json.getInteger("account"),false);
+			JSONObject result = new JSONObject();
+			if(user.isHave()) {
+				if(user.judgePassword(json.getString("password"))) {
+					result.put("result", "ok");
+				} else {
+					result.put("result", "password");
+				}
+			} else {
+				result.put("result", "account");
+			}
+			response.getWriter().write(result.toString());
+			response.getWriter().close();
 		} else {
 			System.out.println("无法找到相应的behaviour");
 		}
