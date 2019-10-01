@@ -5,7 +5,7 @@
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/socialdb?serverTimezone=GMT%2B8</property>
 		<property name="user">root</property>
-		<property name="password"></property>
+		<property name="password">181549144</property>
 		
 		<!-- 连接池参数 -->
 		<!-- 初始化连接数量 -->
@@ -19,7 +19,7 @@
 	<named-config name="socialdb">
 		<!-- 连接参数 -->
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/socialDB</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/socialdb?serverTimezone=GMT%2B8</property>
 		<property name="user">root</property>
 		<property name="password">181549144</property>
 		
