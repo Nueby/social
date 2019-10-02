@@ -161,27 +161,31 @@ var havePic = false;		//是否有图
     		dataType:"json",
     		success:function(data) {
     			if(data.verification == true) {		//验证成功
-    				var account = parseInt(document.getElementById("text").value);
-    				var password = document.getElementById("password").value;
-    				var json = {"behaviour":"login","account":account,"password":password};
-    				$.ajax({
-    					type:"POST",
-    					url:"/SocialUtil/UserController.do",
-    					data:json,
-    					dataType:"json",
-    					success:function(data) {
-    						if(data.result == "account") {
-    							alert("账号不存在");
-    						} else if(data.result == "password") {
-    							alert("密码错误")
-    						} else {		//登录成功
-    							
-    						}
-    					},
-    					error:function(err) {
-    						alert(err.status);
-    					}
-    				})
+    				if(document.getElementById("text").value != "") {
+	    				var account = parseInt(document.getElementById("text").value);
+	    				var password = document.getElementById("password").value;
+	    				var json = {"behaviour":"login","account":account,"password":password};
+	    				$.ajax({
+	    					type:"POST",
+	    					url:"/SocialUtil/UserController.do",
+	    					data:JSON.stringify(json),
+	    					dataType:"json",
+	    					success:function(data) {
+	    						if(data.result == "account") {
+	    							alert("账号不存在");
+	    						} else if(data.result == "password") {
+	    							alert("密码错误")
+	    						} else {		//登录成功
+	    							
+	    						}
+	    					},
+	    					error:function(err) {
+	    						alert(err.status);
+	    					}
+	    				})
+    				} else {
+    					alert("账号不能为空");
+    				}
     			} else {		//验证失败
     				getPic();
     				alert("验证失败，请重新验证。");
