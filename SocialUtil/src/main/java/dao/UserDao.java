@@ -33,7 +33,7 @@ public class UserDao {
 	
 	//用户属性
 	private Integer id = null;
-	private Integer account = null;
+	private String account = null;
 	private String password = null;
 	private Integer phone = null;
 	private String email = null;
@@ -59,7 +59,7 @@ public class UserDao {
 	 * @param account - 账号
 	 * @param isNew	- 是否新账号
 	 */
-	public UserDao(int account, boolean isNew) {
+	public UserDao(String account, boolean isNew) {
 		this.account = account;
 		this.isNew = isNew;
 		//日志设置
@@ -139,7 +139,7 @@ public class UserDao {
 				pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
 				//pstmt = MySQLConnect.conn.prepareStatement("INSERT INTO user(id,account,password,phone,email,sex,position,age,hobby,head,tags) values(?,?,?,?,?,?,?,?,?,?,?)");
 				pstmt.setInt(1, id);
-				pstmt.setInt(2, account);
+				pstmt.setString(2, account);
 				pstmt.setString(3, password);
 				pstmt.setInt(4, phone);
 				pstmt.setString(5, email);
@@ -182,7 +182,7 @@ public class UserDao {
 				//pstmt = MySQLConnect.conn.prepareStatement("SELECT * FROM user WHERE account=" + account);
 				ResultSet rs = pstmt.executeQuery();
 				id = rs.getInt(1);
-				account = rs.getInt(2);
+				account = rs.getString(2);
 				password = rs.getString(3);
 				phone = rs.getInt(4);
 				email = rs.getString(5);
@@ -218,7 +218,7 @@ public class UserDao {
 		return id;
 	}
 	
-	public Integer getAccount() {
+	public String getAccount() {
 		return account;
 	}
 	
@@ -487,7 +487,7 @@ public class UserDao {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM user");
 			rs.beforeFirst();
 			while(rs.next()) {
-				if(account == rs.getInt(2)) {
+				if(account.equals(rs.getString(2))) {
 					result = true;
 					break;
 				}

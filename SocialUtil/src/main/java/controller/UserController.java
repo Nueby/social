@@ -25,13 +25,13 @@ public class UserController extends HttpServlet {
     	//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
     	if(reqJson.getString("behaviour").equals("check")) {		//检查账号是否存在
-    		UserDao user = new UserDao(reqJson.getInteger("account"), false);
+    		UserDao user = new UserDao(reqJson.getString("account"), false);
     		JSONObject json = new JSONObject();
     		json.put("result",user.isHave());
     		response.getWriter().write(json.toString());
     		response.getWriter().close();
     	} else {
-    		UserDao user = new UserDao(reqJson.getInteger("account"), false);
+    		UserDao user = new UserDao(reqJson.getString("account"), false);
     		user.loadInfo();
     		JSONObject json = new JSONObject();
     		json.put("phone", user.getPhone());
@@ -54,16 +54,16 @@ public class UserController extends HttpServlet {
 		//行为
 		String behaviour = json.getString("behaviour");
 		if(behaviour.equals("logup")) {		//注册
-			UserDao user = new UserDao((Integer)json.get("account"), true);
+			UserDao user = new UserDao((String)json.get("account"), true);
 			user.setCreateInfo(json.getString("password"), json.getString("email"), json.getString("sex"), json.getInteger("phone"), json.getString("position"), json.getInteger("age"), json.getString("hobby"), json.getString("tags"));
 			user.sureCreate();
 		} else if(behaviour.equals("change")) {		//修改
-			UserDao user = new UserDao(json.getInteger("account"), false);
+			UserDao user = new UserDao(json.getString("account"), false);
 			user.loadInfo();
 			user.changeInfo(json.getInteger("phone"), json.getString("email"), json.getString("sex"), json.getString("position"), json.getInteger("age"), json.getString("hobby"), json.getString("tags"));
 			user.updateInfo();
 		} else if(behaviour.equals("changePassword")) {		//修改密码
-			UserDao user = new UserDao(json.getInteger("account"), false);
+			UserDao user = new UserDao(json.getString("account"), false);
 			user.loadInfo();
 			JSONObject jsonCP = new JSONObject();
 			if(user.judgePassword(json.getString("oPassword"))) {
@@ -78,7 +78,7 @@ public class UserController extends HttpServlet {
 				response.getWriter().close();
 			}
 		} else if(behaviour.equals("login")) {		//登录验证
-			UserDao user = new UserDao(json.getInteger("account"),false);
+			UserDao user = new UserDao(json.getString("account"),false);
 			JSONObject result = new JSONObject();
 			if(user.isHave()) {
 				if(user.judgePassword(json.getString("password"))) {
