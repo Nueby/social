@@ -28,23 +28,26 @@ body{
 }
 #title{
 	position:absolute;
+	left:940px;
 	top:190px;
-	left:780px;
 	z-index:2;
+	min-width:400px;
 }
 #title_left{
+	position:relative;
 	font-style:normal;
-	margin-top:55px;
-	margin-left:162px;
 	font-size:35px;
 	letter-spacing: 15px;
 	font-weight:500;
 	cursor: pointer;
 }
 #title_right{
+	position:relative;
+	left:20px;
+	display:inline-block;
 	font-style:normal;
 	font-size:35px;
-	letter-spacing: 15px;
+	letter-spacing:15px;
 	font-weight:500;
 	cursor: pointer;
 }
