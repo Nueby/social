@@ -18,7 +18,7 @@
 			<div id="Sign_in">
 				<form>
 					<i id="icon_people"></i>
-					<input type="text" id="text" placeholder="请输入用户名/电话" />
+					<input type="text" id="text" placeholder="请输入学号" />
 					<i id="icon_password"></i>
 					<input type="password" id="password" placeholder="请输入密码"/>
 					<div id="check_img">
@@ -40,16 +40,18 @@
 			</div>
 			<div id="register">
 				<form>
-					<i id="icon_phone"></i>
-					<input type="text" id="register_text" placeholder="请输入手机号" />
+					<i id="icon_rpeople"></i>
+					<input type="text" id="register_text" placeholder="请输入学号" />
 					<div id="accountMsg" style="width:120px;height:30px;margin-left:200px;position:absolute;"></div>
+					<i id="icon_accountPassword"></i>
+					<input type="password" id="accountPassword" placeholder="请输入学号密码"/>
 					<i id="icon_password_secret"></i>
 					<input type="password" id="register_password" placeholder="请输入密码"/>
 					<i id="icon_password_confirm"></i>
 					<input type="password" id="confirm" placeholder="请再次输入确认密码"/>
-					<input type="submit" id="submit" value="立即注册" />
+					<input type="button" id="submit" value="立即注册" />
 				</form>
-				<div id="check_code">
+				<!-- <div id="check_code">
 					<p id="code">验证码</p>
 					<input type="text" id="fill"/>
 					<div id="time">
@@ -57,7 +59,8 @@
 							获取验证码
 						</span>
 					</div>
-				</div>
+				</div> -->
+				<div id="registerMsg" style="width:120px;height:30px;margin-left:240px;position:absolute;"></div>
 			</div>
 		</div>
 	</body>

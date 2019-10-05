@@ -16,6 +16,7 @@ function load() {
 	registerChange();
 	bar();
 	getPic();
+	registerOnclick()
 }
 
 //登录和注册切换
@@ -56,27 +57,38 @@ function enterChange() {
 
 //注册页面
 function registerChange() {
-	var icon_phone = $id("icon_phone");
+	var icon_rpeople = $id("icon_rpeople");
 	var icon_password_secret = $id("icon_password_secret");
 	var icon_password_confirm = $id("icon_password_confirm");
+	var icon_accountPassword = $id("icon_accountPassword");
 	var register_text = $id("register_text");
 	var register_password = $id("register_password");
+	var accountPassword = $id("accountPassword");
 	var confirm = $id("confirm");
 	//图标改变
 	register_text.onclick = function(){
-		icon_phone.setAttribute("id","icon_phone_2");
+		icon_rpeople.setAttribute("id","icon_rpeople_2");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
+		icon_accountPassword.setAttribute("id","icon_accountPassword");
+	}
+	accountPassword.onclick = function() {
+		icon_rpeople.setAttribute("id","icon_rpeople");
+		icon_password_secret.setAttribute("id","icon_password_secret");
+		icon_password_confirm.setAttribute("id","icon_password_confirm");
+		icon_accountPassword.setAttribute("id","icon_accountPassword_2");
 	}
 	register_password.onclick = function(){
-		icon_phone.setAttribute("id","icon_phone");
+		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret_2");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
+		icon_accountPassword.setAttribute("id","icon_accountPassword");
 	}
 	confirm.onclick = function(){
-		icon_phone.setAttribute("id","icon_phone");
+		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm_2");
+		icon_accountPassword.setAttribute("id","icon_accountPassword");
 	}
 	//检验账号是否存在
 	register_text.onblur = function() {
@@ -240,41 +252,17 @@ function getPic() {
 	})
 }
 
-//insertAfter()函数是让元素节点可以插在另一个元素节点之后
-function insertAfter(newElement,targetElement){
-	var parent = targetElement.parseNode;
-	if(parent.lastchild == targetElement){
-		parent.appenChild(newElement);
-	}else{
-		//nextSbling函数为当前元素的下一个元素
-		parent.insertBefore(newElement,targetElement.nextSibling);
+//发送注册消息
+function sendRegister() {
+	var registerMsg = $id("registerMsg");
+	if(isHave == true) {
+		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
+	} else {
+		
 	}
 }
 
-//获取数组长度
-function getStrLength(strValue) {
-    var strLength = strValue.length;
-        for (var j = 0; j < strValue.length; j++) {
-            if (strValue <= 11) {
-                strLength++;
-            }
-        }
-    return strLength;
-}
-
-//发送验证码倒计时
-function setTime() {
-	var getCode = document.querySelector("#get");
-	var countTime = 60;//时间为60秒
-	var interval;
-	var click = false;
-	if(countTime > 0){
-		countTime--;
-		getCode.innerHTML = countTime + "秒后重新发送";
-	}else if(countTime == 0){
-		countTime = 60;
-		getCode.innerHTML = "获取验证码";
-		clearInterval(interval);
-		click = false;
-	}
+//添加注册事件
+function registerOnclick() {
+	$id("submit").onclick = sendRegister;
 }

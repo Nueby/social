@@ -194,6 +194,21 @@ body{
 	left:270px;
 	top:520px;
 }
+#accountPassword{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:45px;
+}
 #register_password{
 	width:250px;
 	height:40px;
@@ -224,8 +239,8 @@ body{
 	padding-left:55px;
 	margin-top:45px;
 }
-#icon_phone{
-	background:url(../img/phone_1.png);
+#icon_rpeople{
+	background:url(../img/people_1.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
@@ -235,8 +250,8 @@ body{
 	left:145px;
 	top:145px;
 }
-#icon_phone_2{
-	background:url(../img/phone_2.png);
+#icon_rpeople_2{
+	background:url(../img/people_2.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
@@ -245,6 +260,28 @@ body{
 	border-radius:50%;
 	left:145px;
 	top:145px;
+}
+#icon_accountPassword {
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
+}
+#icon_accountPassword_2 {
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:232px;
 }
 #icon_password_secret{
 	background:url(../img/secret_1.png);
@@ -255,7 +292,8 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:232px;
+	/*top:232px;*/
+	top:318px;
 }
 #icon_password_secret_2{
 	background:url(../img/secret_2.png);
@@ -266,7 +304,8 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:232px;
+	/*top:232px;*/
+	top:318px;
 }
 #icon_password_confirm{
 	background:url(../img/secret_1.png);
@@ -277,7 +316,7 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:318px;
+	top:404px;
 }
 #icon_password_confirm_2{
 	background:url(../img/secret_2.png);
@@ -288,7 +327,7 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:318px;
+	top:404px;
 }
 #register{
 	top:137px;
