@@ -1,383 +1,459 @@
-body{
+body {
 	margin: 0;
-	padding:0;
+	padding: 0;
 	overflow-x: hidden;
 }
-.para1{
-	color:red;
-	font-size:12px;
+
+.para1 {
+	color: red;
+	font-size: 12px;
 	letter-spacing: 5px;
-	position:absolute;
+	position: absolute;
 }
-#main{
-	position:absolute;
-	width:100%;
-	height:100%;
+
+#main {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
-#background{
-	height:720px;
-	width:1550px;
-	background:url(../img/matching_backgroung.jpg) no-repeat;
-	background-size:100%;
+
+#background {
+	height: 720px;
+	width: 1550px;
+	background: url(../img/matching_backgroung.jpg) no-repeat;
+	background-size: 100%;
 }
-#Sign_in{
-	width:590px;
-	position:absolute;
-	top:137px;
-	left:764px;
-	
+
+#Sign_in {
+	width: 590px;
+	position: absolute;
+	top: 137px;
+	left: 764px;
 }
-#register{
-	top:137px;
-	left:764px;
-	height:597px;
-	width:579px;
-	position:absolute;
-	display:none;
+
+#title {
+	position: absolute;
+	left: 940px;
+	top: 190px;
+	z-index: 2;
+	min-width: 400px;
 }
-#title{
-	position:absolute;
-	top:190px;
-	left:780px;
-	z-index:2;
-}
-#title_left{
-	font-style:normal;
-	margin-top:55px;
-	margin-left:162px;
-	font-size:35px;
+
+#title_left {
+	position: relative;
+	font-style: normal;
+	font-size: 35px;
 	letter-spacing: 15px;
-	font-weight:500;
+	font-weight: 500;
 	cursor: pointer;
 }
-#title_right{
-	font-style:normal;
-	font-size:35px;
+
+#title_right {
+	position: relative;
+	left: 20px;
+	display: inline-block;
+	font-style: normal;
+	font-size: 35px;
 	letter-spacing: 15px;
-	font-weight:500;
+	font-weight: 500;
 	cursor: pointer;
 }
-#icon_people{
-	background:url(../img/people_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:144px;
+
+#icon_people {
+	background: url(../img/people_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 144px;
 }
-#icon_people_2{
-	background:url(../img/people_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:144px;
+
+#icon_people_2 {
+	background: url(../img/people_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 144px;
 }
-#icon_password{
-	background:url(../img/secret_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:232px;
+
+#icon_password {
+	background: url(../img/secret_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 232px;
 }
-#icon_password_2{
-	background:url(../img/secret_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:232px;
+
+#icon_password_2 {
+	background: url(../img/secret_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 232px;
 }
-#text{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:150px;
+
+#text {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 150px;
 }
-#password{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:45px;
+
+#register_text {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 150px;
 }
-#check_img{
-	width:300px;
-	height:205px;
-	position:absolute;
-	left:152px;
-	top:194px;
-	z-index:5;
-	display:none;
+
+#password {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 45px;
 }
+
+#check_img {
+	width: 300px;
+	height: 205px;
+	position: absolute;
+	left: 152px;
+	top: 194px;
+	z-index: 5;
+	display: none;
+}
+
 #bg_bar {
-	margin-top:120px;
-	margin-left:150px;
-	width:300px;
-    height: 40px;
-    border-radius: 38px;
-    background-color: grey;
-    opacity: 0.5;
+	margin-top: 120px;
+	margin-left: 150px;
+	width: 300px;
+	height: 40px;
+	border-radius: 38px;
+	background-color: grey;
+	opacity: 0.5;
 }
+
 #touch_bar {
-    position: relative;
-    top: -42px;
-    border: 2px solid blue;
-    width: 25%;
-    height: 40px;
-    border-radius: 38px;
-    background-color: white;
-    display: flex;
-    flex: row;
-    justify-content: center;
-    align-items: center;
-    z-index: 20;
+	position: relative;
+	top: -42px;
+	border: 2px solid blue;
+	width: 25%;
+	height: 40px;
+	border-radius: 38px;
+	background-color: white;
+	display: flex;
+	flex: row;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
 }
+
 #bg_new {
-    position: relative;
-    top: -84px;
-    height: 40px;
-    border-radius: 18px;
-    background-color: blue;
-    z-index: 15;
+	position: relative;
+	top: -84px;
+	height: 40px;
+	border-radius: 18px;
+	background-color: blue;
+	z-index: 15;
 }
+
 #bg_old {
-    height: 40px;
-    z-index: 10;
-    display: flex;
-    flex: row;
-    justify-content: center;
+	height: 40px;
+	z-index: 10;
+	display: flex;
+	flex: row;
+	justify-content: center;
 }
-#forget{
-	color:black;
-	position:absolute;
-	left:270px;
-	top:520px;
+
+#forget {
+	color: black;
+	position: absolute;
+	left: 270px;
+	top: 520px;
 }
-#icon_school{
-	background:url(../img/school.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:141px;
+
+#accountPassword {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 45px;
 }
-#choose_school{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:145px;
+
+#register_password {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 45px;
 }
-#icon_rpeople{
-	background:url(../img/people_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:212px;
+
+#confirm {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 45px;
 }
-#icon_rpeople_2{
-	background:url(../img/people_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:212px;
+
+#icon_rpeople {
+	background: url(../img/people_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 145px;
 }
-#register_text{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:30px;
+
+#icon_rpeople_2 {
+	background: url(../img/people_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 145px;
 }
-#icon_accountPassword{
-	background:url(../img/secret_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:283px;
+
+#icon_accountPassword {
+	background: url(../img/secret_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 232px;
 }
-#icon_accountPassword_2{
-	background:url(../img/secret_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:283px;
+
+#icon_accountPassword_2 {
+	background: url(../img/secret_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 232px;
 }
-#accountPassword{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:30px;
+
+#icon_password_secret {
+	background: url(../img/secret_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	/*top:232px;*/
+	top: 318px;
 }
-#register_password{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:30px;
+
+#icon_password_secret_2 {
+	background: url(../img/secret_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	/*top:232px;*/
+	top: 318px;
 }
-#icon_secret{
-	background:url(../img/secret_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:354px;
+
+#icon_password_confirm {
+	background: url(../img/secret_1.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 404px;
 }
-#icon_secret_2{
-	background:url(../img/secret_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:354px;
+
+#icon_password_confirm_2 {
+	background: url(../img/secret_2.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 404px;
 }
-#check_code{
-	position:relative;
-	top:40px;
-	left:150px;
+
+#register {
+	top: 137px;
+	left: 764px;
+	height: 597px;
+	width: 579px;
+	position: absolute;
+	display: none;
 }
-#code{
-	position:absolute;
-	font-size:19px;
-	font-weight:500;
+
+#check_code {
+	position: relative;
+	top: 40px;
+	left: 150px;
 }
-#fill{
-	position:absolute;
-	left:65px;
-	width:90px;
-	border:0;
-	border-bottom:2px solid #000;
-	background:rgba(0,0,0,.0);
-	top:21px;
+
+#code {
+	position: absolute;
+	font-size: 19px;
+	font-weight: 500;
 }
-#time{
-	background:rgba(0,0,0,.4);
-	width:115px;
-	box-shadow:0 0 2px rgba(0,0,0,.3);
-	cursor:pointer;
-	border-radius:3px;
-	position:absolute;
-	left:180px;
-	top:15px;
-	padding:3px;
-	text-align:center;
-	color:whitesmoke;
+
+#fill {
+	position: absolute;
+	left: 65px;
+	width: 90px;
+	border: 0;
+	border-bottom: 2px solid #000;
+	background: rgba(0, 0, 0, .0);
+	top: 21px;
 }
-#submit{
-	color:white;
-	width:200px;
-	padding:10px;
-	height:50px;
-	background:rgba(0,0,0,.5);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:20px;
-	position:absolute;
-	bottom:75px;
-	left:200px;
-	cursor:pointer;
+
+#time {
+	background: rgba(0, 0, 0, .4);
+	width: 115px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+	cursor: pointer;
+	border-radius: 3px;
+	position: absolute;
+	left: 180px;
+	top: 15px;
+	padding: 3px;
+	text-align: center;
+	color: whitesmoke;
 }
+
+#submit {
+	color: white;
+	width: 200px;
+	padding: 10px;
+	height: 50px;
+	background: rgba(0, 0, 0, .5);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	font-size: 20px;
+	position: absolute;
+	bottom: 45px;
+	left: 200px;
+	cursor: pointer;
+}
+
 input {
-	outline:none;
+	outline: none;
 }
+
 #small_img {
-	z-index:7;
-	position:absolute;
+	z-index: 7;
+	position: absolute;
 }
+
 #big_img {
-	z-index:6;
-	position:absolute;
+	z-index: 6;
+	position: absolute;
+}
+
+#enterMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 240px;
+	position: absolute;
+}
+
+#registerMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 240px;
+	position: absolute;
+}
+
+#accountMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 200px;
+	position: absolute;
 }
