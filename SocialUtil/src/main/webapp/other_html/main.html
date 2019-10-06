@@ -32,7 +32,61 @@
 			</div>
 			<!-- 修改个人和学校信息 -->
 			<div id="set_3">
-
+				<table border="0">
+					<tr>
+						<td><img src="../img/school.png" id="icon_school"></td>
+						<td>
+							<div id="set">
+								<div id="set_school" >
+									学校:<input type="text" id="school"/><br>
+									<span id="show_school" class="show"></span>
+								</div>
+								<div id="set_college" >
+									学院:<input type="text" id="college"/>
+									<span id="show_college"  class="show"></span>
+								</div>
+								<div id="set_major">
+									专业:<input type="text" id="major"/>
+									<span id="show_major"  class="show"></span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><img src="../img/sex.png" id="icon_sex"></td>
+						<td>
+							<div id="radio_box">性别:
+								<span class="man">
+									男
+								</span>
+								<input type="radio" checked="checked" id="set_man" name="sex" value="男" />
+								<span class="woman" >
+									女
+								</span>
+								<input type="radio" id="set_woman" name="sex" value=""女/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="../img/birthday.png" id="icon_birthday" >
+						</td>
+						
+						<td>
+							<div id="select" >生日：
+								<select class="years" ></select>
+								<select class="months" ></select>
+								<select class="days" ></select>
+							</div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="button" id="self_submit" value="确定" />
+						</td>
+					</tr>
+				</table>	
 			</div>
 		</div>
 		<div id="main_message">
@@ -84,7 +138,7 @@
 									</div>
 								</div>
 								<div id="error"></div>
-								<div id="step"><img id="preview" /></div>
+								<div id="step"><img id="preview" alt=" "/></div>
 								<input type="submit" id="picUp" value="确定" />
 							</form>
 						</div>

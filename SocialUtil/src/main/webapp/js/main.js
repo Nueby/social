@@ -67,7 +67,7 @@ var self = document.getElementById("self");
 dynamic.onclick = function(){
 	set_1.style.display = "block";
 	set_2.style.display = "none";
-	set_2.style.display = "none";
+	set_3.style.display = "none";
 }
 modify_contact.onclick = function(){
 	set_2.style.display = "block";
@@ -85,10 +85,138 @@ self.onclick = function(){
 //Ajax上传数据
 var dynamic_submit = document.getElementById("dynamic_submit");
 // var modify_submit = document.getElementById("modify_submit");
-// var self_submit = document.getElementById("self_submit");
+var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function(){
-	
+	set_1.style.display = "none";
 }
+self_submit.onclick = function(){
+	set_3.style.display = "none";
+}
+
+//个人信息框的设置
+//Ajax保存数据
+$(function() {
+			$("#school").blur(function() {
+				//获取用户名
+				var school = $(this).val();
+				//进行ajax的处理
+				var span = $("#show_school");
+				$.post("findServlet", {
+					school: school
+				}, function(data) {
+					if (data.schoolExsit) {
+						span.css("color", "green");
+						span.html(data.msg);
+					} else {
+						span.css("color", "red");
+						span.html(data.msg);
+					}
+				}, "json")
+			});
+		});
+		$(function() {
+			$.ms_DatePicker({
+				YearSelector: ".years",
+				MonthSelector: ".months",
+				DaySelector: ".days"
+			});
+		});
+		(function($) {
+			$.extend({
+				ms_DatePicker: function(options) {
+					var defaults = {
+						YearSelector: ".years",
+						MonthSelector: ".months",
+						DaySelector: ".days",
+						FirstText: "--",
+						FirstValue: 0
+					};
+					var opts = $.extend({}, defaults, options);
+					var $YearSelector = $(opts.YearSelector);
+					var $MonthSelector = $(opts.MonthSelector);
+					var $DaySelector = $(opts.DaySelector);
+					var FirstText = opts.FirstText;
+					var FirstValue = opts.FirstValue;
+
+					// 初始化
+					var str = "<option value=\"" + FirstValue + "\">" + FirstText + "</option>";
+					$YearSelector.html(str);
+					$MonthSelector.html(str);
+					$DaySelector.html(str);
+
+					// 年份列表
+					var yearNow = new Date().getFullYear();
+					var yearSel = $YearSelector.attr("rel");
+					for (var i = yearNow; i >= 1900; i--) {
+						var sed = yearSel == i ? "selected" : "";
+						var yearStr = "<option value=\"" + i + "\" " + sed + ">" + i + "</option>";
+						$YearSelector.append(yearStr);
+					}
+
+					// 月份列表
+					var monthSel = $MonthSelector.attr("rel");
+					for (var i = 1; i <= 12; i++) {
+						var sed = monthSel == i ? "selected" : "";
+						var monthStr = "<option value=\"" + i + "\" " + sed + ">" + i + "</option>";
+						$MonthSelector.append(monthStr);
+					}
+
+					// 日列表(仅当选择了年月)
+					function BuildDay() {
+						if ($YearSelector.val() == 0 || $MonthSelector.val() == 0) {
+							// 未选择年份或者月份
+							$DaySelector.html(str);
+						} else {
+							$DaySelector.html(str);
+							var year = parseInt($YearSelector.val());
+							var month = parseInt($MonthSelector.val());
+							var dayCount = 0;
+							switch (month) {
+								case 1:
+								case 3:
+								case 5:
+								case 7:
+								case 8:
+								case 10:
+								case 12:
+									dayCount = 31;
+									break;
+								case 4:
+								case 6:
+								case 9:
+								case 11:
+									dayCount = 30;
+									break;
+								case 2:
+									dayCount = 28;
+									if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
+										dayCount = 29;
+									}
+									break;
+								default:
+									break;
+							}
+
+							var daySel = $DaySelector.attr("rel");
+							for (var i = 1; i <= dayCount; i++) {
+								var sed = daySel == i ? "selected" : "";
+								var dayStr = "<option value=\"" + i + "\" " + sed + ">" + i + "</option>";
+								$DaySelector.append(dayStr);
+							}
+						}
+					}
+					$MonthSelector.change(function() {
+						BuildDay();
+					});
+					$YearSelector.change(function() {
+						BuildDay();
+					});
+					if ($DaySelector.attr("rel") != "") {
+						BuildDay();
+					}
+				}
+			});
+		})(jQuery);
 
 
 
@@ -110,8 +238,8 @@ function updateInfo(e) {
 
 
 //当选择文件时运行以下程序
-function fileSelectHandler() {
-	var image_file = document.getElementById("image_file");
+var image_file = document.getElementById("image_file");
+image_file.onchange = function fileSelectHandler() {
     // 获得选择的文件
     var oFile = $("#image_file")[0].files[0];
     //每次选择文件时将所有错误隐藏
@@ -122,11 +250,6 @@ function fileSelectHandler() {
         $(".error").html("请选择png、jpeg和jpg格式的图片").show();
         return;
     }
-    //检查文件大小
-    if (oFile.size > 250 * 1024) {
-        $(".error").html("您选择的文件太大，请重新选择图片").show();
-        return;
-    }
     //获得图片预览效果
     var oImage = document.getElementById("preview");
     //HTML5的文件选择器
@@ -135,7 +258,6 @@ function fileSelectHandler() {
 	oReader.readAsDataURL(oFile);
     oReader.onload = function(e) {
 		//再将获得的数据给src就可以查看图片
-		console.log(e.target.result);
         oImage.src = e.target.result;
         oImage.onload = function () {
             //使用淡入淡出效果显示step的内容

@@ -251,23 +251,57 @@ li{
 #set_2{
 	display: none;
 }
-#set_3{
-	width:400px;
-	background:white;
-	z-index:10;
+#set_3 {
+	width: 300px;
+	background: white;
+	z-index: 10;
+	border:5px solid rgba(0,0,0,.3);
+	border-radius:2px;
+	position:absolute;
+	top:250px;
+	left:550px;
 	display:none;
 }
-#icon_birthday{
-	height:50px;
-	width:50px;
+#icon_birthday {
+	height: 50px;
+	width: 50px;
 }
-#icon_sex{
-	height:50px;
-	width:50px;
+#icon_sex {
+	height: 50px;
+	width: 50px;
+	margin-top: -10px;
 }
-#icon_school{
-	height:50px;
-	width:50px;
+#icon_school {
+	height: 50px;
+	width: 50px;
+}
+#radio_box {
+	margin-top: -10px;
+}
+.man {
+	padding-left: 20px;
+	color: #4783fe;
+}
+.woman {
+	padding-left: 10px;
+	color: #ff62b3;
+}
+#self_submit{
+	height: 32px;
+	width: 55px;
+	margin-left: 120px;
+	background-color: #020202;
+	border: 0;
+	color: white;
+	border-radius: 10px;
+	size: 25px;
+}
+input {
+	height: 20px;
+	border: 1.9px solid #c7c7c7;
+}
+select {
+	border: 1.5px solid #c7c7c7;
 }
 
 #change_photo {
@@ -303,9 +337,6 @@ li{
     padding-bottom: 20px;
     text-align: center;
 }
-#step2, .error {
-    display: none;
-}
 #error {
     font-size: 18px;
     font-weight: bold;
@@ -314,12 +345,16 @@ li{
 .jcrop-holder {
     display: inline-block;
 }
+#preview{
+	width:200px;
+	height:200px;
+}
 #picUp{
     background: #e3e3e3;
     border: 1px solid #bbb;
     border-radius: 5px;
     color: #333;
-    padding: 4px 0 9px;
+    margin-top:10px;
     text-align: center;
     width: 100px;
 }
@@ -379,9 +414,20 @@ li{
 #signature{
 	position:absolute;
 	margin-top:165px;
-	margin-left:45px;
 	font-size:15px;
 	font-family:Microsoft YaHei;
+}
+#personal{
+	padding-left:60px;
+}
+#icon_signature{
+	background:url(../img/edit.png);
+	background-size:100%;
+	height:40px;
+	width:40px;
+	position:absolute;
+	left:20px;
+	top:-10px;
 }
 #tag{
 	width:400px;

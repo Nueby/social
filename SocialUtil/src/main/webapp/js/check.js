@@ -4,7 +4,6 @@ var title_right = document.querySelector("#title_right");
 var title_left = document.querySelector("#title_left");
 var register = document.querySelector("#register");
 
-
 //登录和注册切换 
 
 title_right.onclick = function(){
