@@ -255,10 +255,61 @@ function getPic() {
 //发送注册消息
 function sendRegister() {
 	var registerMsg = $id("registerMsg");
+	var account = $id("register_text").value;
+	var accountPassword = $id("accountPassword").value;
+	var register_password = $id("register_password").value;
+	var confirm = $id("confirm").value;
+	var school = $id("school").value;
 	if(isHave == true) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
+	} else if(accountPassword == "") {
+		registerMsg.innerHTML = "<p style='color:#F00;'>*密码不能为空</p>";
+	} else if(register_password == ""){
+		registerMsg.innerHTML = "<p style='color:#F00;'>*密码不能为空</p>";
+	} else if(register_password != confirm) {
+		registerMsg.innerHTML = "<p style='color:#F00;'>*两次密码不一致</p>";
 	} else {
-		
+		//跨域
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":school};
+		$.ajax({
+			type:"POST",
+			url:"/SocialUtil/RegisterController.do",
+			data:JSON.stringify(json),
+			dataType:"json",
+			success:function(data) {
+				if(data.flag == 1) {
+					var json2 = {
+						"behaviour":"logup",
+						"account":account+"",
+						"password":register_password+"",
+						"email":"",
+						"sex":"男",		//默认男性
+						"phone":"",
+						"position":"",
+						"age":"",
+						"hobby":"",
+						"tags":""
+					};
+					$.ajax({
+						type:"POST",
+						url:"/SocialUtil/UserController.do",
+						data:JSON.stringify(json2),
+						dataType:"json",
+						success:function(data) {
+							registerMsg.innerHTML = "<p style='color:#F00;'>注册成功</p>";
+						},
+						error:function(err) {
+							alert(err.status);
+						}
+					})
+				} else {
+					registerMsg.innerHTML = "<p style='color:#F00;'>*学号信息错误</p>";
+				}
+			},
+			error:function(err) {
+				alert(err.status);
+			}
+		})
 	}
 }
 

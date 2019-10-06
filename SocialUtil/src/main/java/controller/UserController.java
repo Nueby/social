@@ -30,7 +30,7 @@ public class UserController extends HttpServlet {
     		json.put("result",user.isHave());
     		response.getWriter().write(json.toString());
     		response.getWriter().close();
-    	} else {
+    	} else {		//获取数据
     		UserDao user = new UserDao(reqJson.getString("account"), false);
     		user.loadInfo();
     		JSONObject json = new JSONObject();
@@ -54,7 +54,7 @@ public class UserController extends HttpServlet {
 		//行为
 		String behaviour = json.getString("behaviour");
 		if(behaviour.equals("logup")) {		//注册
-			UserDao user = new UserDao((String)json.get("account"), true);
+			UserDao user = new UserDao(json.getString("account"), true);
 			user.setCreateInfo(json.getString("password"), json.getString("email"), json.getString("sex"), json.getInteger("phone"), json.getString("position"), json.getInteger("age"), json.getString("hobby"), json.getString("tags"));
 			user.sureCreate();
 		} else if(behaviour.equals("change")) {		//修改
