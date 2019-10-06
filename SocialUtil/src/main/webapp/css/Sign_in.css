@@ -25,6 +25,15 @@ body{
 	position:absolute;
 	top:137px;
 	left:764px;
+	
+}
+#register{
+	top:137px;
+	left:764px;
+	height:597px;
+	width:579px;
+	position:absolute;
+	display:none;
 }
 #title{
 	position:absolute;
@@ -107,22 +116,6 @@ body{
 	padding-left:55px;
 	margin-top:150px;
 }
-#register_text{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:150px;
-}
-
 #password{
 	width:250px;
 	height:40px;
@@ -191,6 +184,106 @@ body{
 	left:270px;
 	top:520px;
 }
+#icon_school{
+	background:url(../img/school.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:141px;
+}
+#choose_school{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:145px;
+}
+#icon_rpeople{
+	background:url(../img/people_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:212px;
+}
+#icon_rpeople_2{
+	background:url(../img/people_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:212px;
+}
+#register_text{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:30px;
+}
+#icon_accountPassword{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:283px;
+}
+#icon_accountPassword_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:283px;
+}
+#accountPassword{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:30px;
+}
 #register_password{
 	width:250px;
 	height:40px;
@@ -204,46 +297,9 @@ body{
 	font-size:15px;
 	font-weight:500;
 	padding-left:55px;
-	margin-top:45px;
+	margin-top:30px;
 }
-#confirm{
-	width:250px;
-	height:40px;
-	margin-left:150px;
-	box-shadow:1px 5px 3px rgba(0,0,0,.2);
-	border:0;
-	border-top-left-radius:22px;
-	border-top-right-radius:22px;
-	border-bottom-left-radius:22px;
-	border-bottom-right-radius:22px;
-	font-size:15px;
-	font-weight:500;
-	padding-left:55px;
-	margin-top:45px;
-}
-#icon_phone{
-	background:url(../img/phone_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:145px;
-}
-#icon_phone_2{
-	background:url(../img/phone_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:145px;
-}
-#icon_password_secret{
+#icon_secret{
 	background:url(../img/secret_1.png);
 	background-size:100%;
 	height:55px;
@@ -252,9 +308,9 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:232px;
+	top:354px;
 }
-#icon_password_secret_2{
+#icon_secret_2{
 	background:url(../img/secret_2.png);
 	background-size:100%;
 	height:55px;
@@ -263,37 +319,7 @@ body{
 	z-index:3;
 	border-radius:50%;
 	left:145px;
-	top:232px;
-}
-#icon_password_confirm{
-	background:url(../img/secret_1.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:318px;
-}
-#icon_password_confirm_2{
-	background:url(../img/secret_2.png);
-	background-size:100%;
-	height:55px;
-	width:55px;
-	position:absolute;
-	z-index:3;
-	border-radius:50%;
-	left:145px;
-	top:318px;
-}
-#register{
-	top:137px;
-	left:764px;
-	height:597px;
-	width:579px;
-	position:absolute;
-	display:none;
+	top:354px;
 }
 #check_code{
 	position:relative;

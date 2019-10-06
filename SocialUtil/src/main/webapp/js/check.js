@@ -47,17 +47,28 @@ password.onclick = function (){
 
 //注册页面点击时图标改动
 
-var icon_phone = document.getElementById("icon_phone");
-var icon_password_secret = document.getElementById("icon_password_secret");
-var icon_password_confirm = document.getElementById("icon_password_confirm");
+var icon_school = document.getElementById("icon_school");
+var icon_rpeople = document.getElementById("icon_rpeople");
+var icon_accountPassword = document.getElementById("icon_accountPassword");
+var icon_secret = document.getElementById("icon_secret");
 var register_text = document.getElementById("register_text");
+var accountPassword = document.getElementById("accountPassword");
 var register_password = document.getElementById("register_password");
-var confirm = document.getElementById("confirm");
 
 register_text.onclick = function(){
-	icon_phone.setAttribute("id","icon_phone_2");
-	icon_password_secret.setAttribute("id","icon_password_secret");
-	icon_password_confirm.setAttribute("id","icon_password_confirm");
+	icon_rpeople.setAttribute("id","icon_rpeople_2");
+	icon_accountPassword.setAttribute("id","icon_accountPassword");
+	icon_secret.setAttribute("id","icon_secret");
+}
+accountPassword.onclick = function(){
+	icon_rpeople.setAttribute("id","icon_rpeople");
+	icon_accountPassword.setAttribute("id","icon_accountPassword_2");
+	icon_secret.setAttribute("id","icon_secret");
+}
+register_password.onclick = function(){
+	icon_rpeople.setAttribute("id","icon_rpeople");
+	icon_accountPassword.setAttribute("id","icon_accountPassword");
+	icon_secret.setAttribute("id","icon_secret_2");
 }
 
 //Ajax看数据库验证号码有没有被注册过
@@ -87,17 +98,6 @@ register_text.onblur = function() {
 			}
 		})
 	}
-}
-
-register_password.onclick = function(){
-	icon_phone.setAttribute("id","icon_phone");
-	icon_password_secret.setAttribute("id","icon_password_secret_2");
-	icon_password_confirm.setAttribute("id","icon_password_confirm");
-}
-confirm.onclick = function(){
-	icon_phone.setAttribute("id","icon_phone");
-	icon_password_secret.setAttribute("id","icon_password_secret");
-	icon_password_confirm.setAttribute("id","icon_password_confirm_2");
 }
 
 
@@ -286,7 +286,7 @@ submit.onclick = function(){
 	if(!reg.test(register_text)){
 		alert("您输入的电话号码格式错误，请重新输入");
 		register_text.value = "";
-		register_password.value = "";
+		accountPassword.value = "";
 		confirm.value = "";
 		return false;
 	}else if(register_text.value == ""){
@@ -299,29 +299,29 @@ submit.onclick = function(){
 
 //Ajax发送短信验证码
 
-//发送验证码倒计时
-var getCode = document.querySelector("#get");
-var countTime = 60;//时间为60秒
-var interval;
-var click = false;
-function setTime() {
-	if(countTime > 0){
-		countTime--;
-		getCode.innerHTML = countTime + "秒后重新发送";
-	}else if(countTime == 0){
-		countTime = 60;
-		getCode.innerHTML = "获取验证码";
-		clearInterval(interval);
-		click = false;
-	}
-}
+// //发送验证码倒计时
+// var getCode = document.querySelector("#get");
+// var countTime = 60;//时间为60秒
+// var interval;
+// var click = false;
+// function setTime() {
+// 	if(countTime > 0){
+// 		countTime--;
+// 		getCode.innerHTML = countTime + "秒后重新发送";
+// 	}else if(countTime == 0){
+// 		countTime = 60;
+// 		getCode.innerHTML = "获取验证码";
+// 		clearInterval(interval);
+// 		click = false;
+// 	}
+// }
 
-//获取验证码后改变字体
-getCode.onclick = function() {
-	if(!click) {
-		interval = setInterval("setTime()", 1000);
-		click = true;
-	}
-}
-//Ajax检查验证码填写与发送的是否一样
+// //获取验证码后改变字体
+// getCode.onclick = function() {
+// 	if(!click) {
+// 		interval = setInterval("setTime()", 1000);
+// 		click = true;
+// 	}
+// }
+// //Ajax检查验证码填写与发送的是否一样
 }
