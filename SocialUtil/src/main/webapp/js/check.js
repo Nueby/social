@@ -185,6 +185,7 @@ function bar() {
 	    						} else if(data.result == "password") {
 	    							$id("enterMsg").innerHTML = "<p style='color:#F00;'>*密码错误</p>";
 	    						} else {		//登录成功
+	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
 	    						}
 	    					},
