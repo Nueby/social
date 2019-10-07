@@ -179,7 +179,6 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			} else {
 				pstmt = C3P0Util.getConnection().prepareStatement("SELECT * FROM user WHERE account=" + account);
-				//pstmt = MySQLConnect.conn.prepareStatement("SELECT * FROM user WHERE account=" + account);
 				ResultSet rs = pstmt.executeQuery();
 				id = rs.getInt(1);
 				account = rs.getString(2);
@@ -440,7 +439,6 @@ public class UserDao {
 				throw new UnsupportedOperationException();
 			}
 			pstmt = util.C3P0Util.getConnection().prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
-			//pstmt = MySQLConnect.conn.prepareStatement("UPDATE user SET phone=?, email=?, sex=?, position=?, age=?, hobby=?, tags=? password=? WHERE account=" + account);
 			pstmt.setInt(1, phone);
 			pstmt.setString(2, email);
 			pstmt.setString(3, sex);
@@ -451,7 +449,6 @@ public class UserDao {
 			pstmt.setString(8, password);
 			pstmt.execute();
 			C3P0Util.release(pstmt);
-			//pstmt.close();
 			log.info("用户 " + account + " 修改信息成功");
 		} catch(UnsupportedOperationException e) {
 			log.severe("未装载信息" + "\n" + e.getStackTrace());
@@ -483,7 +480,6 @@ public class UserDao {
 		boolean result = false;
 		try {
 			Statement stmt = C3P0Util.getConnection().createStatement();
-			//Statement stmt = MySQLConnect.conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM user");
 			rs.beforeFirst();
 			while(rs.next()) {
@@ -493,9 +489,7 @@ public class UserDao {
 				}
 			}
 			C3P0Util.release(rs);
-			//rs.close();
 			C3P0Util.release(stmt);
-			//stmt.close();
 		} catch (SQLException e) {
 			log.severe("数据库连接失败" + "\n");
 			e.getStackTrace();

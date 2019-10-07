@@ -8,6 +8,7 @@ import java.sql.*;
  * 无c3p0连接
  *
  */
+@Deprecated
 public class MySQLConnect {
 	//禁止创建对象
 	private MySQLConnect() {};

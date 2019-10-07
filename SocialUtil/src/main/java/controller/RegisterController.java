@@ -31,8 +31,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JSONObject json = (JSONObject)request.getAttribute("json");
-		//String address = "http://jwxt.xxxx.edu.cn/app.do";
-		String address0 = null;
+		String address0 = null;		//学校教务系统url
 		if(json.getString("school").equals("广东金融学院")) {
 			address0 = "http://jwxt.gduf.edu.cn/app.do";
 		} else if(json.getString("school").equals("深圳技术大学")) {
@@ -46,7 +45,6 @@ public class RegisterController extends HttpServlet {
 		connection.setDoOutput(false);
 		connection.setUseCaches(false);
 		connection.setConnectTimeout(1000);
-		//System.out.println(json.toString());
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		StringBuffer sb = new StringBuffer();
 		String temp = "";
