@@ -20,7 +20,7 @@ body {
 #background {
 	height: 720px;
 	width: 1550px;
-	background: url(../img/matching_backgroung.jpg) no-repeat;
+	background: url(../img/matching_backgroung.jpg);
 	background-size: 100%;
 }
 

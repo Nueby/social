@@ -1,53 +1,67 @@
 body {
 	margin: 0;
 	padding:0;
-	background-color:#EFEFEF;
-	background-image:url(../img/star.png);
-	background-size:100%;
 	overflow-x: hidden;
 }
-
 #total{
-	margin-left:100px;
-	width:1300px;
-	height:740px;
+	width:1550px;
+	height:800px;
 	background-image:url(../img/main_background.jpg);
 	background-size:100%;
 	background-repeat:no-repeat;
 }
-
 .background {
 	position:absolute;
 }
-
 #single {
 	cursor:pointer;
-	margin-top:200px;
-	margin-left:50px;
+	margin-top:100px;
+	margin-left:250px;
 	width:200px;
 }
 #make_friend{
 	cursor:pointer;
-	margin-top:200px;
-	margin-left:50px;
+	margin-top:100px;
+	margin-left:250px;
 	width:200px;
 }
 #self_dynamic{
 	background:rgba(0,0,0,.5);
 	height:500px;
-	width:354px;
+	width:804px;
 	position:absolute;
 	top:200px;
 	left:550px;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
+	border-radius: 5px;
+}
+#message_cicle ul{
+	position:absolute;
+	left:1275px;
+	top:170px;
+}
+.cicle{
+	width:25px;
+	height:25px;
+	display:block;
+	background:white;
+	box-shadow:1px 0 2px 1px rgba(0,0,0,.5) inset;
+	border-radius:50%;
+	margin-top:35px;
+}
+#message_cicle img{
+	height:150px;
+	width:340px;
+	position:absolute;
+	top:580px;
+	left:950px;
+	
 }
 #none_show{
 	color:white;
 	font-size:18px;
 	position:absolute;
 	top:200px;
-  left:50px;
+    left:50px;
 }
 #self_message{
 	background:lightgray;

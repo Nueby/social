@@ -13,11 +13,11 @@ window.onload = function load() {
 	$id("make_friend").src = "../img/make_friend.png";
 	$("#make_friend").animate({
 		marginTop:"500px",
-		marginLeft:"100px"
+		marginLeft:"250px"
 	},2000);
 	$("#single").animate({
 		marginTop:"300px",
-		marginLeft:"80px"
+		marginLeft:"250px"
 	},2000);
 }
 
