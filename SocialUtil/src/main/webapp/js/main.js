@@ -237,15 +237,14 @@ function updateInfo(e) {
 }
 
 
-//当选择文件时运行以下程序
-var image_file = document.getElementById("image_file");
-image_file.onchange = function fileSelectHandler() {
+//当点击头像时选择头像
+document.getElementById("image_file").onchange = function() {
     // 获得选择的文件
     var oFile = $("#image_file")[0].files[0];
     //每次选择文件时将所有错误隐藏
     $(".error").hide();
     //检查文件的格式，只有png、jpeg和jpg格式的可以被用来做头像
-    var rFilter = /^(image\/jpeg|image\/png)$/i;
+    var rFilter = /^(image\/jpeg|image\/png|image\/jpg)$/i;
     if (! rFilter.test(oFile.type)) {
         $(".error").html("请选择png、jpeg和jpg格式的图片").show();
         return;
@@ -301,6 +300,17 @@ change_name.onclick = function(){
 	}
 }
 
+//发布个人圈的预览图片
+//ajax将内容传送
+$("#dynamic_img").change(function(){
+    $("#show").attr("src",URL.createObjectURL($(this)[0].files[0]));
+});
+
+document.getElementById("dynamic_img").onclick = function(){
+	document.getElementById("add").style.marginLeft = 150 + "px";
+}
+
+
 
 //可随机生成颜色的方法
 var getRandomColor = function(){
@@ -314,14 +324,14 @@ var getRandomColor = function(){
  function getRandomPlace(space){
 	var tag = document.getElementById("tag");
 	var x = Math.floor(Math.random()*300);
-	var y = Math.floor(Math.random()*200);
+	var y = Math.floor(Math.random()*100);
     space.style.left = x + "px";
 	space.style.bottom = y + "px";
 	//如果space的位置与之前的标签重合，则重新生成坐标
 	if(space.style.bottom == y || space.style.left ==x){
 		getRandomPlace(space);
 	}//如果space的长度加上随机生成的x大于Tag框，则将x或y坐标减去框的长度
-	else if(space.style.left > 350 || space.style.bottom > 150){
+	else if(space.style.left > 350 || space.style.bottom > 100){
 		space.style.left = x - space.style.width + "px";
 		space.style.bottom = y - space.style.height + "px";
 	}
@@ -359,7 +369,6 @@ save_tag.onclick = function(){
 	if(tagVal == ""){
 		tag_warning.innerHTML ="*请先输入内容才能生成标签"	;
 	}else{
-		document.getElementById("tag").removeChild(personal_tag);
 		tag.appendChild(newDiv);
 		newDiv.innerHTML = tagVal;
 		//获取位置
@@ -372,7 +381,7 @@ save_tag.onclick = function(){
 	tagVal ="";
 	tagNum ++;
 	if(tagNum > 5){
-		tagVal = "最多只能存在五个标签，请先删除再添加";
+		tag_warning.innerHTML = "*最多只能存在五个标签，请先删除再添加";
 		return false;
 	}
 	console.log(newDiv.bottom);
