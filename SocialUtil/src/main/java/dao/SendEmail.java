@@ -29,7 +29,7 @@ public class SendEmail {
 		Random rand = new Random();
 		int randNum = 0;
 		for(int i = 0; i < 4; i++) {
-			randNum = randNum * 10 + rand.nextInt(10);
+			randNum = randNum * 10 + rand.nextInt(9) + 1;
 		}
 		Properties pro = new Properties();
 		//校验用户名和密码
