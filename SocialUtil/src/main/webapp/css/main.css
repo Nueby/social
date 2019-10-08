@@ -60,26 +60,26 @@ body {
 	color:white;
 	font-size:18px;
 	position:absolute;
-	top:200px;
-    left:50px;
+	top:240px;
+    left:60px;
 }
 #self_message{
 	background:lightgray;
 	box-shadow:0 0 8px rgba(0,0,0,.4);
-	height:500px;
+	height:550px;
 	width:395px;
 	position:absolute;
-	top:100px;
+	top:50px;
 	left:905px;
 	z-index:3;
 	border-radius:5px;
 }
 #message{
 	background:white;
-	height:230px;
-	width:360px;
-	margin-top:60px;
-	margin-left:20px;
+	height:225px;
+	width:340px;
+	margin-top:50px;
+	margin-left:28px;
 	box-shadow:0 0 6px rgba(0,0,0,.5);
 	border-radius:2px;
 }
@@ -227,26 +227,21 @@ li{
 	margin-top:15px;
 	font-size:17px;
 }
-#add{
-	height:100px;
-	width:80px;
-	border:1px solid white;
-	box-shadow: 0 0 5px rgba(0,0,0,.3);
-	margin-top:20px;
-	margin-left:110px;
-}
 #add img{
 	height:100px;
-	width:80px;
-	position:relative;
-	top:-105px;
+	width:100px;
+	margin-left:105px;
+	margin-top:10px;
 }
 #dynamic_img{
-	height:100px;
-	width:80px;
+	height:60px;
+	width:60px;
 	cursor:pointer;
-	opacity:0;
+	position:absolute;
 	z-index:25;
+	margin-left:125px;
+	margin-top:30px;
+	opacity:0;
 }
 #show{
 	margin-left:15px;
@@ -266,7 +261,7 @@ li{
 	height:32px;
 	background:#020202;
 	border:0;
-	margin-left:120px;
+	margin-left:125px;
 	margin-bottom:15px;
 	color:white;
 	border-radius:25px;
@@ -279,7 +274,7 @@ li{
 	background: white;
 	z-index: 10;
 	border:5px solid rgba(0,0,0,.3);
-	border-radius:10px;
+	border-radius:15px;
 	position:absolute;
 	top:250px;
 	left:530px;
@@ -300,20 +295,34 @@ li{
 #icon_sex {
 	height: 50px;
 	width: 50px;
+	position:absolute;
+	top:135px;
 }
 #icon_school {
 	height: 50px;
 	width: 50px;
+	position:absolute;
+	top:15px;
 }
 #radio_box {
-	margin-top: -10px;
+	margin-top: 15px;
+}
+#set_man{
+	position: absolute;
+	margin-left:15px;
+	top:148px;
+}
+#set_woman{
+	position: absolute;
+	margin-left:15px;
+	top:148px;
 }
 .man {
 	padding-left: 20px;
 	color: #4783fe;
 }
 .woman {
-	padding-left: 10px;
+	padding-left: 50px;
 	color: #ff62b3;
 }
 #self_submit{
@@ -414,7 +423,7 @@ select {
 #name_sure{
 	background:rgba(0,0,0,.0);
 	position:absolute;
-	right:60px;
+	right:40px;
 	top:10px;
 	height:25px;
 	border:0;
@@ -426,7 +435,7 @@ select {
 	width:15px;
 	background:black;
 	position:absolute;
-	left:320px;
+	left:315px;
 	margin-top:15px;
 }
 #ID{

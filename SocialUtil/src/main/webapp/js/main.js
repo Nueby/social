@@ -355,6 +355,8 @@ title.onclick = function(){
 		save_tag.style.display = "block";
 	}
 }
+
+
 //点击勾时生成内容到下方
 //Ajax保存标签内容
 save_tag.onclick = function(){
@@ -366,6 +368,7 @@ save_tag.onclick = function(){
 	var close = document.createElement("img");
 	close.src = "../img/close.png";
 	close.setAttribute("id","delete_tag");
+	newDiv.appendChild(close);
 	if(tagVal == ""){
 		tag_warning.innerHTML ="*请先输入内容才能生成标签"	;
 	}else{
