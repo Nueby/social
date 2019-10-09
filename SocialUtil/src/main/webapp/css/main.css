@@ -519,21 +519,23 @@ select {
 }
 #personal_tag{
 	z-index:5;
-	height:25px;
+	height:30px;
 	background:#f60;
 	position:absolute;
 	bottom:100px;
 	left:100px;
+	padding-top:5px;
 }
 #personal_tag:before, #personal_tag:after {
   content: "";
   position: absolute;
   display: block;
   width: 10px;
-  height: 25px;
+  height: 35px;
   background-size: 20px 10px;
 }
 #personal_tag:before {
+	top:0;
   left: -10px;
   background-color: lightgrey;
   background-position: 100% 35%;
@@ -551,34 +553,178 @@ select {
                  linear-gradient(-45deg, transparent 75%, lightgrey 75%), 
                  linear-gradient(-135deg, transparent 75%, lightgrey 75%);
 }
-#other_tag{
+/* 其他的标签样式，共五个 */
+#other_tag1{
 	z-index:5;
-	height:25px;
-	background:#faa;
+	height:30px;
+	background:#e08bf3;
 	position:absolute;
-	bottom:150px;
-	left:100px;
+	padding-top:5px;
 }
-#other_tag:before, #other_tag:after {
+#other_tag1:before, #other_tag1:after {
   content: "";
   position: absolute;
   display: block;
   width: 10px;
-  height: 25px;
+  height: 35px;
   background-size: 20px 10px;
 }
-#other_tag:before {
+#other_tag1:before {
+	top:0;
   left: -10px;
   background-color: lightgrey;
   background-position: 100% 35%;
-  background-image: linear-gradient(-45deg, #faa 25%, transparent 25%, transparent), 
-                  linear-gradient(-135deg, #faa 25%, transparent 25%, transparent), 
-                  linear-gradient(-135deg, transparent 75%, #faa 75%);
+  background-image: linear-gradient(-45deg, #e08bf3 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, #e08bf3 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, transparent 75%, #e08bf3 75%);
 }
-#other_tag:after {
+#other_tag1:after {
 	top:0;
   right: -10px;
-  background-color: #faa;
+  background-color: #e08bf3;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-45deg, transparent 75%, lightgrey 75%), 
+                 linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#other_tag2{
+	z-index:5;
+	height:30px;
+	background:#8188e6#;
+	position:absolute;
+	padding-top:5px;
+}
+#other_tag2:before, #other_tag2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 35px;
+  background-size: 20px 10px;
+}
+#other_tag2:before {
+	top:0;
+  left: -10px;
+  background-color: lightgrey;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, #8188e6 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, #8188e6 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, transparent 75%, #8188e6 75%);
+}
+#other_tag2:after {
+	top:0;
+  right: -10px;
+  background-color: #8188e6;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-45deg, transparent 75%, lightgrey 75%), 
+                 linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+#other_tag3{
+	z-index:5;
+	height:30px;
+	background:#99e68f;
+	position:absolute;
+	padding-top:5px;
+}
+#other_tag3:before, #other_tag3:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 35px;
+  background-size: 20px 10px;
+}
+#other_tag3:before {
+	top:0;
+  left: -10px;
+  background-color: lightgrey;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, #99e68f 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, #99e68f 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, transparent 75%, #99e68f 75%);
+}
+#other_tag3:after {
+	top:0;
+  right: -10px;
+  background-color: #99e68f;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-45deg, transparent 75%, lightgrey 75%), 
+                 linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#other_tag4{
+	z-index:5;
+	height:30px;
+	background:#f3f08b;
+	position:absolute;
+	padding-top:5px;
+}
+#other_tag4:before, #other_tag4:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 35px;
+  background-size: 20px 10px;
+}
+#other_tag4:before {
+	top:0;
+  left: -10px;
+  background-color: lightgrey;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, #f3f08b 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, #f3f08b 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, transparent 75%, #f3f08b 75%);
+}
+#other_tag4:after {
+	top:0;
+  right: -10px;
+  background-color: #f3f08b;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent), 
+                 linear-gradient(-45deg, transparent 75%, lightgrey 75%), 
+                 linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#other_tag5{
+	z-index:5;
+	height:30px;
+	background:#e08bf3;
+	position:absolute;
+	padding-top:5px;
+}
+#other_tag5:before, #other_tag5:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 35px;
+  background-size: 20px 10px;
+}
+#other_tag5:before {
+	top:0;
+  left: -10px;
+  background-color: lightgrey;
+  background-position: 100% 35%;
+  background-image: linear-gradient(-45deg, #e08bf3 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, #e08bf3 25%, transparent 25%, transparent), 
+                  linear-gradient(-135deg, transparent 75%, #e08bf3 75%);
+}
+#other_tag5:after {
+	top:0;
+  right: -10px;
+  background-color: #e08bf3;
   background-position: 100% 35%;
   background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent), 
                  linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent), 
