@@ -5,7 +5,7 @@ function getStyle(obj, attr) {
 	if (obj.currentStyle) {
 		return obj.currentStyle[attr];
 	} else {
-		return getComputedStyle(obj, false)[attr];
+		return getComputedStyle(obj,null)[attr];
 	}
 }
 
@@ -341,7 +341,7 @@ var self_tag = document.getElementById("self_tag");
 var save_tag = document.getElementById("save_tag");
 var delete_tag = document.getElementById("delete_tag");
 var tag = document.getElementById("tag");
-//确认标签数量，最多只能有五个标签
+//确认标签数量
 var tagNum = 0;
 //点击Tag标签出显示框和保存按钮
 title.onclick = function() {
@@ -353,41 +353,18 @@ title.onclick = function() {
 		save_tag.style.display = "block";
 	}
 }
-
-
-//点击勾时生成内容到下方
-//Ajax保存标签内容，并显示在id = tag里
-save_tag.onclick = function() {
-	var tagVal = document.getElementById("self_tag").value;
-	var personal_tag = document.getElementById("personal_tag");
-	var tag_warning = document.getElementById("tag_warning");
-	var newDiv = document.createElement("div");
-	newDiv.setAttribute("id", "other_tag5");
-	var close = document.createElement("img");
-	close.src = "../img/close.png";
-	close.setAttribute("id", "delete_tag");
-	newDiv.appendChild(close);
-	if (tagVal == "") {
-		tag_warning.innerHTML = "*请先输入内容才能生成标签";
-	} else {
-		tag.appendChild(newDiv);
-		newDiv.innerHTML = tagVal;
-		//获取位置
-		tag_warning.innerHTML = "";
-	}
-	if (!personal_tag) {
-		return false;
-	}
-	tagVal = "";
-	tagNum++;
-	if (tagNum > 5) {
-		tag_warning.innerHTML = "*最多只能存在五个标签，请先删除再添加";
-		return false;
-	}
+var tagChoose = document.getElementById("tag_choose");
+var tagLi = tagChoose.getElementsByTagName("li");
+var chooseTag = document.getElementById("chooseTag");
+window.onload = function(){
+	console.log(tagLi.length);
 }
-//点击x时删除生成的内容
-//Ajax删除标签
-delete_tag.onclick = function() {
-	var personal_tag = document.getElementById("personal_tag");
-	document.getElementById("tag").removeChild(personal_tag);
+for(var i = 0;i < tagLi.length;i++){
+	tagLi[i].addEventListener("onclick",function(){
+		// var newLi = createElement("li");
+		// newLi.setAttribute("id","choose_class");
+		var tagVal = tagLi[i].innerHTML;
+		alert(tagVal);
+		
+	})
 }
