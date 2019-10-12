@@ -18,7 +18,7 @@ function $id(id) {
 }
 
 //出场动画
-window.onload = function load() {
+function load() {
 	$(".board").css("display", "none");
 	resize();
 	$id("single").src = "../img/ourself_2.png";
@@ -32,6 +32,7 @@ window.onload = function load() {
 		marginLeft: "250px"
 	}, 2000);
 }
+load();
 
 //重置大小
 function resize() {
@@ -96,14 +97,109 @@ self.onclick = function() {
 //设置框点击确定
 //Ajax上传数据
 var dynamic_submit = document.getElementById("dynamic_submit");
-// var modify_submit = document.getElementById("modify_submit");
+var email_submit = document.getElementById("email_submit");
 var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function() {
 	set_1.style.display = "none";
 }
+email_submit.onclick = function() {
+	set_2.style.display = "none";
+}
 self_submit.onclick = function() {
 	set_3.style.display = "none";
 }
+
+
+//第二个设置中获取验证码
+var time_get = document.getElementById("time_get");
+var countTime = 60;//时间为60秒
+var interval;
+var click = false;//验证是否点击
+function setTime() {
+	if(countTime > 0){
+		countTime--;
+		time_get.innerHTML = countTime + "秒后重新发送";
+	}else if(countTime == 0){
+		countTime = 60;
+		time_get.innerHTML = "获取验证码";
+		clearInterval(interval);
+		click = false;
+	}
+}
+
+//获取验证码后改变字体
+time_get.onclick = function() {
+	if(!click) {
+		interval = setInterval("setTime()", 1000);
+		click = true;
+	}
+}
+
+//点击获取发送验证码到邮箱
+document.getElementById("time_get").onclick = function() {
+	var new_email = document.getElementById("new_email").value;
+	var json = {"behaviour":"getMsg","new_email":new_email};
+	$.ajax({
+		type:"GET",
+		url:"/SocialUtil/SendEmailController.do",
+		data:{"json":JSON.stringify(json)},
+		typeData:"json",
+		success:function(data) {
+			alert(data.status);
+		},
+		error:function(err) {
+			alert(err.status);
+		}
+	})
+}
+
+
+//检验验证码和发送的是否一致
+document.getElementById("email_submit").onclick = function() {
+	var input = document.getElementById("get_code_email").value;
+	var json = {"behaviour":"check","input":parseInt(input)};
+	$.ajax({
+		type:"POST",
+		url:"/SocialUtil/SendEmailController.do",
+		data:JSON.stringify(json),
+		typeData:"json",
+		success:function(data) {
+			alert(data.status);
+		},
+		error:function(err) {
+			alert(err.status);
+		}
+	})
+}
+
+//检验邮箱的格式是否正确
+var new_email = document.getElementById("new_email");
+var email_warning = document.getElementById("email_warning");
+new_email.onblur = function(){
+	var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+	if(new_email.value == ""){
+		email_warning.innerHTML = "*邮箱不能为空";
+	}else if(! reg.test(new_email.value)){
+		email_warning.innerHTML = "*请输入正确的邮箱地址";
+	}else{
+		email_warning.innerHTML = "";
+	}
+}
+
+//输入旧密码验证旧密码是否填写正确,旧密码id = old_password
+//检验两次密码输入是否一致
+var input_warning = document.getElementById("input_warning");
+document.getElementById("confirm_password").onblur = function(){
+	if(document.getElementById("new_password").value != document.getElementById("confirm_password").value){
+		input_warning.innerHTML = "*前后两次密码不一致，请重写输入";
+		document.getElementById("confirm_password").value = "";
+	}else if(document.getElementById("new_password").value == "" || document.getElementById("confirm_password").value ==""){
+		input_warning.innerHTML = "*你还没输入或确认密码";
+	}else{
+		input_warning.innerHTML = "";
+	}
+}
+
 
 //个人信息框的设置
 //Ajax保存数据
@@ -301,18 +397,19 @@ document.getElementById("image_file").onchange = function() {
 }
 
 
-
-
-//修改昵称
-//ajax将昵称保存
-var change_name = document.getElementById("change_name");
-var name_sure = document.getElementById("name_sure");
-change_name.onclick = function() {
-	name_sure.style.display = "block";
-	name_sure.onclick = function() {
-		name_sure.style.display = "none";
-	}
+//获取图片的url地址
+ function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {   // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
 }
+
 
 //发布个人圈的预览图片
 //ajax将内容传送并显示在id = show_dynamic里
@@ -336,15 +433,13 @@ var getRandomColor = function() {
 
 
 //点击tag打开输入框
-var title = document.getElementById("title");
 var self_tag = document.getElementById("self_tag");
-var save_tag = document.getElementById("save_tag");
 var delete_tag = document.getElementById("delete_tag");
 var tag = document.getElementById("tag");
-//确认标签数量
-var tagNum = 0;
+var chooseTag = document.getElementById("choose_tag");
+var tagWarning = document.getElementById("tag_warning");
 //点击Tag标签出显示框和保存按钮
-title.onclick = function() {
+document.getElementById("title").onclick = function() {
 	if (self_tag.style.display == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
@@ -352,19 +447,128 @@ title.onclick = function() {
 		self_tag.style.display = "block";
 		save_tag.style.display = "block";
 	}
+	//确认标签数量,标签数量最多五个
+	let tagNum = 0;
+	//将标签放在预选栏
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
+	for(var i = 0;i < tagLi.length;i++){
+		tagLi[i].onclick = function(){
+			var newLi = document.createElement("div");
+			newLi.setAttribute("id","choose_class");
+			var liVal = document.createTextNode(this.innerHTML);
+			newLi.appendChild(liVal);
+			chooseTag.appendChild(newLi);
+			tagNum ++;
+			if(tagNum >= 0 && tagNum < 5){
+				//点击去除选定的标签
+				var chooseLi = chooseTag.getElementsByTagName("div");
+				for (let j = 0; j < chooseLi.length; j++) {
+					chooseLi[j].onclick = function() {
+						chooseTag.removeChild(chooseLi[j]);
+						tagNum --;
+					};
+				}
+				tagWarning.innerHTML = "";
+			}else if(tagNum > 5){
+				chooseTag.removeChild(newLi);
+				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
+			}
+			console.log(tagNum);
+		};
+	}
 }
-var tagChoose = document.getElementById("tag_choose");
-var tagLi = tagChoose.getElementsByTagName("li");
-var chooseTag = document.getElementById("chooseTag");
-window.onload = function(){
-	console.log(tagLi.length);
+
+
+//点击保存将标签放在tag中
+//Ajax保存确定的标签作为筛选条件
+save_tag.onclick = function(){
+	var chooseLi = chooseTag.getElementsByTagName("div");
+	var tagDiv = document.createElement("div");
+	tag.appendChild(tagDiv);
+	for(var i = 0;i < chooseLi.length; i++){
+		var divVal = document.createTextNode(chooseLi[i].innerHTML);
+		tagDiv[i].setAttribute("id","other_tag"+"i+1");
+		tagDiv[i].appendChild(divVal);
+	}
 }
-for(var i = 0;i < tagLi.length;i++){
-	tagLi[i].addEventListener("onclick",function(){
-		// var newLi = createElement("li");
-		// newLi.setAttribute("id","choose_class");
-		var tagVal = tagLi[i].innerHTML;
-		alert(tagVal);
-		
-	})
+
+
+
+//交友页面的动画滚动效果
+
+
+
+//点击显示聊天界面，筛选蓝和个人圈以及关闭
+
+document.getElementById("chat").onclick = function(){
+	var chat_about = document.getElementById("chat_about");
+	chat_about.style.display = "block";
+	//点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
+	var interval = setInterval("timeLow()",1000);
+}
+//时间递减函数
+//退出之后不只在页面退出，还要让f12里的源码也没有
+// var time = 5;
+// function timeLow(){
+// 	var timeChat = document.getElementById("time_chat");
+// 	if(time > 0){
+// 		time--;
+// 		timeChat.innerHTML = time;
+// 	}else if(time == 0){
+// 		clearInterval(interval);
+// 		chat_about.style.display = "none";
+// 	}
+// 	var chatWarning = document.getElementById("chat_warning");
+// 	if(time <= 30){
+// 		chatWarning.style.display = "block";
+// 		chatWarning.innerHTML = "聊天时间快结束了，还不快向他要其他的聊天方式吗，聊的开心就快问吧！！";
+// 		chatWarning.style.color = "red";
+// 		timeChat.style.color = "red";
+// 	}
+// 	if(time <= 25){
+// 		chatWarning.style.display = "none";
+// 	}
+// }
+//点击关闭按钮退出聊天框，并在对面的id = chat_warnig中提示对方退出
+//ajax的内容
+
+document.getElementById("icon_close").onclick = function(){
+	chat_about.style.display = "none";
+}
+
+
+//点击加时按钮，在对方的页面弹出confirm框，点击确定加时，点击取消不加时
+document.getElementById("icon_time").onclick = function(){
+	chat_about.style.display = "none";
+}
+
+
+// document.getElementById("more").onclick = function(){
+	
+// }
+document.getElementById("choose").onclick = function(){
+	var choose_friend = document.getElementById("choose_friend");
+	choose_friend.style.display = "block";
+}
+
+//聊天界面，点击可以发送信息
+var sendMsg = document.getElementById("sendMsg");
+var txt = document.getElementById("txt");
+var talk_contact = document.getElementById("talk_contact");
+var contact = talk_contact.getElementsByTagName("p");
+
+sendMsg.onclick = function(){
+	if(txt.value == ""){
+		txt.value = "不能发送空内容";
+	}else{
+		var newTxt = document.createElement("p");
+		newTxt.style.backgroundColor = "yellowgreen";
+		newTxt.style.clear = "both";
+		newTxt.style.float = "right";
+		newTxt.style.marginRight = "5px";
+		newTxt.innerHTML = txt.value;
+		talk_contact.appendChild(newTxt);
+		txt.value = "";
+		newTxt.scrollIntoView();
+	}
 }
