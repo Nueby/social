@@ -18,7 +18,7 @@ function $id(id) {
 }
 
 //出场动画
-window.onload = function load() {
+function load() {
 	$(".board").css("display", "none");
 	resize();
 	$id("single").src = "../img/ourself_2.png";
@@ -32,6 +32,7 @@ window.onload = function load() {
 		marginLeft: "250px"
 	}, 2000);
 }
+load();
 
 //重置大小
 function resize() {
@@ -301,7 +302,18 @@ document.getElementById("image_file").onchange = function() {
 }
 
 
-
+//获取图片的url地址
+ function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {   // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
 
 //修改昵称
 //ajax将昵称保存
@@ -341,7 +353,7 @@ var self_tag = document.getElementById("self_tag");
 var save_tag = document.getElementById("save_tag");
 var delete_tag = document.getElementById("delete_tag");
 var tag = document.getElementById("tag");
-//确认标签数量
+//确认标签数量,标签数量最多五个
 var tagNum = 0;
 //点击Tag标签出显示框和保存按钮
 title.onclick = function() {
@@ -353,18 +365,33 @@ title.onclick = function() {
 		save_tag.style.display = "block";
 	}
 }
-var tagChoose = document.getElementById("tag_choose");
-var tagLi = tagChoose.getElementsByTagName("li");
-var chooseTag = document.getElementById("chooseTag");
+var chooseTag = document.getElementById("choose_tag");
+var tagWarning = document.getElementById("tag_warning");
 window.onload = function(){
-	console.log(tagLi.length);
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
+	for(var i = 0;i < tagLi.length;i++){
+		tagLi[i].onclick = function(){
+			var newLi = document.createElement("li");
+			newLi.setAttribute("id","choose_class");
+			var liVal = document.createTextNode(this.innerHTML);
+			newLi.appendChild(liVal);
+			chooseTag.appendChild(newLi);
+			if(tagLi.onclick){
+				return false;
+			}
+			tagNum ++;
+			console.log(tagNum);
+		}
+		if(tagNum >4){
+			tagWarning.innerHTML = "*标签只能放五个，请先删除在添加";
+		}
+	}
 }
-for(var i = 0;i < tagLi.length;i++){
-	tagLi[i].addEventListener("onclick",function(){
-		// var newLi = createElement("li");
-		// newLi.setAttribute("id","choose_class");
-		var tagVal = tagLi[i].innerHTML;
-		alert(tagVal);
-		
-	})
-}
+
+
+
+
+//交友页面的动画滚动效果
+$("#prev").click(function(){
+	$("#show_message").animate({left:"-250px",position:"absolute"});
+});
