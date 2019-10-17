@@ -1,11 +1,11 @@
 var option = 0; //选择  0表示个人   1表示交友
 
 //兼容浏览器获取非行内样式
-function getStyle(obj, attr) {
-	if (obj.currentStyle) {
+function getStyle(obj,attr){
+	if(obj.currentStyle){
 		return obj.currentStyle[attr];
-	} else {
-		return getComputedStyle(obj,null)[attr];
+	}else{
+		return getComputedStyle(obj,false)[attr];
 	}
 }
 
@@ -481,25 +481,31 @@ document.getElementById("title").onclick = function() {
 
 //点击保存将标签放在tag中
 //Ajax保存确定的标签作为筛选条件
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 save_tag.onclick = function(){
+	document.getElementById("self_tag").style.display = "none";
 	var chooseLi = chooseTag.getElementsByTagName("div");
 	var tagDiv = document.createElement("div");
-	tag.appendChild(tagDiv);
+	var tagShow = document.getElementById("tag_show");
 	for(var i = 0;i < chooseLi.length; i++){
 		var divVal = document.createTextNode(chooseLi[i].innerHTML);
-		tagDiv[i].setAttribute("id","other_tag"+"i+1");
-		tagDiv[i].appendChild(divVal);
+		tagDiv.appendChild(divVal);
+		tagShow.appendChild(tagDiv);
+		var newTag = tagShow.getElementsByTagName("div");
+		for(var j = 0; j < newTag.length;j++){
+			newTag[j].setAttribute("id","other_tag" + j);
+		}
 	}
 }
 
 
-
 //交友页面的动画滚动效果
+// $("#prev").click = function(){
+// 	$("main_show").animate{left:"-100px"};
+// }
 
 
-
-//点击显示聊天界面，筛选蓝和个人圈以及关闭
-
+//点击显示聊天界面，筛选框和个人圈以及关闭
 document.getElementById("chat").onclick = function(){
 	var chat_about = document.getElementById("chat_about");
 	chat_about.style.display = "block";
@@ -508,32 +514,34 @@ document.getElementById("chat").onclick = function(){
 }
 //时间递减函数
 //退出之后不只在页面退出，还要让f12里的源码也没有
-// var time = 5;
-// function timeLow(){
-// 	var timeChat = document.getElementById("time_chat");
-// 	if(time > 0){
-// 		time--;
-// 		timeChat.innerHTML = time;
-// 	}else if(time == 0){
-// 		clearInterval(interval);
-// 		chat_about.style.display = "none";
-// 	}
-// 	var chatWarning = document.getElementById("chat_warning");
-// 	if(time <= 30){
-// 		chatWarning.style.display = "block";
-// 		chatWarning.innerHTML = "聊天时间快结束了，还不快向他要其他的聊天方式吗，聊的开心就快问吧！！";
-// 		chatWarning.style.color = "red";
-// 		timeChat.style.color = "red";
-// 	}
-// 	if(time <= 25){
-// 		chatWarning.style.display = "none";
-// 	}
-// }
+var time = 5;
+function timeLow(){
+	var timeChat = document.getElementById("time_chat");
+	if(time > 0){
+		time--;
+		timeChat.innerHTML = time;
+	}else if(time == 0){
+		clearInterval(interval);
+		chat_about.style.display = "none";
+	}
+	var chatWarning = document.getElementById("chat_warning");
+	if(time <= 30){
+		chatWarning.style.display = "block";
+		chatWarning.innerHTML = "聊天时间快结束了，还不快向他要其他的聊天方式吗，聊的开心就快问吧！！";
+		chatWarning.style.color = "red";
+		timeChat.style.color = "red";
+	}
+	if(time <= 25){
+		chatWarning.style.display = "none";
+	}
+	console.log(time);
+}
 //点击关闭按钮退出聊天框，并在对面的id = chat_warnig中提示对方退出
-//ajax的内容
+//ajax的内容,只要聊天框关闭，刷新main_show的内容
 
 document.getElementById("icon_close").onclick = function(){
 	chat_about.style.display = "none";
+	clearInterval(interval);
 }
 
 
@@ -542,14 +550,105 @@ document.getElementById("icon_time").onclick = function(){
 	chat_about.style.display = "none";
 }
 
-
+//个人圈的查看
 // document.getElementById("more").onclick = function(){
 	
 // }
-document.getElementById("choose").onclick = function(){
+
+//筛选框
+document.getElementById("icon_choose").onclick = function(){
 	var choose_friend = document.getElementById("choose_friend");
 	choose_friend.style.display = "block";
+	//只要选完了点击筛选就用Ajax刷新main_show的内容
+	document.getElementById("choose_submit").onclick = function(){
+		choose_friend.style.display = "none";
+	}
+	var man = document.getElementById("man");
+	var woman = document.getElementById("woman");
+	man.onclick = function(){
+		man.style.background = "lightblue";
+		woman.style.background = "white";
+	}
+	woman.onclick = function(){
+		man.style.background = "white";
+		woman.style.background = "pink";
+	}
+	document.getElementById("more_school").onclick = function(){
+		document.getElementById("more_school").style.display = "none";
+		document.getElementById("school_choose").style.height = "80px";
+	}
+	document.getElementById("more_college").onclick = function(){
+		document.getElementById("more_college").style.display = "none";
+		document.getElementById("college_choose").style.height = "210px";
+	}
+	document.getElementById("more_other").onclick = function(){
+		document.getElementById("more_other").style.display = "none";
+		document.getElementById("other_choose").style.height = "310px";
+	}
 }
+
+
+//选择学校部分
+var school_choose = document.getElementById("school_choose");
+var schoolLi = school_choose.getElementsByTagName("li");
+//学校只能选一个
+var schoolNum = 0;
+for(let i = 0; i < schoolLi.length;i++){
+	schoolLi[i].onclick = function(){
+		for(let j = 0; j < schoolLi.length; j++) {
+			schoolLi[j].style.background = "#FFF";
+		}
+		schoolLi[i].style.background = "greenyellow";
+		school_choose.style.height = "35px";
+		schoolNum ++;
+		if(schoolNum >= 1){
+			school_choose.style.height = "35px";
+			document.getElementById("more_school").style.display = "block";
+		}
+	}
+}
+
+//学院选择部分
+var college_choose = document.getElementById("college_choose");
+var collegeLi = college_choose.getElementsByTagName("li");
+//学院只能选一个
+var collegeNum = 0;
+for(let i = 0; i < collegeLi.length;i++){
+	collegeLi[i].onclick = function(){
+		for(let j = 0; j < collegeLi.length; j++) {
+			collegeLi[j].style.background = "#FFF";
+		}
+		collegeLi[i].style.background = "#df64c9";
+		college_choose.style.height = "35px";
+		collegeNum ++;
+		if(collegeNum >= 1){
+			college_choose.style.height = "35px";
+			document.getElementById("more_college").style.display = "block";
+		}
+	}
+}
+
+//标签选择部分
+var other_choose = document.getElementById("other_choose");
+var otherLi = other_choose.getElementsByTagName("li");
+//标签只能选一个
+var tagNum = 0;
+for(let i = 0; i < otherLi.length;i++){
+	otherLi[i].onclick = function(){
+		for(let j = 0; j < otherLi.length; j++) {
+			otherLi[j].style.background = "#FFF";
+		}
+		otherLi[i].style.background = "#df9364";
+		other_choose.style.height = "35px";
+		tagNum ++;
+		if(tagNum >= 1){
+			other_choose.style.height = "35px";
+			document.getElementById("more_other").style.display = "block";
+		}
+	}
+}
+
+
 
 //聊天界面，点击可以发送信息
 var sendMsg = document.getElementById("sendMsg");
@@ -561,10 +660,12 @@ sendMsg.onclick = function(){
 	if(txt.value == ""){
 		txt.value = "不能发送空内容";
 	}else{
+		var myImg = document.createElement("img");
 		var newTxt = document.createElement("p");
 		newTxt.style.backgroundColor = "yellowgreen";
 		newTxt.style.clear = "both";
 		newTxt.style.float = "right";
+		newTxt.style.fontSize = "15px";
 		newTxt.style.marginRight = "5px";
 		newTxt.innerHTML = txt.value;
 		talk_contact.appendChild(newTxt);
