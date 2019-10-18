@@ -408,6 +408,20 @@ document.getElementById("image_file").onchange = function() {
         url = window.webkitURL.createObjectURL(file);
     }
     return url;
+<<<<<<< HEAD
+=======
+}
+
+//修改昵称
+//ajax将昵称保存
+var change_name = document.getElementById("change_name");
+var name_sure = document.getElementById("name_sure");
+change_name.onclick = function() {
+	name_sure.style.display = "block";
+	name_sure.onclick = function() {
+		name_sure.style.display = "none";
+	}
+>>>>>>> 2cdf44232f79f782d604f89631aca45df38b3260
 }
 
 
@@ -436,8 +450,14 @@ var getRandomColor = function() {
 var self_tag = document.getElementById("self_tag");
 var delete_tag = document.getElementById("delete_tag");
 var tag = document.getElementById("tag");
+<<<<<<< HEAD
+
+=======
 var chooseTag = document.getElementById("choose_tag");
 var tagWarning = document.getElementById("tag_warning");
+//确认标签数量,标签数量最多五个
+var tagNum = 0;
+>>>>>>> 2cdf44232f79f782d604f89631aca45df38b3260
 //点击Tag标签出显示框和保存按钮
 document.getElementById("title").onclick = function() {
 	if (self_tag.style.display == "block") {
@@ -477,6 +497,9 @@ document.getElementById("title").onclick = function() {
 		};
 	}
 }
+<<<<<<< HEAD
+
+=======
 
 
 //点击保存将标签放在tag中
@@ -728,4 +751,34 @@ sendMsg.onclick = function(){
 		txt.value = "";
 		newTxt.scrollIntoView();
 	}
+var chooseTag = document.getElementById("choose_tag");
+var tagWarning = document.getElementById("tag_warning");
+window.onload = function(){
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
+	for(var i = 0;i < tagLi.length;i++){
+		tagLi[i].onclick = function(){
+			var newLi = document.createElement("li");
+			newLi.setAttribute("id","choose_class");
+			var liVal = document.createTextNode(this.innerHTML);
+			newLi.appendChild(liVal);
+			chooseTag.appendChild(newLi);
+			if(tagLi.onclick){
+				return false;
+			}
+			tagNum ++;
+			console.log(tagNum);
+		}
+		if(tagNum >4){
+			tagWarning.innerHTML = "*标签只能放五个，请先删除在添加";
+		}
+	}
+>>>>>>> 2cdf44232f79f782d604f89631aca45df38b3260
 }
+
+
+
+
+//交友页面的动画滚动效果
+$("#prev").click(function(){
+	$("#show_message").animate({left:"-250px",position:"absolute"});
+});
