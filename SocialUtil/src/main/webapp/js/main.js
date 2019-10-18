@@ -94,6 +94,7 @@ self.onclick = function() {
 }
 
 
+
 //设置框点击确定
 //Ajax上传数据
 var dynamic_submit = document.getElementById("dynamic_submit");
@@ -101,6 +102,11 @@ var email_submit = document.getElementById("email_submit");
 var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function() {
 	set_1.style.display = "none";
+	//初始化图片
+	document.getElementById("dynamic_img1").value = "";
+	document.getElementById("dynamic_img2").value = "";
+	document.getElementById("dynamic_img3").value = "";
+	document.getElementById("dynamic_img4").value = "";
 }
 email_submit.onclick = function() {
 	set_2.style.display = "none";
@@ -108,6 +114,33 @@ email_submit.onclick = function() {
 self_submit.onclick = function() {
 	set_3.style.display = "none";
 }
+
+//发布个人圈的预览图片
+//ajax将内容传送并显示在id = show_dynamic里
+$("#dynamic_img1").change(function() {
+	$("#dynamic_img1").hide();
+	document.getElementById("add1").style.opacity = "0";
+	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show1").style.opacity = "1";
+});
+$("#dynamic_img2").change(function() {
+	$("#dynamic_img2").hide();
+	document.getElementById("add2").style.opacity = "0";
+	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show2").style.opacity = "1";
+});
+$("#dynamic_img3").change(function() {
+	$("#dynamic_img3").hide();
+	document.getElementById("add3").style.opacity = "0";
+	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show3").style.opacity = "1";
+});
+$("#dynamic_img4").change(function() {
+	$("#dynamic_img4").hide();
+	document.getElementById("add4").style.opacity = "0";
+	$("#show4").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show4").style.opacity = "1";
+});
 
 
 //第二个设置中获取验证码
@@ -199,6 +232,8 @@ document.getElementById("confirm_password").onblur = function(){
 		input_warning.innerHTML = "";
 	}
 }
+
+
 
 
 //个人信息框的设置
@@ -421,16 +456,6 @@ document.getElementById("image_file").onchange = function() {
 // 	}
 // }
 
-//发布个人圈的预览图片
-//ajax将内容传送并显示在id = show_dynamic里
-$("#dynamic_img").change(function() {
-	$("#show").attr("src", URL.createObjectURL($(this)[0].files[0]));
-});
-
-document.getElementById("dynamic_img").onclick = function() {
-	document.getElementById("add").style.marginLeft = 150 + "px";
-}
-
 
 
 //可随机生成颜色的方法
@@ -496,6 +521,7 @@ document.getElementById("title").onclick = function() {
 //Ajax保存确定的标签作为筛选条件
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 save_tag.onclick = function(){
+	save_tag.style.display = "none";
 	document.getElementById("self_tag").style.display = "none";
 	var chooseLi = chooseTag.getElementsByTagName("div");
 	var tagDiv = document.createElement("div");
@@ -513,6 +539,8 @@ save_tag.onclick = function(){
 
 
 //交友页面的动画滚动效果
+
+//点击左按钮
 document.getElementById("prev").onclick = function(){
 	var show_message = document.getElementById("show_message");
 	var another_message1 = document.getElementById("another_message1");
@@ -521,10 +549,12 @@ document.getElementById("prev").onclick = function(){
 		$("#show_message").animate({left:"-342px"});
 		$("#show_message").css({"left":"-342px","filter":"blur(3px)"});
 		$("#another_message1").css({"left":"372px"});
+		$("#another_message2").animate({left:"-15px"});
 		$("#another_message2").animate({left:"15px"});
 		another_message2.style.right = "";
 		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
 	}else if(getStyle(another_message2,"left") == "15px"){
+		$("#another_message1").animate({left:"-15px"});
 		$("#another_message1").animate({left:"15px"});
 		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
 		$("#another_message2").animate({left:"-342px"});
@@ -532,6 +562,7 @@ document.getElementById("prev").onclick = function(){
 		show_message.style.left = "";
 		$("#show_message").css({"left":"372px"});
 	}else if(getStyle(another_message1,"left") == "15px"){
+		$("#show_message").animate({left:"-15px"});
 		$("#show_message").animate({left:"15px"});
 		$("#show_message").css({"left":"15px","filter":"blur(0)"});
 		$("#another_message1").animate({left:"-342px"});
@@ -540,39 +571,37 @@ document.getElementById("prev").onclick = function(){
 		$("#another_message2").css({"right":"-342px"});
 	}
 }
-
+//点击右按钮
 document.getElementById("next").onclick = function(){
 	var show_message = document.getElementById("show_message");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
-	$("#show_message").animate({right:"572px"});
-	$("#show_message").css({"right":"572px","filter":"blur(3px)"});
-	
-	$("#another_message1").css({"display":"none"});
-	$("#another_message2").css({"display":"none"});
-	console.log(getStyle(show_message,"right"));
-	// if(getStyle(show_message,"left") == "15px"){
-	// 	$("#show_message").animate({right:"372px"});
-	// 	$("#show_message").css({"right":"372px","filter":"blur(3px)"});
-	// 	$("#another_message1").animate({left:"15px"});
-	// 	$("#another_message1").css({"left":"15px","filter":"blur(0)"});
-	// 	$("#another_message2").css({"left":"-342px"});
-	// } else if(getStyle(another_message1,"left") == "15px"){
-	// 	$("#show_message").animate({left:"15px"});
-	// 	$("#show_message").css({"left":"15px","filter":"blur(0)"});
-	// 	$("#another_message1").animate({left:"-342px"});
-	// 	$("#another_message1").css({"left":"-342px","filter":"blur(3px)"});
-	// 	another_message2.style.left = "";
-	// 	$("#another_message2").css({"right":"-342px"});
-	// }else if(getStyle(another_message2,"left") == "15px"){
-	// 	$("#another_message1").animate({left:"15px"});
-	// 	$("#another_message1").css({"left":"15px","filter":"blur(0)"});
-	// 	$("#another_message2").animate({left:"-342px"});
-	// 	$("#another_message2").css({"left":"-342px","filter":"blur(3px)"});
-	// 	show_message.style.left = "";
-	// 	$("#show_message").css({"left":"372px"});
-	// }
+	if(getStyle(show_message,"left") == "15px"){
+		$("#show_message").animate({left:"372px"});
+		$("#show_message").css({"left":"372px","filter":"blur(3px)"});
+		$("#another_message1").animate({left:"30px"});
+		$("#another_message1").animate({left:"15px"});
+		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message2").css({"left":"-342px"});
+	} else if(getStyle(another_message1,"left") == "15px"){
+		$("#another_message2").animate({left:"30px"});
+		$("#another_message2").animate({left:"15px"});
+		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
+		another_message1.style.left = "";
+		$("#another_message1").animate({left:"372px"});
+		$("#another_message1").css({"left":"372px","filter":"blur(3px)"});
+		$("#show_message").css({"left":"-342px"});
+	}else if(getStyle(another_message2,"left") == "15px"){
+		$("#another_message1").css({"left":"-342px","filter":"blur(3px)"});
+		$("#another_message2").animate({left:"372px"});
+		$("#another_message2").css({"left":"372px","filter":"blur(3px)"});
+		$("#show_message").animate({left:"30px"});
+		$("#show_message").animate({left:"15px"});
+		$("#show_message").css({"left":"15px","filter":"blur(0)"});
+	}
 }
+
+
 
 //点击显示聊天界面，筛选框和个人圈以及关闭
 document.getElementById("chat").onclick = function(){
@@ -583,7 +612,7 @@ document.getElementById("chat").onclick = function(){
 }
 //时间递减函数
 //退出之后不只在页面退出，还要让f12里的源码也没有
-var time = 5;
+var time = 31;
 function timeLow(){
 	var timeChat = document.getElementById("time_chat");
 	if(time > 0){
@@ -620,9 +649,15 @@ document.getElementById("icon_time").onclick = function(){
 }
 
 //个人圈的查看
-// document.getElementById("more").onclick = function(){
-	
-// }
+//ajax将发布的个人圈资料上传
+document.getElementById("more").onclick = function(){
+	var friend_dynamic = document.getElementById("friend_dynamic");
+	if(friend_dynamic.style.display == "none"){
+		friend_dynamic.style.display = "block";
+	}else{
+		friend_dynamic.style.display = "none";
+	}
+}
 
 //筛选框
 document.getElementById("icon_choose").onclick = function(){
@@ -645,6 +680,7 @@ document.getElementById("icon_choose").onclick = function(){
 	document.getElementById("more_school").onclick = function(){
 		document.getElementById("more_school").style.display = "none";
 		document.getElementById("school_choose").style.height = "80px";
+		console.log(123);
 	}
 	document.getElementById("more_college").onclick = function(){
 		document.getElementById("more_college").style.display = "none";
@@ -764,11 +800,3 @@ window.onload = function(){
 		}
 	}
 }
-
-
-
-
-//交友页面的动画滚动效果
-$("#prev").click(function(){
-	$("#show_message").animate({left:"-250px",position:"absolute"});
-});
