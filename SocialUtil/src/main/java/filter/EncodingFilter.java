@@ -42,6 +42,10 @@ public class EncodingFilter implements Filter {
 			while((temp = reader.readLine()) != null) {
 				sb.append(temp);
 			}
+<<<<<<< HEAD
+=======
+			//System.out.println(sb);
+>>>>>>> sb
 			json = JSONObject.parseObject(sb.toString());
 		} else {
 			try {

@@ -29,7 +29,11 @@ public class SendEmail {
 		Random rand = new Random();
 		int randNum = 0;
 		for(int i = 0; i < 4; i++) {
+<<<<<<< HEAD
 			randNum = randNum * 10 + rand.nextInt(9) + 1;
+=======
+			randNum = randNum * 10 + rand.nextInt(10) + 1;
+>>>>>>> sb
 		}
 		Properties pro = new Properties();
 		//校验用户名和密码
@@ -50,6 +54,7 @@ public class SendEmail {
 		//主题
 		msg.setSubject("Passer-by邮箱验证");
 		//收件人
+		//System.out.println(email);
 		msg.setRecipient(RecipientType.TO, new InternetAddress(email));
 		//内容
 		msg.setContent("验证码为：<p>" + randNum + "</p>", "text/html;charset=utf-8");

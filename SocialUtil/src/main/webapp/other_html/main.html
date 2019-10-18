@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>软件设计大赛-匹配交友</title>
 		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/friend.css" />
 	</head>
 	<body>
 		<div id="total">
@@ -15,32 +16,153 @@
 		<div id="hidden_set">
 			<!-- 添加个人圈 -->
 			<div id="set_1">
-				<textarea rows="4" cols="10" id="contact"></textarea>
-				<div id="add"></div>
-				<i id="img_title">
-					点击添加图片
-				</i>
-				<input type="file" id="dynamic_img" />
-				<img src="../img/look.png" id="look">
-				<div id="add_img">
-					<img id="show">
+				<div id="dashed">
+					<textarea rows="4" cols="15" id="contact"></textarea>
+					<div id="add">
+						<input type="file" id="dynamic_img" />
+						<img src="../img/add.png" >
+					</div>
+					<div id="add_img">
+						<img id="show" alt=" ">
+					</div>
+					<input type="submit" value="确定" id="dynamic_submit">
 				</div>
-				<input type="submit" value="确定" id="dynamic_submit">
 			</div>
 			<div id="set_2">
-
+				<div id="dashed">
+					<img src="../img/email_2.png" id="set_icon_email">
+					<div id="change_email">
+						<span id="email_title">
+							修改邮箱：
+						</span>
+						<div id="email_input">
+							<input type="text" id="new_email" placeholder="输入新邮箱"/>
+							<div id="email_warning"></div>
+							<input type="text" id="get_code_email" placeholder="输入动态验证码" />
+							<div id="time_get">
+								获取验证码
+							</div>
+							<div id="email_warning"></div>
+						</div>
+					</div>
+					<img src="../img/password.png" id="set_icon_password">
+					<div id="change_password">
+						<span id="password_title">
+							修改密码：
+						</span>
+						<div id="password_input">
+							<input type="password" id="old_password" placeholder="输入旧密码" />
+							<div id="input_warning"></div>
+							<input type="password" id="new_password" placeholder="输入新密码" />
+							<div id="input_warning"></div>
+							<input type="password" id="confirm_password" placeholder="确认新密码" />
+							<div id="input_warning"></div>
+						</div>
+					</div>
+					<input type="submit" id="email_submit" value="确定" />
+				</div>
 			</div>
 			<!-- 修改个人和学校信息 -->
 			<div id="set_3">
-
+				<div id="dashed">
+					<table border ="0">
+						<tr>
+							<td><img src="../img/school.png" id="icon_name"></td>
+							<td>
+								<div id="set">
+									昵称:&nbsp;&nbsp;&nbsp;<input type="text" id="set_name"/><br>
+									<span id="show_school" class="show"></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td><img src="../img/school.png" id="icon_school"></td>
+							<td>
+								<div id="set">
+									<div id="set_school" >
+										学校:&nbsp;&nbsp;&nbsp;<input type="text" id="school"/><br>
+										<span id="show_school" class="show"></span>
+									</div>
+									<div id="set_college" >
+										学院:&nbsp;&nbsp;&nbsp;<input type="text" id="college"/>
+										<span id="show_college"  class="show"></span>
+									</div>
+									<div id="set_major">
+										专业:&nbsp;&nbsp;&nbsp;<input type="text" id="major"/>
+										<span id="show_major"  class="show"></span>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td><img src="../img/sex.png" id="icon_sex"></td>
+							<td>
+								<div id="radio_box">性别:
+									<span class="man">
+										男
+									</span>
+									<input type="radio" checked="checked" id="set_man" name="sex" value="男" />
+									<span class="woman" >
+										女
+									</span>
+									<input type="radio" id="set_woman" name="sex" value=""女/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<img src="../img/birthday.png" id="icon_birthday" >
+							</td>
+							<td>
+								<div id="select" >生日：
+									<select class="years" ></select>
+									<select class="months" ></select>
+									<select class="days" ></select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="button" id="self_submit" value="确定" />
+							</td>
+						</tr>
+					</table>
+				</div>	
 			</div>
 		</div>
 		<div id="main_message">
 			<!-- 个人圈展示 -->
 			<div id="self_dynamic">
-				<span id="none_show">
-					你还没有发布过个人动态哦
-				</span>
+				<div id="show_dynamic">
+					<hr id="dynamic_line">
+					<!-- 放发布时间，这一条是注册的时间 -->
+					<div id="time">201-10-12</div>
+					<div id="dynamic_contact">
+						<!-- 存放文案 -->
+						<div id="dynamic_text"> 恭喜你成功注册了路人，在这里可以查看你的个人动态哦，快向大家展示一下吧！！</div>
+						<div id="cover_scroll"></div>
+						<!-- 放个人圈的图片 -->
+						<div id="dynamic_photo">
+							<img id="dynamic_photoshow" >
+							<img id="dynamic_photoshow" >
+							<img id="dynamic_photoshow" >
+							<img id="dynamic_photoshow" >
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="message_cicle">
+				<ul>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+					<li class="cicle"></li>
+				</ul>
+				<img src="../img/my_cicle.png">
 			</div>
 			<!-- 基本个人信息展示 -->
 			<div id="self_message">
@@ -84,50 +206,275 @@
 									</div>
 								</div>
 								<div id="error"></div>
-								<div id="step"><img id="preview" /></div>
+								<div id="step"><img id="preview" alt=" "/></div>
 								<input type="submit" id="picUp" value="确定" />
 							</form>
 						</div>
 					</div>
 					<!-- 基本内容 -->
 					<div id="basic">
-						<div id="name">
-							<input type="text" name="" id="change_name" placeholder="点击输入昵称" />
-							<input type="submit" id="name_sure" value="确认" />
-						</div>
+						<div id="name">123</div>
 						<div id="sex"></div>
 						<div id="ID">ID:123</div>
 					</div>
 					<div id="school_about">
 						<p id="school_name">学校：</p>
+						<p id="college_name">学院：</p>
 						<p id="major">专业：</p>
 					</div>
 					<div id="signature">
 						<i id="icon_signature"></i>
-						<span id="personal">这个人很懒，没写个性签名</span>
+						<input id="personal" placeholder="这个人很懒，没写个性签名">
 					</div>
 				</div>
 				<!-- 标签面板 -->
 				<div id="tag">
-					<input type="text" id="self_tag" placeholder="输入内容生成自己的标签" />
+					<div id="self_tag">
+						<div id="choose_tag"></div>
+						<hr id = "tag_line">
+						<ul id="tag_choose">
+							<li>学习</li>
+							<li>健身</li>
+							<li>唱歌</li>
+							<li>听歌</li>
+							<li>舞蹈</li>
+							<li>吃鸡</li>
+							<li>考研</li>
+							<li>王者</li>
+							<li>漫画</li>
+							<li>动漫</li>
+							<li>电影</li>
+							<li>cosplay</li>
+							<li>电视剧</li>
+							<li>看书</li>
+							<li>绘画</li>
+							<li>摄影</li>
+							<li>吃货</li>
+							<li>养生</li>
+							<li>手工</li>
+							<li>追星</li>
+							<li>旅行</li>
+							<li>羽毛球</li>
+							<li>夜跑</li>
+							<li>足球</li>
+							<li>撸猫</li>
+							<li>文学</li>
+							<li>K歌</li>
+							<li>养植物</li>
+						</ul>
+					</div>
 					<i id="save_tag"></i>
 					<h1 id="title">Tag</h1>
-					<div id="personal_tag">快写下你的第一条标签吧
+					<div id="personal_tag">快添加你的第一条标签吧
 						<img id="delete_tag" src="../img/close.png">
 					</div>
-					<p id="tag_warning"></p>
+					<div id="tag_show"></div>
+					<div id="tag_warning"></div>
 				</div>
-			</div>
-			<div id="my_cicle">
-
 			</div>
 		</div>
 		<!-- 交友页面 -->
 		<div id="main_friend">
-
+			<div id="friend_box">
+				<div id="white_plaster_topLeft"></div>
+				<div id="white_plaster_bottomRight"></div>
+				<div id="empty_corner_bottomLeft"></div>
+				<div id="empty_corner_topRight"></div>
+				<img src="../img/choose.png" id="icon_choose">
+				<div id="main_show">
+					<div id="show_message">
+						<img src="../img/chat.png" id="chat">
+						<div id="white_dashed"></div>
+						<div id="friend_message">
+							<div id="head_portrait"></div>
+							<div id="friend_introduce">
+								<span id="friend_name">昵称</span>
+								<span id="friend_sex"></span>
+								<span id="friend_school">学校:xxxxxx</span>
+								<span id="friend_college">专业:xxxxxx</span>
+							</div>
+							<div id="friend_signature">
+								<i id="friend_icon_signature"></i>
+								<span id="friend_personal">这个人很懒，没写个性签名</span>
+							</div>
+						</div>
+						<!-- 存放个人页的标签 -->
+						<div id="friend_tag">
+							<div id="other_tag1"></div>
+							<div id="other_tag2"></div>
+							<div id="other_tag3"></div>
+							<div id="other_tag4"></div>
+							<div id="other_tag5"></div>
+						</div>
+					</div>
+					<div id="another_message1">
+						<img src="../img/chat.png" id="chat">
+						<div id="white_dashed"></div>
+						<div id="friend_message">
+							<div id="head_portrait"></div>
+							<div id="friend_introduce">
+								<span id="friend_name">昵称</span>
+								<span id="friend_sex"></span>
+								<span id="friend_school">学校:xxxxxx</span>
+								<span id="friend_college">专业:xxxxxx</span>
+							</div>
+							<div id="friend_signature">
+								<i id="friend_icon_signature"></i>
+								<span id="friend_personal">这个人很懒，没写个性签名</span>
+							</div>
+						</div>
+						<div id="friend_tag">
+							<div id="other_tag1"></div>
+							<div id="other_tag2"></div>
+							<div id="other_tag3"></div>
+							<div id="other_tag4"></div>
+							<div id="other_tag5"></div>
+						</div>
+						<img src="../img/more.png" id="more">
+						<div id="friend_dynamic"></div>
+					</div>
+					<div id="another_message2">
+						<img src="../img/chat.png" id="chat">
+						<div id="white_dashed"></div>
+						<div id="friend_message">
+							<div id="head_portrait"></div>
+							<div id="friend_introduce">
+								<span id="friend_name">昵称</span>
+								<span id="friend_sex"></span>
+								<span id="friend_school">学校:xxxxxx</span>
+								<span id="friend_college">专业:xxxxxx</span>
+							</div>
+							<div id="friend_signature">
+								<i id="friend_icon_signature"></i>
+								<span id="friend_personal">这个人很懒，没写个性签名</span>
+							</div>
+						</div>
+					<img src="../img/more.png" id="more">
+					<div id="friend_dynamic"></div>
+					<div id="friend_tag">
+						<div id="other_tag1"></div>
+						<div id="other_tag2"></div>
+						<div id="other_tag3"></div>
+						<div id="other_tag4"></div>
+						<div id="other_tag5"></div>
+					</div>
+				</div>
+			</div>
+			<div id="direction">
+				<img src="../img/prev.png" id= "prev" />
+				<img src="../img/next.png" id= "next" />
+			</div>
 		</div>
-		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-		<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js"></script>
+		<div id="chat_about">
+			<div id="new_white_dashed">
+				<div id="talk_contact">
+					<div id="friend">
+						<img />
+						<p>12325555555555555555555555555554984984894846516</p>
+					</div>
+				</div>
+				<textarea style="resize:none;" id="txt"></textarea>
+				<input type="button" id="sendMsg" value="发送" />
+			</div>
+			<div id="icon">
+				<div id="icon_time">
+					<img src="../img/time.png" >
+				</div>
+				<div id="icon_close">
+					<img src="../img/close_chat.png" >
+				</div>
+			</div>
+			<div id="time_chat">
+				300
+			</div>
+			<div id="chat_warning"></div>
+		</div>
+		<div id="choose_friend">
+			<div id="choose_main">
+				<div id ="choose_sex">
+					<span>性别：</span>
+					<ul id ="sex_choose">
+						<li id="man">男</li>
+						<li id="woman">女</li>
+					</ul>
+				</div>
+				<div id="choose_school">
+					<span>学校：</span>
+					<ul id="school_choose">
+						<li>广东金融学院</li>
+						<li>广东工业学院</li>
+						<li>深圳职业技术学院</li>
+						<li>广东财经大学</li>
+					</ul>
+					<div id="more_school">
+						更多
+					</div>
+				</div>
+				<div id ="choose_college">
+				    <span>学院：</span>
+					<ul id="college_choose">
+						<li>互联网金融与信息工程</li>
+						<li>国际教育</li>
+						<li>金融与投资</li>
+						<li>会计学院</li>
+						<li>保险学院</li>
+						<li>经济贸易</li>
+						<li>工商管理</li>
+						<li>信息管理</li>
+						<li>外国语言文化</li>
+						<li>财经与新媒体</li>
+						<li>法学院</li>
+						<li>金融数学与统计</li>
+						<li>公共管理</li>
+						<li>创业教育</li>
+						<li>马克思主义</li>
+						<li>继续教育</li>
+					</ul>
+					<div id="more_college">
+						更多
+					</div>
+				</div>
+				<div id ="choose_other">
+					<span>其他：</span>
+					<ul id="other_choose">
+						<li>学习</li>
+						<li>健身</li>
+						<li>唱歌</li>
+						<li>听歌</li>
+						<li>舞蹈</li>
+						<li>吃鸡</li>
+						<li>考研</li>
+						<li>王者</li>
+						<li>漫画</li>
+						<li>动漫</li>
+						<li>电影</li>
+						<li>cosplay</li>
+						<li>电视剧</li>
+						<li>看书</li>
+						<li>绘画</li>
+						<li>摄影</li>
+						<li>吃货</li>
+						<li>养生</li>
+						<li>手工</li>
+						<li>追星</li>
+						<li>旅行</li>
+						<li>羽毛球</li>
+						<li>夜跑</li>
+						<li>足球</li>
+						<li>撸猫</li>
+						<li>文学</li>
+						<li>K歌</li>
+						<li>养植物</li>
+					</ul>
+					<div id="more_other">
+						更多
+					</div>
+				</div>
+				<input type="button" id="choose_submit" value="筛选" />
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery_2.js"></script>
+		<script type="text/javascript" src="../js/jquery_1.js"></script>
 		<script type="text/javascript" src="../js/jquery.Jcrop.min.js"></script>
 		<script type="text/javascript" src="../js/main.js"></script>
 	</body>
