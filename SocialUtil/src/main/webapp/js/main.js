@@ -1,4 +1,9 @@
 var option = 0; //选择  0表示个人   1表示交友
+var account = $.cookie("socialUtilAccount");		//账号
+
+if(account == "" || account == null) {
+	window.location.href = "/SocialUtil/matching.html";		//未登录时回到登录界面
+}
 
 //兼容浏览器获取非行内样式
 function getStyle(obj,attr){
@@ -102,18 +107,43 @@ var major=$("#major_name");//错误：有两个major的id
 var personal = $("#personal")//个性签名
 
 
-var account// =$.cookie("socialUtilaccount");
-$.get("UserController",{account:account},function(data){
-	id.html(data.account);
-	school.html(data.school);
-	college.html(data.college);
-	major.html(data.profession);
-	name.html(data.username);
-	personal.html(data.signature);
-	$("#school").html(data.school);
-	$("#college").html(data.college);
-	$("#major").html(data.profession);
-},"json");
+$.ajax({
+	type:"GET",
+	url:"/SocialUtil/ControllerPageInfo.do",
+	data:{
+		"account":account,
+	},
+	dataType:"json",
+	success:function(data) {
+		id.html("ID:" + data.account);
+		
+		if(data.username == null) name.html(data.account);
+		else name.html(data.username);
+		
+		if(data.signature == null) personal.html("");
+		else personal.html(data.signature);
+	},
+	error:function(err) {
+		alert(err.status);
+	}
+})
+
+$.ajax({
+	type:"GET",
+	url:"/SocialUtil/ControllerSchool.do",
+	data:{
+		"account":account,
+	},
+	dataType:"json",
+	success:function(data) {
+		if(data.school != null) school.append(data.school);	
+		if(data.college != null) college.append(data.college);
+		if(data.major != null) major.append(data.major);
+	},
+	error:function(err) {
+		alert(err.status);
+	}
+})
 
 
 //设置框点击确定
