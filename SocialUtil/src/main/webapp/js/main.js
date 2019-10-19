@@ -597,11 +597,11 @@ document.getElementById("prev").onclick = function(){
 		$("#another_message2").animate({left:"-15px"});
 		$("#another_message2").animate({left:"15px"});
 		another_message2.style.right = "";
-		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message2").css({"left":"15px","filter":"none"});
 	}else if(getStyle(another_message2,"left") == "15px"){
 		$("#another_message1").animate({left:"-15px"});
 		$("#another_message1").animate({left:"15px"});
-		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message1").css({"left":"15px","filter":"none"});
 		$("#another_message2").animate({left:"-342px"});
 		$("#another_message2").css({"left":"-342px","filter":"blur(3px)"});
 		show_message.style.left = "";
@@ -609,15 +609,15 @@ document.getElementById("prev").onclick = function(){
 	}else if(getStyle(another_message1,"left") == "15px"){
 		$("#show_message").animate({left:"-15px"});
 		$("#show_message").animate({left:"15px"});
-		$("#show_message").css({"left":"15px","filter":"blur(0)"});
+		$("#show_message").css({"left":"15px","filter":"none"});
 		$("#another_message1").animate({left:"-342px"});
 		$("#another_message1").css({"left":"-342px","filter":"blur(3px)"});
 		another_message2.style.left = "";
 		$("#another_message2").css({"right":"-342px"});
 	}
-	$("#friend_dynamic1").hide();
-	$("#friend_dynamic2").hide();
-	$("#friend_dynamic3").hide();
+	$("#cover_scroll1").hide();
+	$("#cover_scroll2").hide();
+	$("#cover_scroll3").hide();
 }
 //点击右按钮
 document.getElementById("next").onclick = function(){
@@ -629,12 +629,12 @@ document.getElementById("next").onclick = function(){
 		$("#show_message").css({"left":"372px","filter":"blur(3px)"});
 		$("#another_message1").animate({left:"30px"});
 		$("#another_message1").animate({left:"15px"});
-		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message1").css({"left":"15px","filter":"none"});
 		$("#another_message2").css({"left":"-342px"});
 	} else if(getStyle(another_message1,"left") == "15px"){
 		$("#another_message2").animate({left:"30px"});
 		$("#another_message2").animate({left:"15px"});
-		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message2").css({"left":"15px","filter":"none"});
 		another_message1.style.left = "";
 		$("#another_message1").animate({left:"372px"});
 		$("#another_message1").css({"left":"372px","filter":"blur(3px)"});
@@ -645,11 +645,11 @@ document.getElementById("next").onclick = function(){
 		$("#another_message2").css({"left":"372px","filter":"blur(3px)"});
 		$("#show_message").animate({left:"30px"});
 		$("#show_message").animate({left:"15px"});
-		$("#show_message").css({"left":"15px","filter":"blur(0)"});
+		$("#show_message").css({"left":"15px","filter":"none"});
 	}
-	$("#friend_dynamic1").hide();
-	$("#friend_dynamic2").hide();
-	$("#friend_dynamic3").hide();
+	$("#cover_scroll1").hide();
+	$("#cover_scroll2").hide();
+	$("#cover_scroll3").hide();
 }
 
 //对筛选的对象进行存储
@@ -723,7 +723,10 @@ for(let i = 0; i < schoolLi.length;i++){
 		for(let j = 0; j < schoolLi.length; j++) {
 			schoolLi[j].style.background = "#FFF";
 		}
+		var newSchoolLi = new Array();
+		newSchoolLi[0] = schoolLi[0].innerHTML;
 		schoolLi[0].innerHTML = schoolLi[i].innerHTML;
+		schoolLi[i].innerHTML = newSchoolLi[0];
 		schoolLi[0].style.background = "greenyellow";
 		school_choose.style.height = "35px";
 		schoolNum ++;
@@ -752,7 +755,10 @@ for(let i = 0; i < collegeLi.length;i++){
 		for(let j = 0; j < collegeLi.length; j++) {
 			collegeLi[j].style.background = "#FFF";
 		}
+		var newCollegeLi = new Array;
+		newCollegeLi[0] = collegeLi[0].innerHTML;
 		collegeLi[0].innerHTML = collegeLi[i].innerHTML;
+		collegeLi[i].innerHTML = newCollegeLi[0];
 		collegeLi[0].style.background = "#df64c9";
 		college_choose.style.height = "35px";
 		collegeNum ++;
@@ -780,8 +786,11 @@ for(let i = 0; i < otherLi.length;i++){
 		for(let j = 0; j < otherLi.length; j++) {
 			otherLi[j].style.background = "#FFF";
 		}
+		var newTagLi = new Array();
+		newTagLi[0] = otherLi[0].innerHTML;
 		otherLi[0].innerHTML = otherLi[i].innerHTML;
-		otherLi[0].style.background = "#df9364";
+		otherLi[i].innerHTML = newTagLi[0];
+		otherLi[0].style.background = "#ead3ac";
 		other_choose.style.height = "35px";
 		tagNum ++;
 		if(tagNum >= 1){
@@ -793,7 +802,7 @@ for(let i = 0; i < otherLi.length;i++){
 
 //对选择的标签进行存储
 for(let i = 0; i < otherLi.length;i++){
-	if(otherLi[i].style.background == "#df9364"){
+	if(otherLi[i].style.background == "#ead3ac"){
 		tag_condition=otherLi[i].val;
 	}
 }
@@ -850,9 +859,9 @@ document.getElementById("icon_time").onclick = function(){
 //个人圈的查看
 //ajax将发布的个人圈资料上传
 var more = document.querySelectorAll("#more");
-var friend_dynamic1 = document.getElementById("friend_dynamic1");
-var friend_dynamic2 = document.getElementById("friend_dynamic2");
-var friend_dynamic3 = document.getElementById("friend_dynamic3");
+var cover_scroll1 = document.getElementById("cover_scroll1");
+var cover_scroll2 = document.getElementById("cover_scroll2");
+var cover_scroll3 = document.getElementById("cover_scroll3");
 var show_message = document.getElementById("show_message");
 var another_message1 = document.getElementById("another_message1");
 var another_message2 = document.getElementById("another_message2");
@@ -860,30 +869,30 @@ more[0].onclick = function(){
 	if(getStyle(show_message,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic1,"display") == "none"){
-		$("#friend_dynamic1").show();
+	if(getStyle(cover_scroll1,"display") == "none"){
+		$("#cover_scroll1").show();
 	}else{
-		$("#friend_dynamic1").hide();
+		$("#cover_scroll1").hide();
 	}
 }
 more[1].onclick = function(){
 	if(getStyle(another_message1,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic2,"display") == "none"){
-		$("#friend_dynamic2").show();
+	if(getStyle(cover_scroll2,"display") == "none"){
+		$("#cover_scroll2").show();
 	}else{
-		$("#friend_dynamic2").hide();
+		$("#cover_scroll2").hide();
 	}
 }
 more[2].onclick = function(){
 	if(getStyle(another_message2,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic3,"display") == "none"){
-		$("#friend_dynamic3").show();
+	if(getStyle(cover_scroll3,"display") == "none"){
+		$("#cover_scroll3").show();
 	}else{
-		$("#friend_dynamic3").hide();
+		$("#cover_scroll3").hide();
 	}
 }
 
