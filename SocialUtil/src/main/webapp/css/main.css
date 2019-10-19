@@ -308,6 +308,15 @@ li {
 	z-index: 25;
 	opacity:0;
 }
+#add2{
+	opacity:0;
+}
+#add3{
+	opacity:0;
+}
+#add4{
+	opacity:0;
+}
 #show1{
 	width:70px;
 	height:70px;
@@ -652,13 +661,13 @@ select {
 	left:100px;
 }
 
-#sex {
+#sex img{
 	display: block;
 	height: 15px;
 	width: 15px;
 	background: black;
 	position: absolute;
-	left: 315px;
+	left: 285px;
 	margin-top: 15px;
 }
 

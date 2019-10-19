@@ -40,6 +40,7 @@
 	transform:rotate(-45deg);
 	top:50px;
 	left:170px;
+	box-shadow:0 0 5px rgba(0,0,0,.2);
 }
 
 #white_plaster_topLeft:before,#white_plaster_topLeft:after {
@@ -47,7 +48,7 @@
 	position: absolute;
 	display: block;
 	width: 10px;
-	height: 30px;
+	height: 25px;
 	background-size: 20px 10px;
 }
 
@@ -82,6 +83,7 @@
 	position:absolute;
 	bottom:60px;
 	right:150px;
+	box-shadow:0 0 5px rgba(0,0,0,.3);
 }
 
 #white_plaster_bottomRight:before,#white_plaster_bottomRight:after {
@@ -89,7 +91,7 @@
 	position: absolute;
 	display: block;
 	width: 10px;
-	height: 30px;
+	height: 25px;
 	background-size: 20px 10px;
 }
 
@@ -221,7 +223,7 @@
 	font-size:14px;
 }
 #friend_signature{
-	position:absolute;
+	position:relative;
 	left:20px;
 	top:105px;
 	font-size:14px;
@@ -235,14 +237,14 @@
     top:-10px;
 	left:-15px;
 }
-/* 这个不能让多余的字体省略，有问题，记得解决                                  */
 #friend_personal{
+	display:block;
+	position:absolute;
 	font-size:13px;
 	padding-left:25px;
 	overflow:hidden;
-	width:10px;
-	white-space: nowrap;
-	text-overflow:clip;
+	width:170px;
+	text-overflow: clip;
 }
 #friend_tag{
 	width:230px;
@@ -259,10 +261,12 @@
 #prev{
 	height:30px;
 	width:30px;
+	cursor:pointer;
 }
 #next{
 	height:30px;
 	width:30px;
+	cursor:pointer;
 }
 #chat{
 	width:50px;
@@ -446,7 +450,7 @@
 }
 #more_college{
 	position:absolute;
-	right:15px;
+	right:5px;
 	bottom:99px;
 	cursor:pointer;
 	z-index:100;
@@ -485,7 +489,7 @@
 	margin-top:5px;
 }
 #other_choose li:hover{
-	background:#df9364;
+	background:#ead3ac;
 }
 #more_other{
 	position:absolute;
@@ -634,7 +638,7 @@
 	top:180px;
 	left:350px;
 }
-#friend_dynamic1{
+#friend_dynamic{
 	width:350px;
 	height:350px;
 	overflow:scroll;
@@ -645,7 +649,25 @@
 	border:1px solid lightgrey;
 	border-radius:5px;
 }
-#cover_scroll{
+#cover_scroll1{
+	position:relative;
+	margin-top:-40px;
+	margin-left:-40px;
+	overflow:hidden;
+	width:330px;
+	height:350px;
+	display:none;
+}
+#cover_scroll2{
+	position:relative;
+	margin-top:-40px;
+	margin-left:-40px;
+	overflow:hidden;
+	width:330px;
+	height:350px;
+	display:none;
+}
+#cover_scroll3{
 	position:relative;
 	margin-top:-40px;
 	margin-left:-40px;
@@ -682,26 +704,4 @@
 	float:right;
 	color:white;
 	font-weight:500;
-}
-#friend_dynamic2{
-	width:350px;
-	height:350px;
-	overflow:scroll;
-	overflow-x:hidden;
-	background:grey;
-	position:absolute;
-	z-index:990;
-	border:1px solid lightgrey;
-	border-radius:5px;
-}
-#friend_dynamic3{
-	width:350px;
-	height:350px;
-	overflow:scroll;
-	overflow-x:hidden;
-	background:grey;
-	position:absolute;
-	z-index:990;
-	border:1px solid lightgrey;
-	border-radius:5px;
 }

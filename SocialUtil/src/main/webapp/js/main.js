@@ -153,16 +153,6 @@ var email_submit = document.getElementById("email_submit");
 var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function() {
 	set_1.style.display = "none";
-	//初始化图片
-	var dynamic_img1 = document.getElementById("dynamic_img1");
-	var dynamic_img2 = document.getElementById("dynamic_img2");
-	var dynamic_img3 = document.getElementById("dynamic_img3");
-	var dynamic_img4 = document.getElementById("dynamic_img4");
-	dynamic_img1.select(); 
-	dynamic_img2.select();
-	dynamic_img3.select();
-	dynamic_img4.select();
-	document.selection.clear(); 
 	var account=$("#ID").val;//学号
 	var contact=$("#contact");
 	var dynamic_img=$("#dynamic_img");
@@ -205,18 +195,21 @@ $("#dynamic_img1").change(function() {
 	document.getElementById("add1").style.opacity = "0";
 	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show1").style.opacity = "1";
+	document.getElementById("add2").style.opacity = "1";
 });
 $("#dynamic_img2").change(function() {
 	$("#dynamic_img2").hide();
 	document.getElementById("add2").style.opacity = "0";
 	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show2").style.opacity = "1";
+	document.getElementById("add3").style.opacity = "1";
 });
 $("#dynamic_img3").change(function() {
 	$("#dynamic_img3").hide();
 	document.getElementById("add3").style.opacity = "0";
 	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show3").style.opacity = "1";
+	document.getElementById("add4").style.opacity = "1";
 });
 $("#dynamic_img4").change(function() {
 	$("#dynamic_img4").hide();
@@ -455,8 +448,6 @@ function updateInfo(e) {
 	$("#newWidth").val(e.w);
 	$("#newHeight").val(e.h);
 }
-
-
 //当点击头像时选择头像
 document.getElementById("image_file").onchange = function() {
 	// 获得选择的文件
@@ -626,11 +617,11 @@ document.getElementById("prev").onclick = function(){
 		$("#another_message2").animate({left:"-15px"});
 		$("#another_message2").animate({left:"15px"});
 		another_message2.style.right = "";
-		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message2").css({"left":"15px","filter":"none"});
 	}else if(getStyle(another_message2,"left") == "15px"){
 		$("#another_message1").animate({left:"-15px"});
 		$("#another_message1").animate({left:"15px"});
-		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message1").css({"left":"15px","filter":"none"});
 		$("#another_message2").animate({left:"-342px"});
 		$("#another_message2").css({"left":"-342px","filter":"blur(3px)"});
 		show_message.style.left = "";
@@ -638,15 +629,15 @@ document.getElementById("prev").onclick = function(){
 	}else if(getStyle(another_message1,"left") == "15px"){
 		$("#show_message").animate({left:"-15px"});
 		$("#show_message").animate({left:"15px"});
-		$("#show_message").css({"left":"15px","filter":"blur(0)"});
+		$("#show_message").css({"left":"15px","filter":"none"});
 		$("#another_message1").animate({left:"-342px"});
 		$("#another_message1").css({"left":"-342px","filter":"blur(3px)"});
 		another_message2.style.left = "";
 		$("#another_message2").css({"right":"-342px"});
 	}
-	$("#friend_dynamic1").hide();
-	$("#friend_dynamic2").hide();
-	$("#friend_dynamic3").hide();
+	$("#cover_scroll1").hide();
+	$("#cover_scroll2").hide();
+	$("#cover_scroll3").hide();
 }
 //点击右按钮
 document.getElementById("next").onclick = function(){
@@ -658,12 +649,12 @@ document.getElementById("next").onclick = function(){
 		$("#show_message").css({"left":"372px","filter":"blur(3px)"});
 		$("#another_message1").animate({left:"30px"});
 		$("#another_message1").animate({left:"15px"});
-		$("#another_message1").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message1").css({"left":"15px","filter":"none"});
 		$("#another_message2").css({"left":"-342px"});
 	} else if(getStyle(another_message1,"left") == "15px"){
 		$("#another_message2").animate({left:"30px"});
 		$("#another_message2").animate({left:"15px"});
-		$("#another_message2").css({"left":"15px","filter":"blur(0)"});
+		$("#another_message2").css({"left":"15px","filter":"none"});
 		another_message1.style.left = "";
 		$("#another_message1").animate({left:"372px"});
 		$("#another_message1").css({"left":"372px","filter":"blur(3px)"});
@@ -674,11 +665,11 @@ document.getElementById("next").onclick = function(){
 		$("#another_message2").css({"left":"372px","filter":"blur(3px)"});
 		$("#show_message").animate({left:"30px"});
 		$("#show_message").animate({left:"15px"});
-		$("#show_message").css({"left":"15px","filter":"blur(0)"});
+		$("#show_message").css({"left":"15px","filter":"none"});
 	}
-	$("#friend_dynamic1").hide();
-	$("#friend_dynamic2").hide();
-	$("#friend_dynamic3").hide();
+	$("#cover_scroll1").hide();
+	$("#cover_scroll2").hide();
+	$("#cover_scroll3").hide();
 }
 
 //对筛选的对象进行存储
@@ -752,7 +743,10 @@ for(let i = 0; i < schoolLi.length;i++){
 		for(let j = 0; j < schoolLi.length; j++) {
 			schoolLi[j].style.background = "#FFF";
 		}
+		var newSchoolLi = new Array();
+		newSchoolLi[0] = schoolLi[0].innerHTML;
 		schoolLi[0].innerHTML = schoolLi[i].innerHTML;
+		schoolLi[i].innerHTML = newSchoolLi[0];
 		schoolLi[0].style.background = "greenyellow";
 		school_choose.style.height = "35px";
 		schoolNum ++;
@@ -781,7 +775,10 @@ for(let i = 0; i < collegeLi.length;i++){
 		for(let j = 0; j < collegeLi.length; j++) {
 			collegeLi[j].style.background = "#FFF";
 		}
+		var newCollegeLi = new Array;
+		newCollegeLi[0] = collegeLi[0].innerHTML;
 		collegeLi[0].innerHTML = collegeLi[i].innerHTML;
+		collegeLi[i].innerHTML = newCollegeLi[0];
 		collegeLi[0].style.background = "#df64c9";
 		college_choose.style.height = "35px";
 		collegeNum ++;
@@ -809,8 +806,11 @@ for(let i = 0; i < otherLi.length;i++){
 		for(let j = 0; j < otherLi.length; j++) {
 			otherLi[j].style.background = "#FFF";
 		}
+		var newTagLi = new Array();
+		newTagLi[0] = otherLi[0].innerHTML;
 		otherLi[0].innerHTML = otherLi[i].innerHTML;
-		otherLi[0].style.background = "#df9364";
+		otherLi[i].innerHTML = newTagLi[0];
+		otherLi[0].style.background = "#ead3ac";
 		other_choose.style.height = "35px";
 		tagNum ++;
 		if(tagNum >= 1){
@@ -822,7 +822,7 @@ for(let i = 0; i < otherLi.length;i++){
 
 //对选择的标签进行存储
 for(let i = 0; i < otherLi.length;i++){
-	if(otherLi[i].style.background == "#df9364"){
+	if(otherLi[i].style.background == "#ead3ac"){
 		tag_condition=otherLi[i].val;
 	}
 }
@@ -830,14 +830,26 @@ for(let i = 0; i < otherLi.length;i++){
 
 
 //点击显示聊天界面，筛选框和个人圈以及关闭
-document.getElementById("chat").onclick = function(){
-	var chat_about = document.getElementById("chat_about");
-	chat_about.style.display = "block";
-	//点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
-	var interval = setInterval("timeLow()",1000);
+var interval;
+var chat = document.querySelectorAll("#chat");
+for(var i = 0;i <chat.length;i++){
+	chat[i].onclick = function(){
+		if(getStyle(show_message,"left") == "15px"
+		|| getStyle(another_message1,"left") == "15px"
+		||getStyle(another_message1,"left") == "15px"){
+			var chat_about = document.getElementById("chat_about");
+			chat_about.style.display = "block";
+			if(interval){
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()",1000);
+		}else{
+			return false;
+		}	
+	}
 }
 //时间递减函数
-//退出之后不只在页面退出，还要让f12里的源码也没有
+//点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
 var time = 300;
 function timeLow(){
 	var timeChat = document.getElementById("time_chat");
@@ -874,14 +886,12 @@ document.getElementById("icon_time").onclick = function(){
 }
 
 
-
-
 //个人圈的查看
 //ajax将发布的个人圈资料上传
 var more = document.querySelectorAll("#more");
-var friend_dynamic1 = document.getElementById("friend_dynamic1");
-var friend_dynamic2 = document.getElementById("friend_dynamic2");
-var friend_dynamic3 = document.getElementById("friend_dynamic3");
+var cover_scroll1 = document.getElementById("cover_scroll1");
+var cover_scroll2 = document.getElementById("cover_scroll2");
+var cover_scroll3 = document.getElementById("cover_scroll3");
 var show_message = document.getElementById("show_message");
 var another_message1 = document.getElementById("another_message1");
 var another_message2 = document.getElementById("another_message2");
@@ -889,30 +899,30 @@ more[0].onclick = function(){
 	if(getStyle(show_message,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic1,"display") == "none"){
-		$("#friend_dynamic1").show();
+	if(getStyle(cover_scroll1,"display") == "none"){
+		$("#cover_scroll1").show();
 	}else{
-		$("#friend_dynamic1").hide();
+		$("#cover_scroll1").hide();
 	}
 }
 more[1].onclick = function(){
 	if(getStyle(another_message1,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic2,"display") == "none"){
-		$("#friend_dynamic2").show();
+	if(getStyle(cover_scroll2,"display") == "none"){
+		$("#cover_scroll2").show();
 	}else{
-		$("#friend_dynamic2").hide();
+		$("#cover_scroll2").hide();
 	}
 }
 more[2].onclick = function(){
 	if(getStyle(another_message2,"left") != "15px"){
 		return false;
 	}
-	if(getStyle(friend_dynamic3,"display") == "none"){
-		$("#friend_dynamic3").show();
+	if(getStyle(cover_scroll3,"display") == "none"){
+		$("#cover_scroll3").show();
 	}else{
-		$("#friend_dynamic3").hide();
+		$("#cover_scroll3").hide();
 	}
 }
 
