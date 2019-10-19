@@ -31,8 +31,8 @@ public class EncodingFilter implements Filter {
 		response.setContentType("application/json");
 		JSONObject json = null;
 		if(((HttpServletRequest) request).getMethod().equals("GET")) {
-			//获取json数据
-			String jsonParam = request.getParameter("json");
+			//获取json数据	
+			String jsonParam = JSONObject.toJSONString(request.getParameterMap());
 			json = JSONObject.parseObject(jsonParam);
 		} else if(((HttpServletRequest) request).getMethod().equals("POST")) {
 			//获取json数据
@@ -42,10 +42,6 @@ public class EncodingFilter implements Filter {
 			while((temp = reader.readLine()) != null) {
 				sb.append(temp);
 			}
-<<<<<<< HEAD
-=======
-			//System.out.println(sb);
->>>>>>> sb
 			json = JSONObject.parseObject(sb.toString());
 		} else {
 			try {

@@ -16,8 +16,6 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import util.C3P0Util;
 import util.MD5;
-import util.MySQLConnect;
-
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -26,6 +24,7 @@ import org.apache.commons.codec.binary.Base64;
  * user表
  *
  */
+@Deprecated
 public class UserDao {
 	private PreparedStatement pstmt = null;
 	

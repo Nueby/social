@@ -44,6 +44,24 @@
   	<description></description>
   	<servlet-class>controller.RegisterController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ControllerUser</servlet-name>
+  	<display-name>ControllerUser</display-name>
+  	<description></description>
+  	<servlet-class>controller.ControllerUser</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControllerSchool</servlet-name>
+  	<display-name>ControllerSchool</display-name>
+  	<description></description>
+  	<servlet-class>controller.ControllerSchool</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControllerPageInfo</servlet-name>
+  	<display-name>ControllerPageInfo</display-name>
+  	<description></description>
+  	<servlet-class>controller.ControllerPageInfo</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
   	<url-pattern>/UserController.do</url-pattern>
@@ -63,5 +81,17 @@
   <servlet-mapping>
   	<servlet-name>RegisterController</servlet-name>
   	<url-pattern>/RegisterController.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControllerUser</servlet-name>
+  	<url-pattern>/ControllerUser.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControllerSchool</servlet-name>
+  	<url-pattern>/ControllerSchool.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControllerPageInfo</servlet-name>
+  	<url-pattern>/ControllerPageInfo.do</url-pattern>
   </servlet-mapping>
 </web-app>
