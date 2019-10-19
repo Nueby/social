@@ -95,7 +95,7 @@ function registerChange() {
 		var account;
 		if(register_text.value == "") {
 			account = "";
-			$id("accountMsg").innerHTML = "<p style='color:#F00;'>*账号不可为空</p>";
+			$id("accountMsg").innerHTML = "*账号不可为空";
 			isHave = true;
 		} else {
 			account = register_text.value;
@@ -107,10 +107,10 @@ function registerChange() {
 				dataType:"json",
 				success:function(data){
 					if(data.result) {		//账号存在显示信息
-						$id("accountMsg").innerHTML = "<p style='color:#F00;'>*该账号已存在</p>";
+						$id("accountMsg").innerHTML = "*该账号已存在";
 						isHave = true;
 					} else {		//账号不存在显示信息
-						$id("accountMsg").innerHTML = "<p style='color:#000;'>该账号可用</p>";
+						$id("accountMsg").innerHTML = "";
 						isHave = false;
 					}
 				},
@@ -181,9 +181,9 @@ function bar() {
 	    					dataType:"json",
 	    					success:function(data) {
 	    						if(data.result == "account") {
-	    							$id("enterMsg").innerHTML = "<p style='color:#F00;'>*账号不存在</p>";
+	    							$id("enterMsg").innerHTML = "*账号不存在";
 	    						} else if(data.result == "password") {
-	    							$id("enterMsg").innerHTML = "<p style='color:#F00;'>*密码错误</p>";
+	    							$id("enterMsg").innerHTML = "*密码错误";
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
@@ -194,11 +194,11 @@ function bar() {
 	    					}
 	    				})
     				} else {
-    					$id("enterMsg").innerHTML = "<p style='color:#F00;'>*账号不能为空</p>";
+    					$id("enterMsg").innerHTML = "*账号不能为空";
     				}
     			} else {		//验证失败
     				getPic();
-    				$id("enterMsg").innerHTML = "<p style='color:#F00;'>*验证失败</p>";
+    				$id("enterMsg").innerHTML = "*验证失败";
     			}
     		},
     		error:function(err) {
@@ -263,11 +263,11 @@ function sendRegister() {
 	if(isHave) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
 	} else if(accountPassword == "") {
-		registerMsg.innerHTML = "<p style='color:#F00;'>*密码不能为空</p>";
+		registerMsg.innerHTML = "*密码不能为空";
 	} else if(register_password == ""){
-		registerMsg.innerHTML = "<p style='color:#F00;'>*密码不能为空</p>";
+		registerMsg.innerHTML = "*密码不能为空";
 	} else if(register_password != confirm) {
-		registerMsg.innerHTML = "<p style='color:#F00;'>*两次密码不一致</p>";
+		registerMsg.innerHTML = "*两次密码不一致";
 	} else {
 		//跨域
 		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
@@ -290,14 +290,14 @@ function sendRegister() {
 						data:JSON.stringify(json2),
 						dataType:"json",
 						success:function(data) {
-							registerMsg.innerHTML = "<p style='color:#F00;'>注册成功</p>";
+							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
 							alert(err.status);
 						}
 					})
 				} else {
-					registerMsg.innerHTML = "<p style='color:#F00;'>*学号信息错误</p>";
+					registerMsg.innerHTML = "*学号信息错误";
 				}
 			},
 			error:function(err) {

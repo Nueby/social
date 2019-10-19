@@ -613,7 +613,6 @@ delete_tag.onclick = function(){
 }
 
 
-
 //交友页面的动画滚动效果
 //点击左按钮
 document.getElementById("prev").onclick = function(){

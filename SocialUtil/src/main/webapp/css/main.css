@@ -39,8 +39,8 @@ body {
 	left: 550px;
 	border-radius: 5px;
 }
-
-/* #main_message {
+/* 
+#main_message {
 	display: none;
 } */
 
@@ -78,7 +78,7 @@ body {
 }
 
 #self_message {
-	background: lightgray;
+	background: #d2d1d1;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .4);
 	height: 550px;
 	width: 395px;
@@ -176,7 +176,8 @@ a {
 	display: block;
 	width: 150px;
 	right: 10px;
-	bottom: 50px;
+	bottom: 60px;
+	text-align:center;
 }
 
 .tips_3 img {
@@ -313,6 +314,7 @@ li {
 	position:absolute;
 	left:25px;
 	opacity:0;
+	transition:all .5s;
 }
 #show2{
 	width:70px;
@@ -320,6 +322,7 @@ li {
 	position:absolute;
 	left:105px;
 	opacity:0;
+	transition:all .5s;
 }
 #show3{
 	width:70px;
@@ -327,6 +330,7 @@ li {
 	position:absolute;
 	left:195px;
 	opacity:0;
+	transition:all .5s;
 }
 #show4{
 	width:70px;
@@ -334,6 +338,19 @@ li {
 	position:absolute;
 	right:25px;
 	opacity:0;
+	transition:all .5s;
+}
+#show1:hover{
+	transform:scale(2);
+}
+#show2:hover{
+	transform:scale(2);
+}
+#show3:hover{
+	transform:scale(2);
+}
+#show4:hover{
+	transform:scale(2);
 }
 
 #dynamic_submit {
@@ -346,6 +363,10 @@ li {
 	margin-bottom: 15px;
 	color: white;
 	border-radius: 25px;
+	cursor:pointer;
+}
+#dynamic_submit:hover{
+	background: #555;
 }
 
 #set_2 {
@@ -436,12 +457,13 @@ li {
 	border: 3px solid rgba(0, 0, 0, .3);
 }
 #email_submit{
-	width:50px;
-	height:25px;
-	margin-left:150px;
-	margin-top:30px;
-	border-radius:10px;
-	background:rgba(0,0,0,.5);
+	width:60px;
+	height:32px;
+	margin-left:160px;
+	margin-top:25px;
+	margin-bottom:10px;
+	border-radius:20px;
+	background:#020202;
 	cursor:pointer;
 	color:white;
 }
@@ -452,6 +474,7 @@ li {
 #input_warning{
 	color:red;
 	position:absolute;
+	
 }
 #set_3 {
 	width: 350px;
@@ -484,7 +507,7 @@ li {
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	top: 175px;
+	top: 160px;
 }
 
 #icon_school {
@@ -506,13 +529,13 @@ li {
 #set_man {
 	position: absolute;
 	margin-left: 15px;
-	top: 188px;
+	top: 175px;
 }
 
 #set_woman {
 	position: absolute;
 	margin-left: 15px;
-	top: 188px;
+	top: 175px;
 }
 
 .man {
@@ -643,7 +666,7 @@ select {
 	font-size: 15px;
 	font-weight: 300;
 	position: absolute;
-	margin-top: 40px;
+	margin-top: 50px;
 	margin-left: 100px;
 }
 
@@ -787,7 +810,7 @@ select {
 #personal_tag {
 	z-index: 5;
 	height: 30px;
-	background: #f60;
+	background: #eee0c8;
 	position: absolute;
 	bottom: 100px;
 	left: 100px;
@@ -809,15 +832,15 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #f60 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #f60 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #f60 75%);
+	background-image: linear-gradient(-45deg,#eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg,#eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%,#eee0c8 75%);
 }
 
 #personal_tag:after {
 	top: 0;
 	right: -10px;
-	background-color: #f60;
+	background-color:#eee0c8;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
@@ -829,7 +852,7 @@ select {
 #other_tag1 {
 	z-index: 5;
 	height: 30px;
-	background: #e08bf3;
+	background: #eee0c8;
 	position: absolute;
 	padding-top: 5px;
 	left:15px;
@@ -851,15 +874,15 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #e08bf3 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #e08bf3 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #e08bf3 75%);
+	background-image: linear-gradient(-45deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #eee0c8 75%);
 }
 
 #other_tag1:after {
 	top: 0;
 	right: -10px;
-	background-color: #e08bf3;
+	background-color: #eee0c8;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
@@ -871,10 +894,10 @@ select {
 #other_tag2 {
 	z-index: 5;
 	height: 30px;
-	background: #8188e6;
+	background: #cee9eb;
 	position: absolute;
 	padding-top: 5px;
-	left:100px;
+	margin-left:150px;
 }
 
 #other_tag2:before,#other_tag2:after {
@@ -891,15 +914,15 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #8188e6 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #8188e6 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #8188e6 75%);
+	background-image: linear-gradient(-45deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #cee9eb 75%);
 }
 
 #other_tag2:after {
 	top: 0;
 	right: -10px;
-	background-color: #8188e6;
+	background-color: #cee9eb;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
@@ -910,7 +933,7 @@ select {
 #other_tag3 {
 	z-index: 5;
 	height: 30px;
-	background: #99e68f;
+	background: #ececd4;
 	position: absolute;
 	padding-top: 5px;
 	top:65px;
@@ -932,15 +955,15 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #99e68f 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #99e68f 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #99e68f 75%);
+	background-image: linear-gradient(-45deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #ececd4 75%);
 }
 
 #other_tag3:after {
 	top: 0;
 	right: -10px;
-	background-color: #99e68f;
+	background-color: #ececd4;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
@@ -952,7 +975,7 @@ select {
 #other_tag4 {
 	z-index: 5;
 	height: 30px;
-	background: #f3f08b;
+	background: #b6f3b1;
 	position: absolute;
 	padding-top: 5px;
 	left:140px;
@@ -974,15 +997,15 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #f3f08b 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #f3f08b 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #f3f08b 75%);
+	background-image: linear-gradient(-45deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #b6f3b1 75%);
 }
 
 #other_tag4:after {
 	top: 0;
 	right: -10px;
-	background-color: #f3f08b;
+	background-color: #b6f3b1;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
@@ -992,7 +1015,7 @@ select {
 #other_tag5 {
 	z-index: 5;
 	height: 30px;
-	background: #e6aa6c;
+	background: #f6f6f6;
 	position: absolute;
 	padding-top: 5px;
 	top:120px;
@@ -1014,62 +1037,63 @@ select {
 	left: -10px;
 	background-color: lightgrey;
 	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #e6aa6c 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #e6aa6c 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #e6aa6c 75%);
+	background-image: linear-gradient(-45deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #f6f6f6 75%);
 }
 #other_tag5:after {
 	top: 0;
 	right: -10px;
-	background-color: #e6aa6c;
+	background-color: #f6f6f6;
 	background-position: 100% 35%;
 	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
 		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
 		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
 }
-#show_dynamic{
-	height:500px;
-	width:350px;
+
+#outer_dynamic{
+	width:320px;
 	overflow:hidden;
 }
-
+#all_dynamic{
+	height:500px;
+	width:340px;
+	overflow:scroll;
+	overflow-x:hidden;
+}
+#show_dynamic{
+	margin-top:20px;
+	width:340px;
+	overflow:hidden;
+}
 #dynamic_line{
 	width:55%;
-	border:3px dashed white;
-	margin-left:10px;
-}
-#time{
-	position:absolute;
-	top:0;
-	left:240px;
-	color:white;
-	font-weight:600;
+	border:2px dashed white;
+	margin-left:20px;
+	float:left;
 }
 #dynamic_text{
 	overflow:scroll;
 	height:50px;
-	width:340px;
+	width:330px;
 	word-wrap: break-word;
 	margin-top:10px;
 	font-size:15px;
 	color:white;
 	overflow-x:hidden;
-	padding-left:10px;
-	padding-right:17px;
-}
-#dynamic_text::-webkit-scrollbar{
-	display:none;
+	padding-left:15px;
 }
 #time{
-	position:absolute;
-	top:0;
-	left:240px;
+	float:right;
 	color:white;
+	font-weight:500;
+	margin-right:20px;
 }
 #dynamic_photo {
 	width:350px;
 	height:100px;
+	display:none;
 }
 #dynamic_photoshow {
 	width:70px;
