@@ -52,7 +52,7 @@ public class ControllerPageInfo extends HttpServlet {
 		try {
 			PageInfo page = new PageInfo(user.getId());
 			if(reqJson.getString("behaviour").equals("create")) {		//创建
-				page.changeInfo(true, reqJson.getString("username"), reqJson.getString("head"), reqJson.getString("signature"), reqJson.getString("birthday"), reqJson.getString("tags"), reqJson.getString("circleInfo"), reqJson.getString("circleImg"));
+				page.changeInfo(true, null, null, null, null, null, null, null);
 			}  else {		//修改
 				page.changeInfo(false, reqJson.getString("username"), reqJson.getString("head"), reqJson.getString("signature"), reqJson.getString("birthday"), reqJson.getString("tags"), reqJson.getString("circleInfo"), reqJson.getString("circleImg"));
 			}

@@ -43,7 +43,7 @@ public class ControllerSchool extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		JSONObject reqJson = (JSONObject)request.getAttribute("json");
 		PrintWriter out = response.getWriter();
 		User user = new User(reqJson.getString("account"));
@@ -51,8 +51,8 @@ public class ControllerSchool extends HttpServlet {
 		try {
 			School school = new School(user.getId());
 			if(reqJson.getString("behaviour").equals("create")) {		//创建
-				school.changeInfo(true, reqJson.getString("school"), reqJson.getString("college"), reqJson.getString("profession"), reqJson.getInteger("grade"), reqJson.getString("email"), reqJson.getString("sex"), reqJson.getInteger("age"));
-				request.getRequestDispatcher("/SocialUtil/ControllerPageInfo.do").forward(request, response);
+				school.changeInfo(true, null, null, null, 2018, null, "男", 20);
+				request.getRequestDispatcher("/ControllerPageInfo.do").forward(request, response);
 			}  else {		//修改
 				school.changeInfo(false, reqJson.getString("school"), reqJson.getString("college"), reqJson.getString("profession"), reqJson.getInteger("grade"), reqJson.getString("email"), reqJson.getString("sex"), reqJson.getInteger("age"));
 				json.put("result",true);

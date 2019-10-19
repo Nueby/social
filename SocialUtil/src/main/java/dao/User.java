@@ -178,7 +178,7 @@ public class User {
 			Statement stmt = C3P0Util.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT account FROM user");
 			while(rs.next()) {
-				if(rs.getString(1).equals(account)) return true;
+				if(rs.getString(1).equals(account))	return true;
 			}
 			return false;
 		} catch (SQLException e) {

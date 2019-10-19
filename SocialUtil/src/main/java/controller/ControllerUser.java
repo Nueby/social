@@ -39,8 +39,9 @@ public class ControllerUser extends HttpServlet {
 		if(behaviour.equals("logup")) {		//注册
 			User user = new User(json.getString("account"));
 			if(user.createAccount(json.getString("login_password"), json.getString("edu_password"))) {
-				request.setAttribute("behaviour", "create");
-				request.getRequestDispatcher("/SocialUtil/ControllerSchool.do").forward(request, response);
+				json.put("behaviour", "create");
+				request.setAttribute("json", json);
+				request.getRequestDispatcher("/ControllerSchool.do").forward(request, response);
 			}
 		} else if(behaviour.equals("changePassword")) {		//修改密码
 			User user = new User(json.getString("account"));

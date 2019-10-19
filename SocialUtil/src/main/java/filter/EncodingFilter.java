@@ -32,8 +32,10 @@ public class EncodingFilter implements Filter {
 		JSONObject json = null;
 		if(((HttpServletRequest) request).getMethod().equals("GET")) {
 			//获取json数据	
-			String jsonParam = JSONObject.toJSONString(request.getParameterMap());
-			json = JSONObject.parseObject(jsonParam);
+			json = new JSONObject();
+			for(String s : request.getParameterMap().keySet()) {
+				json.put(s, request.getParameter(s));
+			}
 		} else if(((HttpServletRequest) request).getMethod().equals("POST")) {
 			//获取json数据
 			StringBuffer sb = new StringBuffer();
@@ -51,11 +53,7 @@ public class EncodingFilter implements Filter {
 			}
 		}
 		request.setAttribute("json", json);
-		//转发至原url
-		String url = ((HttpServletRequest)request).getRequestURL().toString();
-		String[] tempURL = url.split("/");
-		String contorller = tempURL[tempURL.length - 1];
-		request.getRequestDispatcher(contorller).forward(request, response);
+		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

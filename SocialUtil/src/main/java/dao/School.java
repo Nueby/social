@@ -38,7 +38,7 @@ public class School {
 	public boolean changeInfo(boolean isCreate, String school, String college, String profession, Integer grade, String email, String sex, Integer age) {
 		try {
 			if(isCreate) pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO school(id,account,school,college,profession,grade,email,sex,age) values(?,?,?,?,?,?,?,?,?)");
-			else pstmt = C3P0Util.getConnection().prepareStatement("UPDATE school SET id=?, account=?, school=?, college=?, profession=?, grade=?, email=?, sex=?, age=? WHERE id=" + id);
+			else pstmt = C3P0Util.getConnection().prepareStatement("UPDATE school SET account=?, school=?, college=?, profession=?, grade=?, email=?, sex=?, age=? WHERE id=" + id);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, User.getAccount(id));
 			pstmt.setString(3, school);

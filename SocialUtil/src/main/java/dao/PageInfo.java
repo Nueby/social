@@ -93,15 +93,19 @@ public class PageInfo {
 	
 	//设置头像
 	private boolean setPicture(String base64) {
-		String picture = base64.replaceAll("%2F", "/").replaceAll("%2B", "+");
-		byte[] pictureByte = Base64.decodeBase64(picture);
-		try {
-			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(url));
-			out.write(pictureByte);
-			out.close();
+		if(base64 != null) {
+			String picture = base64.replaceAll("%2F", "/").replaceAll("%2B", "+");
+			byte[] pictureByte = Base64.decodeBase64(picture);
+			try {
+				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(url));
+				out.write(pictureByte);
+				out.close();
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		} else {
 			return true;
-		} catch (Exception e) {
-			return false;
 		}
 	}
 	

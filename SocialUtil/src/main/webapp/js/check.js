@@ -102,8 +102,8 @@ function registerChange() {
 			var json = {"behaviour":"check","account":account};
 			$.ajax({
 				type:"GET",
-				url:"/SocialUtil/UserController.do",
-				data: {"json":JSON.stringify(json)},
+				url:"/SocialUtil/ControllerUser.do",
+				data: json,
 				dataType:"json",
 				success:function(data){
 					if(data.result) {		//账号存在显示信息
@@ -176,7 +176,7 @@ function bar() {
 	    				var json = {"behaviour":"login","account":account,"password":password};
 	    				$.ajax({
 	    					type:"POST",
-	    					url:"/SocialUtil/UserController.do",
+	    					url:"/SocialUtil/ControllerUser.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
@@ -260,8 +260,7 @@ function sendRegister() {
 	var accountPassword = $id("accountPassword").value;
 	var register_password = $id("register_password").value;
 	var confirm = $id("confirm").value;
-	var school = $id("school").value;
-	if(isHave == true) {
+	if(isHave) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
 	} else if(accountPassword == "") {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*密码不能为空</p>";
@@ -271,7 +270,7 @@ function sendRegister() {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*两次密码不一致</p>";
 	} else {
 		//跨域
-		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":school};
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
 			url:"/SocialUtil/RegisterController.do",
@@ -281,19 +280,13 @@ function sendRegister() {
 				if(data.flag == 1) {
 					var json2 = {
 						"behaviour":"logup",
-						"account":account+"",
-						"password":register_password+"",
-						"email":"",
-						"sex":"男",		//默认男性
-						"phone":"",
-						"position":"",
-						"age":"",
-						"hobby":"",
-						"tags":""
+						"account":account,
+						"edu_password":accountPassword,
+						"login_password":register_password
 					};
 					$.ajax({
 						type:"POST",
-						url:"/SocialUtil/UserController.do",
+						url:"/SocialUtil/ControllerUser.do",
 						data:JSON.stringify(json2),
 						dataType:"json",
 						success:function(data) {
