@@ -123,16 +123,6 @@ var email_submit = document.getElementById("email_submit");
 var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function() {
 	set_1.style.display = "none";
-	//初始化图片
-	var dynamic_img1 = document.getElementById("dynamic_img1");
-	var dynamic_img2 = document.getElementById("dynamic_img2");
-	var dynamic_img3 = document.getElementById("dynamic_img3");
-	var dynamic_img4 = document.getElementById("dynamic_img4");
-	dynamic_img1.select(); 
-	dynamic_img2.select();
-	dynamic_img3.select();
-	dynamic_img4.select();
-	document.selection.clear(); 
 	var account=$("#ID").val;//学号
 	var contact=$("#contact");
 	var dynamic_img=$("#dynamic_img");
@@ -175,18 +165,21 @@ $("#dynamic_img1").change(function() {
 	document.getElementById("add1").style.opacity = "0";
 	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show1").style.opacity = "1";
+	document.getElementById("add2").style.opacity = "1";
 });
 $("#dynamic_img2").change(function() {
 	$("#dynamic_img2").hide();
 	document.getElementById("add2").style.opacity = "0";
 	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show2").style.opacity = "1";
+	document.getElementById("add3").style.opacity = "1";
 });
 $("#dynamic_img3").change(function() {
 	$("#dynamic_img3").hide();
 	document.getElementById("add3").style.opacity = "0";
 	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
 	document.getElementById("show3").style.opacity = "1";
+	document.getElementById("add4").style.opacity = "1";
 });
 $("#dynamic_img4").change(function() {
 	$("#dynamic_img4").hide();
@@ -425,8 +418,6 @@ function updateInfo(e) {
 	$("#newWidth").val(e.w);
 	$("#newHeight").val(e.h);
 }
-
-
 //当点击头像时选择头像
 document.getElementById("image_file").onchange = function() {
 	// 获得选择的文件
@@ -810,14 +801,26 @@ for(let i = 0; i < otherLi.length;i++){
 
 
 //点击显示聊天界面，筛选框和个人圈以及关闭
-document.getElementById("chat").onclick = function(){
-	var chat_about = document.getElementById("chat_about");
-	chat_about.style.display = "block";
-	//点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
-	var interval = setInterval("timeLow()",1000);
+var interval;
+var chat = document.querySelectorAll("#chat");
+for(var i = 0;i <chat.length;i++){
+	chat[i].onclick = function(){
+		if(getStyle(show_message,"left") == "15px"
+		|| getStyle(another_message1,"left") == "15px"
+		||getStyle(another_message1,"left") == "15px"){
+			var chat_about = document.getElementById("chat_about");
+			chat_about.style.display = "block";
+			if(interval){
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()",1000);
+		}else{
+			return false;
+		}	
+	}
 }
 //时间递减函数
-//退出之后不只在页面退出，还要让f12里的源码也没有
+//点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
 var time = 300;
 function timeLow(){
 	var timeChat = document.getElementById("time_chat");
@@ -852,8 +855,6 @@ document.getElementById("icon_close").onclick = function(){
 document.getElementById("icon_time").onclick = function(){
 	
 }
-
-
 
 
 //个人圈的查看

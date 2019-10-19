@@ -40,6 +40,7 @@
 	transform:rotate(-45deg);
 	top:50px;
 	left:170px;
+	box-shadow:0 0 5px rgba(0,0,0,.2);
 }
 
 #white_plaster_topLeft:before,#white_plaster_topLeft:after {
@@ -47,7 +48,7 @@
 	position: absolute;
 	display: block;
 	width: 10px;
-	height: 30px;
+	height: 25px;
 	background-size: 20px 10px;
 }
 
@@ -82,6 +83,7 @@
 	position:absolute;
 	bottom:60px;
 	right:150px;
+	box-shadow:0 0 5px rgba(0,0,0,.3);
 }
 
 #white_plaster_bottomRight:before,#white_plaster_bottomRight:after {
@@ -89,7 +91,7 @@
 	position: absolute;
 	display: block;
 	width: 10px;
-	height: 30px;
+	height: 25px;
 	background-size: 20px 10px;
 }
 
@@ -221,7 +223,7 @@
 	font-size:14px;
 }
 #friend_signature{
-	position:absolute;
+	position:relative;
 	left:20px;
 	top:105px;
 	font-size:14px;
@@ -235,13 +237,13 @@
     top:-10px;
 	left:-15px;
 }
-/* 这个不能让多余的字体省略，有问题，记得解决                                  */
 #friend_personal{
+	display:block;
+	position:absolute;
 	font-size:13px;
 	padding-left:25px;
 	overflow:hidden;
-	width:10px;
-	white-space: nowrap;
+	width:170px;
 	text-overflow: clip;
 }
 #friend_tag{
