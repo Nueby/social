@@ -110,6 +110,9 @@ $.get("UserController",{account:account},function(data){
 	major.html(data.profession);
 	name.html(data.username);
 	personal.html(data.signature);
+	$("#school").html(data.school);
+	$("#college").html(data.college);
+	$("#major").html(data.profession);
 },"json");
 
 
@@ -292,26 +295,6 @@ document.getElementById("confirm_password").onblur = function(){
 	}
 }
 
-
-
-
-//个人信息框的设置
-//Ajax保存数据
-// $(function() {
-// 	$("#ID").blur(function() {
-// 		//获取用户名
-// 		var acconut = $(this).val();
-// 		//进行ajax的处理
-// 		$.post("findServlet", {
-// 			acconut:acconut
-// 		}, function(data) {
-// 				$("#school").html(data.school);
-// 				$("#college").html(data.college);
-// 				$("#major").html(data.profession);
-// 			}
-// 		}, "json")
-// 	});
-// });
 
 //个人信息框的填写设置
 $(function() {

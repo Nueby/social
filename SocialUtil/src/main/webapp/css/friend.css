@@ -144,7 +144,7 @@
 	top:45px;
 }
 #show_message {
-	background:lightgrey;
+	background:#d2d1d1;
 	border-radius:10px;
 	height:370px;
 	width:270px;
@@ -305,8 +305,8 @@
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	right: 20px;
-	top: 10px;
+	right: 0px;
+	top: 0px;
 	cursor: pointer;
 }
 #choose_friend:before{
@@ -516,6 +516,21 @@
 	left:350px;
 	border-radius:15px;
 }
+#friend_name_show img{
+	position:absolute;
+	top:-98px;
+	left:150px;
+	width:400px;
+	height:250px;
+}
+#show_name{
+	color:black;
+	font-size:30px;
+	font-weight:500;
+	position:absolute;
+	left:310px;
+	top:0;
+}
 #chat_warning{
 	position:absolute;
 	top:0px;
@@ -620,35 +635,73 @@
 	left:350px;
 }
 #friend_dynamic1{
-	width:500px;
-	height:300px;
+	width:350px;
+	height:350px;
 	overflow:scroll;
-	overflow-y:hidden;
-	background:white;
+	overflow-x:hidden;
+	background:grey;
 	position:absolute;
-	z-index:999;
-	left:-100px;
+	z-index:990;
+	border:1px solid lightgrey;
+	border-radius:5px;
+}
+#cover_scroll{
+	position:relative;
+	margin-top:-40px;
+	margin-left:-40px;
+	overflow:hidden;
+	width:330px;
+	height:350px;
 	display:none;
+}
+#show_friend_dynamic{
+	z-index:999;
+	margin-top:20px;
+	width:330px;
+	float:left;
+}
+#show_dynamic_line{
+	width:55%;
+	border:2px dashed white;
+	margin-left:30px;
+	float:left;
+}
+#show_dynamic_text{
+	overflow:scroll;
+	height:50px;
+	width:330px;
+	word-wrap: break-word;
+	margin-top:10px;
+	font-size:15px;
+	color:white;
+	overflow-x:hidden;
+	padding-left:20px;
+	padding-right:17px;
+}
+#show_time{
+	float:right;
+	color:white;
+	font-weight:500;
 }
 #friend_dynamic2{
-	width:500px;
-	height:300px;
+	width:350px;
+	height:350px;
 	overflow:scroll;
-	overflow-y:hidden;
-	background:white;
+	overflow-x:hidden;
+	background:grey;
 	position:absolute;
-	z-index:999;
-	left:-100px;
-	display:none;
+	z-index:990;
+	border:1px solid lightgrey;
+	border-radius:5px;
 }
 #friend_dynamic3{
-	width:500px;
-	height:300px;
+	width:350px;
+	height:350px;
 	overflow:scroll;
-	overflow-y:hidden;
-	background:white;
+	overflow-x:hidden;
+	background:grey;
 	position:absolute;
-	z-index:999;
-	left:-100px;
-	display:none;
+	z-index:990;
+	border:1px solid lightgrey;
+	border-radius:5px;
 }

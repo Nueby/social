@@ -18,9 +18,9 @@ body {
 }
 
 #background {
-	height: 720px;
+	height: 800px;
 	width: 1550px;
-	background: url(../img/matching_background.jpg);
+	background: url(../img/matching_background.jpg) no-repeat;
 	background-size: 100%;
 }
 
@@ -28,12 +28,19 @@ body {
 	width: 590px;
 	position: absolute;
 	top: 137px;
-	left: 764px;
+	left: 710px;
 }
-
+#register {
+	top: 137px;
+	left: 704px;
+	height: 597px;
+	width: 540px;
+	position: absolute;
+	display: none;
+}
 #title {
 	position: absolute;
-	left: 940px;
+	left: 880px;
 	top: 190px;
 	z-index: 2;
 	min-width: 400px;
@@ -122,7 +129,35 @@ body {
 	padding-left: 55px;
 	margin-top: 150px;
 }
-
+#icon_new_school{
+	background: url(../img/icon_school.png);
+	background-size: 100%;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	z-index: 3;
+	border-radius: 50%;
+	left: 145px;
+	top: 133px;
+}
+#register_school{
+	width:300px;
+	height:40px;
+	font-size:15px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	margin-top:140px;
+	padding-left:55px;
+	font-weight:500;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+}
 #register_text {
 	width: 250px;
 	height: 40px;
@@ -136,7 +171,7 @@ body {
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 150px;
+	margin-top: 25px;
 }
 
 #password {
@@ -155,65 +190,6 @@ body {
 	margin-top: 45px;
 }
 
-#check_img {
-	width: 300px;
-	height: 205px;
-	position: absolute;
-	left: 152px;
-	top: 194px;
-	z-index: 5;
-	display: none;
-}
-
-#bg_bar {
-	margin-top: 120px;
-	margin-left: 150px;
-	width: 300px;
-	height: 40px;
-	border-radius: 38px;
-	background-color: grey;
-	opacity: 0.5;
-}
-
-#touch_bar {
-	position: relative;
-	top: -42px;
-	border: 2px solid blue;
-	width: 25%;
-	height: 40px;
-	border-radius: 38px;
-	background-color: white;
-	display: flex;
-	flex: row;
-	justify-content: center;
-	align-items: center;
-	z-index: 20;
-}
-
-#bg_new {
-	position: relative;
-	top: -84px;
-	height: 40px;
-	border-radius: 18px;
-	background-color: blue;
-	z-index: 15;
-}
-
-#bg_old {
-	height: 40px;
-	z-index: 10;
-	display: flex;
-	flex: row;
-	justify-content: center;
-}
-
-#forget {
-	color: black;
-	position: absolute;
-	left: 270px;
-	top: 520px;
-}
-
 #accountPassword {
 	width: 250px;
 	height: 40px;
@@ -227,7 +203,7 @@ body {
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 45px;
+	margin-top: 25px;
 }
 
 #register_password {
@@ -243,7 +219,7 @@ body {
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 45px;
+	margin-top: 25px;
 }
 
 #confirm {
@@ -259,7 +235,7 @@ body {
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 45px;
+	margin-top: 25px;
 }
 
 #icon_rpeople {
@@ -271,7 +247,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 145px;
+	top: 198px;
 }
 
 #icon_rpeople_2 {
@@ -283,7 +259,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 145px;
+	top: 198px;
 }
 
 #icon_accountPassword {
@@ -295,7 +271,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 232px;
+	top: 266px;
 }
 
 #icon_accountPassword_2 {
@@ -307,7 +283,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 232px;
+	top: 266px;
 }
 
 #icon_password_secret {
@@ -319,8 +295,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	/*top:232px;*/
-	top: 318px;
+	top: 331px;
 }
 
 #icon_password_secret_2 {
@@ -332,8 +307,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	/*top:232px;*/
-	top: 318px;
+	top: 331px;
 }
 
 #icon_password_confirm {
@@ -345,7 +319,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 404px;
+	top: 398px;
 }
 
 #icon_password_confirm_2 {
@@ -357,16 +331,7 @@ body {
 	z-index: 3;
 	border-radius: 50%;
 	left: 145px;
-	top: 404px;
-}
-
-#register {
-	top: 137px;
-	left: 764px;
-	height: 597px;
-	width: 579px;
-	position: absolute;
-	display: none;
+	top: 398px;
 }
 
 #check_code {
@@ -426,7 +391,64 @@ body {
 input {
 	outline: none;
 }
+#check_img {
+	width: 300px;
+	height: 205px;
+	position: absolute;
+	left: 152px;
+	top: 194px;
+	z-index: 5;
+	display: none;
+}
 
+#bg_bar {
+	margin-top: 120px;
+	margin-left: 150px;
+	width: 300px;
+	height: 40px;
+	border-radius: 38px;
+	background-color: grey;
+	opacity: 0.5;
+}
+
+#touch_bar {
+	position: relative;
+	top: -42px;
+	border: 2px solid blue;
+	width: 25%;
+	height: 40px;
+	border-radius: 38px;
+	background-color: white;
+	display: flex;
+	flex: row;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+#bg_new {
+	position: relative;
+	top: -84px;
+	height: 40px;
+	border-radius: 18px;
+	background-color: blue;
+	z-index: 15;
+}
+
+#bg_old {
+	height: 40px;
+	z-index: 10;
+	display: flex;
+	flex: row;
+	justify-content: center;
+}
+
+#forget {
+	color: black;
+	position: absolute;
+	left: 270px;
+	top: 520px;
+}
 #small_img {
 	z-index: 7;
 	position: absolute;
@@ -440,15 +462,19 @@ input {
 #enterMsg {
 	width: 120px;
 	height: 30px;
-	margin-left: 240px;
+	margin-left: 200px;
 	position: absolute;
+	color:red;
+	font-size:16px;
 }
 
 #registerMsg {
 	width: 120px;
 	height: 30px;
-	margin-left: 240px;
+	margin-left: 200px;
 	position: absolute;
+	color:red;
+	font-size:16px;
 }
 
 #accountMsg {
@@ -456,4 +482,6 @@ input {
 	height: 30px;
 	margin-left: 200px;
 	position: absolute;
+	color:red;
+	font-size:16px;
 }
