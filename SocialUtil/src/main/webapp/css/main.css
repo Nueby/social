@@ -39,8 +39,8 @@ body {
 	left: 550px;
 	border-radius: 5px;
 }
-
-/* #main_message {
+/* 
+#main_message {
 	display: none;
 } */
 
@@ -176,7 +176,8 @@ a {
 	display: block;
 	width: 150px;
 	right: 10px;
-	bottom: 50px;
+	bottom: 60px;
+	text-align:center;
 }
 
 .tips_3 img {
@@ -313,6 +314,7 @@ li {
 	position:absolute;
 	left:25px;
 	opacity:0;
+	transition:all .5s;
 }
 #show2{
 	width:70px;
@@ -320,6 +322,7 @@ li {
 	position:absolute;
 	left:105px;
 	opacity:0;
+	transition:all .5s;
 }
 #show3{
 	width:70px;
@@ -327,6 +330,7 @@ li {
 	position:absolute;
 	left:195px;
 	opacity:0;
+	transition:all .5s;
 }
 #show4{
 	width:70px;
@@ -334,6 +338,19 @@ li {
 	position:absolute;
 	right:25px;
 	opacity:0;
+	transition:all .5s;
+}
+#show1:hover{
+	transform:scale(2);
+}
+#show2:hover{
+	transform:scale(2);
+}
+#show3:hover{
+	transform:scale(2);
+}
+#show4:hover{
+	transform:scale(2);
 }
 
 #dynamic_submit {
@@ -346,6 +363,10 @@ li {
 	margin-bottom: 15px;
 	color: white;
 	border-radius: 25px;
+	cursor:pointer;
+}
+#dynamic_submit:hover{
+	background: #555;
 }
 
 #set_2 {
@@ -452,6 +473,7 @@ li {
 #input_warning{
 	color:red;
 	position:absolute;
+	
 }
 #set_3 {
 	width: 350px;
@@ -874,7 +896,7 @@ select {
 	background: #8188e6;
 	position: absolute;
 	padding-top: 5px;
-	left:100px;
+	margin-left:150px;
 }
 
 #other_tag2:before,#other_tag2:after {

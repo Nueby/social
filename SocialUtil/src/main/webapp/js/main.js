@@ -93,6 +93,24 @@ self.onclick = function() {
 	set_2.style.display = "none";
 }
 
+//主页的ID,学校，专业，个性签名的获取
+var name=$("#name");//昵称
+var id=$("#ID");//学号
+var school=$("#school_name");//学校名字
+var college=$("#college_name");//学院名字
+var major=$("#major_name");//错误：有两个major的id
+var personal = $("#personal")//个性签名
+
+
+var account// =$.cookie("socialUtilaccount");
+$.get("UserController",{account:account},function(data){
+	id.html(data.account);
+	school.html(data.school);
+	college.html(data.college);
+	major.html(data.profession);
+	name.html(data.username);
+	personal.html(data.signature);
+},"json");
 
 
 //设置框点击确定
@@ -103,16 +121,48 @@ var self_submit = document.getElementById("self_submit");
 dynamic_submit.onclick = function() {
 	set_1.style.display = "none";
 	//初始化图片
-	document.getElementById("dynamic_img1").value = "";
-	document.getElementById("dynamic_img2").value = "";
-	document.getElementById("dynamic_img3").value = "";
-	document.getElementById("dynamic_img4").value = "";
+	var dynamic_img1 = document.getElementById("dynamic_img1");
+	var dynamic_img2 = document.getElementById("dynamic_img2");
+	var dynamic_img3 = document.getElementById("dynamic_img3");
+	var dynamic_img4 = document.getElementById("dynamic_img4");
+	dynamic_img1.select(); 
+	dynamic_img2.select();
+	dynamic_img3.select();
+	dynamic_img4.select();
+	document.selection.clear(); 
+	var account=$("#ID").val;//学号
+	var contact=$("#contact");
+	var dynamic_img=$("#dynamic_img");
+	var date=new Date();
+	//向服务器个人圈数据传递
+	$.post("",{account:account,circle_info:contact,circle_img:dynamic_img,date:date.toLocaleString()},function(data){
+		for(var i=0;i<data.length;i++){
+			var html="<hr id='dynamic_line'><div id='time'>"+data.date+
+			"</div><div id='dynamic_contact'><div id='dynamic_text'>"+data.circle_info+"</div><div id='cover_scroll'></div><div id='dynamic_photo'><img id='dynamic_photoshow'></div></div>";
+			$("#show_dynamic").append(html);
+		}
+		
+	},"json");
 }
 email_submit.onclick = function() {
 	set_2.style.display = "none";
+	var account=$("#ID").val;//学号
+	var confirm_password =$("#confirm_password").val;//修改的密码
+	//修改密码和邮箱
+	$.post("",{account:account,login_password:confirm_password,},function(data){
+		
+	},"json");
 }
 self_submit.onclick = function() {
 	set_3.style.display = "none";
+	var account=$("#ID").val;//学号
+	var username=$("#set_name").val;//昵称
+	var sex =$("sex").val;
+	var birthday =$("#select").val;
+	//修改个人信息
+	$.post("",{account:account,username:username,sex:sex,birthday:birthday},function(data){
+		name.html(data.username);
+	},"json");
 }
 
 //发布个人圈的预览图片
@@ -222,6 +272,15 @@ new_email.onblur = function(){
 //输入旧密码验证旧密码是否填写正确,旧密码id = old_password
 //检验两次密码输入是否一致
 var input_warning = document.getElementById("input_warning");
+$.get("UserController",{account:account},function(data){
+	var old_password=$("#old_password");
+	if(data.login_password==old_password){
+		$("#input_warning").html("*旧密码输入错误");
+		old_password.value="";
+	}else{
+		$("#input_warning").html("");
+	}
+});
 document.getElementById("confirm_password").onblur = function(){
 	if(document.getElementById("new_password").value != document.getElementById("confirm_password").value){
 		input_warning.innerHTML = "*前后两次密码不一致，请重写输入";
@@ -238,25 +297,21 @@ document.getElementById("confirm_password").onblur = function(){
 
 //个人信息框的设置
 //Ajax保存数据
-$(function() {
-	$("#school").blur(function() {
-		//获取用户名
-		var school = $(this).val();
-		//进行ajax的处理
-		var span = $("#show_school");
-		$.post("findServlet", {
-			school: school
-		}, function(data) {
-			if (data.schoolExsit) {
-				span.css("color", "green");
-				span.html(data.msg);
-			} else {
-				span.css("color", "red");
-				span.html(data.msg);
-			}
-		}, "json")
-	});
-});
+// $(function() {
+// 	$("#ID").blur(function() {
+// 		//获取用户名
+// 		var acconut = $(this).val();
+// 		//进行ajax的处理
+// 		$.post("findServlet", {
+// 			acconut:acconut
+// 		}, function(data) {
+// 				$("#school").html(data.school);
+// 				$("#college").html(data.college);
+// 				$("#major").html(data.profession);
+// 			}
+// 		}, "json")
+// 	});
+// });
 
 //个人信息框的填写设置
 $(function() {
@@ -373,7 +428,14 @@ var change_photo = document.getElementById("change_photo");
 photo.onclick = function() {
 	change_photo.style.display = "block";
 }
-
+var picUp=$("#picUp");
+//头像上传的确定键位
+picUp.onclick=function(){
+	var oFile = $("#image_file")[0].files[0];//选择的文件
+	$.post("",{file:oFile,url:getObjectURL(oFile)},function(data){//传地址或者文件数据
+		$("#photo").html(data.head);
+	})
+}
 
 //通过裁剪更新信息（onchange和onselect事件处理程序）
 function updateInfo(e) {
@@ -445,18 +507,6 @@ document.getElementById("image_file").onchange = function() {
     return url;
 }
 
-//修改昵称
-//ajax将昵称保存
-// var change_name = document.getElementById("change_name");
-// var name_sure = document.getElementById("name_sure");
-// change_name.onclick = function() {
-// 	name_sure.style.display = "block";
-// 	name_sure.onclick = function() {
-// 		name_sure.style.display = "none";
-// 	}
-// }
-
-
 
 //可随机生成颜色的方法
 var getRandomColor = function() {
@@ -471,21 +521,20 @@ var getRandomColor = function() {
 var self_tag = document.getElementById("self_tag");
 var delete_tag = document.getElementById("delete_tag");
 var tag = document.getElementById("tag");
-
 var chooseTag = document.getElementById("choose_tag");
 var tagWarning = document.getElementById("tag_warning");
 //确认标签数量,标签数量最多五个
 var tagNum = 0;
 //点击Tag标签出显示框和保存按钮
 document.getElementById("title").onclick = function() {
-	if (self_tag.style.display == "block") {
+	if (getStyle(self_tag,"display") == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
 	} else {
 		self_tag.style.display = "block";
 		save_tag.style.display = "block";
 	}
-	//确认标签数量,标签数量最多五个
+	//确认标签预览数量,标签数量最多五个
 	let tagNum = 0;
 	//将标签放在预选栏
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
@@ -511,7 +560,6 @@ document.getElementById("title").onclick = function() {
 				chooseTag.removeChild(newLi);
 				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
 			}
-			console.log(tagNum);
 		};
 	}
 }
@@ -519,13 +567,17 @@ document.getElementById("title").onclick = function() {
 
 //点击保存将标签放在tag中
 //Ajax保存确定的标签作为筛选条件
+//tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 save_tag.onclick = function(){
-	save_tag.style.display = "none";
+	save_tag.style.display ="none";
 	document.getElementById("self_tag").style.display = "none";
 	var chooseLi = chooseTag.getElementsByTagName("div");
 	var tagDiv = document.createElement("div");
 	var tagShow = document.getElementById("tag_show");
+	
+	tag.removeAttribute(document.getElementById("personal_tag"));
+	var tags="";
 	for(var i = 0;i < chooseLi.length; i++){
 		var divVal = document.createTextNode(chooseLi[i].innerHTML);
 		tagDiv.appendChild(divVal);
@@ -534,12 +586,22 @@ save_tag.onclick = function(){
 		for(var j = 0; j < newTag.length;j++){
 			newTag[j].setAttribute("id","other_tag" + j);
 		}
+		tags=tags+chooseLi[i];
 	}
+	$.post("",{tags:tags},function(data){
+		
+	},"json");
 }
 
 
-//交友页面的动画滚动效果
+//删除标签,彻底删除
+delete_tag.onclick = function(){
+	$("#personal_tag").remove();
+}
 
+
+
+//交友页面的动画滚动效果
 //点击左按钮
 document.getElementById("prev").onclick = function(){
 	var show_message = document.getElementById("show_message");
@@ -570,6 +632,9 @@ document.getElementById("prev").onclick = function(){
 		another_message2.style.left = "";
 		$("#another_message2").css({"right":"-342px"});
 	}
+	$("#friend_dynamic1").hide();
+	$("#friend_dynamic2").hide();
+	$("#friend_dynamic3").hide();
 }
 //点击右按钮
 document.getElementById("next").onclick = function(){
@@ -599,6 +664,155 @@ document.getElementById("next").onclick = function(){
 		$("#show_message").animate({left:"15px"});
 		$("#show_message").css({"left":"15px","filter":"blur(0)"});
 	}
+	$("#friend_dynamic1").hide();
+	$("#friend_dynamic2").hide();
+	$("#friend_dynamic3").hide();
+}
+
+//对筛选的对象进行存储
+var school_condition="";
+var college_condition="";
+var sex_condition="";
+var tag_condition="";
+
+//筛选框
+document.getElementById("icon_choose").onclick = function(){
+	var choose_friend = document.getElementById("choose_friend");
+	if(choose_friend.style.display == "block"){
+		choose_friend.style.display = "none";
+	}else{
+		choose_friend.style.display = "block";
+	}
+	//只要选完了点击筛选就用Ajax刷新main_show的内容
+	document.getElementById("choose_submit").onclick = function(){
+		choose_friend.style.display = "none";
+		//筛选数据的传输
+		var friend_name=$("#friend_name");
+		var friend_school=$("#friend_school");
+		var friend_college=$("#friend_college");
+		var friend_personal=$("#friend_personal");
+		$.post("",{sex:sex_condition,school:school_condition,college:college_condition,tags:tag_condition},function (data){
+			friend_name.html(data.name);
+			friend_school.html(data.school);
+			friend_college.html(data.profession);
+			friend_personal.html(data.signature);
+		});
+	}
+	
+	//性别
+	var man = document.getElementById("man");
+	var woman = document.getElementById("woman");
+	man.onclick = function(){
+		man.style.background = "lightblue";
+		woman.style.background = "white";
+	}
+	woman.onclick = function(){
+		man.style.background = "white";
+		woman.style.background = "pink";
+	}
+	document.getElementById("more_school").onclick = function(){
+		document.getElementById("more_school").style.display = "none";
+		document.getElementById("school_choose").style.height = "80px";
+	}
+	document.getElementById("more_college").onclick = function(){
+		document.getElementById("more_college").style.display = "none";
+		document.getElementById("college_choose").style.height = "210px";
+	}
+	document.getElementById("more_other").onclick = function(){
+		document.getElementById("more_other").style.display = "none";
+		document.getElementById("other_choose").style.height = "310px";
+	}
+	if(man.style.background == "lightblue"){
+		sex_condition=man.val;
+	}else{
+		sex_condition=woman.val;
+	}
+}
+
+
+//选择学校部分
+var school_choose = document.getElementById("school_choose");
+var schoolLi = school_choose.getElementsByTagName("li");
+//学校只能选一个
+var schoolNum = 0;
+for(let i = 0; i < schoolLi.length;i++){
+	schoolLi[i].onclick = function(){
+		for(let j = 0; j < schoolLi.length; j++) {
+			schoolLi[j].style.background = "#FFF";
+		}
+		schoolLi[0].innerHTML = schoolLi[i].innerHTML;
+		schoolLi[0].style.background = "greenyellow";
+		school_choose.style.height = "35px";
+		schoolNum ++;
+		if(schoolNum >= 1){
+			school_choose.style.height = "35px";
+			document.getElementById("more_school").style.display = "block";
+		}
+	}
+}
+
+//对选择的学校进行存储
+for(let i = 0; i < schoolLi.length;i++){
+	if(schoolLi[i].style.background == "greenyellow"){
+		school_condition=schoolLi[i].val;
+	}
+}
+
+
+//学院选择部分
+var college_choose = document.getElementById("college_choose");
+var collegeLi = college_choose.getElementsByTagName("li");
+//学院只能选一个
+var collegeNum = 0;
+for(let i = 0; i < collegeLi.length;i++){
+	collegeLi[i].onclick = function(){
+		for(let j = 0; j < collegeLi.length; j++) {
+			collegeLi[j].style.background = "#FFF";
+		}
+		collegeLi[0].innerHTML = collegeLi[i].innerHTML;
+		collegeLi[0].style.background = "#df64c9";
+		college_choose.style.height = "35px";
+		collegeNum ++;
+		if(collegeNum >= 1){
+			college_choose.style.height = "35px";
+			document.getElementById("more_college").style.display = "block";
+		}
+	}
+}
+
+//对选择的学院进行存储
+for(let i = 0; i < collegeLi.length;i++){
+	if(collegeLi[i].style.background == "#df64c9"){
+		college_condition=schoolLi[i].val;
+	}
+}
+
+//标签选择部分
+var other_choose = document.getElementById("other_choose");
+var otherLi = other_choose.getElementsByTagName("li");
+//标签只能选一个
+var tagNum = 0;
+for(let i = 0; i < otherLi.length;i++){
+	otherLi[i].onclick = function(){
+		for(let j = 0; j < otherLi.length; j++) {
+			otherLi[j].style.background = "#FFF";
+		}
+		otherLi[0].innerHTML = otherLi[i].innerHTML;
+		otherLi[0].style.background = "#df9364";
+		other_choose.style.height = "35px";
+		tagNum ++;
+		if(tagNum >= 1){
+			other_choose.style.height = "35px";
+			document.getElementById("more_other").style.display = "block";
+		}
+	}
+}
+
+//对选择的标签进行存储
+for(let i = 0; i < otherLi.length;i++){
+	if(otherLi[i].style.background == "#df9364"){
+		tag_condition=otherLi[i].val;
+	}
 }
 
 
@@ -612,7 +826,7 @@ document.getElementById("chat").onclick = function(){
 }
 //时间递减函数
 //退出之后不只在页面退出，还要让f12里的源码也没有
-var time = 31;
+var time = 300;
 function timeLow(){
 	var timeChat = document.getElementById("time_chat");
 	if(time > 0){
@@ -632,7 +846,6 @@ function timeLow(){
 	if(time <= 25){
 		chatWarning.style.display = "none";
 	}
-	console.log(time);
 }
 //点击关闭按钮退出聊天框，并在对面的id = chat_warnig中提示对方退出
 //ajax的内容,只要聊天框关闭，刷新main_show的内容
@@ -645,111 +858,49 @@ document.getElementById("icon_close").onclick = function(){
 
 //点击加时按钮，在对方的页面弹出confirm框，点击确定加时，点击取消不加时
 document.getElementById("icon_time").onclick = function(){
-	chat_about.style.display = "none";
+	
 }
+
+
+
 
 //个人圈的查看
 //ajax将发布的个人圈资料上传
-document.getElementById("more").onclick = function(){
-	var friend_dynamic = document.getElementById("friend_dynamic");
-	if(friend_dynamic.style.display == "none"){
-		friend_dynamic.style.display = "block";
+var more = document.querySelectorAll("#more");
+var friend_dynamic1 = document.getElementById("friend_dynamic1");
+var friend_dynamic2 = document.getElementById("friend_dynamic2");
+var friend_dynamic3 = document.getElementById("friend_dynamic3");
+var show_message = document.getElementById("show_message");
+var another_message1 = document.getElementById("another_message1");
+var another_message2 = document.getElementById("another_message2");
+more[0].onclick = function(){
+	if(getStyle(show_message,"left") != "15px"){
+		return false;
+	}
+	if(getStyle(friend_dynamic1,"display") == "none"){
+		$("#friend_dynamic1").show();
 	}else{
-		friend_dynamic.style.display = "none";
+		$("#friend_dynamic1").hide();
 	}
 }
-
-//筛选框
-document.getElementById("icon_choose").onclick = function(){
-	var choose_friend = document.getElementById("choose_friend");
-	choose_friend.style.display = "block";
-	//只要选完了点击筛选就用Ajax刷新main_show的内容
-	document.getElementById("choose_submit").onclick = function(){
-		choose_friend.style.display = "none";
+more[1].onclick = function(){
+	if(getStyle(another_message1,"left") != "15px"){
+		return false;
 	}
-	var man = document.getElementById("man");
-	var woman = document.getElementById("woman");
-	man.onclick = function(){
-		man.style.background = "lightblue";
-		woman.style.background = "white";
-	}
-	woman.onclick = function(){
-		man.style.background = "white";
-		woman.style.background = "pink";
-	}
-	document.getElementById("more_school").onclick = function(){
-		document.getElementById("more_school").style.display = "none";
-		document.getElementById("school_choose").style.height = "80px";
-		console.log(123);
-	}
-	document.getElementById("more_college").onclick = function(){
-		document.getElementById("more_college").style.display = "none";
-		document.getElementById("college_choose").style.height = "210px";
-	}
-	document.getElementById("more_other").onclick = function(){
-		document.getElementById("more_other").style.display = "none";
-		document.getElementById("other_choose").style.height = "310px";
+	if(getStyle(friend_dynamic2,"display") == "none"){
+		$("#friend_dynamic2").show();
+	}else{
+		$("#friend_dynamic2").hide();
 	}
 }
-
-
-//选择学校部分
-var school_choose = document.getElementById("school_choose");
-var schoolLi = school_choose.getElementsByTagName("li");
-//学校只能选一个
-var schoolNum = 0;
-for(let i = 0; i < schoolLi.length;i++){
-	schoolLi[i].onclick = function(){
-		for(let j = 0; j < schoolLi.length; j++) {
-			schoolLi[j].style.background = "#FFF";
-		}
-		schoolLi[i].style.background = "greenyellow";
-		school_choose.style.height = "35px";
-		schoolNum ++;
-		if(schoolNum >= 1){
-			school_choose.style.height = "35px";
-			document.getElementById("more_school").style.display = "block";
-		}
+more[2].onclick = function(){
+	if(getStyle(another_message2,"left") != "15px"){
+		return false;
 	}
-}
-
-//学院选择部分
-var college_choose = document.getElementById("college_choose");
-var collegeLi = college_choose.getElementsByTagName("li");
-//学院只能选一个
-var collegeNum = 0;
-for(let i = 0; i < collegeLi.length;i++){
-	collegeLi[i].onclick = function(){
-		for(let j = 0; j < collegeLi.length; j++) {
-			collegeLi[j].style.background = "#FFF";
-		}
-		collegeLi[i].style.background = "#df64c9";
-		college_choose.style.height = "35px";
-		collegeNum ++;
-		if(collegeNum >= 1){
-			college_choose.style.height = "35px";
-			document.getElementById("more_college").style.display = "block";
-		}
-	}
-}
-
-//标签选择部分
-var other_choose = document.getElementById("other_choose");
-var otherLi = other_choose.getElementsByTagName("li");
-//标签只能选一个
-var tagNum = 0;
-for(let i = 0; i < otherLi.length;i++){
-	otherLi[i].onclick = function(){
-		for(let j = 0; j < otherLi.length; j++) {
-			otherLi[j].style.background = "#FFF";
-		}
-		otherLi[i].style.background = "#df9364";
-		other_choose.style.height = "35px";
-		tagNum ++;
-		if(tagNum >= 1){
-			other_choose.style.height = "35px";
-			document.getElementById("more_other").style.display = "block";
-		}
+	if(getStyle(friend_dynamic3,"display") == "none"){
+		$("#friend_dynamic3").show();
+	}else{
+		$("#friend_dynamic3").hide();
 	}
 }
 
@@ -765,38 +916,28 @@ sendMsg.onclick = function(){
 	if(txt.value == ""){
 		txt.value = "不能发送空内容";
 	}else{
+		//个人头像
 		var myImg = document.createElement("img");
 		var newTxt = document.createElement("p");
+		newTxt.style.lineHeight = "20px";
+		newTxt.style.padding = "5px";
+		newTxt.style.borderRadius = "5px";
 		newTxt.style.backgroundColor = "yellowgreen";
-		newTxt.style.clear = "both";
 		newTxt.style.float = "right";
 		newTxt.style.fontSize = "15px";
-		newTxt.style.marginRight = "5px";
+		myImg.style.float = "right";
+		myImg.style.height = "40px";
+		myImg.style.width = "40px";
+		myImg.style.borderRadius = "50%";
+		myImg.style.border = "2px solid rgba(0,0,0,.3)";
+		myImg.style.clear = "both";
+		myImg.style.position = "relative";
+		myImg.style.top = "0";
+		myImg.style.margin = "8px 10px 0 10px";
 		newTxt.innerHTML = txt.value;
+		talk_contact.appendChild(myImg);
 		talk_contact.appendChild(newTxt);
 		txt.value = "";
 		newTxt.scrollIntoView();
-	}
-}
-var chooseTag = document.getElementById("choose_tag");
-var tagWarning = document.getElementById("tag_warning");
-window.onload = function(){
-	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
-	for(var i = 0;i < tagLi.length;i++){
-		tagLi[i].onclick = function(){
-			var newLi = document.createElement("li");
-			newLi.setAttribute("id","choose_class");
-			var liVal = document.createTextNode(this.innerHTML);
-			newLi.appendChild(liVal);
-			chooseTag.appendChild(newLi);
-			if(tagLi.onclick){
-				return false;
-			}
-			tagNum ++;
-			console.log(tagNum);
-		}
-		if(tagNum >4){
-			tagWarning.innerHTML = "*标签只能放五个，请先删除在添加";
-		}
 	}
 }
