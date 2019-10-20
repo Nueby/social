@@ -730,6 +730,7 @@ $id("delete_tag").onclick = function(){
 //交友页面的动画滚动效果
 //点击左按钮
 document.getElementById("prev").onclick = function(){
+	randomPerson();
 	var show_message = document.getElementById("show_message");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
@@ -764,6 +765,7 @@ document.getElementById("prev").onclick = function(){
 }
 //点击右按钮
 document.getElementById("next").onclick = function(){
+	randomPerson();
 	var show_message = document.getElementById("show_message");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
@@ -952,6 +954,48 @@ function selection() {
 }
 selection();
 
+//随机人
+function randomPerson() {
+	$.ajax({
+		type:"GET",
+		url:"/SocialUtil/ControllerUser.do",
+		data:{"behaviour":"random"},
+		dataType:"json",
+		success:function(data) {
+			var randAccount = data.account;
+			$.ajax({
+				type:"GET",
+				url:"/SocialUtil/ControllerPageInfo.do",
+				data:{"account":account},
+				dataType:"json",
+				success:function(data) {
+					$id("friend_name").innerHTML = data.username;
+					$.ajax({
+						type:"GET",
+						url:"/SocialUtil/ControllerSchool.do",
+						data:{"account":account},
+						dataType:"json",
+						success:function(data) {
+							$id("friend_school").innerHTML = "学校:" + data.school;
+							$id("friend_college").innerHTML = "专业:" + data.profession;
+						},
+						error:function(err) {
+							alert(err.status);
+						}
+					})
+				},
+				error:function(err) {
+					alert(err.status);
+				}
+			})
+		},
+		error:function(err) {
+			alert(err.status);
+		}
+	})
+}
+randomPerson();
+
 function chat() {
 	//点击显示聊天界面，筛选框和个人圈以及关闭
 	var interval;
@@ -977,8 +1021,8 @@ chat();
 
 //时间递减函数
 //点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
+var time = 300;
 function timeLow(){
-	var time = 300;
 	var timeChat = document.getElementById("time_chat");
 	if(time > 0){
 		time--;
