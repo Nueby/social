@@ -44,7 +44,7 @@ public class RegisterController extends HttpServlet {
 		connection.setDoInput(true);
 		connection.setDoOutput(false);
 		connection.setUseCaches(false);
-		connection.setConnectTimeout(1000);
+		connection.setConnectTimeout(5000);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		StringBuffer sb = new StringBuffer();
 		String temp = "";
