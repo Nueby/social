@@ -20,6 +20,7 @@ public class User {
 	private String account = null;
 	private String loginPassword = null;
 	private String eduPassword = null;
+	private String email = null;
 	
 	public static int getTotalId() {
 		return totalId;
@@ -31,6 +32,16 @@ public class User {
 	 */
 	public User(String account) {
 		this.account = account;
+	}
+	
+	/**
+	 * 
+	 * @param account - 账号
+	 * @param email - 邮箱
+	 */
+	public User(String account, String email) {
+		this(account);
+		this.email = email;
 	}
 	
 	/**
@@ -134,13 +145,15 @@ public class User {
 	 * 更改登录密码
 	 * @param oPassword - 旧密码
 	 * @param password - 新密码
+	 * @param email - 邮箱
 	 * @return 是否更改成功
 	 */
-	public boolean changeLoginPassword(String oPassword, String password) {
+	public boolean changeLoginPassword(String oPassword, String password, String email) {
 		try {
 			if(!judgePassword(oPassword)) return false;
+			if(!email.equals(this.email)) return false;
 			setLoginPassword(password);
-			pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(login_password) values(?)");
+			pstmt = C3P0Util.getConnection().prepareStatement("UPDATE user SET login_password=? WHERE account=" + account);
 			pstmt.setString(1, loginPassword);
 			pstmt.execute();
 			C3P0Util.release(pstmt);
@@ -158,7 +171,7 @@ public class User {
 	public boolean changeEduPassword(String password) {
 		try {
 			setEduPassword(password);
-			pstmt = C3P0Util.getConnection().prepareStatement("INSERT INTO user(login_password) values(?)");
+			pstmt = C3P0Util.getConnection().prepareStatement("UPDATE user SET edu_password=? WHERE account=" + account);
 			pstmt.setString(1, eduPassword);
 			pstmt.execute();
 			C3P0Util.release(pstmt);

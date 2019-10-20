@@ -30,7 +30,23 @@ public class PageInfo {
 	
 	public PageInfo(int id) {
 		this.id = id;
-		url = this.getClass().getResource("./").getPath() + "head/" + id + ".png";
+		url = this.getClass().getClassLoader().getResource("/").getPath() + "head/";
+		StringBuffer sb = new StringBuffer();
+		boolean flag = false;		//跳过第一个斜杠
+		for(char c : url.toCharArray()) {
+			if(flag) {
+				if(c == '\\') {
+					sb.append("/");
+				} else {
+					sb.append(c);
+				}
+			} else {
+				flag = true;
+			}
+		}
+		File dir = new File(url);
+		if(!dir.exists()) dir.mkdir();
+		url = sb.toString() + id + ".png";
 	}
 	
 	/**

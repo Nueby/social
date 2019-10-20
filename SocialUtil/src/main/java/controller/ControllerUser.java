@@ -2,11 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
+
+import dao.School;
 import dao.User;
 
 /**
@@ -45,8 +49,16 @@ public class ControllerUser extends HttpServlet {
 			}
 		} else if(behaviour.equals("changePassword")) {		//修改密码
 			User user = new User(json.getString("account"));
+			try {
+				School school = new School(user.getId());
+				user = new User(json.getString("account"),(String)school.getInfo().get("email"));
+			} catch (SQLException e) {
+				json.put("result",false);
+				response.getWriter().write(json.toString());
+				response.getWriter().close();
+			}
 			if(json.getString("wpassword").equals("login_password")) {		//更改登录密码
-				json.put("result", user.changeLoginPassword(json.getString("opassword"), json.getString("password")));
+				json.put("result", user.changeLoginPassword(json.getString("opassword"), json.getString("password"),json.getString("email")));
 			} else {		//更改教务系统密码
 				json.put("result", user.changeEduPassword(json.getString("password")));
 			}

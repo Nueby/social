@@ -50,6 +50,7 @@ public class ControllerPageInfo extends HttpServlet {
 		User user = new User(reqJson.getString("account"));
 		JSONObject json = new JSONObject();		
 		try {
+			System.out.println(request.getSession().getServletContext().getRealPath("/"));
 			PageInfo page = new PageInfo(user.getId());
 			if(reqJson.getString("behaviour").equals("create")) {		//创建
 				page.changeInfo(true, null, null, null, null, null, null, null);
