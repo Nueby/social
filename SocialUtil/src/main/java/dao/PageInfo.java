@@ -80,6 +80,7 @@ public class PageInfo {
 			C3P0Util.release(pstmt);
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}	
 	}

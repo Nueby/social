@@ -64,6 +64,7 @@ function getPage() {
 			if(data.tags != null) tags = data.tags;
 			if(data.circleInfo != null) circle_info = data.circleInfo;
 			if(data.circleImg != null) circle_img = data.circleImg;
+			changeHead();
 		},
 		error:function(err) {
 			alert(err.status);
@@ -280,7 +281,7 @@ function changeUsername() {
 			"behaviour":"change",
 			"username":$id("set_name").value,
 			"head":head,
-			"signature":signatrue,
+			"signature":signature,
 			"birthday":$id("select").value,
 			"tags":tags,
 			"circleInfo":circle_info,
@@ -512,12 +513,11 @@ $id("photo").onclick = function() {
 //改变头像
 function changeHead() {
 	if(head != "" && head != null) {
-		$id("photo").style.backgroundImage = "data:image/png;base64," + head;
+		$id("photo").innerHTML =  "<img src='data:image/png;base64," + head + "' width='100%'/>";
 	} else {
 		$id("photo").style.backgroundImage = "url(../img/timg.jpg)";
 	}
 }
-changeHead();
 
 //头像上传到确定键位
 $id("picUp").onclick = function() {
@@ -526,28 +526,20 @@ $id("picUp").onclick = function() {
 	reader.readAsDataURL(oFile);
 	reader.onload = function(e) {
 		var base64 = e.target.result;
+		var json = {"behaviour":"change","account":account,"username":username,"head":base64.split(",")[1],"signature":signature,"birthday":birthday,"tags":tags,"circleInfo":circle_info,"circleImg":circle_img};
 		$.ajax({
 			type:"POST",
 			url:"/SocialUtil/ControllerPageInfo.do",
-			data:JSON.stringify({
-				"behaviour":"change",
-				"account":account,
-				"username":username,
-				"head":base64.split(",")[1],
-				"signature":signatrue,
-				"birthday":birthday,
-				"tags":tags,
-				"circleInfo":circle_info,
-				"circleImg":circle_img
-			}),
+			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
 				if(data.result == false) {
 					alert("更改失败");
 				} else {
-					getPage();
 					alert("更改成功");
+					getPage();
 					changeHead();
+					$id("change_photo").style.display = "none";
 				}
 			},
 			error:function(err) {
