@@ -204,7 +204,7 @@ public class User {
 	public static boolean isExist(String account) {
 		try {
 			Statement stmt = C3P0Util.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT account FROM user");
+			ResultSet rs = stmt.executeQuery("SELECT account FROM user WHERE account=" + account);
 			rs.beforeFirst();
 			while(rs.next()) {
 				if(rs.getString(1).equals(account))	{

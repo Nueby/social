@@ -677,24 +677,39 @@ document.getElementById("title").onclick = function() {
 //Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
+var tagnum=-1;
+var tagtime=0;
 $id("save_tag").onclick = function(){
 	$id("save_tag").style.display ="none";
 	document.getElementById("self_tag").style.display = "none";
-	var chooseLi = chooseTag.getElementsByTagName("div");
-	var tagDiv = document.createElement("div");
-	var tagShow = document.getElementById("tag_show");
-	
+	var chooseLi = $id("choose_tag").getElementsByTagName("div");
+
 	$id("tag").removeAttribute(document.getElementById("personal_tag"));
-	var ntags="";
-	for(var i = 0;i < chooseLi.length; i++){
-		var divVal = document.createTextNode(chooseLi[i].innerHTML);
-		tagDiv.appendChild(divVal);
-		tagShow.appendChild(tagDiv);
-		var newTag = tagShow.getElementsByTagName("div");
-		for(var j = 0; j < newTag.length;j++){
-			newTag[j].setAttribute("id","other_tag" + j);
+	var tags="";
+	for(var i = 0;i < chooseLi.length; i++){	
+		tagnum=tagnum+1;
+		if(tagnum>=5){
+			if(tagnum%5==0){
+				tagtime=tagtime+1;
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}else{
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}
+		}else{
+			var tagDiv = document.createElement("div");
+			var tagShow = document.getElementById("tag_show");
+			var divVal = document.createTextNode(chooseLi[i].innerHTML);
+			tagDiv.appendChild(divVal);
+			tagShow.appendChild(tagDiv);
+			var newTag = tagShow.getElementsByTagName("div");
+			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+			
 		}
-		ntags=ntags+chooseLi[i];
+		tags=tags+chooseLi[i];
+		
+	}
+	if(tags!=""){
+		$("#personal_tag").css("display", "none");
 	}
 	$.ajax({
 		type:"post",
