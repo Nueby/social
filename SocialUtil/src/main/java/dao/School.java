@@ -66,6 +66,7 @@ public class School {
 		try {
 			Statement stmt = C3P0Util.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM school WHERE id=" + id);
+			rs.beforeFirst();
 			rs.next();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			for(int i = 1; i <= rsmd.getColumnCount(); i++) {

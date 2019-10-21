@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +27,35 @@ public class ControllerUser extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获取json数据
 		JSONObject reqJson = (JSONObject)request.getAttribute("json");
-		//检查账号是否存在
-    	JSONObject json = new JSONObject();
-    	json.put("result", User.isExist(reqJson.getString("account")));
-    	PrintWriter out = response.getWriter();
-    	out.write(json.toString());
-    	out.close();
+		String behaviour = reqJson.getString("behaviour");
+		JSONObject json = new JSONObject();
+		if(behaviour.equals("random")) {		//随机人
+			User user = new User(reqJson.getString("account"));
+			try {
+				Integer myId = user.getId();
+				Random rand = new Random(User.getTotalId());
+				int randId;
+				do {
+					randId = rand.nextInt();
+				} while(randId == myId);
+				json.put("result",true);
+				json.put("account",User.getAccount(randId));
+				response.getWriter().write(json.toString());
+				response.getWriter().close();
+			} catch (SQLException e) {
+				json.put("result", false);
+				response.getWriter().write(json.toString());
+				response.getWriter().close();
+			}
+		} else {
+			//检查账号是否存在
+	    	json.put("result", User.isExist(reqJson.getString("account")));
+	    	PrintWriter out = response.getWriter();
+	    	out.write(json.toString());
+	    	out.close();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

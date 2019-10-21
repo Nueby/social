@@ -15,6 +15,18 @@ public class User {
 	private PreparedStatement pstmt = null;
 	
 	private static int totalId = 0;
+	static{
+		try {
+			Statement stmt = C3P0Util.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+			rs.beforeFirst();
+			while(rs.next()) {
+				totalId = rs.getInt(1) + 1;
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//用户属性
 	private String account = null;
@@ -52,6 +64,7 @@ public class User {
 	public int getId() throws SQLException {
 		Statement stmt = C3P0Util.getConnection().createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT id FROM user where account=" + account);
+		rs.beforeFirst();
 		rs.next();
 		int id = rs.getInt(1);
 		C3P0Util.release(rs);
@@ -68,6 +81,7 @@ public class User {
 	public static String getAccount(int id) throws SQLException {
 		Statement stmt = C3P0Util.getConnection().createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT account FROM user where id=" + id);
+		rs.beforeFirst();
 		rs.next();
 		String account = rs.getString(1);
 		C3P0Util.release(rs);
@@ -127,6 +141,7 @@ public class User {
 			String md5p = MD5.getMD5(password);
 			Statement stmt = C3P0Util.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT login_password FROM user where account=" + account);
+			rs.beforeFirst();
 			rs.next();
 			if(!md5p.equals(rs.getString(1))) {
 				C3P0Util.release(rs);
@@ -189,10 +204,17 @@ public class User {
 	public static boolean isExist(String account) {
 		try {
 			Statement stmt = C3P0Util.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT account FROM user");
+			ResultSet rs = stmt.executeQuery("SELECT account FROM user WHERE account=" + account);
+			rs.beforeFirst();
 			while(rs.next()) {
-				if(rs.getString(1).equals(account))	return true;
+				if(rs.getString(1).equals(account))	{
+					C3P0Util.release(rs);
+					C3P0Util.release(stmt);
+					return true;
+				}
 			}
+			C3P0Util.release(rs);
+			C3P0Util.release(stmt);
 			return false;
 		} catch (SQLException e) {
 			return false;
