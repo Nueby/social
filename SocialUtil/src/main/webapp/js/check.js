@@ -29,11 +29,15 @@ function erChange() {
 	title_right.onclick = function() {
 		sign_in.style.display = "none";
 		register.style.display = "block";
+		title_right.setAttribute("id","change_title_right");
+		title_left.setAttribute("id","change_title_left");
 	}
 	//登录页面显示
 	title_left.onclick = function() {
 		sign_in.style.display = "block";
 		register.style.display = "none";
+		title_left.setAttribute("id","title_left");
+		title_right.setAttribute("id","title_right");
 	}
 }
 

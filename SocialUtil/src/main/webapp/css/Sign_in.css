@@ -1,9 +1,10 @@
-body {
+*{
 	margin: 0;
 	padding: 0;
-	overflow-x: hidden;
 }
-
+body{
+	overflow-x:hidden;
+}
 .para1 {
 	color: red;
 	font-size: 12px;
@@ -25,7 +26,7 @@ body {
 }
 
 #Sign_in {
-	width: 590px;
+	width: 500px;
 	position: absolute;
 	top: 137px;
 	left: 710px;
@@ -53,19 +54,42 @@ body {
 	letter-spacing: 15px;
 	font-weight: 500;
 	cursor: pointer;
+	color:blue;
 }
-
-#title_right {
+#change_title_left{
+	color:black;
+	transform:translateY(-10px);
 	position: relative;
-	left: 20px;
-	display: inline-block;
 	font-style: normal;
 	font-size: 35px;
 	letter-spacing: 15px;
 	font-weight: 500;
 	cursor: pointer;
 }
-
+#line{
+	font-size:35px;
+	font-style: normal;
+}
+#title_right {
+	position: relative;
+	left: 20px;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+}
+#change_title_right{
+	color:blue;
+	transform:translateY(-10px);
+	position: relative;
+	left: 20px;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+}
 #icon_people {
 	background: url(../img/people_1.png);
 	background-size: 100%;
@@ -245,7 +269,7 @@ body {
 	color:black;
 	position:absolute;
 	left:270px;
-	top:520px;
+	top:480px;
 }
 #accountPassword{
 	width:250px;
@@ -382,14 +406,6 @@ body {
 	left:145px;
 	top:404px;
 }
-#register{
-	top:137px;
-	left:764px;
-	height:597px;
-	width:579px;
-	position:absolute;
-	display:none;
-}
 #check_code{
 	position:relative;
 	top:40px;
@@ -443,13 +459,6 @@ body {
 	display: flex;
 	flex: row;
 	justify-content: center;
-}
-
-#forget {
-	color: black;
-	position: absolute;
-	left: 270px;
-	top: 520px;
 }
 
 #accountPassword {
@@ -705,12 +714,6 @@ input {
 	justify-content: center;
 }
 
-#forget {
-	color: black;
-	position: absolute;
-	left: 270px;
-	top: 520px;
-}
 #small_img {
 	z-index: 7;
 	position: absolute;
@@ -746,4 +749,11 @@ input {
 	position: absolute;
 	color:red;
 	font-size:16px;
+}
+#manager{
+	color:black;
+	position:absolute;
+	bottom:-150px;
+	right:0;
+	text-decoration:none;
 }
