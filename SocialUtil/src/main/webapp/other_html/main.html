@@ -214,10 +214,20 @@
 				</div>
 				<!-- 个人信息面板 -->
 				<div id="message">
-					<div id="photo"></div>
+					<div id="photo">
+						<img id="head_show" src="../img/timg.jpg">
+					</div>
 					<!-- 修改头像 -->
 					<div id="change_photo">
-						
+						<div id="photo_choose">
+						   <div id="cover">
+							   选择图片
+						       <input type="file" name="avatar" id="avatar"/>
+						   </div>				
+						   <img src="" alt="" id="preview"/>
+						   <div id="photo_warning"></div>
+						   <input type="button" id="photo_submit" value="确定" />
+						</div>				
 					</div>
 					<!-- 基本内容 -->
 					<div id="basic">
@@ -275,7 +285,7 @@
 					</div>
 					<i id="save_tag"></i>
 					<h1 id="title">Tag</h1>
-					<div id="personal_tag">快添加你的第一条标签吧
+					<div id="personal_tag">点击Tag可添加标签哦
 						<img id="delete_tag" src="../img/close.png">
 					</div>
 					<div id="tag_show"></div>
@@ -561,6 +571,34 @@
 				</div>
 				<input type="button" id="choose_submit" value="筛选" />
 			</div>
+		</div>
+		<div id="chat_page">
+			<div id="friend_name_show">
+				<img src="../img/name_show.png" >
+				<span id="show_name">222</span>
+			</div>
+			<div id="new_white_dashed">
+				<div id="talk_contact">
+					<div id="friend">
+						<img />
+						<p>12325555555555555555555555555554984984894846516</p>
+					</div>
+				</div>
+				<textarea style="resize:none;" id="txt"></textarea>
+				<input type="button" id="sendMsg" value="发送" />
+			</div>
+			<div id="icon">
+				<div id="icon_time">
+					<img src="../img/time.png" >
+				</div>
+				<div id="icon_close">
+					<img src="../img/close_chat.png" >
+				</div>
+			</div>
+			<div id="time_chat">
+				300
+			</div>
+			<div id="chat_warning"></div>
 		</div>
 		<script type="text/javascript" src="../js/jquery_2.js"></script>
 		<script type="text/javascript" src="../js/jquery_1.js"></script>
