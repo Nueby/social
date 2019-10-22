@@ -600,60 +600,79 @@ document.getElementById("title").onclick = function() {
 		save_tag.style.display = "block";
 	}
 	//确认标签预览数量,标签数量最多五个
-	let tagNum2 = 0;
+	let tagNum2 = -1;
 	//将标签放在预选栏
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	for (var i = 0; i < tagLi.length; i++) {
 		tagLi[i].onclick = function() {
-			var newLi = document.createElement("div");
-			newLi.setAttribute("id", "choose_class");
-			var liVal = document.createTextNode(this.innerHTML);
-			newLi.appendChild(liVal);
-			chooseTag.appendChild(newLi);
 			tagNum2++;
+			this.style.display="none";
 			if (tagNum2 >= 0 && tagNum2 < 5) {
+				var newLi = document.createElement("div");
+				newLi.setAttribute("id", "choose_class");
+				var liVal = document.createTextNode(this.innerHTML);
+				newLi.appendChild(liVal);
+				chooseTag.appendChild(newLi);
 				//点击去除选定的标签
 				var chooseLi = chooseTag.getElementsByTagName("div");
-				for (let j = 0; j < chooseLi.length; j++) {
-					chooseLi[j].onclick = function() {
+				for (let j = 0; j <chooseLi.length; j++) {	
+					chooseLi[j].onclick = function() {						
+						for(var n=0;n<tagLi.length;n++){
+							if(tagLi[n].innerHTML==chooseLi[j].innerHTML)
+							{
+								tagLi[n].style.display="block";
+							}								
+						}
 						chooseTag.removeChild(chooseLi[j]);
 						tagNum2--;
 					};
+					
 				}
 				tagWarning.innerHTML = "";
-			} else if (tagNum2 > 5) {
-				chooseTag.removeChild(newLi);
-				tagWarning.innerHTML = "*最对只能选五个标签，请先删除在添加";
+			} else if (tagNum2 >= 5) {
+				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
+				this.style.display="block";
 			}
 		};
 	}
+	
+	
 }
 
 //点击保存将标签放在tag中
 //Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
+var tagnum=-1;
+var tagtime=0;
 $id("save_tag").onclick = function() {
-	var tagWarning = document.getElementById("tag_warning");
-	tagWarning.innerHTML = "";
 	$("#personal_tag").remove();
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
+	var ntags="";
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
-	var tagDiv = document.createElement("div");
-	var tagShow = document.getElementById("tag_show");
-	var ntags = "";
-	for (var i = 0; i < chooseLi.length; i++) {
-		var divVal = document.createTextNode(chooseLi[i].innerHTML);
-		tagDiv.appendChild(divVal);
-		tagShow.appendChild(tagDiv);
-		var newTag = tagShow.getElementsByTagName("div");
-		for (var j = 0; j < newTag.length; j++) {
-			newTag[j].setAttribute("id", "other_tag" + j);
+	for(var i = 0;i < chooseLi.length; i++){	
+		tagnum=tagnum+1;
+		if(tagnum>=5){
+			if(tagnum%5==0){
+				tagtime=tagtime+1;
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}else{
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}
+		}else{
+			var tagDiv = document.createElement("div");
+			var tagShow = document.getElementById("tag_show");
+			var divVal = document.createTextNode(chooseLi[i].innerHTML);
+			tagDiv.appendChild(divVal);
+			tagShow.appendChild(tagDiv);
+			var newTag = tagShow.getElementsByTagName("div");
+			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
 		}
 		ntags = ntags + chooseLi[i];
 	}
-	for(var i = 0; i < chooseLi.length; i++){
+	var chooseLi_length=chooseLi.length-1;
+	for(var i =chooseLi_length; i>=0; i--){
 		chooseLi[i].remove();
 	}
 	$.ajax({
