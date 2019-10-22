@@ -182,33 +182,33 @@ $("#personal").html(signature);
 //设置框点击确定
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
-	$("#show1").attr("src", "");
-	$("#show2").attr("src", "");
-	$("#show3").attr("src", "");
-	$("#show4").attr("src", "");
+	$id("contact").value = "";
 	
-	$.ajax({
-		type: "POST",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"signature": signature,
-			"birthday": birthday,
-			"tags": tags,
-			"circleInfo": "",
-			"circleImg": ""
-		}),
-		dataType: "json",
-		success: function(data) {
-
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
+	//上传数据，要一个一个图片的传
+	// $(document).ready(function(){
+	// 	$("#dynamic_img").on("change", upload );
+	// });
+	// function upload(){
+	// 	var self = this;
+	// 	$.ajax({
+	// 		url:
+	// 		type:"post",
+	// 		dataType:"json",
+	// 		cache:false,
+	// 		data: ,
+	// 		processData: false,// 不处理数据
+	// 		contentType: false, // 不设置内容类型
+	// 		success:function(data){
+	
+	// 			}else{
+	// 				//如果不等于
+	// 				return false;
+	// 			}
+	// 		}
+	// 	});
+	// }
 }
+
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
 	if ($id("new_email").value == "") return false;
@@ -321,33 +321,118 @@ function changeUsername() {
 
 //发布于个人圈的预览图片
 
-$("#dynamic_img1").change(function() {
-	$("#dynamic_img1").hide();
-	document.getElementById("add1").style.opacity = "0";
-	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show1").style.opacity = "1";
-	document.getElementById("add2").style.opacity = "1";
+//  $(document).ready(function(){
+// 	$("#add").click(function(){
+// 		var $input = $("#dynamic_img");
+// 		$input.change(function(){
+// 			//获取选择图片的个数
+// 			var files = this.files;
+// 			var length = files.length;
+// 			console.log("选择了"+length+"张图片");
+// 			//3、回显
+// 			$.each(files,function(key,value){
+// 				//每次都只会遍历一个图片数据
+// 				var	img = document.createElement("img");
+// 				img.setAttribute("id","place");
+// 				var fr = new FileReader();
+// 				fr.onload = function(){
+// 					img.src=this.result;
+// 					$("#place").attr("src",img.src);
+// 					$("#add_img").append(img);
+// 					$("#show").remove();
+// 				}
+// 				fr.readAsDataURL(value);
+// 			})
+// 		})
+// 		//4、我们把当前input标签的id属性remove
+// 		$input.removeAttr("id");
+// 		//我们做个标记，再class中再添加一个类名就叫test
+// 		var newInput = '<input class="uploadimg test" type="file" multiple="multiple" id="dynamic_img">';
+// 		$(this).append($(newInput));
+// 	})
+// })
+
+
+$(function () {
+	//记录第几张图片
+	var picId = 0;
+	var pictureUploading = false;
+	$("#Form1").delegate(".addImg", "click", function () {
+		if (!!pictureUploading) return;
+		pictureUploading = true;
+		picId = parseInt($(this).attr("data-picId"));
+		picId++;
+		$(this).attr("data-picId", picId);
+		$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
+						+ "<input id=\"RoomInfo1_RoomPicture" + picId + "\" name=\"RoomInfo1_RoomPicture" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
+						+ "<input id=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" name=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" type=\"hidden\" value=\"0\" />"
+						+ "<a href=\"javascript:;\" id=\"previewBox" + picId + "\" class=\"previewBox\">"
+							+ "<div class=\"delImg\">&times;</div>"
+							+ "<img id=\"preview" + picId + "\" style=\"height:100px;width:100px;border-width:0px;\" />"
+						+ "</a>"
+					+ "</div>");
+		$("#RoomInfo1_RoomPicture" + picId).change(function () {
+			var $file = $(this);
+			var fileObj = $file[0];
+			var windowURL = window.URL || window.webkitURL;
+			var dataURL;
+			$("#previewBox" + picId).css("display", "inline-block");
+			var $img = $("#preview" + picId);
+			if (fileObj && fileObj.files && fileObj.files[0]) {
+				dataURL = windowURL.createObjectURL(fileObj.files[0]);
+				$img.attr('src', dataURL);
+			} else {
+				dataURL = $file.val();
+				var imgObj = $img;
+				// 在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+				// src属性需要像下面的方式添加，上面的两种方式添加，无效；
+				imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+				imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+			}
+			if (1 === picId) {
+				defaultImg(picId, true);
+			}
+			pictureUploading = false;
+		});
+		$("#RoomInfo1_RoomPicture" + picId).click();
+		//预览图片
+		$(".previewBox").click(function () {
+			var _picId = parseInt($(this).parent(".image_container").attr("data-picId"));
+			$(".image_container").each(function () {
+				var i = parseInt($(this).attr("data-picId"));
+				if (i === _picId)
+					defaultImg(i, true);
+				else
+					defaultImg(i, false);
+			});
+		});
+		//删除上传的图片
+		$(".delImg").click(function () {
+			var _picId = parseInt($(this).parent().parent(".image_container").attr("data-picId"));
+			$(".image_container[data-picid='" + _picId + "']").remove();
+			if ($(".image_container").length > 0 && $(".defaultImg").length < 1) {
+				$(".image_container").each(function () {
+					var i = parseInt($(this).attr("data-picId"));
+					defaultImg(i, true);
+					return false;
+				});
+			}
+		});
+	});
+	function defaultImg(picId, selected) {
+		if (!picId) return;
+		if (!!selected) {
+			$("#RoomInfo1_RoomPictureHidDefault" + picId).val(1);
+			$("#previewBox" + picId).addClass("defaultImg");
+		}
+		else {
+			$("#RoomInfo1_RoomPictureHidDefault" + picId).val(0);
+			$("#previewBox" + picId).removeClass("defaultImg");
+		}
+	}
 });
-$("#dynamic_img2").change(function() {
-	$("#dynamic_img2").hide();
-	document.getElementById("add2").style.opacity = "0";
-	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show2").style.opacity = "1";
-	document.getElementById("add3").style.opacity = "1";
-});
-$("#dynamic_img3").change(function() {
-	$("#dynamic_img3").hide();
-	document.getElementById("add3").style.opacity = "0";
-	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show3").style.opacity = "1";
-	document.getElementById("add4").style.opacity = "1";
-});
-$("#dynamic_img4").change(function() {
-	$("#dynamic_img4").hide();
-	document.getElementById("add4").style.opacity = "0";
-	$("#show4").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show4").style.opacity = "1";
-});
+
+
 
 //第二个设置中获取验证码
 function setTime() {
@@ -592,7 +677,7 @@ document.getElementById("title").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	//确认标签数量,标签数量最多五个
 	var tagNum = 0;
-	if (getStyle(self_tag, "display") == "block") {
+	if (getStyle(self_tag,"display") == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
 	} else {
@@ -603,27 +688,27 @@ document.getElementById("title").onclick = function() {
 	let tagNum2 = 0;
 	//将标签放在预选栏
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
-	for (var i = 0; i < tagLi.length; i++) {
-		tagLi[i].onclick = function() {
+	for(var i = 0;i < tagLi.length;i++){
+		tagLi[i].onclick = function(){
 			var newLi = document.createElement("div");
-			newLi.setAttribute("id", "choose_class");
+			newLi.setAttribute("id","choose_class");
 			var liVal = document.createTextNode(this.innerHTML);
 			newLi.appendChild(liVal);
 			chooseTag.appendChild(newLi);
-			tagNum2++;
-			if (tagNum2 >= 0 && tagNum2 < 5) {
+			tagNum2 ++;
+			if(tagNum2 >= 0 && tagNum2 < 5){
 				//点击去除选定的标签
 				var chooseLi = chooseTag.getElementsByTagName("div");
 				for (let j = 0; j < chooseLi.length; j++) {
 					chooseLi[j].onclick = function() {
 						chooseTag.removeChild(chooseLi[j]);
-						tagNum2--;
+						tagNum2 --;
 					};
 				}
 				tagWarning.innerHTML = "";
-			} else if (tagNum2 > 5) {
+			}else if(tagNum2 > 5){
 				chooseTag.removeChild(newLi);
-				tagWarning.innerHTML = "*最对只能选五个标签，请先删除在添加";
+				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
 			}
 		};
 	}
@@ -633,44 +718,54 @@ document.getElementById("title").onclick = function() {
 //Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
-$id("save_tag").onclick = function() {
-	var tagWarning = document.getElementById("tag_warning");
-	tagWarning.innerHTML = "";
-	$("#personal_tag").remove();
-	$id("save_tag").style.display = "none";
-	$("#self_tag").hide();
+var tagnum=-1;
+var tagtime=0;
+$id("save_tag").onclick = function(){
+	$id("save_tag").style.display ="none";
+	document.getElementById("self_tag").style.display = "none";
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
-	var tagDiv = document.createElement("div");
-	var tagShow = document.getElementById("tag_show");
-	var ntags = "";
-	for (var i = 0; i < chooseLi.length; i++) {
-		var divVal = document.createTextNode(chooseLi[i].innerHTML);
-		tagDiv.appendChild(divVal);
-		tagShow.appendChild(tagDiv);
-		var newTag = tagShow.getElementsByTagName("div");
-		for (var j = 0; j < newTag.length; j++) {
-			newTag[j].setAttribute("id", "other_tag" + j);
+	$id("tag").removeAttribute(document.getElementById("personal_tag"));
+	var tags="";
+	for(var i = 0;i < chooseLi.length; i++){	
+		tagnum=tagnum+1;
+		if(tagnum>=5){
+			if(tagnum%5==0){
+				tagtime=tagtime+1;
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}else{
+				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
+			}
+		}else{
+			var tagDiv = document.createElement("div");
+			var tagShow = document.getElementById("tag_show");
+			var divVal = document.createTextNode(chooseLi[i].innerHTML);
+			tagDiv.appendChild(divVal);
+			tagShow.appendChild(tagDiv);
+			var newTag = tagShow.getElementsByTagName("div");
+			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+			
 		}
-		ntags = ntags + chooseLi[i];
+		tags=tags+chooseLi[i];
 	}
-	for(var i = 0; i < chooseLi.length; i++){
-		chooseLi[i].remove();
+	if(tags!=""){
+		$("#personal_tag").css("display", "none");
 	}
 	$.ajax({
-		type: "post",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"birthday": birthday,
-			"tags": ntags,
-			"circleInfo": circle_info,
-			"circleImg": circle_img
+		type:"post",
+		url:"/SocialUtil/ControllerPageInfo.do",
+		data:JSON.stringify({
+			"behaviour":"change",
+			"username":username,
+			"head":head,
+			"signature":signatrue,
+			"birthday":birthday,
+			"tags":ntags,
+			"circleInfo":circle_info,
+			"circleImg":circle_img
 		}),
-		dataType: "json",
-		success: function(data) {
-			if (data.result == false) {
+		dataType:"json",
+		success:function(data) {
+			if(data.result == false) {
 				alert("更改失败");
 			} else {
 				getPage();
@@ -681,7 +776,7 @@ $id("save_tag").onclick = function() {
 }
 
 //删除标签,彻底删除
-$id("delete_tag").onclick = function() {
+$id("delete_tag").onclick = function(){
 	$("#personal_tag").remove();
 }
 
@@ -1097,6 +1192,39 @@ function lookMyself() {
 }
 lookMyself();
 
+
+/*特殊字符转义 防止XSS攻击 用于特殊字符正常显示*/
+
+function StringFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&/g, "&amp;");
+  s = s.replace(/</g, "&lt;");
+  s = s.replace(/>/g, "&gt;");
+  s = s.replace(/ /g, "&nbsp;");
+  s = s.replace(/\'/g, "&#39;");
+  s = s.replace(/\"/g, "&quot;");
+  return s;
+}
+ 
+/*转义字符还原成html字符*/
+function StringValFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&amp;/g, "&");
+  s = s.replace(/&lt;/g, "<");
+  s = s.replace(/&gt;/g, ">");
+  s = s.replace(/&nbsp;/g, " ");
+  s = s.replace(/&#39;/g, "\'");
+  s = s.replace(/&quot;/g, "\"");
+  return s;
+}
+
+
 //聊天界面，点击可以发送信息
 function sendNews() {
 	var sendMsg = document.getElementById("sendMsg");
@@ -1126,7 +1254,9 @@ function sendNews() {
 			myImg.style.position = "relative";
 			myImg.style.top = "0";
 			myImg.style.margin = "8px 10px 0 10px";
-			newTxt.innerHTML = txt.value;
+			var stringFilter = StringFilter(txt.value);
+			// var Val = StringValFilter(stringFilter);
+			newTxt.innerHTML = stringFilter;
 			talk_contact.appendChild(myImg);
 			talk_contact.appendChild(newTxt);
 			txt.value = "";
@@ -1137,18 +1267,35 @@ function sendNews() {
 sendNews();
 
 //获取当前时间的函数
-function getNowFormatDate() {
-	var date = new Date();
-	var seperator1 = "-";
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	if (month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if (strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-	var currentdate = year + seperator1 + month + seperator1 + strDate;
-	return currentdate;
+//个人圈的发布时候要给时间，举报信息要给时间后台记录
+
+//直接传纯数字的是在举报那里和聊天记录的
+function getDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+	//有必要就加
+    var h = myDate.getHours(); //获取当前小时数(0-23)
+    var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+    var s = myDate.getSeconds();
+    //获取当前时间
+    var now = (year.toString() + month.toString() + date.toString());
+	return now;
+}
+//这是个人圈显示的时间数据
+function getNowDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+    //获取当前时间
+    var now = (year.toString() + "-" + month.toString() +  "-" + date.toString());
+	return now;
 }

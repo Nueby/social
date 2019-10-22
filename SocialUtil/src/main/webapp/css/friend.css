@@ -253,6 +253,211 @@
 	top:190px;
 	left:20px;
 }
+#friend_tag0 {
+	z-index: 5;
+	height: 30px;
+	background: #eee0c8;
+	position: absolute;
+	padding-top: 5px;
+	left: 45px;
+}
+
+#friend_tag0:before,
+#friend_tag0:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag0:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #eee0c8 75%);
+}
+
+#friend_tag0:after {
+	top: 0;
+	right: -10px;
+	background-color: #eee0c8;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#friend_tag1 {
+	z-index: 5;
+	height: 30px;
+	background: #cee9eb;
+	position: absolute;
+	padding-top: 5px;
+	left: 150px;
+}
+
+#friend_tag1:before,
+#friend_tag1:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag1:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #cee9eb 75%);
+}
+
+#friend_tag1:after {
+	top: 0;
+	right: -10px;
+	background-color: #cee9eb;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+#friend_tag2 {
+	z-index: 5;
+	height: 30px;
+	background: #ececd4;
+	position: absolute;
+	padding-top: 5px;
+	top: 65px;
+	left: 80px;
+}
+
+#friend_tag2:before,
+#friend_tag2:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag2:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #ececd4 75%);
+}
+
+#friend_tag2:after {
+	top: 0;
+	right: -10px;
+	background-color: #ececd4;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#friend_tag3 {
+	z-index: 5;
+	height: 30px;
+	background: #b6f3b1;
+	position: absolute;
+	padding-top: 5px;
+	left: 180px;
+	top: 65px;
+}
+
+#friend_tag3:before,
+#friend_tag3:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag3:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-35deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #b6f3b1 75%);
+}
+
+#friend_tag3:after {
+	top: 0;
+	right: -10px;
+	background-color: #b6f3b1;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+#friend_tag4 {
+	z-index: 5;
+	height: 30px;
+	background: #f6f6f6;
+	position: absolute;
+	padding-top: 5px;
+	top: 120px;
+	left: 130px;
+}
+
+#friend_tag4:before,
+#friend_tag4:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag4:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #f6f6f6 75%);
+}
+
+#friend_tag4:after {
+	top: 0;
+	right: -10px;
+	background-color: #f6f6f6;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
 #direction{
 	position:absolute;
 	bottom:10px;
@@ -299,7 +504,7 @@
 	width:450px;
 	position:absolute;
 	top:10px;
-	left:856px;
+	left:869px;
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;

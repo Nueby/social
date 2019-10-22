@@ -119,7 +119,7 @@ function registerChange() {
 					}
 				},
 				error:function(err) {
-					alert(err.status);
+					//alert(err.status);
 				}
 			})
 		}
@@ -191,10 +191,11 @@ function bar() {
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
+									$("#loading").show();
 	    						}
 	    					},
 	    					error:function(err) {
-	    						alert(err.status);
+	    						//alert(err.status);
 	    					}
 	    				})
     				} else {
@@ -206,7 +207,7 @@ function bar() {
     			}
     		},
     		error:function(err) {
-    			alert(err.status);
+    			//alert(err.status);
     		}
     	})
         isTouch = false;
@@ -252,7 +253,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+			//alert(err.status);
 		}
 	})
 }
@@ -297,7 +298,7 @@ function sendRegister() {
 							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
-							alert(err.status);
+							//alert(err.status);
 						}
 					})
 				} else {
@@ -305,7 +306,7 @@ function sendRegister() {
 				}
 			},
 			error:function(err) {
-				alert(err.status);
+				//alert(err.status);
 			}
 		})
 	}
@@ -315,3 +316,16 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
+
+
+
+//字体跳动效果
+$(document).ready(function() {
+	$("#roloadText").beatText({
+		isAuth: true,
+		beatHeight: "1em",
+		isRotate: false,
+		upTime: 100,
+		downTime: 100
+	});
+});
