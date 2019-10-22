@@ -22,6 +22,22 @@ var circle_img = ""; //个人圈图片
 // 	window.location.href = "/SocialUtil/matching.html";
 // }
 
+
+//让所有点击显示的图层都隐藏
+function divNone(){
+	$("#set_1").hide();
+	$("#set_2").hide();
+	$("#set_3").hide();
+	$("#change_photo").hide();
+	$("#chat_about").hide();
+	$("#choose_friend").hide();
+	$("#self_tag").hide();
+	$("#save_tag").hide();
+	$("#cover_scroll1").hide();
+	$("#cover_scroll2").hide();
+	$("#cover_scroll3").hide();
+}
+
 //获取学校信息
 function getSchool() {
 	$.ajax({
@@ -126,6 +142,7 @@ $id("single").onclick = function changeSingle() {
 	changeIcon();
 	$id("main_message").style.display = "block";
 	$id("main_friend").style.display = "none";
+	divNone();
 }
 
 //切换交友
@@ -134,6 +151,7 @@ $id("make_friend").onclick = function changeDouble() {
 	changeIcon();
 	$id("main_message").style.display = "none";
 	$id("main_friend").style.display = "block";
+	divNone();
 }
 
 //三个图标点击显示设置框
@@ -141,7 +159,6 @@ document.getElementById("dynamic").onclick = function() {
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
-	console.log("123");
 }
 document.getElementById("modify_contact").onclick = function() {
 	$("#set_2").show();
@@ -165,6 +182,11 @@ $("#personal").html(signature);
 //设置框点击确定
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
+	$("#show1").attr("src", "");
+	$("#show2").attr("src", "");
+	$("#show3").attr("src", "");
+	$("#show4").attr("src", "");
+	
 	$.ajax({
 		type: "POST",
 		url: "/SocialUtil/ControllerPageInfo.do",
@@ -188,6 +210,7 @@ $id("dynamic_submit").onclick = function() {
 	})
 }
 $id("email_submit").onclick = function() {
+	$id("set_2").style.display = "none";
 	if ($id("new_email").value == "") return false;
 	$.ajax({
 		type: "GET",
@@ -297,6 +320,7 @@ function changeUsername() {
 }
 
 //发布于个人圈的预览图片
+
 $("#dynamic_img1").change(function() {
 	$("#dynamic_img1").hide();
 	document.getElementById("add1").style.opacity = "0";
@@ -503,9 +527,39 @@ $(function() {
 
 //点击头像更改头像
 //Ajax传输头像保存将头像显示在id = photo里面
-// $id("photo").onclick = function() {
-// 	$id("change_photo").style.display = "block";
-// }
+$id("photo").onclick = function() {
+	$id("change_photo").style.display = "block";
+	$("#set_1").hide();
+	$("#set_2").hide();
+	$("#set_3").hide();
+}
+$id("photo_submit").onclick = function(){
+	$id("change_photo").style.display = "none";
+	$("#preview").attr("src", "");
+}
+$("#avatar").change(function () {
+	$("#photo_warning").html("");
+	//拿到文件数据
+	var choose_file = $(this)[0].files[0];
+	//截取图片名称小数点后的字符串
+	var ftype=choose_file.name.substring(choose_file.name.lastIndexOf(".")+1);
+	//校验格式是否是图片类型
+	if(ftype=="jpg" || ftype=="png" || ftype=="jpeg" || ftype == "JPG"){
+		$("#preview").attr("src", URL.createObjectURL($(this)[0].files[0]));
+		$("#head_show").attr("src", URL.createObjectURL($(this)[0].files[0]));
+		//限制大小，照片大小不能超过1M
+		var size = choose_file.size / 1024 / 1024;
+		if (size > 1) {
+			$("#photo_warning").html("*图片太大了，请重新选择");
+			return false;
+		}
+	}else{
+		$("#photo_warning").html("*图片格式好像不对，请重新选择");
+		return false;
+	}
+});
+
+
 
 //获取图片的url地址
 function getObjectURL(file) {
@@ -569,7 +623,7 @@ document.getElementById("title").onclick = function() {
 				tagWarning.innerHTML = "";
 			} else if (tagNum2 > 5) {
 				chooseTag.removeChild(newLi);
-				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
+				tagWarning.innerHTML = "*最对只能选五个标签，请先删除在添加";
 			}
 		};
 	}
@@ -580,6 +634,8 @@ document.getElementById("title").onclick = function() {
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 $id("save_tag").onclick = function() {
+	var tagWarning = document.getElementById("tag_warning");
+	tagWarning.innerHTML = "";
 	$("#personal_tag").remove();
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
@@ -703,6 +759,7 @@ document.getElementById("prev").onclick = function() {
 			"right": "-342px"
 		});
 	}
+	divNone();
 }
 //点击右按钮
 document.getElementById("next").onclick = function() {
@@ -775,6 +832,7 @@ document.getElementById("next").onclick = function() {
 			"filter": "none"
 		});
 	}
+	divNone();
 }
 
 //对筛选的对象进行存储
@@ -939,33 +997,29 @@ function selection() {
 }
 selection();
 
-function chat() {
-	//点击显示聊天界面，筛选框和个人圈以及关闭
-	var interval;
-	var chat = document.querySelectorAll("#chat");
-	for (var i = 0; i < chat.length; i++) {
-		chat[i].onclick = function() {
-			if (getStyle(show_message, "left") == "15px" ||
-				getStyle(another_message1, "left") == "15px" ||
-				getStyle(another_message1, "left") == "15px") {
-				var chat_about = document.getElementById("chat_about");
-				chat_about.style.display = "block";
-				if (interval) {
-					clearInterval(interval);
-				}
-				interval = setInterval("timeLow()", 1000);
-			} else {
-				return false;
+
+//点击显示聊天界面，筛选框和个人圈以及关闭
+var interval;
+var chat = document.querySelectorAll("#chat");
+for (var i = 0; i < chat.length; i++) {
+	chat[i].onclick = function() {
+		if (getStyle(show_message, "left") == "15px") {
+			var chat_about = document.getElementById("chat_about");
+			chat_about.style.display = "block";
+			if (interval) {
+				clearInterval(interval);
 			}
+			interval = setInterval("timeLow()", 1000);
+		} else {
+			return false;
 		}
 	}
 }
-chat();
 
 //时间递减函数
 //点开聊天框后的倒计时，当时间停止到30秒时提醒，为0时关闭聊天界面
+var time = 300;
 function timeLow() {
-	var time = 300;
 	var timeChat = document.getElementById("time_chat");
 	if (time > 0) {
 		time--;
@@ -1081,3 +1135,20 @@ function sendNews() {
 	}
 }
 sendNews();
+
+//获取当前时间的函数
+function getNowFormatDate() {
+	var date = new Date();
+	var seperator1 = "-";
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	if (month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if (strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+	var currentdate = year + seperator1 + month + seperator1 + strDate;
+	return currentdate;
+}

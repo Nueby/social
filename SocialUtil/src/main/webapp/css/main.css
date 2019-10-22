@@ -224,19 +224,6 @@ li {
 	list-style-type: none;
 }
 
-#photo {
-	border-radius: 100%;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, .3);
-	height: 75px;
-	width: 75px;
-	top: 47px;
-	left: 30px;
-	position: absolute;
-	background-image: url(../img/timg.jpg);
-	background-size: 100%;
-	cursor: pointer;
-}
-
 #set_1 {
 	position: absolute;
 	top: 250px;
@@ -575,17 +562,89 @@ select {
 	border: 1.5px solid #c7c7c7;
 }
 
+#photo {
+	border-radius: 100%;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, .3);
+	height: 75px;
+	width: 75px;
+	top: 47px;
+	left: 30px;
+	position: absolute;
+	background-size: 100%;
+	cursor: pointer;
+}
+#head_show{
+	position:absolute;
+	width:75px;
+	height:75px;
+	border-radius:50%;
+}
 #change_photo {
-	width: 300px;
+	width: 500px;
 	position: absolute;
 	background: white;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .5);
-	border: 5px solid lightgrey;
+	border: 3px solid lightgrey;
 	z-index: 10;
 	top: 50px;
-	display: none;
+	right:0;
+	border-radius:20px;
+	display:none;
 }
-
+#photo_choose{
+	border:2px dashed black;
+	margin:10px;
+	border-radius:18px;
+}
+#avatar{
+	width:100px;
+	height:30px;
+	cursor:pointer;
+	position:absolute;
+	left:2px;
+	opacity:0;
+}
+#cover{
+	background:white;
+	border:1px solid black;
+	border-radius:20px;
+	width:100px;
+	height:30px;
+	text-align:center;
+	padding-top:5px;
+	position:absolute;
+	top:50px;
+	right:20px;
+}
+#cover:hover{
+	background:lightgrey;
+}
+#preview{
+	margin:20px;
+	border:1px solid black;
+	height:200px;
+	width:300px;
+	border-radius:10px;
+}
+#photo_submit{
+	width:100px;
+	height:30px;
+	background:white;
+	position:absolute;
+	right:20px;
+	bottom:50px;
+	border-radius:20px;
+	font-size:17px;
+	cursor:pointer;
+}
+#photo_submit:hover{
+	background:lightgrey;
+}
+#photo_warning{
+	color:red;
+	font-size:15px;
+	padding-left:20px;
+}
 #basic {
 	position: relative;
 }
@@ -731,7 +790,7 @@ select {
 }
 
 #choose_tag{
-	width:270px;
+	width:285px;
 	height:32px;
 	height:30px;
 	overflow:hidden;

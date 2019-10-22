@@ -64,35 +64,35 @@ function registerChange() {
 	var icon_rpeople = $id("icon_rpeople");
 	var icon_password_secret = $id("icon_password_secret");
 	var icon_password_confirm = $id("icon_password_confirm");
-	var icon_accountPassword = $id("icon_accountPassword");
 	var register_text = $id("register_text");
 	var register_password = $id("register_password");
-	var accountPassword = $id("accountPassword");
+	var icon_secret = $id("icon_secret");
+	var text_password = $id("text_password");
 	var confirm = $id("confirm");
 	//图标改变
 	register_text.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople_2");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
-	}
-	accountPassword.onclick = function() {
-		icon_rpeople.setAttribute("id","icon_rpeople");
-		icon_password_secret.setAttribute("id","icon_password_secret");
-		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword_2");
+		icon_secret.setAttribute("id","icon_secret");
 	}
 	register_password.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret_2");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
+		icon_secret.setAttribute("id","icon_secret");
 	}
 	confirm.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm_2");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
+		icon_secret.setAttribute("id","icon_secret");
+	}
+	text_password.onclick = function(){
+		icon_rpeople.setAttribute("id","icon_rpeople");
+		icon_password_secret.setAttribute("id","icon_password_secret");
+		icon_password_confirm.setAttribute("id","icon_password_confirm");
+		icon_secret.setAttribute("id","icon_secret_2");
 	}
 	//检验账号是否存在
 	register_text.onblur = function() {

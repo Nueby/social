@@ -507,6 +507,19 @@
 	margin-top:15px;
 	background:rgba(0,0,0,.3);
 }
+#chat_about1{
+	width:800px;
+	height:560px;
+	border:1px solid black;
+	margin:0 auto;
+	display:none;
+	z-index:999;
+	background:lightgrey;
+	position:absolute;
+	top:90px;
+	left:350px;
+	border-radius:15px;
+}
 #chat_about{
 	width:800px;
 	height:560px;
@@ -704,4 +717,13 @@
 	float:right;
 	color:white;
 	font-weight:500;
+}
+#chat_page{
+	position:absolute;
+	background:grey;
+	top:150px;
+	left:300px;
+	z-index:1000;
+	border-radius:40px;
+	display:none;
 }
