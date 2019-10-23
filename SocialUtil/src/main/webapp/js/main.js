@@ -651,13 +651,27 @@ $id("save_tag").onclick = function() {
 	$("#self_tag").hide();
 	var ntags="";
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	for(var i = 0;i < chooseLi.length; i++){	
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
 				tagtime=tagtime+1;
+				
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}else{
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}
 		}else{
