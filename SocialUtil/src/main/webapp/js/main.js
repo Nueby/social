@@ -691,30 +691,38 @@ document.getElementById("title").onclick = function() {
 		save_tag.style.display = "block";
 	}
 	//确认标签预览数量,标签数量最多五个
-	let tagNum2 = 0;
+	let tagNum2 = -1;
 	//将标签放在预选栏
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
-	for(var i = 0;i < tagLi.length;i++){
-		tagLi[i].onclick = function(){
-			var newLi = document.createElement("div");
-			newLi.setAttribute("id","choose_class");
-			var liVal = document.createTextNode(this.innerHTML);
-			newLi.appendChild(liVal);
-			chooseTag.appendChild(newLi);
-			tagNum2 ++;
-			if(tagNum2 >= 0 && tagNum2 < 5){
+	for (var i = 0; i < tagLi.length; i++) {
+		tagLi[i].onclick = function() {
+			tagNum2++;
+			this.style.display="none";
+			if (tagNum2 >= 0 && tagNum2 < 5) {
+				var newLi = document.createElement("div");
+				newLi.setAttribute("id", "choose_class");
+				var liVal = document.createTextNode(this.innerHTML);
+				newLi.appendChild(liVal);
+				chooseTag.appendChild(newLi);
 				//点击去除选定的标签
 				var chooseLi = chooseTag.getElementsByTagName("div");
-				for (let j = 0; j < chooseLi.length; j++) {
-					chooseLi[j].onclick = function() {
+				for (let j = 0; j <chooseLi.length; j++) {	
+					chooseLi[j].onclick = function() {						
+						for(var n=0;n<tagLi.length;n++){
+							if(tagLi[n].innerHTML==chooseLi[j].innerHTML)
+							{
+								tagLi[n].style.display="block";
+							}								
+						}
 						chooseTag.removeChild(chooseLi[j]);
 						tagNum2 --;
 					};
+					
 				}
 				tagWarning.innerHTML = "";
-			}else if(tagNum2 > 5){
-				chooseTag.removeChild(newLi);
+			} else if (tagNum2 >= 5) {
 				tagWarning.innerHTML = "*最对只能放五个标签，请先删除在添加";
+				this.style.display="block";
 			}
 		};
 	}
@@ -726,19 +734,32 @@ document.getElementById("title").onclick = function() {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 var tagnum=-1;
 var tagtime=0;
-$id("save_tag").onclick = function(){
-	$id("save_tag").style.display ="none";
-	document.getElementById("self_tag").style.display = "none";
+$id("save_tag").onclick = function() {
+	$("#personal_tag").remove();
+	$id("save_tag").style.display = "none";
+	$("#self_tag").hide();
+	var ntags="";
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
-	$id("tag").removeAttribute(document.getElementById("personal_tag"));
-	var tags="";
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	for(var i = 0;i < chooseLi.length; i++){	
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
-				tagtime=tagtime+1;
+				tagtime=tagtime+1;			
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}else{
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}
 		}else{
@@ -749,12 +770,12 @@ $id("save_tag").onclick = function(){
 			tagShow.appendChild(tagDiv);
 			var newTag = tagShow.getElementsByTagName("div");
 			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
-			
 		}
 		tags=tags+chooseLi[i];
 	}
-	if(tags!=""){
-		$("#personal_tag").css("display", "none");
+	var chooseLi_length=chooseLi.length-1;
+	for(var i =chooseLi_length; i>=0; i--){
+		chooseLi[i].remove();
 	}
 	$.ajax({
 		type:"post",
