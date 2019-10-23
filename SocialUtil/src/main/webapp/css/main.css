@@ -257,21 +257,26 @@ li {
 	margin-top:15px;
 	float: left;
 }
+#tdRoomPicture{
+	overflow:hidden;
+	height:110px;
+}
 #tdRoomPicture a,.image_container a {
 	text-align: center;
 	vertical-align: middle;
 	text-decoration: none;
 }
 
-a.addImg {
-	width: 100px;
-	height: 100px;
-	line-height: 100px;
+.addImg {
+	width: 70px;
+	height: 70px;
+	line-height: 55px;
 	display: inline-block;
 	font-size: 50px;
 	background-color: lightgrey;
 	border-radius:50%;
-	margin-top:15px;
+	margin-top:20px;
+	margin-left:10px;
 }
 
 .image_container a.previewBox {
@@ -285,11 +290,11 @@ a.addImg {
 .image_container .delImg {
 	position: absolute;
 	color: black;
-	margin: 0 0 0 84px;
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
-	line-height: 16px;
+	margin: 0 0 0 55px;
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	line-height: 14px;
 	text-align: center;
 	vertical-align: middle;
 	background-color: #c3c3c3;
@@ -381,11 +386,11 @@ a.addImg {
 	background: rgba(0, 0, 0, .4);
 	border-radius: 5px;
 	font-size: 13px;
-	height: 25px;
-	width: 70px;
+	height: 20px;
+	padding:4px;
 	cursor: pointer;
 	position: absolute;
-	right: 50px;
+	left: 330px;
 	top: 95px;
 	color: white;
 }

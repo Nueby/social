@@ -1,0 +1,6 @@
+#linechart{
+	border:1px solid black;
+	margin-left:200px;
+	
+	transition:opacity 2s;
+}

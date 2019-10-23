@@ -156,6 +156,7 @@ $id("make_friend").onclick = function changeDouble() {
 
 //三个图标点击显示设置框
 document.getElementById("dynamic").onclick = function() {
+	$(".addImg").show();
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
@@ -183,7 +184,7 @@ $("#personal").html(signature);
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
 	$id("contact").value = "";
-	
+	$(".image_container").remove();
 	//上传数据，要一个一个图片的传
 	// $(document).ready(function(){
 	// 	$("#dynamic_img").on("change", upload );
@@ -358,42 +359,46 @@ $(function () {
 	var picId = 0;
 	var pictureUploading = false;
 	$("#Form1").delegate(".addImg", "click", function () {
-		if (!!pictureUploading) return;
+		if (pictureUploading) return;
 		pictureUploading = true;
 		picId = parseInt($(this).attr("data-picId"));
 		picId++;
-		$(this).attr("data-picId", picId);
-		$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
-						+ "<input id=\"RoomInfo1_RoomPicture" + picId + "\" name=\"RoomInfo1_RoomPicture" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
-						+ "<input id=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" name=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" type=\"hidden\" value=\"0\" />"
-						+ "<a href=\"javascript:;\" id=\"previewBox" + picId + "\" class=\"previewBox\">"
-							+ "<div class=\"delImg\">&times;</div>"
-							+ "<img id=\"preview" + picId + "\" style=\"height:100px;width:100px;border-width:0px;\" />"
-						+ "</a>"
-					+ "</div>");
-		$("#RoomInfo1_RoomPicture" + picId).change(function () {
-			var $file = $(this);
-			var fileObj = $file[0];
-			var windowURL = window.URL || window.webkitURL;
-			var dataURL;
-			$("#previewBox" + picId).css("display", "inline-block");
-			var $img = $("#preview" + picId);
-			if (fileObj && fileObj.files && fileObj.files[0]) {
-				dataURL = windowURL.createObjectURL(fileObj.files[0]);
-				$img.attr('src', dataURL);
-			} else {
-				dataURL = $file.val();
-				var imgObj = $img;
-				// 在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
-				// src属性需要像下面的方式添加，上面的两种方式添加，无效；
-				imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-				imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
-			}
-			if (1 === picId) {
-				defaultImg(picId, true);
-			}
-			pictureUploading = false;
-		});
+		if(picId <= 4){
+			$(this).attr("data-picId", picId);
+			$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
+							+ "<input id=\"RoomInfo1_RoomPicture" + picId + "\" name=\"RoomInfo1_RoomPicture" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
+							+ "<input id=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" name=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" type=\"hidden\" value=\"0\" />"
+							+ "<a href=\"javascript:;\" id=\"previewBox" + picId + "\" class=\"previewBox\">"
+								+ "<div class=\"delImg\">&times;</div>"
+								+ "<img id=\"preview" + picId + "\" style=\"height:70px;width:70px;border-width:0px;\" />"
+							+ "</a>"
+						+ "</div>");
+			$("#RoomInfo1_RoomPicture" + picId).change(function () {
+				var $file = $(this);
+				var fileObj = $file[0];
+				var windowURL = window.URL || window.webkitURL;
+				var dataURL;
+				$("#previewBox" + picId).css("display", "inline-block");
+				var $img = $("#preview" + picId);
+				if (fileObj && fileObj.files && fileObj.files[0]) {
+					dataURL = windowURL.createObjectURL(fileObj.files[0]);
+					$img.attr('src', dataURL);
+				} else {
+					dataURL = $file.val();
+					var imgObj = $img;
+					// 在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+					// src属性需要像下面的方式添加，上面的两种方式添加，无效；
+					imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+					imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+				}
+				if (1 === picId) {
+					defaultImg(picId, true);
+				}
+				pictureUploading = false;
+			});
+		}else{
+			$(".addImg").hide();
+		}
 		$("#RoomInfo1_RoomPicture" + picId).click();
 		//预览图片
 		$(".previewBox").click(function () {
@@ -435,27 +440,28 @@ $(function () {
 
 
 //第二个设置中获取验证码
+var click = false; //验证是否点击
+var countTime = 60; //时间为60秒
 function setTime() {
 	var time_get = document.getElementById("time_get");
-	var countTime = 60; //时间为60秒
 	var interval;
-	var click = false; //验证是否点击
 	if (countTime > 0) {
 		countTime--;
 		time_get.innerHTML = countTime + "秒后重新发送";
 	} else if (countTime == 0) {
-		countTime = 60;
 		time_get.innerHTML = "获取验证码";
 		clearInterval(interval);
 		click = false;
 	}
 }
 
-$id("time_get").onclick = function() {
+document.getElementById("time_get").onclick = function() {
 	//获取验证码后改变字体
 	if (!click) {
 		interval = setInterval("setTime()", 1000);
 		click = true;
+	}else{
+		clearInterval(interval);
 	}
 	//点击获取发送验证码到邮箱
 	var new_email = document.getElementById("new_email").value;
@@ -1139,8 +1145,11 @@ function timeLow() {
 //ajax的内容,只要聊天框关闭，刷新main_show的内容
 
 document.getElementById("icon_close").onclick = function() {
+	var timeChat = document.getElementById("time_chat");
 	chat_about.style.display = "none";
 	clearInterval(interval);
+	time = 300;
+	timeChat.innerHTML = time;
 }
 
 
@@ -1148,6 +1157,46 @@ document.getElementById("icon_close").onclick = function() {
 document.getElementById("icon_time").onclick = function() {
 
 }
+
+$("#icon_small").click(function(){
+	if($("#icon_small").attr("src") == "../img/small.png"){
+		$("#chat_about").css({"height":"70px","overflow":"hidden"});
+		$("#icon_small").attr("src","../img/big.png");
+	}else if($("#icon_small").attr("src") == "../img/big.png"){
+		$("#chat_about").css({"height":"560px","overflow":"visible"});
+		$("#icon_small").attr("src","../img/small.png");
+	}
+})
+
+//聊天框的拖动
+function MoveChat(){
+	var chat_about = document.getElementById("chat_about");
+	function drag (ele){
+		ele.onmousedown = function(e){
+			var e = e || window.event;  
+			//此处是为了兼容IE，因为IE中事件对象是作为全局对象( window.event )存在的；
+			var pageX = e.pageX || e.clientX + document.documentElement.scrollLeft;
+			var pageY = e.pageY || e.clientY + document.documentElement.scrollTop;
+			//获取鼠标相对盒子的位置；
+			var chat_aboutX = pageX - chat_about.offsetLeft;
+			var chat_aboutY = pageY - chat_about.offsetTop;
+			document.onmousemove = function(e){
+				var e = e || window.event;
+				var pageX = e.pageX || e.clientX + document.documentElement.scrollLeft;
+				var pageY = e.pageY || e.clientY + document.documentElement.scrollTop;
+			  //将鼠标当前的坐标值减去鼠标相对盒子的位置，得到盒子当时的位置并将其赋值给盒子，实现移动效果
+				chat_about.style.left = pageX - chat_aboutX +'px';
+				chat_about.style.top = pageY - chat_aboutY + 'px';
+			}
+		};
+		document.onmouseup = function () {
+			//清除盒子的移动事件;
+			document.onmousemove = null;
+		};
+	};
+	drag(chat_about);
+}
+MoveChat();
 
 //个人圈的查看
 //ajax将发布的个人圈资料上传
@@ -1231,11 +1280,12 @@ function sendNews() {
 	var txt = document.getElementById("txt");
 	var talk_contact = document.getElementById("talk_contact");
 	var contact = talk_contact.getElementsByTagName("p");
-
 	sendMsg.onclick = function() {
 		if (txt.value == "") {
-			txt.value = "不能发送空内容";
+			$("#empty_warning").html("不能发送空内容");
+			$("#empty_warning").show();
 		} else {
+			$("#empty_warning").hide();
 			//个人头像
 			var myImg = document.createElement("img");
 			var newTxt = document.createElement("p");
