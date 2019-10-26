@@ -117,6 +117,9 @@ function load() {
 		marginTop: "300px",
 		marginLeft: "250px"
 	}, 2000);
+	$("#arrow").animate({
+		left: "100px"
+	}, 2000);
 }
 load();
 
@@ -152,6 +155,7 @@ $id("make_friend").onclick = function changeDouble() {
 	$id("main_message").style.display = "none";
 	$id("main_friend").style.display = "block";
 	divNone();
+	$("#arrow").hide();
 }
 
 //三个图标点击显示设置框
@@ -665,13 +669,6 @@ function getObjectURL(file) {
 	return url;
 }
 
-//可随机生成颜色的方法
-var getRandomColor = function() {
-	var r = Math.floor(Math.random() * 100 + 100);
-	var g = Math.floor(Math.random() * 100 + 100);
-	var b = Math.floor(Math.random() * 100 + 100);
-	return "rgb(" + r + "," + g + "," + b + ")";
-}
 
 //点击tag打开输入框
 //点击Tag标签出显示框和保存按钮
@@ -731,7 +728,6 @@ document.getElementById("title").onclick = function() {
 //点击保存将标签放在tag中
 //Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 var tagnum=-1;
 var tagtime=0;
 $id("save_tag").onclick = function() {

@@ -29,7 +29,14 @@ body {
 	margin-left: 250px;
 	width: 200px;
 }
-
+#arrow{
+	position:absolute;
+	filter:contrast(10%);
+	top:500px;
+	left:-100px;
+	height:200px;
+	width:200px;
+}
 #self_dynamic {
 	background: rgba(0, 0, 0, .5);
 	height: 500px;
