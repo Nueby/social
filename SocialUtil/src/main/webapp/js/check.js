@@ -103,18 +103,20 @@ function registerChange() {
 			isHave = true;
 		} else {
 			account = register_text.value;
-			var json = {"behaviour":"check","account":account};
+			var json = {"behaviour":0,"account":account};
 			$.ajax({
 				type:"GET",
 				url:"/SocialUtil/ControllerUser.do",
-				data: json,
+				data: JSON.stringify(json),
 				dataType:"json",
 				success:function(data){
 					if(data.result) {		//账号存在显示信息
 						$id("accountMsg").innerHTML = "*该账号已存在";
+						$("#accountMsg").css("color","red");
 						isHave = true;
 					} else {		//账号不存在显示信息
-						$id("accountMsg").innerHTML = "";
+						$id("accountMsg").innerHTML = "*该账号可使用";
+						$("#accountMsg").css("color","green");
 						isHave = false;
 					}
 				},
@@ -177,14 +179,14 @@ function bar() {
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
-	    				var json = {"behaviour":"login","account":account,"password":password};
+	    				var json = {"behaviour":4,"account":account,"password":password};
 	    				$.ajax({
 	    					type:"POST",
 	    					url:"/SocialUtil/ControllerUser.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
-	    						if(data.result == "account") {
+	    						if(data.result == "database") {
 	    							$id("enterMsg").innerHTML = "*账号不存在";
 	    						} else if(data.result == "password") {
 	    							$id("enterMsg").innerHTML = "*密码错误";
@@ -276,32 +278,15 @@ function sendRegister() {
 		registerMsg.innerHTML = "*两次密码不一致";
 	} else {
 		//跨域
-		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
 			url:"/SocialUtil/RegisterController.do",
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
-				if(data.flag == 1) {
-					var json2 = {
-						"behaviour":"logup",
-						"account":account,
-						"edu_password":accountPassword,
-						"login_password":register_password
-					};
-					$.ajax({
-						type:"POST",
-						url:"/SocialUtil/ControllerUser.do",
-						data:JSON.stringify(json2),
-						dataType:"json",
-						success:function(data) {
-							registerMsg.innerHTML = "*注册成功";
-						},
-						error:function(err) {
-							//alert(err.status);
-						}
-					})
+				if(data.result == true) {
+					registerMsg.innerHTML = "*注册成功";
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
