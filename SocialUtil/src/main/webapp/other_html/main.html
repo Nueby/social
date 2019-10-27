@@ -444,27 +444,87 @@
 			</div>
 		</div>
 		<div id="chat_about">
+			<img src="../img/name_show.png" id="name_show">
 			<div id="friend_name_show">
-				<img src="../img/name_show.png" >
-				<span id="show_name">222</span>
+				<span id="show_name">26168</span>
 			</div>
 			<div id="new_white_dashed">
 				<div id="talk_contact">
 					<div id="friend">
-						<img />
-						<p>12325555555555555555555555555554984984894846516</p>
+						<img src=""/>
+						<p>现在你们可以开始聊天了，不过要注意你的言行哦</p>
 					</div>
 				</div>
 				<textarea style="resize:none;" id="txt"></textarea>
 				<input type="button" id="sendMsg" value="发送" />
 			</div>
-			<div id="icon">			
-				<img src="../img/time.png" id="icon_time">	
-				<img src="../img/close_chat.png" id="icon_close">
-				<img src="../img/small.png" id="icon_small">
+			<div id="icon">
+				<div id="icon_close">
+					<img src="../img/close_chat.png">
+					<i>结束聊天</i>
+				</div>	
+				<div id="icon_change">
+					<img src="../img/small.png">
+					<i>缩小对话框</i>
+				</div>
+				<div id="icon_time">
+					<img src="../img/time.png">
+					<i>可以加时哦</i>
+				</div>	
+				<div id="icon_friend">
+					<img src="../img/add_friend.png" >
+					<i>发送加好友信息</i>
+				</div>	
+				<div id="icon_report">
+					<img src="../img/report.png" >
+					<i>在这里举报</i>
+				</div>	
+			</div>
+			<div id="report_choose">
+				<div id="dashed">
+					<div id="report_introduce">
+						<input type="checkbox" id="check1"/>
+						<span id="report_title">言语侮辱</span>
+					</div>
+					<div id="report_introduce">
+						<input type="checkbox" id="check2"/>
+						<span id="report_title">挑逗信息</span>
+					</div>
+					<div id="report_introduce">
+						<input type="checkbox" id="check3"/>
+						<span id="report_title">海王</span>
+					</div>
+					<div id="report_introduce">
+						<input type="checkbox" id="check4"/>
+						<span id="report_title">垃圾广告</span>
+					</div>
+					<div id="report_introduce">
+						<input type="checkbox" id="check5"/>
+						<span id="report_title">恶意骚扰</span>
+					</div>
+					<div id="report_introduce">
+						<input type="checkbox" id="check6"/>
+						<span id="report_title">信息诈骗</span>
+					</div>
+					<div id="report_button">
+						<input type="button" id="report_submit" value="确定举报" />
+						<input type="button" id="report_cancel" value="取消" />
+					</div>
+				</div>
 			</div>
 			<div id="time_chat">
 				300
+			</div>
+			<div id="add_friend">
+				<div id="dashed">
+					<p id="add_title">
+						向<span id="hesname">"xxxxx"</span>发送好友请求
+					</p>
+					<div id="add_button">
+						<input type="button" id="add_cancel" value="取消" />
+						<input type="button" id="add_submit" value="确定" />
+					</div>
+				</div>
 			</div>
 			<div id="chat_warning"></div>
 			<div id="empty_warning"></div>
@@ -562,18 +622,21 @@
 				<div id="talk_contact">
 					<div id="friend">
 						<img />
-						<p>12325555555555555555555555555554984984894846516</p>
+						<p>他已经是你的好友了，开始你们的聊天吧</p>
 					</div>
 				</div>
 				<textarea style="resize:none;" id="txt"></textarea>
 				<input type="button" id="sendMsg" value="发送" />
 			</div>
 			<div id="icon">
-				<div id="icon_time">
-					<img src="../img/time.png" >
-				</div>
 				<div id="icon_close">
 					<img src="../img/close_chat.png" >
+				</div>
+				<div id="icon_samll">
+					<img src="../img/samll.png" >
+				</div>
+				<div id="icon_report">
+					<img src="../img/report.png" >
 				</div>
 			</div>
 			<div id="time_chat">
@@ -597,8 +660,9 @@
 				这里可以退出登录
 			</span>
 		</div>
-		<script type="text/javascript" src="../js/jquery_2.js"></script>
+		
 		<script type="text/javascript" src="../js/jquery_1.js"></script>
+		<script type="text/javascript" src="../js/jquery_2.js"></script>
 		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="../js/main.js"></script>
 	</body>

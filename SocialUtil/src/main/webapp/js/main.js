@@ -1145,14 +1145,64 @@ document.getElementById("icon_time").onclick = function() {
 
 }
 
-$("#icon_small").click(function(){
-	if($("#icon_small").attr("src") == "../img/small.png"){
-		$("#chat_about").css({"height":"70px","overflow":"hidden"});
-		$("#icon_small").attr("src","../img/big.png");
-	}else if($("#icon_small").attr("src") == "../img/big.png"){
+//改变聊天框的大小
+$("#icon_change").click(function(){
+	if($("#icon_change img").attr("src") == "../img/small.png"){
+		$("#chat_about").css({"height":"75px","overflow":"hidden"});
+		$("#icon_change img").attr("src","../img/big.png");
+		$("#icon_samll")
+	}else if($("#icon_change img").attr("src") == "../img/big.png"){
 		$("#chat_about").css({"height":"560px","overflow":"visible"});
-		$("#icon_small").attr("src","../img/small.png");
+		$("#icon_change img").attr("src","../img/small.png");
 	}
+})
+
+
+//举报内容的显和隐藏
+$("#icon_report").click(function(){
+	$("#report_choose").show();
+})
+//222222222222222222222222222222222222222222222222222222222222222
+$(function(){
+	//点击选中或取消checkbox
+	for(var i=1;i<$("#report_introduce input").lengt+1;i++){
+		$("#report_introduce")[i].click(function(){
+			if($("#check"+i).checked = true){
+				$("#check"+i).checked = false;
+			}else{
+				$("#check"+i).checked = true;
+			}
+		})
+	}
+})
+$("#report_submit").click(function(){
+	$("#report_choose").hide();
+	for(var i = 0;i<$("#report_choose #report_introduce").length;i++){
+		if($("#report_introduce input")[i].checked){
+			$("#report_introduce input")[i].checked = false;
+		}
+	}
+})
+$("#report_cancel").click(function(){
+	$("#report_choose").hide();
+	for(var i = 0;i<$("#report_choose #report_introduce").length;i++){
+		if($("#report_introduce input")[i].checked){
+			$("#report_introduce input")[i].checked = false;
+		}
+	}
+})
+
+//加好友的请求
+$("#icon_friend").click(function(){
+	$("#add_friend").show();
+})
+
+//点击确定向对方发送信息
+$("#add_submit").click(function(){
+	$("#add_friend").hide();
+})
+$("#add_cancel").click(function(){
+	$("#add_friend").hide();
 })
 
 //聊天框的拖动
