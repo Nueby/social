@@ -110,12 +110,16 @@ function load() {
 	$id("single").src = "../img/ourself_2.png";
 	$id("make_friend").src = "../img/make_friend.png";
 	$("#make_friend").animate({
-		marginTop: "500px",
-		marginLeft: "250px"
+		marginTop: "550px",
+		marginLeft: "280px"
 	}, 2000);
 	$("#single").animate({
 		marginTop: "300px",
 		marginLeft: "250px"
+	}, 2000);
+	$("#arrow").animate({
+		left: "130px",
+		top:"580px"
 	}, 2000);
 }
 load();
@@ -152,10 +156,12 @@ $id("make_friend").onclick = function changeDouble() {
 	$id("main_message").style.display = "none";
 	$id("main_friend").style.display = "block";
 	divNone();
+	$("#arrow").hide();
 }
 
 //三个图标点击显示设置框
 document.getElementById("dynamic").onclick = function() {
+	$(".addImg").show();
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
@@ -182,33 +188,34 @@ $("#personal").html(signature);
 //设置框点击确定
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
-	$("#show1").attr("src", "");
-	$("#show2").attr("src", "");
-	$("#show3").attr("src", "");
-	$("#show4").attr("src", "");
+	$id("contact").value = "";
+	//清空个人圈上传里面的图片
+	$(".image_container").remove();
+	//上传数据，要一个一个图片的传
+	// $(document).ready(function(){
+	// 	$("#dynamic_img").on("change", upload );
+	// });
+	// function upload(){
+	// 	var self = this;
+	// 	$.ajax({
+	// 		url:
+	// 		type:"post",
+	// 		dataType:"json",
+	// 		cache:false,
+	// 		data: ,
+	// 		processData: false,// 不处理数据
+	// 		contentType: false, // 不设置内容类型
+	// 		success:function(data){
 	
-	$.ajax({
-		type: "POST",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"signature": signature,
-			"birthday": birthday,
-			"tags": tags,
-			"circleInfo": "",
-			"circleImg": ""
-		}),
-		dataType: "json",
-		success: function(data) {
-
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
+	// 			}else{
+	// 				//如果不等于
+	// 				return false;
+	// 			}
+	// 		}
+	// 	});
+	// }
 }
+
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
 	if ($id("new_email").value == "") return false;
@@ -319,58 +326,115 @@ function changeUsername() {
 	})
 }
 
-//发布于个人圈的预览图片
 
-$("#dynamic_img1").change(function() {
-	$("#dynamic_img1").hide();
-	document.getElementById("add1").style.opacity = "0";
-	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show1").style.opacity = "1";
-	document.getElementById("add2").style.opacity = "1";
+//个人圈发布的图片添加，预览和删除
+$(function () {
+	//记录第几张图片
+	var picId = 0;
+	var pictureUploading = false;
+	$("#form1").delegate(".addImg", "click", function () {
+		if (pictureUploading) return;
+		pictureUploading = true;
+		picId = parseInt($(this).attr("data-picId"));
+		picId++;
+		if(picId <= 4){
+			$(this).attr("data-picId", picId);
+			$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
+							+ "<input id=\"image_file" + picId + "\" name=\"image_file" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
+							+ "<input id=\"picture_input" + picId + "\" name=\"picture_input" + picId + "\" type=\"hidden\" value=\"0\" />"
+							+ "<a href=\"javascript:;\" id=\"previewBox" + picId + "\" class=\"previewBox\">"
+								+ "<div class=\"delImg\">&times;</div>"
+								+ "<img id=\"preview" + picId + "\" style=\"height:70px;width:70px;border-width:0px;\" />"
+							+ "</a>"
+						+ "</div>");
+			$("#image_file" + picId).change(function () {
+				var $file = $(this);
+				var fileObj = $file[0];
+				var windowURL = window.URL || window.webkitURL;
+				var dataURL;
+				$("#previewBox" + picId).css("display", "inline-block");
+				var $img = $("#preview" + picId);
+				if (fileObj && fileObj.files && fileObj.files[0]) {
+					dataURL = windowURL.createObjectURL(fileObj.files[0]);
+					$img.attr('src', dataURL);
+				} else {
+					dataURL = $file.val();
+					var imgObj = $img;
+					// 在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+					imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+					imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+				}
+				if (1 === picId) {
+					defaultImg(picId, true);
+				}
+				pictureUploading = false;
+			});
+		}else{
+			$(".addImg").hide();
+		}
+		$("#image_file" + picId).click();
+		//预览图片
+		$(".previewBox").click(function () {
+			var _picId = parseInt($(this).parent(".image_container").attr("data-picId"));
+			$(".image_container").each(function () {
+				var i = parseInt($(this).attr("data-picId"));
+				if (i === _picId)
+					defaultImg(i, true);
+				else
+					defaultImg(i, false);
+			});
+		});
+		//删除上传的图片
+		$(".delImg").click(function () {
+			var _picId = parseInt($(this).parent().parent(".image_container").attr("data-picId"));
+			$(".image_container[data-picid='" + _picId + "']").remove();
+			if ($(".image_container").length > 0 && $(".defaultImg").length < 1) {
+				$(".image_container").each(function () {
+					var i = parseInt($(this).attr("data-picId"));
+					defaultImg(i, true);
+					return false;
+				});
+			}
+		});
+	});
+	function defaultImg(picId, selected) {
+		if (!picId) return;
+		if (!!selected) {
+			$("#picture_input" + picId).val(1);
+			$("#previewBox" + picId).addClass("defaultImg");
+		}
+		else {
+			$("#picture_input" + picId).val(0);
+			$("#previewBox" + picId).removeClass("defaultImg");
+		}
+	}
 });
-$("#dynamic_img2").change(function() {
-	$("#dynamic_img2").hide();
-	document.getElementById("add2").style.opacity = "0";
-	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show2").style.opacity = "1";
-	document.getElementById("add3").style.opacity = "1";
-});
-$("#dynamic_img3").change(function() {
-	$("#dynamic_img3").hide();
-	document.getElementById("add3").style.opacity = "0";
-	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show3").style.opacity = "1";
-	document.getElementById("add4").style.opacity = "1";
-});
-$("#dynamic_img4").change(function() {
-	$("#dynamic_img4").hide();
-	document.getElementById("add4").style.opacity = "0";
-	$("#show4").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show4").style.opacity = "1";
-});
+
+
 
 //第二个设置中获取验证码
+var click = false; //验证是否点击
+var countTime = 60; //时间为60秒
 function setTime() {
 	var time_get = document.getElementById("time_get");
-	var countTime = 60; //时间为60秒
 	var interval;
-	var click = false; //验证是否点击
 	if (countTime > 0) {
 		countTime--;
 		time_get.innerHTML = countTime + "秒后重新发送";
 	} else if (countTime == 0) {
-		countTime = 60;
 		time_get.innerHTML = "获取验证码";
 		clearInterval(interval);
 		click = false;
 	}
 }
 
-$id("time_get").onclick = function() {
+document.getElementById("time_get").onclick = function() {
 	//获取验证码后改变字体
 	if (!click) {
 		interval = setInterval("setTime()", 1000);
 		click = true;
+	}else{
+		clearInterval(interval);
 	}
 	//点击获取发送验证码到邮箱
 	var new_email = document.getElementById("new_email").value;
@@ -574,13 +638,6 @@ function getObjectURL(file) {
 	return url;
 }
 
-//可随机生成颜色的方法
-var getRandomColor = function() {
-	var r = Math.floor(Math.random() * 100 + 100);
-	var g = Math.floor(Math.random() * 100 + 100);
-	var b = Math.floor(Math.random() * 100 + 100);
-	return "rgb(" + r + "," + g + "," + b + ")";
-}
 
 //点击tag打开输入框
 //点击Tag标签出显示框和保存按钮
@@ -592,7 +649,7 @@ document.getElementById("title").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	//确认标签数量,标签数量最多五个
 	var tagNum = 0;
-	if (getStyle(self_tag, "display") == "block") {
+	if (getStyle(self_tag,"display") == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
 	} else {
@@ -624,7 +681,7 @@ document.getElementById("title").onclick = function() {
 							}								
 						}
 						chooseTag.removeChild(chooseLi[j]);
-						tagNum2--;
+						tagNum2 --;
 					};
 					
 				}
@@ -635,29 +692,40 @@ document.getElementById("title").onclick = function() {
 			}
 		};
 	}
-	
-	
 }
 
 //点击保存将标签放在tag中
-//Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
 var tagnum=-1;
 var tagtime=0;
 $id("save_tag").onclick = function() {
+	var tagWarning = document.getElementById("tag_warning");
+	tagWarning.innerHTML = "";
 	$("#personal_tag").remove();
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
 	var ntags="";
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
+	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	for(var i = 0;i < chooseLi.length; i++){	
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
-				tagtime=tagtime+1;
+				tagtime=tagtime+1;			
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}else{
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}
 		}else{
@@ -669,27 +737,28 @@ $id("save_tag").onclick = function() {
 			var newTag = tagShow.getElementsByTagName("div");
 			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
 		}
-		ntags = ntags + chooseLi[i];
+		tags=tags+chooseLi[i];
 	}
 	var chooseLi_length=chooseLi.length-1;
 	for(var i =chooseLi_length; i>=0; i--){
 		chooseLi[i].remove();
 	}
 	$.ajax({
-		type: "post",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"birthday": birthday,
-			"tags": ntags,
-			"circleInfo": circle_info,
-			"circleImg": circle_img
+		type:"post",
+		url:"/SocialUtil/ControllerPageInfo.do",
+		data:JSON.stringify({
+			"behaviour":"change",
+			"username":username,
+			"head":head,
+			"signature":signatrue,
+			"birthday":birthday,
+			"tags":ntags,
+			"circleInfo":circle_info,
+			"circleImg":circle_img
 		}),
-		dataType: "json",
-		success: function(data) {
-			if (data.result == false) {
+		dataType:"json",
+		success:function(data) {
+			if(data.result == false) {
 				alert("更改失败");
 			} else {
 				getPage();
@@ -699,8 +768,8 @@ $id("save_tag").onclick = function() {
 	})
 }
 
-//删除标签,彻底删除
-$id("delete_tag").onclick = function() {
+//删除提示标签
+$id("delete_tag").onclick = function(){
 	$("#personal_tag").remove();
 }
 
@@ -934,7 +1003,7 @@ function selection() {
 			newSchoolLi[0] = schoolLi[0].innerHTML;
 			schoolLi[0].innerHTML = schoolLi[i].innerHTML;
 			schoolLi[i].innerHTML = newSchoolLi[0];
-			schoolLi[0].style.background = "greenyellow";
+			schoolLi[0].style.background = "#eeee9e";
 			school_choose.style.height = "35px";
 			schoolNum++;
 			if (schoolNum >= 1) {
@@ -946,7 +1015,7 @@ function selection() {
 
 	//对选择的学校进行存储
 	for (let i = 0; i < schoolLi.length; i++) {
-		if (schoolLi[i].style.background == "greenyellow") {
+		if (schoolLi[i].style.background == "#eeee9e") {
 			school_condition = schoolLi[i].val;
 		}
 	}
@@ -966,7 +1035,7 @@ function selection() {
 			newCollegeLi[0] = collegeLi[0].innerHTML;
 			collegeLi[0].innerHTML = collegeLi[i].innerHTML;
 			collegeLi[i].innerHTML = newCollegeLi[0];
-			collegeLi[0].style.background = "#df64c9";
+			collegeLi[0].style.background = "#f0aec7";
 			college_choose.style.height = "35px";
 			collegeNum++;
 			if (collegeNum >= 1) {
@@ -978,7 +1047,7 @@ function selection() {
 
 	//对选择的学院进行存储
 	for (let i = 0; i < collegeLi.length; i++) {
-		if (collegeLi[i].style.background == "#df64c9") {
+		if (collegeLi[i].style.background == "#f0ace7") {
 			college_condition = schoolLi[i].val;
 		}
 	}
@@ -1063,8 +1132,11 @@ function timeLow() {
 //ajax的内容,只要聊天框关闭，刷新main_show的内容
 
 document.getElementById("icon_close").onclick = function() {
+	var timeChat = document.getElementById("time_chat");
 	chat_about.style.display = "none";
 	clearInterval(interval);
+	time = 300;
+	timeChat.innerHTML = time;
 }
 
 
@@ -1072,6 +1144,46 @@ document.getElementById("icon_close").onclick = function() {
 document.getElementById("icon_time").onclick = function() {
 
 }
+
+$("#icon_small").click(function(){
+	if($("#icon_small").attr("src") == "../img/small.png"){
+		$("#chat_about").css({"height":"70px","overflow":"hidden"});
+		$("#icon_small").attr("src","../img/big.png");
+	}else if($("#icon_small").attr("src") == "../img/big.png"){
+		$("#chat_about").css({"height":"560px","overflow":"visible"});
+		$("#icon_small").attr("src","../img/small.png");
+	}
+})
+
+//聊天框的拖动
+function MoveChat(){
+	var chat_about = document.getElementById("chat_about");
+	function drag (ele){
+		ele.onmousedown = function(e){
+			var e = e || window.event;  
+			//此处是为了兼容IE，因为IE中事件对象是作为全局对象( window.event )存在的；
+			var pageX = e.pageX || e.clientX + document.documentElement.scrollLeft;
+			var pageY = e.pageY || e.clientY + document.documentElement.scrollTop;
+			//获取鼠标相对盒子的位置；
+			var chat_aboutX = pageX - chat_about.offsetLeft;
+			var chat_aboutY = pageY - chat_about.offsetTop;
+			document.onmousemove = function(e){
+				var e = e || window.event;
+				var pageX = e.pageX || e.clientX + document.documentElement.scrollLeft;
+				var pageY = e.pageY || e.clientY + document.documentElement.scrollTop;
+			  //将鼠标当前的坐标值减去鼠标相对盒子的位置，得到盒子当时的位置并将其赋值给盒子，实现移动效果
+				chat_about.style.left = pageX - chat_aboutX +'px';
+				chat_about.style.top = pageY - chat_aboutY + 'px';
+			}
+		};
+		document.onmouseup = function () {
+			//清除盒子的移动事件;
+			document.onmousemove = null;
+		};
+	};
+	drag(chat_about);
+}
+MoveChat();
 
 //个人圈的查看
 //ajax将发布的个人圈资料上传
@@ -1116,17 +1228,51 @@ function lookMyself() {
 }
 lookMyself();
 
+
+/*特殊字符转义 防止XSS攻击 用于特殊字符正常显示*/
+
+function StringFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&/g, "&amp;");
+  s = s.replace(/</g, "&lt;");
+  s = s.replace(/>/g, "&gt;");
+  s = s.replace(/ /g, "&nbsp;");
+  s = s.replace(/\'/g, "&#39;");
+  s = s.replace(/\"/g, "&quot;");
+  return s;
+}
+ 
+/*转义字符还原成html字符*/
+function StringValFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&amp;/g, "&");
+  s = s.replace(/&lt;/g, "<");
+  s = s.replace(/&gt;/g, ">");
+  s = s.replace(/&nbsp;/g, " ");
+  s = s.replace(/&#39;/g, "\'");
+  s = s.replace(/&quot;/g, "\"");
+  return s;
+}
+
+
 //聊天界面，点击可以发送信息
 function sendNews() {
 	var sendMsg = document.getElementById("sendMsg");
 	var txt = document.getElementById("txt");
 	var talk_contact = document.getElementById("talk_contact");
 	var contact = talk_contact.getElementsByTagName("p");
-
 	sendMsg.onclick = function() {
 		if (txt.value == "") {
-			txt.value = "不能发送空内容";
+			$("#empty_warning").html("不能发送空内容");
+			$("#empty_warning").show();
 		} else {
+			$("#empty_warning").hide();
 			//个人头像
 			var myImg = document.createElement("img");
 			var newTxt = document.createElement("p");
@@ -1145,7 +1291,9 @@ function sendNews() {
 			myImg.style.position = "relative";
 			myImg.style.top = "0";
 			myImg.style.margin = "8px 10px 0 10px";
-			newTxt.innerHTML = txt.value;
+			var stringFilter = StringFilter(txt.value);
+			// var Val = StringValFilter(stringFilter);
+			newTxt.innerHTML = stringFilter;
 			talk_contact.appendChild(myImg);
 			talk_contact.appendChild(newTxt);
 			txt.value = "";
@@ -1156,18 +1304,35 @@ function sendNews() {
 sendNews();
 
 //获取当前时间的函数
-function getNowFormatDate() {
-	var date = new Date();
-	var seperator1 = "-";
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	if (month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if (strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-	var currentdate = year + seperator1 + month + seperator1 + strDate;
-	return currentdate;
+//个人圈的发布时候要给时间，举报信息要给时间后台记录
+
+//直接传纯数字的是在举报那里和聊天记录的
+function getDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+	//有必要就加
+    var h = myDate.getHours(); //获取当前小时数(0-23)
+    var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+    var s = myDate.getSeconds();
+    //获取当前时间
+    var now = (year.toString() + month.toString() + date.toString());
+	return now;
+}
+//这是个人圈显示的时间数据
+function getNowDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+    //获取当前时间
+    var now = (year.toString() + "-" + month.toString() +  "-" + date.toString());
+	return now;
 }
