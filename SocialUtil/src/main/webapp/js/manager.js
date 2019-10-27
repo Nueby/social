@@ -13,10 +13,8 @@ function getStyle(obj, attr) {
 $("#report_manager").click(function(){
 	if($("#report_page").is(":hidden")){
 		$("#report_page").show();
-		$("#brokenLine").css({"background":"rgba(100,100,100,.9"});
 	}else{
 		$("#report_page").hide();
-		$("#brokenLine").css({"background":"rgba(100,100,100,.5"});
 	}
 	$("#imformation_page").hide();
 	$("#linechart_show").hide();
@@ -39,10 +37,7 @@ function showSta(){
 function hideSta(){
 	$(".statistics").hide();
 }
-// function hideTable(){
-// 	$("#chat_record").hide();
-// 	$("#imformation_check").hide();
-// }
+
 
 //显示和隐藏聊天记录管理界面
 $("#chat_manager").click(function(){
@@ -71,7 +66,7 @@ $("#personal_imformation").click(function(){
 	$("#ciclechart_show").hide();
 })
 
-//显示统计图
+//折线统计图
 $("#brokenLine").click(function(){
 	if($("#linechart_show").is(":hidden")){
 		$("#linechart_show").show();
@@ -80,9 +75,10 @@ $("#brokenLine").click(function(){
 	}
 	$("#ciclechart_show").hide();
 	$("#imformation_page").hide();
-	$("#chat_record").hide();
+	$("#record_page").hide();
 	$("#report_page").hide();
 })
+//饼状统计图
 $("#reportCicle").click(function(){
 	if($("#ciclechart_show").is(":hidden")){
 		$("#ciclechart_show").show();
@@ -94,7 +90,6 @@ $("#reportCicle").click(function(){
 	$("#chat_record").hide();
 	$("#report_page").hide();
 })
-
 
 //构造折线图函数
 var LineChart = function(ctx){
@@ -162,6 +157,7 @@ LineChart.prototype.drawAxis = function(){
 	this.ctx.stroke();
 	this.ctx.fill();
 };
+//绘制点的函数
 LineChart.prototype.drawDotteds = function(TagData){
 	var that = this;
 	//记录当前坐标
@@ -171,6 +167,13 @@ LineChart.prototype.drawDotteds = function(TagData){
 		//数据在canvas上的坐标
 		var canvasX = that.x0 + item.x;
 		var canvasY = that.y0 - item.y;
+		//给点加上标签名字
+		that.ctx.textAlign = "left";
+		that.ctx.stroke();
+		that.ctx.textBaseline = "top";
+		that.ctx.font = "16px mictosoft YaHei"
+		that.ctx.fillStyle = "black";
+		that.ctx.fillText(item.tagName,canvasX,canvasY-10);
 		//绘制点
 		that.ctx.beginPath();
 		that.ctx.moveTo(canvasX - that.dottedSize / 2,canvasY - that.dottedSize / 2);
@@ -201,26 +204,34 @@ LineChart.prototype.drawDotteds = function(TagData){
 //后台给数据y就可以
 
 var TagData = [
-	{
-	   x : 40,
-	   y : 120
-	},
-	{
-		x : 80,
-		y : 160
-	},
-	{
-		x : 120,
-		y : 200
-	},
-	{
-		x : 160,
-		y : 320
-	},
-	{
-		x : 200,
-		y : 80
-	},
+	{tagName : "学习",x : 40,y : 120},
+	{tagName : "健身",x : 80,y : 160},
+	{tagName : "唱歌",x : 120,y : 200},
+	{tagName : "听歌",x : 160,y : 320},
+	{tagName : "舞蹈",x : 200,y : 80},
+	{tagName : "吃鸡",x : 240,y : 50},
+	{tagName : "考研",x : 280,y : 30},
+	{tagName : "王者",x : 320,y : 500},
+	{tagName : "漫画",x : 360,y : 200},
+	{tagName : "动漫",x : 400,y : 80},
+	{tagName : "电影",x : 440,y : 120},
+	{tagName : "cosplay",x : 440,y : 30},
+	{tagName : "电视剧",x : 480,y : 90},
+	{tagName : "看书",x : 520,y : 20},
+	{tagName : "绘画",x : 560,y : 60},
+	{tagName : "摄影",x : 600,y : 0},
+	{tagName : "吃货",x : 640,y : 100},
+	{tagName : "手工",x : 680,y : 110},
+	{tagName : "追星",x : 720,y : 150},
+	{tagName : "旅行",x : 760,y : 90},
+	{tagName : "羽毛球",x : 800,y : 80},
+	{tagName : "夜跑",x : 840,y : 50},
+	{tagName : "足球",x : 880,y : 30},
+	{tagName : "撸猫",x : 920,y : 400},
+	{tagName : "文学",x : 960,y : 40},
+	{tagName : "K歌",x : 1000,y : 60},
+	{tagName : "养植物",x : 1040,y : 70},
+	{tagName : "养生",x : 1080,y : 200},
 ];
 var lineChart = new LineChart();
 lineChart.init(TagData);
@@ -294,11 +305,12 @@ CicleChart.prototype.CicleTitle = function(startAngle,angle,color,title){
 	this.ctx.fillStyle = "black";
 	this.ctx.fillText(title,outX,outY);
 };
-//给每一块弧度加事件
+//给每一块扇形加事件
 CicleChart.prototype.CicleTranslte= function(starAngle,endAngle){
-	$("#linechart_show").click(function(){
+	$("#ciclechart_show").hover(function(){
 		var x=event.offsetX;
-		var y=event.offsetY;console.log(x);
+		var y=event.offsetY;
+		// console.log(x);
 	});
 	
 };
@@ -325,30 +337,24 @@ CicleChart.prototype.getRandomColor = function(){
 	return "rgb(" + r + "," + g + "," + b + ")";
 };
 var reportData = [
-	{
-		title:"言语辱骂",
-		number:20
-	},
-	{
-		title:"挑逗信息",
-		number:30
-	},
-	{
-		title:"海王",
-		number:15
-	},
-	{
-		title:"垃圾广告",
-		number:50
-	},
-	{
-		title:"恶意骚扰",
-		number:10
-	},
-	{
-		title:"信息咋骗",
-		number:35
-	}
+	{title:"言语辱骂",number:20},
+	{title:"挑逗信息",number:30},
+	{title:"海王",number:15},
+	{title:"垃圾广告",number:50},
+	{title:"恶意骚扰",number:10},
+	{title:"信息咋骗",number:35}
 ];
 var cicleChart = new CicleChart();
 cicleChart.init(reportData);
+
+
+//当tr的数量超过15个的时候,加页并且在第二页添加内容
+$(function(){
+	for(var i = 0;i <50;i++){
+		if($("#chat_record tr").length > 15){
+			$("#chat_record").attr("number",i).hide();
+			$("#record_page").append();
+		}
+	}
+	console.log($("#chat_record tr").length);
+})

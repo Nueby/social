@@ -8,8 +8,8 @@
 	border-bottom-left-radius: 30px;
 	border-top-right-radius: 30px;
 	position: absolute;
-	left: 600px;
-	top: 240px;
+	left: 550px;
+	top: 210px;
 	overflow:hidden;
 	background:rgba(255,255,255,.8);
 }
@@ -500,9 +500,9 @@
 #choose_friend{
 	background:white;
 	width:450px;
+	top:0;
 	position:absolute;
-	top:10px;
-	left:869px;
+	left:821px;
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;
@@ -521,7 +521,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top:229px;
+	top:209px;
 	right:41px;
 	padding:0;
 	border-top:8px solid #FFF;
@@ -537,7 +537,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top: 231px;
+	top: 211px;
 	right:40px;
 	padding:0;
 	border-top:9px solid #ccc;
@@ -581,7 +581,6 @@
 }
 #choose_school span{
 	padding-left:10px;
-	margin-top:5px;
 	font-size:17px;
 	float:left;
 	margin-right:20px;
@@ -606,12 +605,12 @@
 	margin-top:5px;
 }
 #school_choose li:hover{
-	background:greenyellow;
+	background:#eeee9e;
 }
 #more_school{
 	position:absolute;
 	right:20px;
-	bottom:145px;
+	bottom:130px;
 	cursor:pointer;
 	z-index:101;
 }
@@ -619,7 +618,6 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
-	margin-top:10px;
 }
 #choose_college span{
 	padding-left:10px;	
@@ -649,12 +647,12 @@
 	margin-top:5px;
 }
 #college_choose li:hover{
-	background:#df64c9;
+	background:#f0ace7;
 }
 #more_college{
 	position:absolute;
 	right:5px;
-	bottom:99px;
+	bottom:92px;
 	cursor:pointer;
 	z-index:100;
 }
@@ -662,7 +660,6 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
-	margin-top:10px;
 }
 #choose_other span{
 	padding-left:10px;	

@@ -13,40 +13,35 @@ body{
 }
 
 #main {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	width:490px;
+	height:590px;
+	position:absolute;
+	left:725px;
+	top:70px;
 }
-
-#background {
-	height: 720px;
-	width: 1550px;
+#background{
 	background: url(../img/matching_background.jpg) center center no-repeat;
 	background-size: 100% 100%;
+	height: 720px;
+	width: 1550px;
+	position:absolute;
+	z-index:-10;
 }
 
 #Sign_in {
 	width: 500px;
-	position: absolute;
-	top:57px;
-	left: 710px;
 }
 #register {
-	top: 77px;
-	left: 704px;
 	height: 597px;
 	width: 540px;
-	position: absolute;
 	display: none;
 }
 #title {
-	position: absolute;
-	left: 880px;
-	top: 130px;
+	position:absolute;
+	margin-left:180px;
+	margin-top:50px;
 	z-index: 2;
-	min-width: 400px;
 }
-
 #title_left {
 	position: relative;
 	font-family: "microsoft yahei light";
@@ -96,44 +91,48 @@ body{
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:absolute;
+	position:relative;
 	z-index:3;
 	border-radius:50%;
-	left:145px;
-	top:143px;
+	left:144px;
+	top:148px;
+	display:block;
 }
 #icon_people_2{
 	background:url(../img/people_2.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:absolute;
+	position:relative;
 	z-index:3;
 	border-radius:50%;
-	left:145px;
-	top:143px;
+	left:144px;
+	top:148px;
+	display:block;
 }
 #icon_password{
 	background:url(../img/secret_1.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:absolute;
+	position:relative;
 	z-index:3;
 	border-radius:50%;
-	left:145px;
-	top:227px;
+	left:144px;
+	top:73px;
+	display:block;
 }
 #icon_password_2{
 	background:url(../img/secret_2.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:absolute;
+	position:relative;
 	z-index:3;
 	border-radius:50%;
-	left:145px;
-	top:227px;
+	left:144px;
+	top:73px;
+	display:block;
 }
 #text {
 	width: 250px;
@@ -145,7 +144,7 @@ body{
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 150px;
+	margin-top: 100px;
 }
 #password {
 	width: 250px;
@@ -157,13 +156,13 @@ body{
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 45px;
+	margin-top: 25px;
 }
 
 #check_img {
 	width: 300px;
 	height: 205px;
-	position: absolute;
+	position: relative;
 	left: 152px;
 	top: 194px;
 	z-index: 5;
@@ -212,10 +211,10 @@ body{
     justify-content: center;
 }
 #forget{
+	top:50px;
+	left:250px;
 	color:black;
-	position:absolute;
-	left:270px;
-	top:450px;
+	position:relative;
 }
 #forget:hover{
 	color:red;
@@ -444,11 +443,11 @@ body{
 	font-size:16px;
 }
 #manager{
-	color:black;
 	position:absolute;
-	bottom:-140px;
-	right:-10px;
+	color:black;
 	text-decoration:none;
+	bottom:0;
+	right:10px;
 }
 #manager:hover{
 	color:grey;

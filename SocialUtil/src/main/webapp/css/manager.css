@@ -44,7 +44,7 @@ body{
 
 #navigation{
 	margin-top:10px;
-	background:rgba(0,0,0,.7);
+	background:#554242;
 	float:left;
 	border-radius:5px;
 }
@@ -66,7 +66,7 @@ body{
 	display:block;
 }
 .nav li:hover{
-	background:rgba(100,100,100,.5);
+	background:grey;
 }
 .report{
 	text-align:center;
@@ -80,7 +80,7 @@ body{
 	height:50px;
 }
 .report li:hover{
-	background:rgba(100,100,100,.9);
+	background:grey;
 }
 .statistics{
 	height:100px;
@@ -95,7 +95,7 @@ body{
 	height:50px;
 }
 .statistics li:hover{
-	background:rgba(100,100,100,.9);
+	background:grey;
 }
 tr:nth-child(odd){
 	background:lightgrey;
@@ -117,7 +117,6 @@ td{
 	background:white;
 	position:relative;
 	border-radius:10px;
-	display:none;
 }
 #chat_record{
 	position:absolute;
@@ -235,6 +234,7 @@ td{
 	background:white;
 	position:relative;
 	border-radius:10px;
+	display:none;
 }
 #verbal_abuse{
 	position:absolute;
@@ -267,7 +267,7 @@ td{
 #linechart_show{
 	position:relative;
 	background:white;
-	width:1000px;
+	width:1250px;
 	height:650px;
 	margin-top:20px;
 	margin-left:250px;
@@ -277,7 +277,6 @@ td{
 #linechart{
 	left:50px;
 	position:absolute;
-	border:1px solid black;
 	margin-top:20px;
 	transition:opacity 2s;
 }
@@ -292,6 +291,7 @@ td{
 	border-radius:10px;
 }
 #ciclechart{
+	-webkit-transform-style:preserve-3d;
 	margin-left:150px;
 	margin-top:50px;
 	transition:opacity 2s;

@@ -110,15 +110,16 @@ function load() {
 	$id("single").src = "../img/ourself_2.png";
 	$id("make_friend").src = "../img/make_friend.png";
 	$("#make_friend").animate({
-		marginTop: "500px",
-		marginLeft: "250px"
+		marginTop: "550px",
+		marginLeft: "280px"
 	}, 2000);
 	$("#single").animate({
 		marginTop: "300px",
 		marginLeft: "250px"
 	}, 2000);
 	$("#arrow").animate({
-		left: "100px"
+		left: "130px",
+		top:"580px"
 	}, 2000);
 }
 load();
@@ -188,6 +189,7 @@ $("#personal").html(signature);
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
 	$id("contact").value = "";
+	//清空个人圈上传里面的图片
 	$(".image_container").remove();
 	//上传数据，要一个一个图片的传
 	// $(document).ready(function(){
@@ -324,45 +326,13 @@ function changeUsername() {
 	})
 }
 
-//发布于个人圈的预览图片
 
-//  $(document).ready(function(){
-// 	$("#add").click(function(){
-// 		var $input = $("#dynamic_img");
-// 		$input.change(function(){
-// 			//获取选择图片的个数
-// 			var files = this.files;
-// 			var length = files.length;
-// 			console.log("选择了"+length+"张图片");
-// 			//3、回显
-// 			$.each(files,function(key,value){
-// 				//每次都只会遍历一个图片数据
-// 				var	img = document.createElement("img");
-// 				img.setAttribute("id","place");
-// 				var fr = new FileReader();
-// 				fr.onload = function(){
-// 					img.src=this.result;
-// 					$("#place").attr("src",img.src);
-// 					$("#add_img").append(img);
-// 					$("#show").remove();
-// 				}
-// 				fr.readAsDataURL(value);
-// 			})
-// 		})
-// 		//4、我们把当前input标签的id属性remove
-// 		$input.removeAttr("id");
-// 		//我们做个标记，再class中再添加一个类名就叫test
-// 		var newInput = '<input class="uploadimg test" type="file" multiple="multiple" id="dynamic_img">';
-// 		$(this).append($(newInput));
-// 	})
-// })
-
-
+//个人圈发布的图片添加，预览和删除
 $(function () {
 	//记录第几张图片
 	var picId = 0;
 	var pictureUploading = false;
-	$("#Form1").delegate(".addImg", "click", function () {
+	$("#form1").delegate(".addImg", "click", function () {
 		if (pictureUploading) return;
 		pictureUploading = true;
 		picId = parseInt($(this).attr("data-picId"));
@@ -370,14 +340,14 @@ $(function () {
 		if(picId <= 4){
 			$(this).attr("data-picId", picId);
 			$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
-							+ "<input id=\"RoomInfo1_RoomPicture" + picId + "\" name=\"RoomInfo1_RoomPicture" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
-							+ "<input id=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" name=\"RoomInfo1_RoomPictureHidDefault" + picId + "\" type=\"hidden\" value=\"0\" />"
+							+ "<input id=\"image_file" + picId + "\" name=\"image_file" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
+							+ "<input id=\"picture_input" + picId + "\" name=\"picture_input" + picId + "\" type=\"hidden\" value=\"0\" />"
 							+ "<a href=\"javascript:;\" id=\"previewBox" + picId + "\" class=\"previewBox\">"
 								+ "<div class=\"delImg\">&times;</div>"
 								+ "<img id=\"preview" + picId + "\" style=\"height:70px;width:70px;border-width:0px;\" />"
 							+ "</a>"
 						+ "</div>");
-			$("#RoomInfo1_RoomPicture" + picId).change(function () {
+			$("#image_file" + picId).change(function () {
 				var $file = $(this);
 				var fileObj = $file[0];
 				var windowURL = window.URL || window.webkitURL;
@@ -391,7 +361,6 @@ $(function () {
 					dataURL = $file.val();
 					var imgObj = $img;
 					// 在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
-					// src属性需要像下面的方式添加，上面的两种方式添加，无效；
 					imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
 					imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
 				}
@@ -403,7 +372,7 @@ $(function () {
 		}else{
 			$(".addImg").hide();
 		}
-		$("#RoomInfo1_RoomPicture" + picId).click();
+		$("#image_file" + picId).click();
 		//预览图片
 		$(".previewBox").click(function () {
 			var _picId = parseInt($(this).parent(".image_container").attr("data-picId"));
@@ -431,11 +400,11 @@ $(function () {
 	function defaultImg(picId, selected) {
 		if (!picId) return;
 		if (!!selected) {
-			$("#RoomInfo1_RoomPictureHidDefault" + picId).val(1);
+			$("#picture_input" + picId).val(1);
 			$("#previewBox" + picId).addClass("defaultImg");
 		}
 		else {
-			$("#RoomInfo1_RoomPictureHidDefault" + picId).val(0);
+			$("#picture_input" + picId).val(0);
 			$("#previewBox" + picId).removeClass("defaultImg");
 		}
 	}
@@ -726,11 +695,12 @@ document.getElementById("title").onclick = function() {
 }
 
 //点击保存将标签放在tag中
-//Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
 var tagnum=-1;
 var tagtime=0;
 $id("save_tag").onclick = function() {
+	var tagWarning = document.getElementById("tag_warning");
+	tagWarning.innerHTML = "";
 	$("#personal_tag").remove();
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
@@ -798,7 +768,7 @@ $id("save_tag").onclick = function() {
 	})
 }
 
-//删除标签,彻底删除
+//删除提示标签
 $id("delete_tag").onclick = function(){
 	$("#personal_tag").remove();
 }
@@ -1033,7 +1003,7 @@ function selection() {
 			newSchoolLi[0] = schoolLi[0].innerHTML;
 			schoolLi[0].innerHTML = schoolLi[i].innerHTML;
 			schoolLi[i].innerHTML = newSchoolLi[0];
-			schoolLi[0].style.background = "greenyellow";
+			schoolLi[0].style.background = "#eeee9e";
 			school_choose.style.height = "35px";
 			schoolNum++;
 			if (schoolNum >= 1) {
@@ -1045,7 +1015,7 @@ function selection() {
 
 	//对选择的学校进行存储
 	for (let i = 0; i < schoolLi.length; i++) {
-		if (schoolLi[i].style.background == "greenyellow") {
+		if (schoolLi[i].style.background == "#eeee9e") {
 			school_condition = schoolLi[i].val;
 		}
 	}
@@ -1065,7 +1035,7 @@ function selection() {
 			newCollegeLi[0] = collegeLi[0].innerHTML;
 			collegeLi[0].innerHTML = collegeLi[i].innerHTML;
 			collegeLi[i].innerHTML = newCollegeLi[0];
-			collegeLi[0].style.background = "#df64c9";
+			collegeLi[0].style.background = "#f0aec7";
 			college_choose.style.height = "35px";
 			collegeNum++;
 			if (collegeNum >= 1) {
@@ -1077,7 +1047,7 @@ function selection() {
 
 	//对选择的学院进行存储
 	for (let i = 0; i < collegeLi.length; i++) {
-		if (collegeLi[i].style.background == "#df64c9") {
+		if (collegeLi[i].style.background == "#f0ace7") {
 			college_condition = schoolLi[i].val;
 		}
 	}
