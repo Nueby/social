@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,25 +26,27 @@ public class SendEmailController extends HttpServlet {
 		//获取json数据
     	JSONObject reqJson = (JSONObject)request.getAttribute("json");
     	JSONObject json = new JSONObject();
+    	//获取会话
     	HttpSession session = request.getSession();
+    	//Dao对象
+    	SendEmailDao send = new SendEmailDao();
+    	//执行操作
     	switch(reqJson.getInteger("behaviour")) {
     	//发送信息
-    	case 0: 		
-    		SendEmailDao.doGetSendEmail(reqJson,json,session);
-    		Cookie cookie = new Cookie("JSESSIONID", session.getId());
-    		response.addCookie(cookie);
+    	case 0:
+    		session.setAttribute("emailNum", send.send(reqJson.getString("email")));
     		break;
     	//验证
     	case 1:
-    		SendEmailDao.doGetConfirm(reqJson,json,session);
+    		json.put("msg", send.confirm(reqJson.getString("input"), (String)session.getAttribute("emailNum")));
     		break;
     	}
-    	response.getWriter().write(json.toString());
-    	response.getWriter().close();
+    	PrintWriter out = response.getWriter();
+    	out.write(json.toString());
+    	out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
 	}
-
 }
