@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +12,6 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSONObject;
 import dao.SlipVerificationCodeDao;
 
-/**
- * 
- * @author ylr
- *
- */
 public class SlipVerificationCodeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,17 +21,18 @@ public class SlipVerificationCodeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取图片
-		JSONObject json = new JSONObject();
 		SlipVerificationCodeDao slip = new SlipVerificationCodeDao();
-		slip.doGet(json);
+		String jsonString = JSONObject.toJSONString(slip.getPic());
 		//保存信息
 		HttpSession session = request.getSession();
 		session.setAttribute("slip", slip);
 		Cookie cookie = new Cookie("JSESSIONID", session.getId());
 		cookie.setMaxAge(10*60);
 		response.addCookie(cookie);
-		response.getWriter().write(json.toString());
-		response.getWriter().close();
+		//响应
+		PrintWriter out = response.getWriter();
+		out.write(jsonString);
+		out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,8 +41,11 @@ public class SlipVerificationCodeController extends HttpServlet {
 		JSONObject json = new JSONObject();
 		HttpSession session = request.getSession();
 		SlipVerificationCodeDao slip = (SlipVerificationCodeDao)session.getAttribute("slip");
-		slip.doPost(reqJson, json);
-		response.getWriter().write(json.toString());
-		response.getWriter().close();
+		json.put("verification",slip.check(reqJson));
+		//响应
+		PrintWriter out = response.getWriter();
+		out.write(json.toString());
+		out.close();
 	}
+
 }
