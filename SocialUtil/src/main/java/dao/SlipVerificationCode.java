@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
  * @author ylr
  *
  */
-public class SlipVerificationCodeDao {
+public class SlipVerificationCode {
 	private int smallWidth = 60;		//小图片宽度
 	private int smallHeight = 60;		//小图片高度
 	private int bigWidth = 300;			//大图片宽度
@@ -24,7 +23,8 @@ public class SlipVerificationCodeDao {
 	private int good = 10;		//成功范围
 	private int randX = 0;		//抠图x坐标
 	private int randY = 0;		//抠图y坐标
-	private String url = SlipVerificationCodeDao.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	private String url = SlipVerificationCode.class.getClassLoader().getResource("./").getPath();		//文件夹路径
+	//private String url = "D:/test/";
 	
 	//获取小图片样式
 	private int[][] getSmallData() {
@@ -161,6 +161,11 @@ public class SlipVerificationCodeDao {
 				}
 			}
 		}
+//		for(int i = 0; i < smallWidth; i++) {
+//			for(int j = 0; j < smallHeight; j++) {
+//				smallData[i][j] = 1;
+//			}
+//		}
 		return smallData;
 	}
 	
@@ -245,27 +250,5 @@ public class SlipVerificationCodeDao {
 	 */
 	public boolean verificationSuccess(int d) {
 		return d >= randX - good && d <= randX + good;
-	}
-	
-	/**
-	 * 获取图片
-	 * @param json - 返回json数据
-	 */
-	public void doGet(JSONObject json) {
-		String[] image = getSlipPicture();
-		int[] pos = getSlipXY();
-		json.put("big", image[0]);
-		json.put("small",image[1]);
-		json.put("posY", pos[1]);
-	}
-	
-	/**
-	 * 验证
-	 * @param reqJson - 请求json数据
-	 * @param resJson - 响应json数据
-	 */
-	public void doPost(JSONObject reqJson, JSONObject resJson) {
-		int d = reqJson.getInteger("distance");
-		resJson.put("verification", verificationSuccess(d));
 	}
 }
