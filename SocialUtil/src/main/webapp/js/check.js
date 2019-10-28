@@ -164,8 +164,7 @@ function bar() {
         startX = event.clientX;
     }
 	
-    //设置滑块鼠标点击取消事件,改变标志位，重置偏移量 
-	
+    //设置滑块鼠标点击取消事件,改变标志位，重置偏移
     touch_bar.onmouseup = function(ev) {
     	var distance = parseInt(touch_bar.style.left);
     	var json = {"distance":distance};
@@ -268,6 +267,7 @@ function sendRegister() {
 	var accountPassword = $id("accountPassword").value;
 	var register_password = $id("register_password").value;
 	var confirm = $id("confirm").value;
+	var school=$id("select").value;
 	if(isHave) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
 	} else if(accountPassword == "") {
@@ -278,7 +278,7 @@ function sendRegister() {
 		registerMsg.innerHTML = "*两次密码不一致";
 	} else {
 		//跨域
-		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":"广东金融学院"};
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":school};
 		$.ajax({
 			type:"POST",
 			url:"/SocialUtil/RegisterController.do",

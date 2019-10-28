@@ -43,6 +43,9 @@ function getPage() {
 	var name = $id(name); //昵称
 	var head_show = $id("head_show"); //头像
 	var sex="";
+	var circle_info="";
+	var circle_img="";
+	var all_dynamic=$id("all_dynamic");
 	$.ajax({
 		type: "GET",
 		url: "/SocialUtil/UserController.do",
@@ -63,6 +66,7 @@ function getPage() {
 			if(ntgas!=""){
 				var begintag=new Array();
 				begintag=ntags.split("&");
+				$("#personal_tag").remove();
 				for (i=0;i<begintag.length ;i++ ){
 					tagnum=tagnum+1;
 					var tagDiv = document.createElement("div");
@@ -79,6 +83,25 @@ function getPage() {
 			}else{
 				sex_img.src="../img/woman.png";
 			}
+			circle_info=data.info;
+			
+			for(var i=0; i<circle_info.length;i++){
+				var newshow = document.createElement("div");
+				var time = document.createElement("div");
+				var dynamic_contact = document.createElement("div");
+				var dynamic_photo = document.createElement("div");
+				newshow.setAttribute("id", "show_dynamic");
+				time.setAttribute("id", "time");
+				dynamic_contact.setAttribute("id", "dynamic_contact");
+				dynamic_photo.setAttribute("id", "dynamic_photo");
+				var showVal = document.createTextNode(circle_info[i]);
+				dynamic_contact.appendChild(showVal);
+				newshow.appendChild(time);
+				newshow.appendChild(dynamic_contact);
+				newshow.appendChild(dynamic_photo);
+				all_dynamic.appendChild(newshow);
+			}
+			
 		},
 		error: function(err) {
 			//alert(err.status);
@@ -178,37 +201,6 @@ document.getElementById("self").onclick = function() {
 
 
 
-//设置框点击确定
-$id("dynamic_submit").onclick = function() {
-	$id("set_1").style.display = "none";
-	$id("contact").value = "";
-	//清空个人圈上传里面的图片
-	$(".image_container").remove();
-	//上传数据，要一个一个图片的传
-	// $(document).ready(function(){
-	// 	$("#dynamic_img").on("change", upload );
-	// });
-	// function upload(){
-	// 	var self = this;
-	// 	$.ajax({
-	// 		url:
-	// 		type:"post",
-	// 		dataType:"json",
-	// 		cache:false,
-	// 		data: ,
-	// 		processData: false,// 不处理数据
-	// 		contentType: false, // 不设置内容类型
-	// 		success:function(data){
-	
-	// 			}else{
-	// 				//如果不等于
-	// 				return false;
-	// 			}
-	// 		}
-	// 	});
-	// }
-}
-
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
 	if ($id("new_email").value == "") return false;
@@ -225,11 +217,11 @@ $id("email_submit").onclick = function() {
 				$.ajax({
 					type: "GET",
 					url: "/SocialUtil/UserController.do",
-					data: {
+					data: JSON.stringify({
 						"behaviour": 4,
 						"account":account,
 						"email":$id("new_email").value
-					},
+					}),
 					dataType: "json",
 					success: function(data) {
 						if(result=="true"){
@@ -330,7 +322,47 @@ $id("self_submit").onclick = function() {
 // }
 // 
 
+//设置框点击确定
+$id("dynamic_submit").onclick = function() {	
+	var pic = document.getElementById("picture_choose").getElementsByTagName("div");
+	//上传数据，要一个一个图片的传
+	$(document).ready(function(){
+		$("#dynamic_img").on("change", upload );
+	});
+	for(var i=1; i<pic.length;i++){
+		//获取base64的图片数据
+		 var file = $("#avatar")[i-1].files[i-1];
+		 var reader  = new FileReader();
+		 reader.onloadend=function(e) {
+			 e.target.result
+		}
+		 if (file) {
+			reader.readAsDataURL(file);
+		 }
+		var json={"behaviour":2,"account":account,"picture":reader.split(",",2)[1],"ify":ify,"info":$id("contact").value};
+		function upload(){
+			var self = this;
+			$.ajax({
+				url:"/SocialUtil/UserController.do",
+				type:"post",
+				dataType:"json",
+				cache:false,
+				data:JSON.stringify(json),
+				processData: false,// 不处理数据
+				contentType: false, // 不设置内容类型
+				success:function(data){
+					
+				}
+			});
+	}
+	}
+	$id("set_1").style.display = "none";
+	$id("contact").value = "";
+	//清空个人圈上传里面的图片
+	$(".image_container").remove();
+}
 //个人圈发布的图片添加，预览和删除
+
 $(function () {
 	//记录第几张图片
 	var picId = 0;
@@ -338,9 +370,11 @@ $(function () {
 	$("#form1").delegate(".addImg", "click", function () {
 		if (pictureUploading) return;
 		pictureUploading = true;
-		picId = parseInt($(this).attr("data-picId"));
-		picId++;
-		if(picId <= 4){
+		
+		
+		if(picId < 4){
+			picId++;
+			$(".addImg").display="block";
 			$(this).attr("data-picId", picId);
 			$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
 							+ "<input id=\"image_file" + picId + "\" name=\"image_file" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
@@ -373,7 +407,7 @@ $(function () {
 				pictureUploading = false;
 			});
 		}else{
-			$(".addImg").hide();
+			$(".addImg").display="none";
 		}
 		$("#image_file" + picId).click();
 		//预览图片
@@ -389,10 +423,22 @@ $(function () {
 		});
 		//删除上传的图片
 		$(".delImg").click(function () {
+			picId--;
 			var _picId = parseInt($(this).parent().parent(".image_container").attr("data-picId"));
 			$(".image_container[data-picid='" + _picId + "']").remove();
+			var pic = document.getElementById("picture_choose").getElementsByTagName("div");
+			var imagecontainer=$(".image_container");
+			for(var i=1;i<pic.length;i++){
+				if(i<picId){
+					imagecontainer[i].attr("data-picId", i);
+				}else{
+					imagecontainer[i].attr("data-picId", i-1);
+				}
+				
+			}
 			if ($(".image_container").length > 0 && $(".defaultImg").length < 1) {
 				$(".image_container").each(function () {
+					
 					var i = parseInt($(this).attr("data-picId"));
 					defaultImg(i, true);
 					return false;
@@ -602,7 +648,35 @@ $id("photo").onclick = function() {
 }
 $id("photo_submit").onclick = function(){
 	$id("change_photo").style.display = "none";
-	$("#preview").attr("src", "");
+	
+	//获取base64的图片数据
+	 var file = $("#avatar")[0].files[0];
+	 var reader  = new FileReader();
+	 reader.onloadend=function(e) {
+		 e.target.result
+	}
+	 if (file) {
+		reader.readAsDataURL(file);
+	 }
+	//头像更改ajax
+	var json ={"behaviour":1, "head":reader.split(",",2)[1],"account":account};
+	$.ajax({
+		type: "GET",
+		url: "/SocialUtil/UserController.do",
+		data: JSON.stringify(json),
+		typeData: "json",
+		success: function(data) {
+			if(result=="true"){
+				alert("头像修改成功");
+			}else{
+				alert("头像修改失败");
+			}
+		},
+		error: function(err) {
+			//alert(err.status);
+		}
+	})
+	getPage();
 }
 $("#avatar").change(function () {
 	$("#photo_warning").html("");
@@ -703,7 +777,7 @@ document.getElementById("title").onclick = function() {
 $id("save_tag").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	tagWarning.innerHTML = "";
-	$("#personal_tag").remove();
+	
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
 	
@@ -711,6 +785,7 @@ $id("save_tag").onclick = function() {
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	var tags="";
 	for(var i = 0;i < chooseLi.length; i++){	
+		$("#personal_tag").remove();
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
@@ -952,15 +1027,47 @@ document.getElementById("icon_choose").onclick = function() {
 		var friend_college = $("#friend_college");
 		var friend_personal = $("#friend_personal");
 		$.post("/SocialUtil/UserController.do", {
+			behaviour:3,
 			sex: sex_condition,
 			school: school_condition,
 			college: college_condition,
 			tags: tag_condition
 		}, function(data) {
-			friend_name.html(data.name);
-			friend_school.html(data.school);
-			friend_college.html(data.profession);
-			friend_personal.html(data.signature);
+			if(data.result=="true"){
+				friend_name.html(data.fakename);
+				friend_school.html(data.school);
+				friend_college.html(data.major);
+				friend_personal.html(data.singlesex);
+				var tags =data.tags;
+				if(tgas!=""){
+					var friendtag=new Array();
+					friendtag=tags.split("&");
+					$("#personal_tag").remove();
+					for (i=0;i<friendtag.length ;i++ ){
+						$("friend_tag"+i).html(friendtag[i]);
+					}
+				}
+				circle_info=data.info;
+				
+				for(var i=0; i<circle_info.length;i++){
+					var newshow = document.createElement("div");
+					var time = document.createElement("div");
+					var dynamic_contact = document.createElement("div");
+					var dynamic_photo = document.createElement("div");
+					newshow.setAttribute("id", "show_dynamic");
+					time.setAttribute("id", "time");
+					dynamic_contact.setAttribute("id", "dynamic_contact");
+					dynamic_photo.setAttribute("id", "dynamic_photo");
+					var showVal = document.createTextNode(circle_info[i]);
+					dynamic_contact.appendChild(showVal);
+					newshow.appendChild(time);
+					newshow.appendChild(dynamic_contact);
+					newshow.appendChild(dynamic_photo);
+					all_dynamic.appendChild(newshow);
+				}
+			}else{
+				alert("该筛选条件找不到人");
+			}
 		});
 	}
 
