@@ -8,8 +8,8 @@
 	border-bottom-left-radius: 30px;
 	border-top-right-radius: 30px;
 	position: absolute;
-	left: 550px;
-	top: 210px;
+	left: 600px;
+	top: 240px;
 	overflow:hidden;
 	background:rgba(255,255,255,.8);
 }
@@ -145,7 +145,7 @@
 	left:205px;
 	top:45px;
 }
-#show_message {
+#another_message0 {
 	background:#d2d1d1;
 	border-radius:10px;
 	height:370px;
@@ -253,209 +253,6 @@
 	top:190px;
 	left:20px;
 }
-#friend_tag0 {
-	z-index: 5;
-	height: 30px;
-	background: #eee0c8;
-	position: absolute;
-	padding-top: 5px;
-	left: 45px;
-}
-
-#friend_tag0:before,
-#friend_tag0:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 10px;
-	height: 35px;
-	background-size: 20px 10px;
-}
-
-#friend_tag0:before {
-	top: 0;
-	left: -10px;
-	background-color: lightgrey;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #eee0c8 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #eee0c8 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #eee0c8 75%);
-}
-
-#friend_tag0:after {
-	top: 0;
-	right: -10px;
-	background-color: #eee0c8;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
-		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
-}
-
-
-#friend_tag1 {
-	z-index: 5;
-	height: 30px;
-	background: #cee9eb;
-	position: absolute;
-	padding-top: 5px;
-	left: 150px;
-}
-
-#friend_tag1:before,
-#friend_tag1:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 10px;
-	height: 35px;
-	background-size: 20px 10px;
-}
-
-#friend_tag1:before {
-	top: 0;
-	left: -10px;
-	background-color: lightgrey;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #cee9eb 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #cee9eb 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #cee9eb 75%);
-}
-
-#friend_tag1:after {
-	top: 0;
-	right: -10px;
-	background-color: #cee9eb;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
-		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
-}
-
-#friend_tag2 {
-	z-index: 5;
-	height: 30px;
-	background: #ececd4;
-	position: absolute;
-	padding-top: 5px;
-	top: 65px;
-	left: 80px;
-}
-
-#friend_tag2:before,
-#friend_tag2:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 10px;
-	height: 35px;
-	background-size: 20px 10px;
-}
-
-#friend_tag2:before {
-	top: 0;
-	left: -10px;
-	background-color: lightgrey;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #ececd4 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #ececd4 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #ececd4 75%);
-}
-
-#friend_tag2:after {
-	top: 0;
-	right: -10px;
-	background-color: #ececd4;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
-		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
-}
-#friend_tag3 {
-	z-index: 5;
-	height: 30px;
-	background: #b6f3b1;
-	position: absolute;
-	padding-top: 5px;
-	left: 180px;
-	top: 65px;
-}
-
-#friend_tag3:before,
-#friend_tag3:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 10px;
-	height: 35px;
-	background-size: 20px 10px;
-}
-
-#friend_tag3:before {
-	top: 0;
-	left: -10px;
-	background-color: lightgrey;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-35deg, #b6f3b1 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #b6f3b1 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #b6f3b1 75%);
-}
-
-#friend_tag3:after {
-	top: 0;
-	right: -10px;
-	background-color: #b6f3b1;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
-		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
-}
-
-#friend_tag4 {
-	z-index: 5;
-	height: 30px;
-	background: #f6f6f6;
-	position: absolute;
-	padding-top: 5px;
-	top: 120px;
-	left: 130px;
-}
-
-#friend_tag4:before,
-#friend_tag4:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 10px;
-	height: 35px;
-	background-size: 20px 10px;
-}
-
-#friend_tag4:before {
-	top: 0;
-	left: -10px;
-	background-color: lightgrey;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, #f6f6f6 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, #f6f6f6 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, transparent 75%, #f6f6f6 75%);
-}
-
-#friend_tag4:after {
-	top: 0;
-	right: -10px;
-	background-color: #f6f6f6;
-	background-position: 100% 35%;
-	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
-		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
-		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
-}
-
 #direction{
 	position:absolute;
 	bottom:10px;
@@ -488,7 +285,7 @@
 	right:30px;
 	cursor:pointer;
 }
-#show_message:hover #chat{
+#another_message0:hover #chat{
 	transform: translateY(-15px);
 }
 #another_message1:hover #chat{
@@ -500,9 +297,9 @@
 #choose_friend{
 	background:white;
 	width:450px;
-	top:0;
 	position:absolute;
-	left:821px;
+	top:10px;
+	left:856px;
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;
@@ -521,7 +318,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top:209px;
+	top:229px;
 	right:41px;
 	padding:0;
 	border-top:8px solid #FFF;
@@ -537,7 +334,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top: 211px;
+	top: 231px;
 	right:40px;
 	padding:0;
 	border-top:9px solid #ccc;
@@ -581,6 +378,7 @@
 }
 #choose_school span{
 	padding-left:10px;
+	margin-top:5px;
 	font-size:17px;
 	float:left;
 	margin-right:20px;
@@ -605,12 +403,12 @@
 	margin-top:5px;
 }
 #school_choose li:hover{
-	background:#eeee9e;
+	background:greenyellow;
 }
 #more_school{
 	position:absolute;
 	right:20px;
-	bottom:130px;
+	bottom:145px;
 	cursor:pointer;
 	z-index:101;
 }
@@ -618,6 +416,7 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
+	margin-top:10px;
 }
 #choose_college span{
 	padding-left:10px;	
@@ -647,12 +446,12 @@
 	margin-top:5px;
 }
 #college_choose li:hover{
-	background:#f0ace7;
+	background:#df64c9;
 }
 #more_college{
 	position:absolute;
 	right:5px;
-	bottom:92px;
+	bottom:99px;
 	cursor:pointer;
 	z-index:100;
 }
@@ -660,6 +459,7 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
+	margin-top:10px;
 }
 #choose_other span{
 	padding-left:10px;	
@@ -707,6 +507,19 @@
 	margin-top:15px;
 	background:rgba(0,0,0,.3);
 }
+#chat_about1{
+	width:800px;
+	height:560px;
+	border:1px solid black;
+	margin:0 auto;
+	display:none;
+	z-index:999;
+	background:lightgrey;
+	position:absolute;
+	top:90px;
+	left:350px;
+	border-radius:15px;
+}
 #chat_about{
 	width:800px;
 	height:560px;
@@ -720,20 +533,24 @@
 	left:350px;
 	border-radius:15px;
 }
-#friend_name_show img{
+#name_show{
 	position:absolute;
-	top:-98px;
-	left:150px;
+	top:-78px;
+	left:0;
+	width:600px;
+	height:200px;
+}
+#friend_name_show{
 	width:400px;
-	height:250px;
+	position:absolute;
+	margin-left:100px;
+	text-align:center;
 }
 #show_name{
+	position:relative;
 	color:black;
-	font-size:30px;
+	font-size:35px;
 	font-weight:500;
-	position:absolute;
-	left:310px;
-	top:0;
 }
 #chat_warning{
 	position:absolute;
@@ -746,21 +563,6 @@
 	padding-top:10px;
 	padding-left:10px;
 	display:none;
-	z-index:10;
-}
-#empty_warning{
-	position:absolute;
-	top:0px;
-	left:300px;
-	font-size:17px;
-	height:40px;
-	background:lightgrey;
-	border-radius:3px;
-	padding-top:10px;
-	padding-left:10px;
-	display:none;
-	z-index:10;
-	color:red;
 }
 #new_white_dashed{
 	border: 2px dashed white;
@@ -779,33 +581,165 @@
 }
 #icon{
 	position:absolute;
-	top:0px;
-	right:20px;
-}
-#icon_time{
-	height:30px;
-	width:30px;
-	cursor:pointer;
-	position:absolute;
-	right:80px;
-	top:30px;
+	top:25px;
+	right:38px;
 }
 #icon_close{
+	float:right;
+	width:40px;
+}
+#icon_change{
+	float:right;
+	width:40px;
+}
+<<<<<<< HEAD
+#icon_time{
+	float:right;
+	width:40px;
+}
+#icon_report{
+	float:right;
+	width:40px;
+}
+#icon_friend{
+	float:right;
+	width:40px;
+}
+#icon_friend i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_friend:hover i{
+	visibility: visible;
+}
+#icon_close i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_close:hover i{
+	visibility: visible;
+}
+#icon_time i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_time:hover i{
+	visibility: visible;
+}
+#icon_change i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_change:hover i{
+	visibility: visible;
+}
+
+#icon_report i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_report:hover i{
+	visibility: visible;
+}
+=======
+>>>>>>> master
+#icon_time img{
 	height:30px;
 	width:30px;
 	cursor:pointer;
-	position:absolute;
-	top:30px;
-	right:40px;
 }
-#icon_small{
+#icon_close img{
+<<<<<<< HEAD
 	height:30px;
 	width:30px;
 	cursor:pointer;
-	position:absolute;
-	top:30px;
-	right:120px;
 }
+#icon_change img{
+=======
+>>>>>>> master
+	height:30px;
+	width:30px;
+	cursor:pointer;
+}
+<<<<<<< HEAD
+#icon_report img{
+	height:30px;
+	width:30px;
+	cursor:pointer;
+}
+#icon_friend img{
+	height:30px;
+	width:30px;
+	cursor:pointer;
+}
+#report_choose{
+	border:1px solid black;
+	background:lightgrey;
+	width:300px;
+	border-radius:10px;
+	top:50px;
+	right:200px;
+	position:absolute;
+	z-index:999;
+	display:none;
+}
+#report_introduce{
+	width:249px;
+	height:30px;
+	padding:10px;
+	border-radius:3px;
+	cursor:pointer;
+}
+#report_introduce input{
+	width:15px;
+	height:15px;
+	border-radius:3px;
+}
+#report_introduce:hover{
+	background:rgba(0,0,0,.3);
+}
+#report_title{
+	margin-left:50px;
+	line-height:30px;
+	font-size:18px;
+}
+#report_button{
+	margin:20px 0 15px 60px;
+}
+#report_submit{
+	line-height:20px;
+	border-radius:5px;
+	cursor:pointer;
+}
+#report_submit:hover{
+	background:lightblue;
+}
+#report_cancel:hover{
+	background:lightblue;
+}
+#report_cancel{
+	line-height:20px;
+	border-radius:5px;
+	cursor:pointer;
+	margin-left:35px;
+}
+=======
+>>>>>>> master
 #friend{
 	padding-top:50px;
 }
@@ -850,7 +784,7 @@
 	border-radius:20px;
 	width:50px;
 	height:30px;
-	top:500px;
+	bottom:30px;
 	right:45px;
 }
 #time_chat{
@@ -860,6 +794,42 @@
 	position:absolute;
 	top:180px;
 	left:350px;
+}
+#add_friend{
+	border-radius:10px;
+	border:1px solid black;
+	position:absolute;
+	width:250px;
+	top:150px;
+	left:300px;
+	text-align:center;
+	background:white;
+	display:none;
+}
+#add_title{
+	padding:20px;
+}
+#add_button{
+	margin:0 0 20px 0;
+}
+#add_cancel{
+	border-radius:15px;
+	padding:5px 12px;
+	background:rgba(0,0,0,.7);
+	color:white;
+}
+#add_cancel:hover{
+	background:lightblue
+}
+#add_submit{
+	color:white;
+	border-radius:15px;
+	padding:5px 12px;
+	margin-left:25px;
+	background:rgba(0,0,0,.7);
+}
+#add_submit:hover{
+	background:lightblue
 }
 #friend_dynamic{
 	width:350px;
@@ -936,38 +906,4 @@
 	z-index:1000;
 	border-radius:40px;
 	display:none;
-}
-#manager_main{
-	position:absolute;
-	top:0;
-	left:1350px;
-}
-#manager_main img{
-	width:40px;
-	height:40px;
-}
-#manager_tip{
-	position:absolute;
-	width:150px;
-	display:none;
-}
-#manager_main:hover #manager_tip{
-	display:block;
-}
-#back_main{
-	position:absolute;
-	top:0;
-	left:1300px;
-}
-#back_main img{
-	width:40px;
-	height:40px;
-}
-#back_tip{
-	position:absolute;
-	width:150px;
-	display:none;
-}
-#back_main:hover #back_tip{
-	display:block;
 }
