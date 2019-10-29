@@ -7,16 +7,14 @@ import javax.mail.Message.RecipientType;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
  * @author ylr
  *
  */
-public class SendEmailDao {
-	private SendEmailDao() {
+public class SendEmail {
+	private SendEmail() {
 	}
 	
 	/**
@@ -26,14 +24,13 @@ public class SendEmailDao {
 	 * @throws AddressException
 	 * @throws MessagingException
 	 */
-	public static String send(String email) throws AddressException, MessagingException {
+	public static int send(String email) throws AddressException, MessagingException {
 		//随机数字
 		Random rand = new Random();
-		StringBuffer randNumTemp = new StringBuffer();
+		int randNum = 0;
 		for(int i = 0; i < 4; i++) {
-			randNumTemp.append(rand.nextInt(10));
+			randNum = randNum * 10 + rand.nextInt(9) + 1;
 		}
-		String randNum = randNumTemp.toString();
 		Properties pro = new Properties();
 		//校验用户名和密码
 		pro.setProperty("mail.smtp.auth", "true");
@@ -68,35 +65,7 @@ public class SendEmailDao {
 	 * @param num2 - 邮箱生成
 	 * @return - 是否一致
 	 */
-	public static Boolean confirm(String num, String num2) {
-		return num.equals(num2);
-	}
-	
-	/**
-	 * 
-	 * @param reqJson - 请求json数据
-	 * @param resJson - 响应json数据
-	 * @param session - 记录
-	 */
-	public static void doGetSendEmail(JSONObject reqJson, JSONObject resJson, HttpSession session) {
-		try {
-			String email = reqJson.getString("email");
-			String num = send(email);
-			session.setAttribute("emailNum", num);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 
-	 * @param reqJson - 请求json数据
-	 * @param resJson - 响应json数据
-	 * @param session - 记录
-	 */
-	public static void doGetConfirm(JSONObject reqJson, JSONObject resJson, HttpSession session) {
-    	String input = reqJson.getString("input");
-    	String create = (String)session.getAttribute("emailNum");
-    	resJson.put("msg", confirm(input, create));
+	public static Boolean confirm(int num, int num2) {
+		return num == num2;
 	}
 }

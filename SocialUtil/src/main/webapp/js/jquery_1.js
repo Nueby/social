@@ -1,4 +1,5 @@
 /*! jQuery v1.6.4 http://jquery.com/ | http://jquery.org/license */
+
 (function(a, b) {
 	function cu(a) {
 		return f.isWindow(a) ? a : a.nodeType === 9 ? a.defaultView || a.parentWindow : !1
