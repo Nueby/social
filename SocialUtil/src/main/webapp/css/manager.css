@@ -1,0 +1,311 @@
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	background:whitesmoke;
+}
+#header{
+	background:#78e6c8;
+	height:50px;
+	width:100%;
+}
+#logo{
+	height:50px;
+	width:200px;
+}
+#header_right{
+	position:absolute;
+	left:1300px;
+	top:0;
+}
+#manager_photo{
+	float:left;
+}
+#manager_photo img{
+	width:40px;
+	height:40px;
+	border-radius:50%;
+	margin-top:5px;
+}
+#hello{
+	margin-top:17px;
+	margin-left:20px;
+	float:left;
+	font-size:13px;
+}
+#back_macthing{
+	float:left;
+	margin-top:17px;
+	margin-left:20px;
+	font-size:13px;
+	cursor:pointer;
+}
+
+#navigation{
+	margin-top:10px;
+	background:#554242;
+	float:left;
+	border-radius:5px;
+}
+.nav{
+	width:200px;
+	height:680px;
+}
+.nav li{
+	line-height:80px;
+	text-align:center;
+	list-style-type:none;
+	width:200px;
+	height:80px;
+	color:white;
+	cursor:pointer;
+	display:block;
+	border-radius:5px;
+	font-size:18px;
+	display:block;
+}
+.nav li:hover{
+	background:grey;
+}
+.report{
+	text-align:center;
+	float:left;
+	display:none;
+	transition:all .5s;
+}
+.report li{
+	line-height:50px;
+	font-size:15px;
+	height:50px;
+}
+.report li:hover{
+	background:grey;
+}
+.statistics{
+	height:100px;
+	text-align:center;
+	float:left;
+	display:none;
+	transition:all .5s;
+}
+.statistics li{
+	line-height:50px;
+	font-size:15px;
+	height:50px;
+}
+.statistics li:hover{
+	background:grey;
+}
+tr:nth-child(odd){
+	background:lightgrey;
+}
+tr:nth-child(even){
+	background:white;
+}
+th{
+	height:50px;
+}
+td{
+	height:35px;
+}
+#record_page{
+	width:1200px;
+	height:630px;
+	margin-top:10px;
+	margin-left:230px;
+	background:white;
+	position:relative;
+	border-radius:10px;
+}
+#chat_record{
+	position:absolute;
+	margin-top:20px;
+	margin-left:100px;
+	width:1000px;
+	text-align:center;
+}
+#check{
+	color:blue;
+	cursor:pointer;
+}
+#check:hover{
+	color:grey;
+}
+
+#jump_page{
+	position:absolute;
+	bottom:20px;
+	right:100px;
+}
+#left_arrow{
+	border:2px rgba(0,0,0,.2) solid;
+	border-radius:2px;
+	padding:0 8px;
+	cursor:pointer;
+}
+#left_arrow:hover{
+	background:lightgrey;
+}
+#right_arrow{
+	border:2px rgba(0,0,0,.2) solid;
+	border-radius:2px;
+	padding:0 8px;
+	cursor:pointer;
+}
+#right_arrow:hover{
+	background:lightgrey;
+}
+#page_num{
+	letter-spacing: 5px;
+	color:grey;
+	font-size:18px;
+}
+#page_total{
+	letter-spacing: 5px;
+	color:grey;
+	font-size:18px;
+}
+#page_text{
+	border:2px rgba(0,0,0,.2) solid;
+	width:50px;
+	height:20px;
+	margin-left:10px;
+	border-radius:5px;
+}
+#page_jump{
+	border-radius:3px;
+	background:white;
+	padding:0 8px;
+	margin-lefT:10px;
+}
+#page_jump:hover{
+	background:lightgrey;
+}
+#imformation_page{
+	width:1200px;
+	height:630px;
+	margin-top:10px;
+	margin-left:230px;
+	background:white;
+	position:relative;
+	border-radius:10px;
+	display:none;
+}
+#imformation_check{
+	position:absolute;
+	width:1000px;
+	margin-left:100px;
+	margin-top:20px;
+	text-align:center;
+}
+#report_page{
+	width:1200px;
+	height:630px;
+	margin-top:10px;
+	margin-left:230px;
+	background:white;
+	position:relative;
+	border-radius:10px;
+	display:none;
+}
+#verbal_abuse{
+	position:absolute;
+	width:1000px;
+	margin-left:100px;
+	margin-top:20px;
+	text-align:center;
+}
+#report_chat{
+	cursor:pointer;
+}
+#report_chat:hover{
+	color:grey;
+	text-decoration: underline;
+}
+#handle_seal{
+	cursor:pointer;
+}
+#handle_seal:hover{
+	color:grey;
+	text-decoration: underline;
+}
+#handle_warning{
+	cursor:pointer;
+}
+#handle_warning:hover{
+	color:grey;
+	text-decoration: underline;
+}
+#outrecord{
+	overflow:hidden;
+	width:590px;
+	height:520px;
+	position:absolute;
+	top:70px;
+	left:300px;
+	display:none;
+}
+#record_contact{
+	background:white;
+	border:3px solid rgba(0,0,0,.1);
+	border-radius:10px;
+	width:600px;
+	height:500px;
+	overflow:scroll;
+	z-index:99;
+	overflow-x:hidden;
+}
+#other{
+	float:left;
+	height:50px;
+	max-width:200px;
+	line-height:50px;
+}
+#self{
+	clear:both;
+	float:right;
+	height:50px;
+	max-width:200px;
+	line-height:50px;
+}
+#record_cancel{
+	background:lightgrey;
+	padding:0 8px;
+	border-radius:15px;
+	position:absolute;
+	bottom:20px;
+	right:250px;
+}
+#linechart_show{
+	position:relative;
+	background:white;
+	width:1250px;
+	height:650px;
+	margin-top:20px;
+	margin-left:250px;
+	border-radius:10px;
+	display:none;
+}
+#linechart{
+	left:50px;
+	position:absolute;
+	margin-top:20px;
+	transition:opacity 2s;
+}
+#ciclechart_show{
+	position:relative;
+	background:white;
+	width:1000px;
+	height:600px;
+	margin-top:20px;
+	margin-left:250px;
+	display:none;
+	border-radius:10px;
+}
+#ciclechart{
+	-webkit-transform-style:preserve-3d;
+	margin-left:150px;
+	margin-top:50px;
+	transition:opacity 2s;
+}

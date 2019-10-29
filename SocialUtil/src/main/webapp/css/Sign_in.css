@@ -1,0 +1,486 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow-x:hidden;
+}
+.para1 {
+	color: red;
+	font-size: 12px;
+	letter-spacing: 5px;
+	position: absolute;
+}
+
+#main {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#background {
+	height: 800px;
+	width: 1550px;
+	background: url(../img/matching_background.jpg) no-repeat;
+	background-size: 100%;
+}
+
+#Sign_in {
+	width: 500px;
+	position: absolute;
+	top: 137px;
+	left: 710px;display: none;
+}
+#register {
+	top: 137px;
+	left: 704px;
+	height: 597px;
+	width: 540px;
+	position: absolute;
+	
+}
+#title {
+	position: absolute;
+	left: 880px;
+	top: 190px;
+	z-index: 2;
+	min-width: 400px;
+}
+
+#title_left {
+	position: relative;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	color:blue;
+}
+#change_title_left{
+	color:black;
+	transform:translateY(-10px);
+	position: relative;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+}
+#line{
+	font-size:35px;
+	font-style: normal;
+}
+#title_right {
+	position: relative;
+	left: 20px;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+}
+#change_title_right{
+	color:blue;
+	transform:translateY(-10px);
+	position: relative;
+	left: 20px;
+	font-style: normal;
+	font-size: 35px;
+	letter-spacing: 15px;
+	font-weight: 500;
+	cursor: pointer;
+}
+#icon_people{
+	background:url(../img/people_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:145px;
+}
+#icon_people_2{
+	background:url(../img/people_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:145px;
+}
+#icon_password{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:227px;
+}
+#icon_password_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:227px;
+}
+#text {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-radius:22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 150px;
+}
+
+
+#password {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-radius:22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 45px;
+}
+
+#check_img {
+	width: 300px;
+	height: 205px;
+	position: absolute;
+	left: 152px;
+	top: 194px;
+	z-index: 5;
+	display: none;
+}
+
+#bg_bar {
+	margin-top: 120px;
+	margin-left: 150px;
+	width: 300px;
+	height: 40px;
+	border-radius: 38px;
+	background-color: grey;
+	opacity: 0.5;
+}
+
+#touch_bar {
+	position: relative;
+	top: -42px;
+	border: 2px solid blue;
+	width: 25%;
+	height: 40px;
+	border-radius: 38px;
+	background-color: white;
+	display: flex;
+	flex: row;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+#bg_new {
+	position: relative;
+	top: -84px;
+	height: 40px;
+	border-radius: 18px;
+	background-color: blue;
+	z-index: 15;
+}
+
+#bg_old {
+    height: 40px;
+    z-index: 10;
+    display: flex;
+    flex: row;
+    justify-content: center;
+}
+#forget{
+	color:black;
+	position:absolute;
+	left:270px;
+	top:480px;
+}
+#select{
+	width:300px;
+	height:40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-radius:22px;
+	font-size: 15px;
+	padding-left: 55px;
+	margin-top: 125px;
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+}
+
+#register_text {
+	width: 250px;
+	height: 40px;
+	margin-left: 150px;
+	box-shadow: 1px 5px 3px rgba(0, 0, 0, .2);
+	border: 0;
+	border-radius:22px;
+	font-size: 15px;
+	font-weight: 500;
+	padding-left: 55px;
+	margin-top: 25px;
+}
+#text_password{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:25px;
+}
+#register_password{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:25px;
+}
+#confirm{
+	width:250px;
+	height:40px;
+	margin-left:150px;
+	box-shadow:1px 5px 3px rgba(0,0,0,.2);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:15px;
+	font-weight:500;
+	padding-left:55px;
+	margin-top:25px;
+}
+#icon_school{
+	background:url(../img/icon_school.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:118px;
+}
+#icon_rpeople{
+	background:url(../img/people_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:184px;
+}
+#icon_rpeople_2{
+	background:url(../img/people_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:184px;
+}
+#icon_secret{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:247px;
+}
+#icon_secret_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:247px;
+}
+#icon_password_secret{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:313px;
+}
+#icon_password_secret_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:313px;
+}
+#icon_password_confirm{
+	background:url(../img/secret_1.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:378px;
+}
+#icon_password_confirm_2{
+	background:url(../img/secret_2.png);
+	background-size:100%;
+	height:55px;
+	width:55px;
+	position:absolute;
+	z-index:3;
+	border-radius:50%;
+	left:145px;
+	top:378px;
+}
+#check_code{
+	position:relative;
+	top:40px;
+	left:150px;
+}
+#code{
+	position:absolute;
+	font-size:19px;
+	font-weight:500;
+}
+#fill{
+	position:absolute;
+	left:65px;
+	width:90px;
+	border:0;
+	border-bottom:2px solid #000;
+	background:rgba(0,0,0,.0);
+	top:21px;
+}
+#time{
+	background:rgba(0,0,0,.4);
+	width:115px;
+	box-shadow:0 0 2px rgba(0,0,0,.3);
+	cursor:pointer;
+	border-radius:3px;
+	position:absolute;
+	left:180px;
+	top:15px;
+	padding:3px;
+	text-align:center;
+	color:whitesmoke;
+}
+#submit{
+	color:white;
+	width:200px;
+	padding:10px;
+	height:50px;
+	background:rgba(0,0,0,.5);
+	border:0;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
+	font-size:20px;
+	position:absolute;
+	bottom:45px;
+	left:200px;
+	cursor:pointer;
+	height: 40px;
+	z-index: 10;
+	display: flex;
+	flex: row;
+	justify-content: center;
+}
+
+
+#small_img {
+	z-index: 7;
+	position: absolute;
+}
+
+#big_img {
+	z-index: 6;
+	position: absolute;
+}
+
+#enterMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 200px;
+	position: absolute;
+	color:red;
+	font-size:16px;
+}
+
+#registerMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 200px;
+	position: absolute;
+	color:red;
+	font-size:16px;
+}
+
+#accountMsg {
+	width: 120px;
+	height: 30px;
+	margin-left: 200px;
+	position: absolute;
+	font-size:16px;
+}
+#manager{
+	color:black;
+	position:absolute;
+	bottom:-150px;
+	right:0;
+	text-decoration:none;
+}
