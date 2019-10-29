@@ -40,13 +40,9 @@ public class UserDao {
 			switch(behaviour) {
 			//忘记密码
 			case 0:
-				if(school.getEmail().equals(reqJson.getString("email"))) {
 					user.setPassword(MD5.getMD5(reqJson.getString("password")));
 					if(!user.update()) resJson.put("result","database");
 					resJson.put("result", "true");
-				} else {
-					resJson.put("result","email");
-				}
 				break;
 			//更改头像
 			case 1:
@@ -122,6 +118,14 @@ public class UserDao {
 					new Tags(user.getId(), tag).insert();
 				}
 				resJson.put("result", "true");
+			//账号密码匹配
+			case 8:
+				if(school.getEmail().equals(reqJson.getString("email"))) {
+					resJson.put("result", "email");
+				} else {
+					resJson.put("result","noemail");
+				}
+				break;
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -156,6 +160,7 @@ public class UserDao {
 			//获取信息
 			case 1:
 				resJson.put("fakename",own.getFakename());
+				//头像
 				File f = new File(own.getHead());
 				if(f.exists()) {
 					BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
@@ -172,7 +177,7 @@ public class UserDao {
 				resJson.put("major",school.getMajor());
 				resJson.put("singlesex",own.getSinglesex());
 				resJson.put("tags", own.getTags());
-				resJson.put("info", own.getInfo());
+				resJson.put("info", own.getInfo());	
 				String sex = school.getSex();
 				if(sex.equals("m")) resJson.put("sex", "男");
 				else resJson.put("sex","女");
@@ -195,16 +200,27 @@ public class UserDao {
 				break;
 			//筛选
 			case 3:
+				StringBuffer tempTags = new StringBuffer();
+				tempTags.append("select id from tags full join school on tags.id=tags.id AND");
+				//标签
 				List<Integer> ids = new LinkedList<Integer>(); 
 				String reacherTags = reqJson.getString("tags");
 				String[] tagsArr = reacherTags.split("&");
 				Statement stmt = C3P0Util.getConnection().createStatement();
-				StringBuffer tempTags = new StringBuffer();
-				tempTags.append("SELECT id FROM tags WHERE");
+				
 				for(int i = 0; i < tagsArr.length; i++) {
 					tempTags.append("tag=" + URLEncoder.encode(tagsArr[i],"utf-8"));
 					if(i != tagsArr.length - 1)	tempTags.append(" AND ");
 				}
+				//性别
+					String reacherSex = reqJson.getString("sex");
+					tempTags.append("AND sex=" + URLEncoder.encode(reacherSex,"utf-8") );
+				//学校
+					String reacherSchool = reqJson.getString("school");
+					tempTags.append("AND school=" + URLEncoder.encode(reacherSchool,"utf-8") );
+				//学院
+					String reacherCollege = reqJson.getString("college");
+					tempTags.append("AND college=" + reacherCollege );
 				ResultSet rs3 = stmt.executeQuery(tempTags.toString());
 				rs3.last();
 				int rows = rs3.getRow();
