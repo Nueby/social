@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>passer-By管理系统</title>
+	</head>
+	<body>
+		<div id="">
+			
+		</div>
+<<<<<<< HEAD
+		<div id="navigation">
+			<ul class="nav">
+				<li>目录</li>
+				<li id="chat_manager">聊天记录管理</li>
+				<li id="personal_imformation">
+					个人信息查看
+				</li>
+				<li id="report_manager">
+					举报信息处理
+				</li>
+				<li id="statistics_manager">
+					统计图
+					<ul class="statistics">
+						<li id="brokenLine">标签统计折线图</li>
+						<li id="reportCicle">举报记录饼状图</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!-- 聊天记录查看界面 -->
+		<div id="record_page">
+			<table border="1" rules="cols" frame="none" id="chat_record" number="0">
+				<tr>
+					<th>昵称</th>
+					<th>ID</th>
+					<th>聊天时间</th>
+					<th>具体</th>
+				</tr>
+				<tr>
+					<td id="chater_name">123</td>
+					<td id="chat_id">181549135</td>
+					<td id="chat_time">2019.3.2</td>
+					<td id="check">查看</td>
+				</tr>	
+				<tr>
+					<td id="chater_name">555</td>
+					<td id="chat_id">181549144</td>
+					<td id="chat_time">2019.3.2</td>
+					<td id="check">查看</td>
+				</tr>	
+			</table>
+			<div id="jump_page">
+				<span id="left_arrow">&lt;</span>
+				<span id="page_num">1</span><span id="page_total">/1</span>
+				<span id="right_arrow">&gt;</span>
+				<input type="text" id="page_text"/>
+				<input type="button" id="page_jump" value="跳转"/>
+			</div>
+			<div id="outrecord">
+				<div id="record_contact">
+					<div id="other">
+						<span id="other_id">
+							181549144:
+						</span>
+						<span id="other_talk">
+							22222
+						</span>
+					</div>
+					<div id="self">
+						<span id="self_talk">
+							22222
+						</span>
+						<span id="self_id">
+							:181549135
+						</span>
+					</div>
+					<input type="button" id="record_cancel" value="退出" />
+				</div>
+			</div>
+		</div>
+		
+		<!-- 个人信息查看界面 -->
+		<div id="imformation_page">
+			<table border="1" rules="cols" frame="none" id="imformation_check">
+				<tr>
+					<th>昵称</th>
+					<th>性别</th>
+					<th>注册时间</th>
+					<th>学校</th>
+					<th>学院</th>
+					<th>专业</th>
+				</tr>
+				<tr>
+					<td id="nickname">123</td>
+					<td id="check_sex">男</td>
+					<td id="updatetime">2019.3.2</td>
+					<td id="check_school">广东金融学院</td>
+					<td id="check_college">互联网金融与工程学院</td>
+					<td id="check_major">软件工程</td>
+				</tr>
+			</table>
+			<div id="jump_page">
+				<span id="left_arrow">&lt;</span>
+				<span id="page_num">1</span><span id="page_total">/1</span>
+				<span id="right_arrow">&gt;</span>
+				<input type="text" id="page_text"/>
+				<input type="button" id="page_jump" value="跳转"/>
+			</div>
+		</div>
+		
+		<!-- 举报信息处理界面 -->
+		<div id="report_page">
+			<table border="1" rules="cols" frame="none" id="verbal_abuse">
+				<tr>
+					<th>被举报人</th>
+					<th>举报人</th>
+					<th>被举报时间</th>
+					<th>被举报次数</th>
+					<th>举报内容</th>
+					<th>举报聊天记录</th>
+					<th colspan="2">处理方式</th>
+				</tr>
+				<tr>
+					<td id="be_reported">123</td>
+					<td id="report">222</td>
+					<td id="report_time">2019.3.2</td>
+					<td id="report_number">0</td>
+					<td id="report_contact">言语辱骂</td>
+					<td id="report_chat">查看</td>
+					<td id="handle_seal">封号</td>
+					<td id="handle_warning">警告</td>
+				</tr>
+			</table>
+			<div id="jump_page">
+				<span id="left_arrow">&lt;</span>
+				<span id="page_num">1</span><span id="page_total">/1</span>
+				<span id="right_arrow">&gt;</span>
+				<input type="text" id="page_text"/>
+				<input type="button" id="page_jump" value="跳转"/>
+			</div>
+			<div id="seal">
+				
+			</div>
+			<div id="">
+				
+			</div>
+		</div>
+		<div id="linechart_show">
+			<canvas id="linechart" width="1150" height="600"></canvas>
+		</div>
+		<div id="ciclechart_show">
+			<canvas id="ciclechart" width="700" height="500"></canvas>
+		</div>
+		<script type="text/javascript" src="../js/manager.js"></script>
+=======
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
+	</body>
+</html>

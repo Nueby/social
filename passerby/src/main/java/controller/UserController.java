@@ -14,7 +14,7 @@ import dao.UserDao;
  * @author ylr
  *
  */
-class UserController extends HttpServlet {
+public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     public UserController() {
