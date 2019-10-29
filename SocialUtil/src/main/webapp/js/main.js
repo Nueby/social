@@ -36,6 +36,7 @@ function divNone(){
 	$("#cover_scroll1").hide();
 	$("#cover_scroll2").hide();
 	$("#cover_scroll3").hide();
+	$("#friend_list").hide();
 }
 
 //获取学校信息
@@ -218,6 +219,12 @@ $id("dynamic_submit").onclick = function() {
 
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
+	$id("new_email").value = "";
+	$id("get_code_email").value = "";
+	$id("old_password").value = "";
+	$id("new_password").value = "";
+	$id("confirm_password").value = "";
+	$id("email_warning").innerHTML = "";
 	if ($id("new_email").value == "") return false;
 	$.ajax({
 		type: "GET",
@@ -269,6 +276,10 @@ function changePassword() {
 }
 $id("self_submit").onclick = function() {
 	$id("set_3").style.display = "none";
+	$id("set_name").value = "";
+	$id("school").value = "";
+	$id("college").value = "";
+	$id("major").value = "";
 	$.ajax({
 		type: "POST",
 		url: "/SocialUtil/ControllerSchool.do",
@@ -1086,19 +1097,47 @@ function selection() {
 selection();
 
 
+//好友列表的显示
+document.getElementById("icon_list").onclick = function() {
+	var friend_list = document.getElementById("friend_list");
+	if (friend_list.style.display == "block") {
+		friend_list.style.display = "none";
+	} else {
+		friend_list.style.display = "block";
+	}
+}
+
+
+//好友列表的头像点开开始聊天
+$("#list_show").click(function(){
+	$("#chat_page").show();
+})
+
+
 //点击显示聊天界面，筛选框和个人圈以及关闭
 var interval;
 var chat = document.querySelectorAll("#chat");
 for (var i = 0; i < chat.length; i++) {
 	chat[i].onclick = function() {
 		if (getStyle(show_message, "left") == "15px") {
-			var chat_about = document.getElementById("chat_about");
-			chat_about.style.display = "block";
+			$("#chat_about").show();
 			if (interval) {
 				clearInterval(interval);
 			}
 			interval = setInterval("timeLow()", 1000);
-		} else {
+		}else if(getStyle(another_message1, "left") == "15px"){
+			$("#chat_about").show();
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()", 1000);
+		}else if(getStyle(anoter_message2, "left") == "15px"){
+			$("#chat_about").show();
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()", 1000);
+		}else {
 			return false;
 		}
 	}
@@ -1386,3 +1425,9 @@ function getNowDate(){
     var now = (year.toString() + "-" + month.toString() +  "-" + date.toString());
 	return now;
 }
+
+
+//收邮件的页面显示
+$("#email_main").click(function(){
+	
+})

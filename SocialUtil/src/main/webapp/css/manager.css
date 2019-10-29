@@ -132,34 +132,7 @@ td{
 #check:hover{
 	color:grey;
 }
-#delete{
-	color:grey;
-	cursor:pointer;
-}
-#delete:hover{
-	text-decoration:underline;
-}
-#select_all{
-	position:absolute;
-	bottom:20px;
-	left:100px;
-}
-#select_all i{
-	font-style: normal;
-	margin-left:8px;
-	font-size:13px;
-	color:grey;
-}
-#all_delete{
-	margin-left:20px;
-	background:white;
-	border-radius:5px;
-	padding:0 10px;
-	cursor:pointer;
-}
-#all_delete:hover{
-	background:lightblue;
-}
+
 #jump_page{
 	position:absolute;
 	bottom:20px;
@@ -263,6 +236,46 @@ td{
 #handle_warning:hover{
 	color:grey;
 	text-decoration: underline;
+}
+#outrecord{
+	overflow:hidden;
+	width:590px;
+	height:520px;
+	position:absolute;
+	top:70px;
+	left:300px;
+	display:none;
+}
+#record_contact{
+	background:white;
+	border:3px solid rgba(0,0,0,.1);
+	border-radius:10px;
+	width:600px;
+	height:500px;
+	overflow:scroll;
+	z-index:99;
+	overflow-x:hidden;
+}
+#other{
+	float:left;
+	height:50px;
+	max-width:200px;
+	line-height:50px;
+}
+#self{
+	clear:both;
+	float:right;
+	height:50px;
+	max-width:200px;
+	line-height:50px;
+}
+#record_cancel{
+	background:lightgrey;
+	padding:0 8px;
+	border-radius:15px;
+	position:absolute;
+	bottom:20px;
+	right:250px;
 }
 #linechart_show{
 	position:relative;
