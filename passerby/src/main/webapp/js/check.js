@@ -169,22 +169,26 @@ function bar() {
     //设置滑块鼠标点击取消事件,改变标志位，重置偏移
     touch_bar.onmouseup = function(ev) {
     	var distance = parseInt(touch_bar.style.left);
-    	var json = {"distance":distance};
     	$.ajax({
     		type:"post",
     		url:"/passerby/SlipVerificationCodeController.do",
-    		data:JSON.stringify(json),
+    		data:{
+    			"distance":distance
+    		},
     		dataType:"json",
     		success:function(data) {
     			if(data.verification == true) {		//验证成功
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
-	    				var json = {"behaviour":4,"account":account,"password":password};
 	    				$.ajax({
-	    					type:"POST",
+	    					type:"get",
 	    					url:"/passerby/UserController.do",
-	    					data:JSON.stringify(json),
+	    					data: {
+	    						"behaviour":4,
+	    						"account":account,
+	    						"password":password
+	    					},
 	    					dataType:"json",
 	    					success:function(data) {
 	    						if(data.result == "database") {
@@ -265,7 +269,7 @@ function getPic() {
 function sendRegister() {
 	var registerMsg = $id("registerMsg");
 	var account = $id("register_text").value;
-	var accountPassword = $id("accountPassword").value;
+	var accountPassword = $id("text_password").value;
 	var register_password = $id("register_password").value;
 	var confirm = $id("confirm").value;
 	var school=$id("select").value;
@@ -283,28 +287,28 @@ function sendRegister() {
 		$.ajax({
 			type:"POST",
 			url:"/passerby/RegisterController.do",
-			data:JSON.stringify(json),
+			data:json,
 			dataType:"json",
 			success:function(data) {
 				if(data.flag == 1) {
-					var json2 = {
-						"behaviour":"logup",
-						"account":account,
-						"edu_password":accountPassword,
-						"login_password":register_password
-					};
-					$.ajax({
-						type:"POST",
-						url:"/SocialUtil/ControllerUser.do",
-						data:JSON.stringify(json2),
-						dataType:"json",
-						success:function(data) {
+//					var json2 = {
+//						"behaviour":"logup",
+//						"account":account,
+//						"edu_password":accountPassword,
+//						"login_password":register_password
+//					};
+//					$.ajax({
+//						type:"POST",
+//						url:"/passerby/UserController.do",
+//						data:JSON.stringify(json2),
+//						dataType:"json",
+//						success:function(data) {
 							registerMsg.innerHTML = "*注册成功";
-						},
-						error:function(err) {
-							alert(err.status);
-						}
-					})
+//						},
+//						error:function(err) {
+//							alert(err.status);
+//						}
+//					})
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
@@ -320,7 +324,6 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
-
 
 
 //字体跳动效果
