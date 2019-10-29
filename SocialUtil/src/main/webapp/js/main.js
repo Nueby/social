@@ -31,6 +31,7 @@ function divNone(){
 	$("#cover_scroll1").hide();
 	$("#cover_scroll2").hide();
 	$("#cover_scroll3").hide();
+	$("#friend_list").hide();
 }
 
 //获取主页信息
@@ -232,6 +233,12 @@ $id("dynamic_submit").onclick = function() {
 }
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
+	$id("new_email").value = "";
+	$id("get_code_email").value = "";
+	$id("old_password").value = "";
+	$id("new_password").value = "";
+	$id("confirm_password").value = "";
+	$id("email_warning").innerHTML = "";
 	if ($id("new_email").value == "") return false;
 	$.ajax({
 		type: "GET",
@@ -298,6 +305,10 @@ function changePassword() {
 }
 $id("self_submit").onclick = function() {
 	$id("set_3").style.display = "none";
+	$id("set_name").value = "";
+	$id("school").value = "";
+	$id("college").value = "";
+	$id("major").value = "";
 	$.ajax({
 		type: "POST",
 		url: "/SocialUtil/UserController.do",
@@ -1296,19 +1307,47 @@ function selection() {
 selection();
 
 
+//好友列表的显示
+document.getElementById("icon_list").onclick = function() {
+	var friend_list = document.getElementById("friend_list");
+	if (friend_list.style.display == "block") {
+		friend_list.style.display = "none";
+	} else {
+		friend_list.style.display = "block";
+	}
+}
+
+
+//好友列表的头像点开开始聊天
+$("#list_show").click(function(){
+	$("#chat_page").show();
+})
+
+
 //点击显示聊天界面，筛选框和个人圈以及关闭
 var interval;
 var chat = document.querySelectorAll("#chat");
 for (var i = 0; i < chat.length; i++) {
 	chat[i].onclick = function() {
 		if (getStyle(show_message, "left") == "15px") {
-			var chat_about = document.getElementById("chat_about");
-			chat_about.style.display = "block";
+			$("#chat_about").show();
 			if (interval) {
 				clearInterval(interval);
 			}
 			interval = setInterval("timeLow()", 1000);
-		} else {
+		}else if(getStyle(another_message1, "left") == "15px"){
+			$("#chat_about").show();
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()", 1000);
+		}else if(getStyle(anoter_message2, "left") == "15px"){
+			$("#chat_about").show();
+			if (interval) {
+				clearInterval(interval);
+			}
+			interval = setInterval("timeLow()", 1000);
+		}else {
 			return false;
 		}
 	}
@@ -1528,6 +1567,46 @@ function sendNews() {
 sendNews();
 
 //获取当前时间的函数
+<<<<<<< HEAD
+//个人圈的发布时候要给时间，举报信息要给时间后台记录
+
+//直接传纯数字的是在举报那里和聊天记录的
+function getDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+	//有必要就加
+    var h = myDate.getHours(); //获取当前小时数(0-23)
+    var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+    var s = myDate.getSeconds();
+    //获取当前时间
+    var now = (year.toString() + month.toString() + date.toString());
+	return now;
+}
+//这是个人圈显示的时间数据
+function getNowDate(){
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+    //获取当前时间
+    var now = (year.toString() + "-" + month.toString() +  "-" + date.toString());
+	return now;
+}
+
+
+//收邮件的页面显示
+$("#email_main").click(function(){
+	
+})
+=======
 function getNowFormatDate() {
 	var date = new Date();
 	var seperator1 = "-";
@@ -1543,3 +1622,4 @@ function getNowFormatDate() {
 	var currentdate = year + seperator1 + month + seperator1 + strDate;
 	return currentdate;
 }
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9

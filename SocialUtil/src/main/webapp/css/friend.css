@@ -13,24 +13,6 @@
 	overflow:hidden;
 	background:rgba(255,255,255,.8);
 }
-#choose_tip{
-	display:none;
-}
-#choose_tip img{
-	position:absolute;
-	top:120px;
-	left:1070px;
-	width:300px;
-	height:150px;
-}
-#choose_title{
-	position:absolute;
-	top:185px;
-	left:1140px;
-}
-#icon_choose:hover #choose_tip{
-	display:block;
-}
 #white_plaster_topLeft {
 	z-index: 1;
 	width:100px;
@@ -298,8 +280,12 @@
 	background:white;
 	width:450px;
 	position:absolute;
+<<<<<<< HEAD
+	left:735px;
+=======
 	top:10px;
 	left:856px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;
@@ -309,10 +295,19 @@
 	height: 50px;
 	width: 50px;
 	position: absolute;
-	right: 0px;
+	right: 90px;
 	top: 0px;
 	cursor: pointer;
 }
+#icon_list {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 30px;
+	top: 0px;
+	cursor: pointer;
+}
+
 #choose_friend:before{
 	box-sizing: content-box;
 	width: 0px;
@@ -507,6 +502,71 @@
 	margin-top:15px;
 	background:rgba(0,0,0,.3);
 }
+<<<<<<< HEAD
+#friend_list{
+	height:400px;
+	width:80px;
+	border:3px solid rgba(0,0,0,.3);
+	position:absolute;
+	top:270px;
+	left:1150px;
+	background:white;
+	z-index:1000;
+	border-radius:15px;
+	display:none;
+}
+#friend_list:before{
+	box-sizing: content-box;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top:-16px;
+	right:30px;
+	padding:0;
+	border-bottom:9px solid #fff;
+	border-top:9px solid transparent;
+	border-left:9px solid transparent;
+	border-right:9px solid transparent;
+	display: block;
+	content:'';
+	z-index: 12;
+}
+#friend_list:after{
+	box-sizing: content-box;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top: -20px;
+	right:29px;
+	padding:0;
+	border-bottom:11px solid #ccc;
+	border-top:11px solid transparent;
+	border-left:11px solid transparent;
+	border-right:11px solid transparent;
+	display: block;
+	content:'';
+	z-index:10
+}
+#list_show{
+	margin-top:15px;
+	height:80px;
+	width:80px;
+	text-align:center;
+	cursor:pointer;
+}
+#list_photo{
+	width:50px;
+	height:50px;
+	border-radius:50%;
+	border:2px solid rgba(0,0,0,.3);
+}
+#list_name{
+	width:70px;
+	font-size:14px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow:hidden;
+=======
 #chat_about1{
 	width:800px;
 	height:560px;
@@ -519,6 +579,7 @@
 	top:90px;
 	left:350px;
 	border-radius:15px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }
 #chat_about{
 	width:800px;
@@ -898,12 +959,139 @@
 	color:white;
 	font-weight:500;
 }
+#talk_page_contact{
+	width:700px;
+	height:360px;
+	margin-top:10px;
+	margin-left:14px;
+	background:white;
+	border-radius:10px;
+	overflow:scroll;
+	overflow-x:hidden;
+}
 #chat_page{
 	position:absolute;
 	background:grey;
 	top:150px;
 	left:300px;
 	z-index:1000;
-	border-radius:40px;
+	border-radius:30px;
 	display:none;
+}
+#page_txt{
+	display:block;
+	width:700px;
+	height:105px;
+	margin:0 auto;
+	margin-top:23px;
+	border-radius:10px;
+	margin-bottom:10px;
+	border:2px solid rgba(0,0,0,.3);
+	padding:10px;
+	font-size:17px;
+}
+#icon_page_close{
+	float:right;
+	width:40px;
+}
+
+#icon_page_report{
+	float:right;
+	width:40px;
+}
+#icon_page_close img{
+	height:30px;
+	width:30px;
+	cursor:pointer;
+}
+#icon_page_report img{
+	height:30px;
+	width:30px;
+	cursor:pointer;
+}
+#icon_page_close i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_page_close:hover i{
+	visibility: visible;
+}
+#icon_page_report i{
+	display:block;
+	width:100px;
+	font-size:13px;
+	visibility: hidden;
+	font-family:normal;
+}
+#icon_page_report:hover i{
+	visibility: visible;
+}
+#page_sendMsg{
+	background:lightblue;
+	padding:5px;
+	position:absolute;
+	border-radius:20px;
+	width:50px;
+	height:30px;
+	top:500px;
+	right:45px;
+}
+#email_main{
+	position:absolute;
+	top:0;
+	left:1250px;
+	cursor:pointer;
+}
+#email_main img{
+	width:40px;
+	height:40px;
+}
+#email_tip{
+	position:absolute;
+	width:160px;
+	display:none;
+<<<<<<< HEAD
+	z-index:50;
+}
+#email_main:hover #email_tip{
+	display:block;
+}
+#manager_main{
+	position:absolute;
+	top:0;
+	left:1350px;
+}
+#manager_main img{
+	width:40px;
+	height:40px;
+}
+#manager_tip{
+	position:absolute;
+	width:150px;
+	display:none;
+}
+#manager_main:hover #manager_tip{
+	display:block;
+}
+#back_main{
+	position:absolute;
+	top:0;
+	left:1300px;
+}
+#back_main img{
+	width:40px;
+	height:40px;
+}
+#back_tip{
+	position:absolute;
+	width:150px;
+	display:none;
+}
+#back_main:hover #back_tip{
+	display:block;
+=======
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }

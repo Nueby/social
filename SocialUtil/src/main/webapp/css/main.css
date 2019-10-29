@@ -648,20 +648,31 @@ select {
 #basic {
 	position: relative;
 }
+<<<<<<< HEAD
+#name {
+	font-size: 20px;
+	position: absolute;
+	top: 15px;
+	left: 100px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow:hidden;
+	width:150px;
+=======
 #name{
 	font-size:20px;
 	position:absolute;
 	top:15px;
 	left:100px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }
 
 #sex img{
 	display: block;
-	height: 15px;
-	width: 15px;
-	background: black;
+	height: 25px;
+	width: 25px;
 	position: absolute;
-	left: 285px;
+	left: 255px;
 	margin-top: 15px;
 }
 
