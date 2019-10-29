@@ -145,7 +145,7 @@
 	left:205px;
 	top:45px;
 }
-#show_message {
+#another_message0 {
 	background:#d2d1d1;
 	border-radius:10px;
 	height:370px;
@@ -488,7 +488,7 @@
 	right:30px;
 	cursor:pointer;
 }
-#show_message:hover #chat{
+#another_message0:hover #chat{
 	transform: translateY(-15px);
 }
 #another_message1:hover #chat{

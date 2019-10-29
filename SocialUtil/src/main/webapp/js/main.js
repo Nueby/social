@@ -43,8 +43,6 @@ function getPage() {
 	var name = $id(name); //昵称
 	var head_show = $id("head_show"); //头像
 	var sex="";
-	var circle_info="";
-	var circle_img="";
 	var all_dynamic=$id("all_dynamic");
 	$.ajax({
 		type: "GET",
@@ -83,24 +81,29 @@ function getPage() {
 			}else{
 				sex_img.src="../img/woman.png";
 			}
-			circle_info=data.info;
 			
-			for(var i=0; i<circle_info.length;i++){
-				var newshow = document.createElement("div");
-				var time = document.createElement("div");
-				var dynamic_contact = document.createElement("div");
-				var dynamic_photo = document.createElement("div");
-				newshow.setAttribute("id", "show_dynamic");
-				time.setAttribute("id", "time");
-				dynamic_contact.setAttribute("id", "dynamic_contact");
-				dynamic_photo.setAttribute("id", "dynamic_photo");
-				var showVal = document.createTextNode(circle_info[i]);
-				dynamic_contact.appendChild(showVal);
-				newshow.appendChild(time);
-				newshow.appendChild(dynamic_contact);
-				newshow.appendChild(dynamic_photo);
-				all_dynamic.appendChild(newshow);
-			}
+			var circle_info=data.info;
+			var newshow = document.createElement("div");
+			var time = document.createElement("div");
+			var dynamic_contact = document.createElement("div");
+			var dynamic_photo = document.createElement("div");
+			newshow.setAttribute("id", "show_dynamic");
+			time.setAttribute("id", "time");
+			dynamic_contact.setAttribute("id", "dynamic_contact");
+			dynamic_photo.setAttribute("id", "dynamic_photo");
+			var showVal = document.createTextNode(circle_info);
+			var timeshow=document.createTextNode(getNowDate());
+			var circle_img=document.createElement("img");
+			circle_img.src="data:img/png;base64,"+data.picture;
+			
+			dynamic_contact.appendChild(showVal);
+			time.appendChild(timeshow);
+			dynamic_photo.appendChild(circle_img);
+			
+			newshow.appendChild(time);
+			newshow.appendChild(dynamic_contact);
+			newshow.appendChild(dynamic_photo);
+			all_dynamic.appendChild(newshow);
 			
 		},
 		error: function(err) {
@@ -858,14 +861,14 @@ $id("delete_tag").onclick = function(){
 //交友页面的动画滚动效果
 //点击左按钮
 document.getElementById("prev").onclick = function() {
-	var show_message = document.getElementById("show_message");
+	var another_message0 = document.getElementById("another_message0");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
-	if (getStyle(show_message, "left") == "15px") {
-		$("#show_message").animate({
+	if (getStyle(another_message0, "left") == "15px") {
+		$("#another_message0").animate({
 			left: "-342px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "-342px",
 			"filter": "blur(3px)"
 		});
@@ -901,18 +904,18 @@ document.getElementById("prev").onclick = function() {
 			"left": "-342px",
 			"filter": "blur(3px)"
 		});
-		show_message.style.left = "";
-		$("#show_message").css({
+		another_message0.style.left = "";
+		$("#another_message0").css({
 			"left": "372px"
 		});
 	} else if (getStyle(another_message1, "left") == "15px") {
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "-15px"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "15px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "15px",
 			"filter": "none"
 		});
@@ -932,14 +935,14 @@ document.getElementById("prev").onclick = function() {
 }
 //点击右按钮
 document.getElementById("next").onclick = function() {
-	var show_message = document.getElementById("show_message");
+	var another_message0 = document.getElementById("another_message0");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
-	if (getStyle(show_message, "left") == "15px") {
-		$("#show_message").animate({
+	if (getStyle(another_message0, "left") == "15px") {
+		$("#another_message0").animate({
 			left: "372px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
@@ -975,7 +978,7 @@ document.getElementById("next").onclick = function() {
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "-342px"
 		});
 	} else if (getStyle(another_message2, "left") == "15px") {
@@ -990,17 +993,18 @@ document.getElementById("next").onclick = function() {
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "30px"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "15px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "15px",
 			"filter": "none"
 		});
 	}
+	
 	divNone();
 }
 
@@ -1022,10 +1026,6 @@ document.getElementById("icon_choose").onclick = function() {
 	document.getElementById("choose_submit").onclick = function() {
 		choose_friend.style.display = "none";
 		//筛选数据的传输
-		var friend_name = $("#friend_name");
-		var friend_school = $("#friend_school");
-		var friend_college = $("#friend_college");
-		var friend_personal = $("#friend_personal");
 		$.post("/SocialUtil/UserController.do", {
 			behaviour:3,
 			sex: sex_condition,
@@ -1034,36 +1034,48 @@ document.getElementById("icon_choose").onclick = function() {
 			tags: tag_condition
 		}, function(data) {
 			if(data.result=="true"){
-				friend_name.html(data.fakename);
-				friend_school.html(data.school);
-				friend_college.html(data.major);
-				friend_personal.html(data.singlesex);
-				var tags =data.tags;
-				if(tgas!=""){
-					var friendtag=new Array();
-					friendtag=tags.split("&");
-					$("#personal_tag").remove();
-					for (i=0;i<friendtag.length ;i++ ){
-						$("friend_tag"+i).html(friendtag[i]);
+				for(var j=0;j<3;j++){
+					var friend_name = $("#another_message"+j).children("#friend_name");
+					var friend_school = $("#another_message"+j).children("#friend_school");
+					var friend_college = $("#another_message"+j).children("#friend_college");
+					var friend_personal = $("#another_message"+j).children("#friend_personal");
+					if($("#another_message"+j).style.left=="15px"){
+						friend_name.html(data.fakename);
+						friend_school.html(data.school);
+						friend_college.html(data.major);
+						friend_personal.html(data.singlesex);
+						var tags =data.tags;
+						if(tgas!=""){
+							var friendtag=new Array();
+							friendtag=tags.split("&");
+							$("#personal_tag").remove();
+							for (i=0;i<friendtag.length ;i++ ){
+								$("#another_message"+j).children("friend_tag"+i).html(friendtag[i]);
+							}
+						}
+						//个人圈
+						var circle_info=data.info;
+						var newshow = document.createElement("div");
+						var time = document.createElement("div");
+						var dynamic_contact = document.createElement("div");
+						var dynamic_photo = document.createElement("div");
+						newshow.setAttribute("id", "show_dynamic");
+						time.setAttribute("id", "time");
+						dynamic_contact.setAttribute("id", "dynamic_contact");
+						dynamic_photo.setAttribute("id", "dynamic_photo");
+						var showVal = document.createTextNode(circle_info);
+						var timeshow=document.createTextNode(getNowDate());
+						var circle_img=document.createElement("img");
+						circle_img.src="data:img/png;base64,"+data.picture;
+						
+						dynamic_contact.appendChild(showVal);
+						time.appendChild(timeshow);
+						dynamic_photo.appendChild(circle_img);
+						newshow.appendChild(time);
+						newshow.appendChild(dynamic_contact);
+						newshow.appendChild(dynamic_photo);
+						friend_dynamic.appendChild(newshow);
 					}
-				}
-				circle_info=data.info;
-				
-				for(var i=0; i<circle_info.length;i++){
-					var newshow = document.createElement("div");
-					var time = document.createElement("div");
-					var dynamic_contact = document.createElement("div");
-					var dynamic_photo = document.createElement("div");
-					newshow.setAttribute("id", "show_dynamic");
-					time.setAttribute("id", "time");
-					dynamic_contact.setAttribute("id", "dynamic_contact");
-					dynamic_photo.setAttribute("id", "dynamic_photo");
-					var showVal = document.createTextNode(circle_info[i]);
-					dynamic_contact.appendChild(showVal);
-					newshow.appendChild(time);
-					newshow.appendChild(dynamic_contact);
-					newshow.appendChild(dynamic_photo);
-					all_dynamic.appendChild(newshow);
 				}
 			}else{
 				alert("该筛选条件找不到人");
