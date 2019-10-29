@@ -1450,7 +1450,7 @@ $("#icon_emailmore").click(function(){
 	$("#email_content").css({"overflow":"visible"});
 	lookEmail();
 })
-function lookEmail(){ 
+function lookEmail(){
 	if($("#email_close").val() == "关闭"){
 		$("#email_close").click(function(){
 			$("#email_contact").hide();
