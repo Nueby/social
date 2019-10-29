@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSONObject;
-import dao.SlipVerificationCodeDao;
+import dao.SlipVerificationCode;
 
 /**
  * 
@@ -23,10 +23,13 @@ public class SlipVerificationCodeController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//获取图片
 		JSONObject json = new JSONObject();
-		SlipVerificationCodeDao slip = new SlipVerificationCodeDao();
-		slip.doGet(json);
+		SlipVerificationCode slip = new SlipVerificationCode();
+		String[] image = slip.getSlipPicture();
+		int[] pos = slip.getSlipXY();
+		json.put("big", image[0]);
+		json.put("small",image[1]);
+		json.put("posY", pos[1]);
 		//保存信息
 		HttpSession session = request.getSession();
 		session.setAttribute("slip", slip);
@@ -39,12 +42,13 @@ public class SlipVerificationCodeController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取json数据
-		JSONObject reqJson = (JSONObject)request.getAttribute("json");
-		JSONObject json = new JSONObject();
+		JSONObject json = (JSONObject)request.getAttribute("json");
 		HttpSession session = request.getSession();
-		SlipVerificationCodeDao slip = (SlipVerificationCodeDao)session.getAttribute("slip");
-		slip.doPost(reqJson, json);
-		response.getWriter().write(json.toString());
+		SlipVerificationCode slip = (SlipVerificationCode)session.getAttribute("slip");
+		int d = json.getInteger("distance");
+		JSONObject jsonV = new JSONObject();
+		jsonV.put("verification", slip.verificationSuccess(d));
+		response.getWriter().write(jsonV.toString());
 		response.getWriter().close();
 	}
 }

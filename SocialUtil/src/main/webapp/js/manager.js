@@ -9,16 +9,34 @@ function getStyle(obj, attr) {
 
 
 
+<<<<<<< HEAD
 //举报信息处理的显示
 $("#report_manager").click(function(){
 	$("#report_page").show();
 	$("#record_page").hide();
+=======
+//举报点击事件
+$("#report_manager").click(function(){
+	if($("#report_page").is(":hidden")){
+		$("#report_page").show();
+	}else{
+		$("#report_page").hide();
+	}
+>>>>>>> parent of 1b94c59... master
 	$("#imformation_page").hide();
 	$("#linechart_show").hide();
 	$("#ciclechart_show").hide();
 })
 $("#statistics_manager").click(function(){
+<<<<<<< HEAD
 	setTimeout("showSta()",10);
+=======
+	if($(".statistics").is(":hidden")){
+		setTimeout("showSta()",10);
+	}else{
+		setTimeout("hideSta()");
+	}
+>>>>>>> parent of 1b94c59... master
 	$(".statistics li").click(function(){
 		return false;
 	})
@@ -34,7 +52,15 @@ function hideSta(){
 
 //显示和隐藏聊天记录管理界面
 $("#chat_manager").click(function(){
+<<<<<<< HEAD
 	$("#record_page").show();
+=======
+	if($("#record_page").is(":hidden")){
+		$("#record_page").show();
+	}else{
+		$("#record_page").hide();
+	}
+>>>>>>> parent of 1b94c59... master
 	$("#imformation_page").hide();
 	$("#report_page").hide();
 	$("#linechart_show").hide();
@@ -44,13 +70,22 @@ $("#chat_manager").click(function(){
 
 //显示和隐藏个人信息界面
 $("#personal_imformation").click(function(){
+<<<<<<< HEAD
 	$("#imformation_page").show();
+=======
+	if($("#imformation_page").is(":hidden")){
+		$("#imformation_page").show();
+	}else{
+		$("#imformation_page").hide();
+	}
+>>>>>>> parent of 1b94c59... master
 	$("#record_page").hide();
 	$("#report_page").hide();
 	$("#linechart_show").hide();
 	$("#ciclechart_show").hide();
 })
 
+<<<<<<< HEAD
 //查看聊天记录界面显示
 $(function(){
 	for(var i=1;i < $("#chat_record tr").length;i++){
@@ -68,6 +103,15 @@ $("#record_cancel").click(function(){
 $("#brokenLine").click(function(){
 	$(".statistics").hide();
 	$("#linechart_show").show();
+=======
+//折线统计图
+$("#brokenLine").click(function(){
+	if($("#linechart_show").is(":hidden")){
+		$("#linechart_show").show();
+	}else{
+		$("#linechart_show").hide();
+	}
+>>>>>>> parent of 1b94c59... master
 	$("#ciclechart_show").hide();
 	$("#imformation_page").hide();
 	$("#record_page").hide();
@@ -75,11 +119,22 @@ $("#brokenLine").click(function(){
 })
 //饼状统计图
 $("#reportCicle").click(function(){
+<<<<<<< HEAD
 	$(".statistics").hide();
 	$("#ciclechart_show").show();
 	$("#linechart_show").hide();
 	$("#imformation_page").hide();
 	$("#record_page").hide();
+=======
+	if($("#ciclechart_show").is(":hidden")){
+		$("#ciclechart_show").show();
+	}else{
+		$("#ciclechart_show").hide();
+	}
+	$("#linechart_show").hide();
+	$("#imformation_page").hide();
+	$("#chat_record").hide();
+>>>>>>> parent of 1b94c59... master
 	$("#report_page").hide();
 })
 
@@ -328,9 +383,12 @@ CicleChart.prototype.getRandomColor = function(){
 	var b = Math.floor(Math.random() * 255);
 	return "rgb(" + r + "," + g + "," + b + ")";
 };
+<<<<<<< HEAD
 
 
 //举报的数据，number是该举报类型的人数
+=======
+>>>>>>> parent of 1b94c59... master
 var reportData = [
 	{title:"言语辱骂",number:20},
 	{title:"挑逗信息",number:30},
@@ -343,6 +401,7 @@ var cicleChart = new CicleChart();
 cicleChart.init(reportData);
 
 
+<<<<<<< HEAD
 // //当tr的数量超过15个的时候,加页并且在第二页添加内容
 // $(function(){
 // 	for(var i = 0;i <50;i++){
@@ -353,3 +412,15 @@ cicleChart.init(reportData);
 // 	}
 // 	console.log($("#chat_record tr").length);
 // })
+=======
+//当tr的数量超过15个的时候,加页并且在第二页添加内容
+$(function(){
+	for(var i = 0;i <50;i++){
+		if($("#chat_record tr").length > 15){
+			$("#chat_record").attr("number",i).hide();
+			$("#record_page").append();
+		}
+	}
+	console.log($("#chat_record tr").length);
+})
+>>>>>>> parent of 1b94c59... master

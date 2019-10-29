@@ -136,12 +136,16 @@ function load() {
 	$id("single").src = "../img/ourself_2.png";
 	$id("make_friend").src = "../img/make_friend.png";
 	$("#make_friend").animate({
-		marginTop: "500px",
-		marginLeft: "250px"
+		marginTop: "550px",
+		marginLeft: "280px"
 	}, 2000);
 	$("#single").animate({
 		marginTop: "300px",
 		marginLeft: "250px"
+	}, 2000);
+	$("#arrow").animate({
+		left: "130px",
+		top:"580px"
 	}, 2000);
 }
 load();
@@ -178,10 +182,12 @@ $id("make_friend").onclick = function changeDouble() {
 	$id("main_message").style.display = "none";
 	$id("main_friend").style.display = "block";
 	divNone();
+	$("#arrow").hide();
 }
 
 //三个图标点击显示设置框
 document.getElementById("dynamic").onclick = function() {
+	$(".addImg").show();
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
@@ -198,39 +204,7 @@ document.getElementById("self").onclick = function() {
 }
 
 
-<<<<<<< HEAD
-=======
-//设置框点击确定
-$id("dynamic_submit").onclick = function() {
-	$id("set_1").style.display = "none";
-	$("#show1").attr("src", "");
-	$("#show2").attr("src", "");
-	$("#show3").attr("src", "");
-	$("#show4").attr("src", "");
-	
-	$.ajax({
-		type: "POST",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"signature": signature,
-			"birthday": birthday,
-			"tags": tags,
-			"circleInfo": "",
-			"circleImg": ""
-		}),
-		dataType: "json",
-		success: function(data) {
->>>>>>> master
 
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
-}
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
 	$id("new_email").value = "";
@@ -332,7 +306,6 @@ $id("self_submit").onclick = function() {
 	})
 }
 
-<<<<<<< HEAD
 // function changeUsername() {
 // 	$.ajax({
 // 		type: "POST",
@@ -498,60 +471,33 @@ $(function () {
 			$("#previewBox" + picId).removeClass("defaultImg");
 		}
 	}
-=======
-//发布于个人圈的预览图片
+});
 
-$("#dynamic_img1").change(function() {
-	$("#dynamic_img1").hide();
-	document.getElementById("add1").style.opacity = "0";
-	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show1").style.opacity = "1";
-	document.getElementById("add2").style.opacity = "1";
-});
-$("#dynamic_img2").change(function() {
-	$("#dynamic_img2").hide();
-	document.getElementById("add2").style.opacity = "0";
-	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show2").style.opacity = "1";
-	document.getElementById("add3").style.opacity = "1";
-});
-$("#dynamic_img3").change(function() {
-	$("#dynamic_img3").hide();
-	document.getElementById("add3").style.opacity = "0";
-	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show3").style.opacity = "1";
-	document.getElementById("add4").style.opacity = "1";
-});
-$("#dynamic_img4").change(function() {
-	$("#dynamic_img4").hide();
-	document.getElementById("add4").style.opacity = "0";
-	$("#show4").attr("src", URL.createObjectURL($(this)[0].files[0]));
-	document.getElementById("show4").style.opacity = "1";
->>>>>>> master
-});
+
 
 //第二个设置中获取验证码
+var click = false; //验证是否点击
+var countTime = 60; //时间为60秒
 function setTime() {
 	var time_get = document.getElementById("time_get");
-	var countTime = 60; //时间为60秒
 	var interval;
-	var click = false; //验证是否点击
 	if (countTime > 0) {
 		countTime--;
 		time_get.innerHTML = countTime + "秒后重新发送";
 	} else if (countTime == 0) {
-		countTime = 60;
 		time_get.innerHTML = "获取验证码";
 		clearInterval(interval);
 		click = false;
 	}
 }
 
-$id("time_get").onclick = function() {
+document.getElementById("time_get").onclick = function() {
 	//获取验证码后改变字体
 	if (!click) {
 		interval = setInterval("setTime()", 1000);
 		click = true;
+	}else{
+		clearInterval(interval);
 	}
 	//点击获取发送验证码到邮箱
 	var new_email = document.getElementById("new_email").value;
@@ -783,13 +729,6 @@ function getObjectURL(file) {
 	return url;
 }
 
-//可随机生成颜色的方法
-var getRandomColor = function() {
-	var r = Math.floor(Math.random() * 100 + 100);
-	var g = Math.floor(Math.random() * 100 + 100);
-	var b = Math.floor(Math.random() * 100 + 100);
-	return "rgb(" + r + "," + g + "," + b + ")";
-}
 
 //点击tag打开输入框
 //点击Tag标签出显示框和保存按钮
@@ -801,7 +740,7 @@ document.getElementById("title").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	//确认标签数量,标签数量最多五个
 	var tagNum = 0;
-	if (getStyle(self_tag, "display") == "block") {
+	if (getStyle(self_tag,"display") == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
 	} else {
@@ -833,7 +772,7 @@ document.getElementById("title").onclick = function() {
 							}								
 						}
 						chooseTag.removeChild(chooseLi[j]);
-						tagNum2--;
+						tagNum2 --;
 					};
 					
 				}
@@ -844,43 +783,41 @@ document.getElementById("title").onclick = function() {
 			}
 		};
 	}
-	
-	
 }
 
 //点击保存将标签放在tag中
-//Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
-<<<<<<< HEAD
 
 $id("save_tag").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	tagWarning.innerHTML = "";
 	
-=======
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
-var tagnum=-1;
-var tagtime=0;
-$id("save_tag").onclick = function() {
-	$("#personal_tag").remove();
->>>>>>> master
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
 	
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
-<<<<<<< HEAD
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
 	var tags="";
-=======
->>>>>>> master
 	for(var i = 0;i < chooseLi.length; i++){	
 		$("#personal_tag").remove();
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
-				tagtime=tagtime+1;
+				tagtime=tagtime+1;			
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}else{
+				for(var n=0;n<tagLi.length;n++){
+					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
+					{
+						tagLi[n].style.display="block";
+					}								
+				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}
 			var tags="";
@@ -902,17 +839,12 @@ $id("save_tag").onclick = function() {
 				ntags=ntags+"&"+chooseLi[i];
 			}
 		}
-<<<<<<< HEAD
-=======
-		ntags = ntags + chooseLi[i];
->>>>>>> master
 	}
 	var chooseLi_length=chooseLi.length-1;
 	for(var i =chooseLi_length; i>=0; i--){
 		chooseLi[i].remove();
 	}
 	$.ajax({
-<<<<<<< HEAD
 		type:"post",
 		url:"/SocialUtil/UserController.do",
 		data:JSON.stringify({
@@ -923,23 +855,6 @@ $id("save_tag").onclick = function() {
 		success:function(data) {
 			if(data.result == "true") {
 				alert("更改成功");
-=======
-		type: "post",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": username,
-			"head": head,
-			"birthday": birthday,
-			"tags": ntags,
-			"circleInfo": circle_info,
-			"circleImg": circle_img
-		}),
-		dataType: "json",
-		success: function(data) {
-			if (data.result == false) {
-				alert("更改失败");
->>>>>>> master
 			} else {
 				getPage();
 				alert("更改失败");
@@ -948,8 +863,8 @@ $id("save_tag").onclick = function() {
 	})
 }
 
-//删除标签,彻底删除
-$id("delete_tag").onclick = function() {
+//删除提示标签
+$id("delete_tag").onclick = function(){
 	$("#personal_tag").remove();
 }
 
@@ -1224,7 +1139,7 @@ function selection() {
 			newSchoolLi[0] = schoolLi[0].innerHTML;
 			schoolLi[0].innerHTML = schoolLi[i].innerHTML;
 			schoolLi[i].innerHTML = newSchoolLi[0];
-			schoolLi[0].style.background = "greenyellow";
+			schoolLi[0].style.background = "#eeee9e";
 			school_choose.style.height = "35px";
 			schoolNum++;
 			if (schoolNum >= 1) {
@@ -1236,7 +1151,7 @@ function selection() {
 
 	//对选择的学校进行存储
 	for (let i = 0; i < schoolLi.length; i++) {
-		if (schoolLi[i].style.background == "greenyellow") {
+		if (schoolLi[i].style.background == "#eeee9e") {
 			school_condition = schoolLi[i].val;
 		}
 	}
@@ -1256,7 +1171,7 @@ function selection() {
 			newCollegeLi[0] = collegeLi[0].innerHTML;
 			collegeLi[0].innerHTML = collegeLi[i].innerHTML;
 			collegeLi[i].innerHTML = newCollegeLi[0];
-			collegeLi[0].style.background = "#df64c9";
+			collegeLi[0].style.background = "#f0aec7";
 			college_choose.style.height = "35px";
 			collegeNum++;
 			if (collegeNum >= 1) {
@@ -1268,7 +1183,7 @@ function selection() {
 
 	//对选择的学院进行存储
 	for (let i = 0; i < collegeLi.length; i++) {
-		if (collegeLi[i].style.background == "#df64c9") {
+		if (collegeLi[i].style.background == "#f0ace7") {
 			college_condition = schoolLi[i].val;
 		}
 	}
@@ -1381,8 +1296,11 @@ function timeLow() {
 //ajax的内容,只要聊天框关闭，刷新main_show的内容
 
 document.getElementById("icon_close").onclick = function() {
+	var timeChat = document.getElementById("time_chat");
 	chat_about.style.display = "none";
 	clearInterval(interval);
+	time = 300;
+	timeChat.innerHTML = time;
 }
 
 
@@ -1391,7 +1309,6 @@ document.getElementById("icon_time").onclick = function() {
 
 }
 
-<<<<<<< HEAD
 //改变聊天框的大小
 $("#icon_change").click(function(){
 	if($("#icon_change img").attr("src") == "../img/small.png"){
@@ -1482,8 +1399,6 @@ function MoveChat(){
 }
 MoveChat();
 
-=======
->>>>>>> master
 //个人圈的查看
 //ajax将发布的个人圈资料上传
 function lookMyself() {
@@ -1527,17 +1442,51 @@ function lookMyself() {
 }
 lookMyself();
 
+
+/*特殊字符转义 防止XSS攻击 用于特殊字符正常显示*/
+
+function StringFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&/g, "&amp;");
+  s = s.replace(/</g, "&lt;");
+  s = s.replace(/>/g, "&gt;");
+  s = s.replace(/ /g, "&nbsp;");
+  s = s.replace(/\'/g, "&#39;");
+  s = s.replace(/\"/g, "&quot;");
+  return s;
+}
+ 
+/*转义字符还原成html字符*/
+function StringValFilter(str) {
+  var s = "";
+  if (str.length === 0) {
+    return "";
+  }
+  s = str.replace(/&amp;/g, "&");
+  s = s.replace(/&lt;/g, "<");
+  s = s.replace(/&gt;/g, ">");
+  s = s.replace(/&nbsp;/g, " ");
+  s = s.replace(/&#39;/g, "\'");
+  s = s.replace(/&quot;/g, "\"");
+  return s;
+}
+
+
 //聊天界面，点击可以发送信息
 function sendNews() {
 	var sendMsg = document.getElementById("sendMsg");
 	var txt = document.getElementById("txt");
 	var talk_contact = document.getElementById("talk_contact");
 	var contact = talk_contact.getElementsByTagName("p");
-
 	sendMsg.onclick = function() {
 		if (txt.value == "") {
-			txt.value = "不能发送空内容";
+			$("#empty_warning").html("不能发送空内容");
+			$("#empty_warning").show();
 		} else {
+			$("#empty_warning").hide();
 			//个人头像
 			var myImg = document.createElement("img");
 			var newTxt = document.createElement("p");
@@ -1556,7 +1505,9 @@ function sendNews() {
 			myImg.style.position = "relative";
 			myImg.style.top = "0";
 			myImg.style.margin = "8px 10px 0 10px";
-			newTxt.innerHTML = txt.value;
+			var stringFilter = StringFilter(txt.value);
+			// var Val = StringValFilter(stringFilter);
+			newTxt.innerHTML = stringFilter;
 			talk_contact.appendChild(myImg);
 			talk_contact.appendChild(newTxt);
 			txt.value = "";
@@ -1568,6 +1519,9 @@ sendNews();
 
 //获取当前时间的函数
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 1b94c59... master
 //个人圈的发布时候要给时间，举报信息要给时间后台记录
 
 //直接传纯数字的是在举报那里和聊天记录的
@@ -1600,6 +1554,7 @@ function getNowDate(){
     var now = (year.toString() + "-" + month.toString() +  "-" + date.toString());
 	return now;
 }
+<<<<<<< HEAD
 
 
 //收邮件的页面显示
@@ -1623,3 +1578,5 @@ function getNowFormatDate() {
 	return currentdate;
 }
 >>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
+=======
+>>>>>>> parent of 1b94c59... master

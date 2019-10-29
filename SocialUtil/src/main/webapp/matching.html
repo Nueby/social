@@ -3,18 +3,11 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>软件设计大赛-匹配交友</title>
-<<<<<<< HEAD
 		<link rel="stylesheet" type="text/css" href="css/Sign_in.css"/>	
-=======
-		<link rel="stylesheet" type="text/css" href="css/Sign_in.css"/>
-		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="js/check.js"></script>
-		<script src="js/jquery.cookie.js"></script> 
->>>>>>> master
 	</head>
 	<body onload="load()">
+		<div id="background"></div>
 		<div id="main">
-			<div id="background"></div>
 			<div id="title">
 				<i id="title_left">登录 </i>
 				<i id="line">|</i>
@@ -42,7 +35,7 @@
 					</a>
 					<div id="enterMsg"></div>
 				</form>
-				<a href="../other_html/manager.html" id="manager">
+				<a href="other_html/manager.html" id="manager" target="_blank">
 					点击这里进入管理员系统
 				</a>
 			</div>
@@ -71,7 +64,8 @@
 			</div>
 		</div>
 		<div id="loading">
-			
+			<img src="img/loading.gif" />
+			<p id="roloadText">Loading...</p>
 		</div>
 		<script type="text/javascript" src="js/jquery_1.js"></script>
 		<script type="text/javascript" src="js/jquery_2.js"></script>

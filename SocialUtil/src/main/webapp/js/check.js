@@ -121,7 +121,7 @@ function registerChange() {
 					}
 				},
 				error:function(err) {
-					alert(err.status);
+					//alert(err.status);
 				}
 			})
 		}
@@ -192,10 +192,11 @@ function bar() {
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
+									$("#loading").show();
 	    						}
 	    					},
 	    					error:function(err) {
-	    						alert(err.status);
+	    						//alert(err.status);
 	    					}
 	    				})
     				} else {
@@ -207,7 +208,7 @@ function bar() {
     			}
     		},
     		error:function(err) {
-    			alert(err.status);
+    			//alert(err.status);
     		}
     	})
         isTouch = false;
@@ -231,10 +232,7 @@ function bar() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
-<<<<<<< HEAD
 		$("#loading").show();
-=======
->>>>>>> master
 	}
 	
  
@@ -257,7 +255,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+			//alert(err.status);
 		}
 	})
 }
@@ -287,36 +285,14 @@ function sendRegister() {
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
-<<<<<<< HEAD
 				if(data.result == true) {
 					registerMsg.innerHTML = "*注册成功";
-=======
-				if(data.flag == 1) {
-					var json2 = {
-						"behaviour":"logup",
-						"account":account,
-						"edu_password":accountPassword,
-						"login_password":register_password
-					};
-					$.ajax({
-						type:"POST",
-						url:"/SocialUtil/ControllerUser.do",
-						data:JSON.stringify(json2),
-						dataType:"json",
-						success:function(data) {
-							registerMsg.innerHTML = "*注册成功";
-						},
-						error:function(err) {
-							alert(err.status);
-						}
-					})
->>>>>>> master
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
 			},
 			error:function(err) {
-				alert(err.status);
+				//alert(err.status);
 			}
 		})
 	}
@@ -326,7 +302,6 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
-<<<<<<< HEAD
 
 
 
@@ -340,5 +315,3 @@ $(document).ready(function() {
 		downTime: 100
 	});
 });
-=======
->>>>>>> master
