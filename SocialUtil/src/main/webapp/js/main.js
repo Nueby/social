@@ -1,21 +1,16 @@
 var option = 0; //选择  0表示个人  1表示交友
 var account = $.cookie("socialUtilAccount"); //账号
-
-var school = ""; //学校
-var college = ""; //学院
-var profession = ""; //专业
+var tagnum=-1;//标签个数
+var tagtime=0;//标签轮数
+var ntags="";//传送标签
 var grade; //入学年份
 var email = ""; //邮箱
-var sex = ""; //性别
 var age; //年龄
 
-var username = ""; //昵称
-var head = ""; //头像
+
 var signature = ""; //修改签名
 var birthday = ""; //生日
-var tags = ""; //标签
-var circle_info = ""; //个人圈信息
-var circle_img = ""; //个人圈图片
+
 
 // //未登录时返回登录页面
 // if(account == "" || account == null) {
@@ -39,49 +34,78 @@ function divNone(){
 	$("#friend_list").hide();
 }
 
-//获取学校信息
-function getSchool() {
-	$.ajax({
-		type: "GET",
-		url: "/SocialUtil/ControllerSchool.do",
-		data: {
-			"account": account,
-		},
-		dataType: "json",
-		success: function(data) {
-			if (data.school != null) school = data.school;
-			if (data.college != null) college = data.college;
-			if (data.profession != null) profession = data.profession;
-			grade = data.grade;
-			if (data.sex == "m") sex = "男";
-			else sex = "女";
-			age = data.age;
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
-}
-getSchool();
-
-//获取页信息
+//获取主页信息
 function getPage() {
+	var school_name = $id("school_name"); //学校
+	var college_name = $id("college_name"); //学院
+	var major_name = $id("major_name"); //专业
+	var sex_img = $id("sex_img"); //性别
+	var personal=$id("personal");//个性签名
+	var name = $id(name); //昵称
+	var head_show = $id("head_show"); //头像
+	var sex="";
+	var all_dynamic=$id("all_dynamic");
 	$.ajax({
 		type: "GET",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: {
-			"account": account,
-		},
+		url: "/SocialUtil/UserController.do",
+		data: JSON.stringify({
+			"behaviour":1,
+			"account": account
+		}),
 		dataType: "json",
 		success: function(data) {
-			if (data.username != null) username = data.username;
-			if (data.head != null) head = data.head;
-			if (data.signature != null) signature = data.signature;
-			if (data.birthday != null) birthday = data.birthday;
-			if (data.tags != null) tags = data.tags;
-			if (data.circleInfo != null) circle_info = data.circleInfo;
-			if (data.circleImg != null) circle_img = data.circleImg;
-			changeHead();
+			name.html(data.fakename);
+			head.src="data:img/png;base64,"+data.head;
+			school_name.html(data.school);
+			college_name.html(data.college);
+			major_name.html(data.major);
+			personal.html(data.singlesex);
+			ntags=data.tgas;
+			sex=data.sex;
+			if(ntgas!=""){
+				var begintag=new Array();
+				begintag=ntags.split("&");
+				$("#personal_tag").remove();
+				for (i=0;i<begintag.length ;i++ ){
+					tagnum=tagnum+1;
+					var tagDiv = document.createElement("div");
+					var tagShow = document.getElementById("tag_show");
+					var divVal = document.createTextNode(begintag[i].innerHTML);
+					tagDiv.appendChild(divVal);
+					tagShow.appendChild(tagDiv);
+					var newTag = tagShow.getElementsByTagName("div");
+					newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+				}
+			}
+			if(sex=="男"){
+				sex_img.src="../img/man.png";
+			}else{
+				sex_img.src="../img/woman.png";
+			}
+			
+			var circle_info=data.info;
+			var newshow = document.createElement("div");
+			var time = document.createElement("div");
+			var dynamic_contact = document.createElement("div");
+			var dynamic_photo = document.createElement("div");
+			newshow.setAttribute("id", "show_dynamic");
+			time.setAttribute("id", "time");
+			dynamic_contact.setAttribute("id", "dynamic_contact");
+			dynamic_photo.setAttribute("id", "dynamic_photo");
+			var showVal = document.createTextNode(circle_info);
+			var timeshow=document.createTextNode(getNowDate());
+			var circle_img=document.createElement("img");
+			circle_img.src="data:img/png;base64,"+data.picture;
+			
+			dynamic_contact.appendChild(showVal);
+			time.appendChild(timeshow);
+			dynamic_photo.appendChild(circle_img);
+			
+			newshow.appendChild(time);
+			newshow.appendChild(dynamic_contact);
+			newshow.appendChild(dynamic_photo);
+			all_dynamic.appendChild(newshow);
+			
 		},
 		error: function(err) {
 			//alert(err.status);
@@ -89,6 +113,7 @@ function getPage() {
 	})
 }
 getPage();
+
 
 //兼容浏览器获取非行内样式
 function getStyle(obj, attr) {
@@ -111,16 +136,12 @@ function load() {
 	$id("single").src = "../img/ourself_2.png";
 	$id("make_friend").src = "../img/make_friend.png";
 	$("#make_friend").animate({
-		marginTop: "550px",
-		marginLeft: "280px"
+		marginTop: "500px",
+		marginLeft: "250px"
 	}, 2000);
 	$("#single").animate({
 		marginTop: "300px",
 		marginLeft: "250px"
-	}, 2000);
-	$("#arrow").animate({
-		left: "130px",
-		top:"580px"
 	}, 2000);
 }
 load();
@@ -157,12 +178,10 @@ $id("make_friend").onclick = function changeDouble() {
 	$id("main_message").style.display = "none";
 	$id("main_friend").style.display = "block";
 	divNone();
-	$("#arrow").hide();
 }
 
 //三个图标点击显示设置框
 document.getElementById("dynamic").onclick = function() {
-	$(".addImg").show();
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
@@ -178,45 +197,40 @@ document.getElementById("self").onclick = function() {
 	$("#set_2").hide();
 }
 
-//显示数据
-$("#name").html(username);
-$("#ID").html("ID" + account);
-$("#school_name").append(school);
-$("#college_name").append(college);
-$("#major_name").append(profession);
-$("#personal").html(signature);
 
+<<<<<<< HEAD
+=======
 //设置框点击确定
 $id("dynamic_submit").onclick = function() {
 	$id("set_1").style.display = "none";
-	$id("contact").value = "";
-	//清空个人圈上传里面的图片
-	$(".image_container").remove();
-	//上传数据，要一个一个图片的传
-	// $(document).ready(function(){
-	// 	$("#dynamic_img").on("change", upload );
-	// });
-	// function upload(){
-	// 	var self = this;
-	// 	$.ajax({
-	// 		url:
-	// 		type:"post",
-	// 		dataType:"json",
-	// 		cache:false,
-	// 		data: ,
-	// 		processData: false,// 不处理数据
-	// 		contentType: false, // 不设置内容类型
-	// 		success:function(data){
+	$("#show1").attr("src", "");
+	$("#show2").attr("src", "");
+	$("#show3").attr("src", "");
+	$("#show4").attr("src", "");
 	
-	// 			}else{
-	// 				//如果不等于
-	// 				return false;
-	// 			}
-	// 		}
-	// 	});
-	// }
-}
+	$.ajax({
+		type: "POST",
+		url: "/SocialUtil/ControllerPageInfo.do",
+		data: JSON.stringify({
+			"behaviour": "change",
+			"username": username,
+			"head": head,
+			"signature": signature,
+			"birthday": birthday,
+			"tags": tags,
+			"circleInfo": "",
+			"circleImg": ""
+		}),
+		dataType: "json",
+		success: function(data) {
+>>>>>>> master
 
+		},
+		error: function(err) {
+			//alert(err.status);
+		}
+	})
+}
 $id("email_submit").onclick = function() {
 	$id("set_2").style.display = "none";
 	$id("new_email").value = "";
@@ -229,14 +243,31 @@ $id("email_submit").onclick = function() {
 	$.ajax({
 		type: "GET",
 		url: "/SocialUtil/SendEmailController.do",
-		data: {
-			"input": $id("get_code_email").value,
-			"behaviour": "confirm",
-			"emailNum": $id("new_email").value
-		},
+		data: JSON.stringify({
+			"behaviour": 1,
+			"input":$id("get_code_email").value
+		}),
 		dataType: "json",
 		success: function(data) {
 			if (data.msg == true) {
+				$.ajax({
+					type: "GET",
+					url: "/SocialUtil/UserController.do",
+					data: JSON.stringify({
+						"behaviour": 4,
+						"account":account,
+						"email":$id("new_email").value
+					}),
+					dataType: "json",
+					success: function(data) {
+						if(result=="true"){
+							alert("邮箱修改成功");
+						}
+					},
+					error: function(err) {
+						//alert(err.status);
+					}
+				})
 				changePassword();
 				$id("set_2").style.display = "none";
 			} else {
@@ -254,16 +285,14 @@ function changePassword() {
 		type: "POST",
 		url: "/SocialUtil/ControllerUser.do",
 		data: JSON.stringify({
-			"behaviour": "changePassword",
+			"behaviour": 5,
 			"account": account,
-			"wpassword": "login_password",
-			"opassword": $id("old_password").value,
 			"password": $id("new_password").value,
-			"email": $id("new_email").value
+			"oldpassword": $id("old_password").value,
 		}),
 		dataType: "json",
 		success: function(data) {
-			if (data.result == true) {
+			if (data.result == "true") {
 				alert("更改成功");
 			} else {
 				alert("更改失败");
@@ -282,49 +311,15 @@ $id("self_submit").onclick = function() {
 	$id("major").value = "";
 	$.ajax({
 		type: "POST",
-		url: "/SocialUtil/ControllerSchool.do",
+		url: "/SocialUtil/UserController.do",
 		data: JSON.stringify({
-			"behaviour": "change",
-			"school": $id("school").value,
-			"college": $id("college").value,
-			"profession": $id("major").value,
-			"grade": grade,
-			"email": email,
-			"sex": $id("sex").value,
-			"age": age
+			"sex": $id("set_name").value,
+			"fakename":$id("radio_box").value,
+			"birthday": $id("select").value
 		}),
 		dataType: "json",
 		success: function(data) {
-			if (data.result == true) {
-				getShool();
-				changeUsername();
-			} else {
-				alert("修改失败");
-			}
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
-}
-
-function changeUsername() {
-	$.ajax({
-		type: "POST",
-		url: "/SocialUtil/ControllerPageInfo.do",
-		data: JSON.stringify({
-			"behaviour": "change",
-			"username": $id("set_name").value,
-			"head": head,
-			"signature": signature,
-			"birthday": $id("select").value,
-			"tags": tags,
-			"circleInfo": circle_info,
-			"circleImg": circle_img
-		}),
-		dataType: "json",
-		success: function(data) {
-			if (data.result == true) {
+			if (data.result == "true") {
 				getPage();
 				alert("修改成功");
 			} else {
@@ -337,8 +332,78 @@ function changeUsername() {
 	})
 }
 
+<<<<<<< HEAD
+// function changeUsername() {
+// 	$.ajax({
+// 		type: "POST",
+// 		url: "/SocialUtil/ControllerPageInfo.do",
+// 		data: JSON.stringify({
+// 			"behaviour": "change",
+// 			"username": $id("set_name").value,
+// 			"head": head,
+// 			"signature": signature,
+// 			"birthday": $id("select").value,
+// 			"tags": tags,
+// 			"circleInfo": circle_info,
+// 			"circleImg": circle_img
+// 		}),
+// 		dataType: "json",
+// 		success: function(data) {
+// 			if (data.result == true) {
+// 				getPage();
+// 				alert("修改成功");
+// 			} else {
+// 				alert("修改失败");
+// 			}
+// 		},
+// 		error: function(err) {
+// 			//alert(err.status);
+// 		}
+// 	})
+// }
+// 
 
+//设置框点击确定
+$id("dynamic_submit").onclick = function() {	
+	var pic = document.getElementById("picture_choose").getElementsByTagName("div");
+	//上传数据，要一个一个图片的传
+	$(document).ready(function(){
+		$("#dynamic_img").on("change", upload );
+	});
+	for(var i=1; i<pic.length;i++){
+		//获取base64的图片数据
+		 var file = $("#avatar")[i-1].files[i-1];
+		 var reader  = new FileReader();
+		 reader.onloadend=function(e) {
+			 e.target.result
+		}
+		 if (file) {
+			reader.readAsDataURL(file);
+		 }
+		var json={"behaviour":2,"account":account,"picture":reader.split(",",2)[1],"ify":ify,"info":$id("contact").value};
+		function upload(){
+			var self = this;
+			$.ajax({
+				url:"/SocialUtil/UserController.do",
+				type:"post",
+				dataType:"json",
+				cache:false,
+				data:JSON.stringify(json),
+				processData: false,// 不处理数据
+				contentType: false, // 不设置内容类型
+				success:function(data){
+					
+				}
+			});
+	}
+	}
+	$id("set_1").style.display = "none";
+	$id("contact").value = "";
+	//清空个人圈上传里面的图片
+	$(".image_container").remove();
+}
 //个人圈发布的图片添加，预览和删除
+
 $(function () {
 	//记录第几张图片
 	var picId = 0;
@@ -346,9 +411,11 @@ $(function () {
 	$("#form1").delegate(".addImg", "click", function () {
 		if (pictureUploading) return;
 		pictureUploading = true;
-		picId = parseInt($(this).attr("data-picId"));
-		picId++;
-		if(picId <= 4){
+		
+		
+		if(picId < 4){
+			picId++;
+			$(".addImg").display="block";
 			$(this).attr("data-picId", picId);
 			$(this).before("<div class=\"image_container\" data-picId=\"" + picId + "\">"
 							+ "<input id=\"image_file" + picId + "\" name=\"image_file" + picId + "\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" style=\"display: none;\" />"
@@ -381,7 +448,7 @@ $(function () {
 				pictureUploading = false;
 			});
 		}else{
-			$(".addImg").hide();
+			$(".addImg").display="none";
 		}
 		$("#image_file" + picId).click();
 		//预览图片
@@ -397,10 +464,22 @@ $(function () {
 		});
 		//删除上传的图片
 		$(".delImg").click(function () {
+			picId--;
 			var _picId = parseInt($(this).parent().parent(".image_container").attr("data-picId"));
 			$(".image_container[data-picid='" + _picId + "']").remove();
+			var pic = document.getElementById("picture_choose").getElementsByTagName("div");
+			var imagecontainer=$(".image_container");
+			for(var i=1;i<pic.length;i++){
+				if(i<picId){
+					imagecontainer[i].attr("data-picId", i);
+				}else{
+					imagecontainer[i].attr("data-picId", i-1);
+				}
+				
+			}
 			if ($(".image_container").length > 0 && $(".defaultImg").length < 1) {
 				$(".image_container").each(function () {
+					
 					var i = parseInt($(this).attr("data-picId"));
 					defaultImg(i, true);
 					return false;
@@ -419,44 +498,71 @@ $(function () {
 			$("#previewBox" + picId).removeClass("defaultImg");
 		}
 	}
+=======
+//发布于个人圈的预览图片
+
+$("#dynamic_img1").change(function() {
+	$("#dynamic_img1").hide();
+	document.getElementById("add1").style.opacity = "0";
+	$("#show1").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show1").style.opacity = "1";
+	document.getElementById("add2").style.opacity = "1";
+});
+$("#dynamic_img2").change(function() {
+	$("#dynamic_img2").hide();
+	document.getElementById("add2").style.opacity = "0";
+	$("#show2").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show2").style.opacity = "1";
+	document.getElementById("add3").style.opacity = "1";
+});
+$("#dynamic_img3").change(function() {
+	$("#dynamic_img3").hide();
+	document.getElementById("add3").style.opacity = "0";
+	$("#show3").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show3").style.opacity = "1";
+	document.getElementById("add4").style.opacity = "1";
+});
+$("#dynamic_img4").change(function() {
+	$("#dynamic_img4").hide();
+	document.getElementById("add4").style.opacity = "0";
+	$("#show4").attr("src", URL.createObjectURL($(this)[0].files[0]));
+	document.getElementById("show4").style.opacity = "1";
+>>>>>>> master
 });
 
-
-
 //第二个设置中获取验证码
-var click = false; //验证是否点击
-var countTime = 60; //时间为60秒
 function setTime() {
 	var time_get = document.getElementById("time_get");
+	var countTime = 60; //时间为60秒
 	var interval;
+	var click = false; //验证是否点击
 	if (countTime > 0) {
 		countTime--;
 		time_get.innerHTML = countTime + "秒后重新发送";
 	} else if (countTime == 0) {
+		countTime = 60;
 		time_get.innerHTML = "获取验证码";
 		clearInterval(interval);
 		click = false;
 	}
 }
 
-document.getElementById("time_get").onclick = function() {
+$id("time_get").onclick = function() {
 	//获取验证码后改变字体
 	if (!click) {
 		interval = setInterval("setTime()", 1000);
 		click = true;
-	}else{
-		clearInterval(interval);
 	}
 	//点击获取发送验证码到邮箱
 	var new_email = document.getElementById("new_email").value;
 	var json = {
-		"behaviour": "getMsg",
+		"behaviour": 0,
 		"new_email": new_email
 	};
 	$.ajax({
 		type: "GET",
 		url: "/SocialUtil/SendEmailController.do",
-		data: json,
+		data: JSON.stringify(json),
 		typeData: "json",
 		success: function(data) {},
 		error: function(err) {
@@ -610,7 +716,35 @@ $id("photo").onclick = function() {
 }
 $id("photo_submit").onclick = function(){
 	$id("change_photo").style.display = "none";
-	$("#preview").attr("src", "");
+	
+	//获取base64的图片数据
+	 var file = $("#avatar")[0].files[0];
+	 var reader  = new FileReader();
+	 reader.onloadend=function(e) {
+		 e.target.result
+	}
+	 if (file) {
+		reader.readAsDataURL(file);
+	 }
+	//头像更改ajax
+	var json ={"behaviour":1, "head":reader.split(",",2)[1],"account":account};
+	$.ajax({
+		type: "GET",
+		url: "/SocialUtil/UserController.do",
+		data: JSON.stringify(json),
+		typeData: "json",
+		success: function(data) {
+			if(result=="true"){
+				alert("头像修改成功");
+			}else{
+				alert("头像修改失败");
+			}
+		},
+		error: function(err) {
+			//alert(err.status);
+		}
+	})
+	getPage();
 }
 $("#avatar").change(function () {
 	$("#photo_warning").html("");
@@ -649,6 +783,13 @@ function getObjectURL(file) {
 	return url;
 }
 
+//可随机生成颜色的方法
+var getRandomColor = function() {
+	var r = Math.floor(Math.random() * 100 + 100);
+	var g = Math.floor(Math.random() * 100 + 100);
+	var b = Math.floor(Math.random() * 100 + 100);
+	return "rgb(" + r + "," + g + "," + b + ")";
+}
 
 //点击tag打开输入框
 //点击Tag标签出显示框和保存按钮
@@ -660,7 +801,7 @@ document.getElementById("title").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	//确认标签数量,标签数量最多五个
 	var tagNum = 0;
-	if (getStyle(self_tag,"display") == "block") {
+	if (getStyle(self_tag, "display") == "block") {
 		self_tag.style.display = "none";
 		save_tag.style.display = "none";
 	} else {
@@ -692,7 +833,7 @@ document.getElementById("title").onclick = function() {
 							}								
 						}
 						chooseTag.removeChild(chooseLi[j]);
-						tagNum2 --;
+						tagNum2--;
 					};
 					
 				}
@@ -703,42 +844,50 @@ document.getElementById("title").onclick = function() {
 			}
 		};
 	}
+	
+	
 }
 
 //点击保存将标签放在tag中
+//Ajax保存确定的标签作为筛选条件
 //tag_show中的标签超过五个的时候把第六个生成的将第一个给替换
-var tagnum=-1;
-var tagtime=0;
+<<<<<<< HEAD
+
 $id("save_tag").onclick = function() {
 	var tagWarning = document.getElementById("tag_warning");
 	tagWarning.innerHTML = "";
+	
+=======
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++有bug解决
+var tagnum=-1;
+var tagtime=0;
+$id("save_tag").onclick = function() {
 	$("#personal_tag").remove();
+>>>>>>> master
 	$id("save_tag").style.display = "none";
 	$("#self_tag").hide();
-	var ntags="";
+	
 	var chooseLi = $id("choose_tag").getElementsByTagName("div");
+<<<<<<< HEAD
 	var tagLi = document.getElementById("tag_choose").getElementsByTagName("li");
+	var tags="";
+=======
+>>>>>>> master
 	for(var i = 0;i < chooseLi.length; i++){	
+		$("#personal_tag").remove();
 		tagnum=tagnum+1;
 		if(tagnum>=5){
 			if(tagnum%5==0){
-				tagtime=tagtime+1;			
-				for(var n=0;n<tagLi.length;n++){
-					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
-					{
-						tagLi[n].style.display="block";
-					}								
-				}
+				tagtime=tagtime+1;
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}else{
-				for(var n=0;n<tagLi.length;n++){
-					if(tagLi[n].innerHTML==$id("other_tag"+(tagnum-(5*tagtime))).innerHTML)
-					{
-						tagLi[n].style.display="block";
-					}								
-				}
 				$("#other_tag"+(tagnum-(5*tagtime))).html(chooseLi[i].innerHTML);
 			}
+			var tags="";
+			for(var i=0; i<5; i++){
+				tags=tags+$id("other_tag"+(tagnum-(5*tagtime))).innerHTML;
+			}
+			ntags=tags;
 		}else{
 			var tagDiv = document.createElement("div");
 			var tagShow = document.getElementById("tag_show");
@@ -747,40 +896,60 @@ $id("save_tag").onclick = function() {
 			tagShow.appendChild(tagDiv);
 			var newTag = tagShow.getElementsByTagName("div");
 			newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+			if(ntags==""){
+				ntags=ntags+chooseLi[i];
+			}else{
+				ntags=ntags+"&"+chooseLi[i];
+			}
 		}
-		tags=tags+chooseLi[i];
+<<<<<<< HEAD
+=======
+		ntags = ntags + chooseLi[i];
+>>>>>>> master
 	}
 	var chooseLi_length=chooseLi.length-1;
 	for(var i =chooseLi_length; i>=0; i--){
 		chooseLi[i].remove();
 	}
 	$.ajax({
+<<<<<<< HEAD
 		type:"post",
-		url:"/SocialUtil/ControllerPageInfo.do",
+		url:"/SocialUtil/UserController.do",
 		data:JSON.stringify({
-			"behaviour":"change",
-			"username":username,
-			"head":head,
-			"signature":signatrue,
-			"birthday":birthday,
+			"behaviour":7,
 			"tags":ntags,
-			"circleInfo":circle_info,
-			"circleImg":circle_img
 		}),
 		dataType:"json",
 		success:function(data) {
-			if(data.result == false) {
+			if(data.result == "true") {
+				alert("更改成功");
+=======
+		type: "post",
+		url: "/SocialUtil/ControllerPageInfo.do",
+		data: JSON.stringify({
+			"behaviour": "change",
+			"username": username,
+			"head": head,
+			"birthday": birthday,
+			"tags": ntags,
+			"circleInfo": circle_info,
+			"circleImg": circle_img
+		}),
+		dataType: "json",
+		success: function(data) {
+			if (data.result == false) {
 				alert("更改失败");
+>>>>>>> master
 			} else {
 				getPage();
-				alert("更改成功");
+				alert("更改失败");
 			}
 		}
 	})
 }
 
-//删除提示标签
-$id("delete_tag").onclick = function(){
+//删除标签,彻底删除
+$id("delete_tag").onclick = function() {
 	$("#personal_tag").remove();
 }
 
@@ -788,14 +957,14 @@ $id("delete_tag").onclick = function(){
 //交友页面的动画滚动效果
 //点击左按钮
 document.getElementById("prev").onclick = function() {
-	var show_message = document.getElementById("show_message");
+	var another_message0 = document.getElementById("another_message0");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
-	if (getStyle(show_message, "left") == "15px") {
-		$("#show_message").animate({
+	if (getStyle(another_message0, "left") == "15px") {
+		$("#another_message0").animate({
 			left: "-342px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "-342px",
 			"filter": "blur(3px)"
 		});
@@ -831,18 +1000,18 @@ document.getElementById("prev").onclick = function() {
 			"left": "-342px",
 			"filter": "blur(3px)"
 		});
-		show_message.style.left = "";
-		$("#show_message").css({
+		another_message0.style.left = "";
+		$("#another_message0").css({
 			"left": "372px"
 		});
 	} else if (getStyle(another_message1, "left") == "15px") {
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "-15px"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "15px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "15px",
 			"filter": "none"
 		});
@@ -862,14 +1031,14 @@ document.getElementById("prev").onclick = function() {
 }
 //点击右按钮
 document.getElementById("next").onclick = function() {
-	var show_message = document.getElementById("show_message");
+	var another_message0 = document.getElementById("another_message0");
 	var another_message1 = document.getElementById("another_message1");
 	var another_message2 = document.getElementById("another_message2");
-	if (getStyle(show_message, "left") == "15px") {
-		$("#show_message").animate({
+	if (getStyle(another_message0, "left") == "15px") {
+		$("#another_message0").animate({
 			left: "372px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
@@ -905,7 +1074,7 @@ document.getElementById("next").onclick = function() {
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "-342px"
 		});
 	} else if (getStyle(another_message2, "left") == "15px") {
@@ -920,17 +1089,18 @@ document.getElementById("next").onclick = function() {
 			"left": "372px",
 			"filter": "blur(3px)"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "30px"
 		});
-		$("#show_message").animate({
+		$("#another_message0").animate({
 			left: "15px"
 		});
-		$("#show_message").css({
+		$("#another_message0").css({
 			"left": "15px",
 			"filter": "none"
 		});
 	}
+	
 	divNone();
 }
 
@@ -952,20 +1122,60 @@ document.getElementById("icon_choose").onclick = function() {
 	document.getElementById("choose_submit").onclick = function() {
 		choose_friend.style.display = "none";
 		//筛选数据的传输
-		var friend_name = $("#friend_name");
-		var friend_school = $("#friend_school");
-		var friend_college = $("#friend_college");
-		var friend_personal = $("#friend_personal");
-		$.post("", {
+		$.post("/SocialUtil/UserController.do", {
+			behaviour:3,
 			sex: sex_condition,
 			school: school_condition,
 			college: college_condition,
 			tags: tag_condition
 		}, function(data) {
-			friend_name.html(data.name);
-			friend_school.html(data.school);
-			friend_college.html(data.profession);
-			friend_personal.html(data.signature);
+			if(data.result=="true"){
+				for(var j=0;j<3;j++){
+					var friend_name = $("#another_message"+j).children("#friend_name");
+					var friend_school = $("#another_message"+j).children("#friend_school");
+					var friend_college = $("#another_message"+j).children("#friend_college");
+					var friend_personal = $("#another_message"+j).children("#friend_personal");
+					if($("#another_message"+j).style.left=="15px"){
+						friend_name.html(data.fakename);
+						friend_school.html(data.school);
+						friend_college.html(data.major);
+						friend_personal.html(data.singlesex);
+						var tags =data.tags;
+						if(tgas!=""){
+							var friendtag=new Array();
+							friendtag=tags.split("&");
+							$("#personal_tag").remove();
+							for (i=0;i<friendtag.length ;i++ ){
+								$("#another_message"+j).children("friend_tag"+i).html(friendtag[i]);
+							}
+						}
+						//个人圈
+						var circle_info=data.info;
+						var newshow = document.createElement("div");
+						var time = document.createElement("div");
+						var dynamic_contact = document.createElement("div");
+						var dynamic_photo = document.createElement("div");
+						newshow.setAttribute("id", "show_dynamic");
+						time.setAttribute("id", "time");
+						dynamic_contact.setAttribute("id", "dynamic_contact");
+						dynamic_photo.setAttribute("id", "dynamic_photo");
+						var showVal = document.createTextNode(circle_info);
+						var timeshow=document.createTextNode(getNowDate());
+						var circle_img=document.createElement("img");
+						circle_img.src="data:img/png;base64,"+data.picture;
+						
+						dynamic_contact.appendChild(showVal);
+						time.appendChild(timeshow);
+						dynamic_photo.appendChild(circle_img);
+						newshow.appendChild(time);
+						newshow.appendChild(dynamic_contact);
+						newshow.appendChild(dynamic_photo);
+						friend_dynamic.appendChild(newshow);
+					}
+				}
+			}else{
+				alert("该筛选条件找不到人");
+			}
 		});
 	}
 
@@ -1014,7 +1224,7 @@ function selection() {
 			newSchoolLi[0] = schoolLi[0].innerHTML;
 			schoolLi[0].innerHTML = schoolLi[i].innerHTML;
 			schoolLi[i].innerHTML = newSchoolLi[0];
-			schoolLi[0].style.background = "#eeee9e";
+			schoolLi[0].style.background = "greenyellow";
 			school_choose.style.height = "35px";
 			schoolNum++;
 			if (schoolNum >= 1) {
@@ -1026,7 +1236,7 @@ function selection() {
 
 	//对选择的学校进行存储
 	for (let i = 0; i < schoolLi.length; i++) {
-		if (schoolLi[i].style.background == "#eeee9e") {
+		if (schoolLi[i].style.background == "greenyellow") {
 			school_condition = schoolLi[i].val;
 		}
 	}
@@ -1046,7 +1256,7 @@ function selection() {
 			newCollegeLi[0] = collegeLi[0].innerHTML;
 			collegeLi[0].innerHTML = collegeLi[i].innerHTML;
 			collegeLi[i].innerHTML = newCollegeLi[0];
-			collegeLi[0].style.background = "#f0aec7";
+			collegeLi[0].style.background = "#df64c9";
 			college_choose.style.height = "35px";
 			collegeNum++;
 			if (collegeNum >= 1) {
@@ -1058,7 +1268,7 @@ function selection() {
 
 	//对选择的学院进行存储
 	for (let i = 0; i < collegeLi.length; i++) {
-		if (collegeLi[i].style.background == "#f0ace7") {
+		if (collegeLi[i].style.background == "#df64c9") {
 			college_condition = schoolLi[i].val;
 		}
 	}
@@ -1171,11 +1381,8 @@ function timeLow() {
 //ajax的内容,只要聊天框关闭，刷新main_show的内容
 
 document.getElementById("icon_close").onclick = function() {
-	var timeChat = document.getElementById("time_chat");
 	chat_about.style.display = "none";
 	clearInterval(interval);
-	time = 300;
-	timeChat.innerHTML = time;
 }
 
 
@@ -1184,6 +1391,7 @@ document.getElementById("icon_time").onclick = function() {
 
 }
 
+<<<<<<< HEAD
 //改变聊天框的大小
 $("#icon_change").click(function(){
 	if($("#icon_change img").attr("src") == "../img/small.png"){
@@ -1274,6 +1482,8 @@ function MoveChat(){
 }
 MoveChat();
 
+=======
+>>>>>>> master
 //个人圈的查看
 //ajax将发布的个人圈资料上传
 function lookMyself() {
@@ -1317,51 +1527,17 @@ function lookMyself() {
 }
 lookMyself();
 
-
-/*特殊字符转义 防止XSS攻击 用于特殊字符正常显示*/
-
-function StringFilter(str) {
-  var s = "";
-  if (str.length === 0) {
-    return "";
-  }
-  s = str.replace(/&/g, "&amp;");
-  s = s.replace(/</g, "&lt;");
-  s = s.replace(/>/g, "&gt;");
-  s = s.replace(/ /g, "&nbsp;");
-  s = s.replace(/\'/g, "&#39;");
-  s = s.replace(/\"/g, "&quot;");
-  return s;
-}
- 
-/*转义字符还原成html字符*/
-function StringValFilter(str) {
-  var s = "";
-  if (str.length === 0) {
-    return "";
-  }
-  s = str.replace(/&amp;/g, "&");
-  s = s.replace(/&lt;/g, "<");
-  s = s.replace(/&gt;/g, ">");
-  s = s.replace(/&nbsp;/g, " ");
-  s = s.replace(/&#39;/g, "\'");
-  s = s.replace(/&quot;/g, "\"");
-  return s;
-}
-
-
 //聊天界面，点击可以发送信息
 function sendNews() {
 	var sendMsg = document.getElementById("sendMsg");
 	var txt = document.getElementById("txt");
 	var talk_contact = document.getElementById("talk_contact");
 	var contact = talk_contact.getElementsByTagName("p");
+
 	sendMsg.onclick = function() {
 		if (txt.value == "") {
-			$("#empty_warning").html("不能发送空内容");
-			$("#empty_warning").show();
+			txt.value = "不能发送空内容";
 		} else {
-			$("#empty_warning").hide();
 			//个人头像
 			var myImg = document.createElement("img");
 			var newTxt = document.createElement("p");
@@ -1380,9 +1556,7 @@ function sendNews() {
 			myImg.style.position = "relative";
 			myImg.style.top = "0";
 			myImg.style.margin = "8px 10px 0 10px";
-			var stringFilter = StringFilter(txt.value);
-			// var Val = StringValFilter(stringFilter);
-			newTxt.innerHTML = stringFilter;
+			newTxt.innerHTML = txt.value;
 			talk_contact.appendChild(myImg);
 			talk_contact.appendChild(newTxt);
 			txt.value = "";
@@ -1393,6 +1567,7 @@ function sendNews() {
 sendNews();
 
 //获取当前时间的函数
+<<<<<<< HEAD
 //个人圈的发布时候要给时间，举报信息要给时间后台记录
 
 //直接传纯数字的是在举报那里和聊天记录的
@@ -1431,3 +1606,20 @@ function getNowDate(){
 $("#email_main").click(function(){
 	
 })
+=======
+function getNowFormatDate() {
+	var date = new Date();
+	var seperator1 = "-";
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	if (month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if (strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+	var currentdate = year + seperator1 + month + seperator1 + strDate;
+	return currentdate;
+}
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9

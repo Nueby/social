@@ -13,47 +13,52 @@ body{
 }
 
 #main {
-	width:490px;
-	height:590px;
-	position:absolute;
-	left:725px;
-	top:70px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
-#background{
-	background: url(../img/matching_background.jpg) center center no-repeat;
-	background-size: 100% 100%;
-	height: 720px;
+
+#background {
+	height: 800px;
 	width: 1550px;
-	position:absolute;
-	z-index:-10;
+	background: url(../img/matching_background.jpg) no-repeat;
+	background-size: 100%;
 }
 
 #Sign_in {
 	width: 500px;
+	position: absolute;
+	top: 137px;
+	left: 710px;display: none;
 }
 #register {
+	top: 137px;
+	left: 704px;
 	height: 597px;
 	width: 540px;
-	display: none;
+	position: absolute;
+	
 }
 #title {
-	position:absolute;
-	margin-left:180px;
-	margin-top:50px;
+	position: absolute;
+	left: 880px;
+	top: 190px;
 	z-index: 2;
+	min-width: 400px;
 }
+
 #title_left {
 	position: relative;
-	font-family: "microsoft yahei light";
 	font-style: normal;
 	font-size: 35px;
 	letter-spacing: 15px;
 	font-weight: 500;
 	cursor: pointer;
-	text-shadow: #000 3px 3px 3px;
+	color:blue;
 }
 #change_title_left{
-	font-family: "microsoft yahei light";
+	color:black;
+	transform:translateY(-10px);
 	position: relative;
 	font-style: normal;
 	font-size: 35px;
@@ -68,7 +73,6 @@ body{
 #title_right {
 	position: relative;
 	left: 20px;
-	font-family:"microsoft yahei light";
 	font-style: normal;
 	font-size: 35px;
 	letter-spacing: 15px;
@@ -76,14 +80,14 @@ body{
 	cursor: pointer;
 }
 #change_title_right{
-	font-family:"microsoft yahei light";
+	color:blue;
+	transform:translateY(-10px);
 	position: relative;
 	left: 20px;
 	font-style: normal;
 	font-size: 35px;
 	letter-spacing: 15px;
 	font-weight: 500;
-	text-shadow: #000 3px 3px 3px;
 	cursor: pointer;
 }
 #icon_people{
@@ -91,48 +95,44 @@ body{
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:relative;
+	position:absolute;
 	z-index:3;
 	border-radius:50%;
-	left:144px;
-	top:148px;
-	display:block;
+	left:145px;
+	top:145px;
 }
 #icon_people_2{
 	background:url(../img/people_2.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:relative;
+	position:absolute;
 	z-index:3;
 	border-radius:50%;
-	left:144px;
-	top:148px;
-	display:block;
+	left:145px;
+	top:145px;
 }
 #icon_password{
 	background:url(../img/secret_1.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:relative;
+	position:absolute;
 	z-index:3;
 	border-radius:50%;
-	left:144px;
-	top:73px;
-	display:block;
+	left:145px;
+	top:227px;
 }
 #icon_password_2{
 	background:url(../img/secret_2.png);
 	background-size:100%;
 	height:55px;
 	width:55px;
-	position:relative;
+	position:absolute;
 	z-index:3;
 	border-radius:50%;
-	left:144px;
-	top:73px;
-	display:block;
+	left:145px;
+	top:227px;
 }
 #text {
 	width: 250px;
@@ -144,8 +144,10 @@ body{
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 100px;
+	margin-top: 150px;
 }
+
+
 #password {
 	width: 250px;
 	height: 40px;
@@ -156,13 +158,13 @@ body{
 	font-size: 15px;
 	font-weight: 500;
 	padding-left: 55px;
-	margin-top: 25px;
+	margin-top: 45px;
 }
 
 #check_img {
 	width: 300px;
 	height: 205px;
-	position: relative;
+	position: absolute;
 	left: 152px;
 	top: 194px;
 	z-index: 5;
@@ -170,7 +172,7 @@ body{
 }
 
 #bg_bar {
-	margin-top: 90px;
+	margin-top: 120px;
 	margin-left: 150px;
 	width: 300px;
 	height: 40px;
@@ -211,14 +213,10 @@ body{
     justify-content: center;
 }
 #forget{
-	top:50px;
-	left:250px;
 	color:black;
-	position:relative;
-}
-#forget:hover{
-	color:red;
-	text-decoration:none;
+	position:absolute;
+	left:270px;
+	top:480px;
 }
 #select{
 	width:300px;
@@ -388,6 +386,38 @@ body{
 	left:145px;
 	top:378px;
 }
+#check_code{
+	position:relative;
+	top:40px;
+	left:150px;
+}
+#code{
+	position:absolute;
+	font-size:19px;
+	font-weight:500;
+}
+#fill{
+	position:absolute;
+	left:65px;
+	width:90px;
+	border:0;
+	border-bottom:2px solid #000;
+	background:rgba(0,0,0,.0);
+	top:21px;
+}
+#time{
+	background:rgba(0,0,0,.4);
+	width:115px;
+	box-shadow:0 0 2px rgba(0,0,0,.3);
+	cursor:pointer;
+	border-radius:3px;
+	position:absolute;
+	left:180px;
+	top:15px;
+	padding:3px;
+	text-align:center;
+	color:whitesmoke;
+}
 #submit{
 	color:white;
 	width:200px;
@@ -395,16 +425,22 @@ body{
 	height:50px;
 	background:rgba(0,0,0,.5);
 	border:0;
-	border-radius:25px;
+	border-top-left-radius:22px;
+	border-top-right-radius:22px;
+	border-bottom-left-radius:22px;
+	border-bottom-right-radius:22px;
 	font-size:20px;
+	position:absolute;
+	bottom:45px;
+	left:200px;
 	cursor:pointer;
+	height: 40px;
 	z-index: 10;
 	display: flex;
 	flex: row;
 	justify-content: center;
-	margin-top:30px;
-	margin-left:200px;
 }
+
 
 #small_img {
 	z-index: 7;
@@ -439,53 +475,12 @@ body{
 	height: 30px;
 	margin-left: 200px;
 	position: absolute;
-	color:red;
 	font-size:16px;
 }
 #manager{
-	position:absolute;
 	color:black;
+	position:absolute;
+	bottom:-150px;
+	right:0;
 	text-decoration:none;
-	bottom:0;
-	right:10px;
-}
-#manager:hover{
-	color:grey;
-}
-#loading {
-	display:none;
-	position:absolute;
-	width:100%;
-	height:100%;
-	background:rgba(255,255,255,.9);
-	z-index:1000;
-}
-#loading img{
-	position:absolute;
-	width:100px;
-	height:100px;
-	margin-left:700px;
-	margin-top:200px;
-}
-#loading p{
-	font-size:30px;
-	position:absolute;
-	top:300px;
-	left:630px;
-	letter-spacing:17px;
-}
-.beat-char {
-	line-height: 3.4em;
-	position: relative;
-	display: inline-block;
-	background: transparent;
-
-}
-.rotate {
-	transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	-moz-transform: rotate(360deg);
-	-webkit-transform: rotate(360deg);
-	-o-transform: rotate(360deg);
-	-webkit-transition-duration: 0.7s;
 }
