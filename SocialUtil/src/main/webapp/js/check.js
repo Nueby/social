@@ -29,11 +29,15 @@ function erChange() {
 	title_right.onclick = function() {
 		sign_in.style.display = "none";
 		register.style.display = "block";
+		title_right.setAttribute("id","change_title_right");
+		title_left.setAttribute("id","change_title_left");
 	}
 	//登录页面显示
 	title_left.onclick = function() {
 		sign_in.style.display = "block";
 		register.style.display = "none";
+		title_left.setAttribute("id","title_left");
+		title_right.setAttribute("id","title_right");
 	}
 }
 
@@ -60,35 +64,35 @@ function registerChange() {
 	var icon_rpeople = $id("icon_rpeople");
 	var icon_password_secret = $id("icon_password_secret");
 	var icon_password_confirm = $id("icon_password_confirm");
-	var icon_accountPassword = $id("icon_accountPassword");
 	var register_text = $id("register_text");
 	var register_password = $id("register_password");
-	var accountPassword = $id("accountPassword");
+	var icon_secret = $id("icon_secret");
+	var text_password = $id("text_password");
 	var confirm = $id("confirm");
 	//图标改变
 	register_text.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople_2");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
-	}
-	accountPassword.onclick = function() {
-		icon_rpeople.setAttribute("id","icon_rpeople");
-		icon_password_secret.setAttribute("id","icon_password_secret");
-		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword_2");
+		icon_secret.setAttribute("id","icon_secret");
 	}
 	register_password.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret_2");
 		icon_password_confirm.setAttribute("id","icon_password_confirm");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
+		icon_secret.setAttribute("id","icon_secret");
 	}
 	confirm.onclick = function(){
 		icon_rpeople.setAttribute("id","icon_rpeople");
 		icon_password_secret.setAttribute("id","icon_password_secret");
 		icon_password_confirm.setAttribute("id","icon_password_confirm_2");
-		icon_accountPassword.setAttribute("id","icon_accountPassword");
+		icon_secret.setAttribute("id","icon_secret");
+	}
+	text_password.onclick = function(){
+		icon_rpeople.setAttribute("id","icon_rpeople");
+		icon_password_secret.setAttribute("id","icon_password_secret");
+		icon_password_confirm.setAttribute("id","icon_password_confirm");
+		icon_secret.setAttribute("id","icon_secret_2");
 	}
 	//检验账号是否存在
 	register_text.onblur = function() {
@@ -115,7 +119,7 @@ function registerChange() {
 					}
 				},
 				error:function(err) {
-					alert(err.status);
+					//alert(err.status);
 				}
 			})
 		}
@@ -187,10 +191,11 @@ function bar() {
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
+									$("#loading").show();
 	    						}
 	    					},
 	    					error:function(err) {
-	    						alert(err.status);
+	    						//alert(err.status);
 	    					}
 	    				})
     				} else {
@@ -202,7 +207,7 @@ function bar() {
     			}
     		},
     		error:function(err) {
-    			alert(err.status);
+    			//alert(err.status);
     		}
     	})
         isTouch = false;
@@ -226,6 +231,7 @@ function bar() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
+		//$("#loading").show();
 	}
 	
  
@@ -248,7 +254,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+			//alert(err.status);
 		}
 	})
 }
@@ -293,7 +299,7 @@ function sendRegister() {
 							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
-							alert(err.status);
+							//alert(err.status);
 						}
 					})
 				} else {
@@ -301,7 +307,7 @@ function sendRegister() {
 				}
 			},
 			error:function(err) {
-				alert(err.status);
+				//alert(err.status);
 			}
 		})
 	}
@@ -311,3 +317,108 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
+
+
+
+//字体跳动效果
+$(document).ready(function() {
+	$("#roloadText").beatText({
+		isAuth: true,
+		beatHeight: "1em",
+		isRotate: false,
+		upTime: 100,
+		downTime: 100
+	});
+});
+
+
+(function($) {
+    $.fn.beatText = function(options) {
+        var defaults = {
+            beatHeight: '2em',
+            upTime: 700,
+            downTime: 700,
+			isAuth:true,
+			isRotate:true
+        };
+        var options = $.extend(defaults, options);
+        return this.each(function() {
+            var obj = $(this);
+            if (obj.text() !== obj.html()) {
+                return
+            };
+            var text = obj.text();
+            var newMarkup = '';
+            for (var i = 0; i <= text.length; i++) {
+                var character = text.slice(i, i + 1);
+                newMarkup += ($.trim(character)) ? '<span class="beat-char">' + character + '</span>' : character
+            }
+            obj.html(newMarkup);
+			if(!options.isAuth){			
+				obj.find('span.beat-char').each(function(index,el) {					
+					$(this).mouseover(function() {
+						beatAnimate($(this),options);
+					})							
+				})
+			}else{
+				//自动跳动的动画
+				obj.find('span.beat-char:first').animate({
+					bottom: options.beatHeight
+				}, {
+					queue: false,
+					duration: options.upTime,
+					easing: 'easeOutCubic',
+					complete: function() {
+						$(this).animate({
+							bottom: 0
+						}, {
+							queue: false,
+							duration: options.downTime,
+							easing: 'easeOutBounce',
+							complete:function(){
+								beatAnimate($(this).next(),options);
+							}
+						})
+					}
+				});
+			}
+   
+        })
+    }
+	function beatAnimate(el,options){
+		if(options.isRotate){
+			el.addClass("rotate");
+		}
+		el.animate({
+			bottom: options.beatHeight
+		}, {
+			queue: false,
+			duration: options.upTime,
+			easing: 'easeOutCubic',
+			complete: function() {
+				el.removeClass("rotate");
+				$(this).animate({
+					bottom: 0
+				}, {
+					queue: false,
+					duration: options.downTime,
+					easing: 'easeOutBounce',
+					complete:function(){
+						if(options.isAuth){
+							var len = el.parent().children().length;
+							var indexNum = el.index();
+							if(indexNum == (len-1)){
+								beatAnimate(el.parent().find('span.beat-char:first'),options);
+							}else{
+								beatAnimate(el.next(),options);
+							}
+						}
+					}
+				})
+			}
+		})
+		
+		
+	}
+
+})(jQuery);
