@@ -8,7 +8,6 @@
 	</head>
 	<body>
 		<div id="total">
-			<img src="../img/arrow.gif" id="arrow">
 			<!-- 选择图标 -->
 			<img id="single" class="background" />
 			<img id="make_friend" class="background" />
@@ -19,11 +18,30 @@
 			<div id="set_1">
 				<div id="dashed">
 					<textarea rows="4" cols="15" id="contact"></textarea>
-					<form id="form1" method="post" enctype="multipart/form-data">
-					    <div id="picture_choose">
-					        <a class="addImg" data-picid="0">+</a>
-					    </div>
-					</form>
+					<div id="add_container">
+						<div id="add1">
+							<input type="file" id="dynamic_img1" />
+							<img src="../img/add.png" >
+						</div>
+						<div id="add2">
+							<input type="file" id="dynamic_img2" />
+							<img src="../img/add.png" >
+						</div>
+						<div id="add3">
+							<input type="file" id="dynamic_img3" />
+							<img src="../img/add.png" >
+						</div>
+						<div id="add4">
+							<input type="file" id="dynamic_img4" />
+							<img src="../img/add.png" >
+						</div>
+					</div>
+					<div id="add_img">
+						<img id="show1">
+						<img id="show2">
+						<img id="show3">
+						<img id="show4">
+					</div>
 					<input type="button" value="确定" id="dynamic_submit">
 				</div>
 			</div>
@@ -220,9 +238,9 @@
 						<div id="ID">ID:123</div>
 					</div>
 					<div id="school_about">
-						<p >学校：<span id="school_name"></span></p>
-						<p >学院：<span id="college_name"></span></p>
-						<p >专业：<span id="major_name"></span></p>
+						<p id="school_name">学校：</p>
+						<p id="college_name">学院：</p>
+						<p id="major_name">专业：</p>
 					</div>
 					<div id="signature">
 						<i id="icon_signature"></i>
@@ -310,11 +328,11 @@
 						</div>
 						<!-- 存放个人页的标签 -->
 						<div id="friend_tag">
-							<div id="friend_tag0"></div>
-							<div id="friend_tag1"></div>
-							<div id="friend_tag2"></div>
-							<div id="friend_tag3"></div>
-							<div id="friend_tag4"></div>
+							<div id="other_tag1"></div>
+							<div id="other_tag2"></div>
+							<div id="other_tag3"></div>
+							<div id="other_tag4"></div>
+							<div id="other_tag5"></div>
 						</div>
 						<img src="../img/more.png" id="more">
 						<div id="cover_scroll1">
@@ -357,11 +375,11 @@
 							</div>
 						</div>
 						<div id="friend_tag">
-							<div id="friend_tag0"></div>
-							<div id="friend_tag1"></div>
-							<div id="friend_tag2"></div>
-							<div id="friend_tag3"></div>
-							<div id="friend_tag4"></div>
+							<div id="other_tag1"></div>
+							<div id="other_tag2"></div>
+							<div id="other_tag3"></div>
+							<div id="other_tag4"></div>
+							<div id="other_tag5"></div>
 						</div>
 						<img src="../img/more.png" id="more">
 						<div id="cover_scroll2">
@@ -405,42 +423,41 @@
 								</span>
 							</div>
 						</div>
-						<div id="friend_tag">
-							<div id="friend_tag0"></div>
-							<div id="friend_tag1"></div>
-							<div id="friend_tag2"></div>
-							<div id="friend_tag3"></div>
-							<div id="friend_tag4"></div>
-						</div>
-						<img src="../img/more.png" id="more">
-						<div id="cover_scroll3">
-							<div id="friend_dynamic">
-								<div id="show_friend_dynamic">
-									<hr id="show_dynamic_line">
-									<!-- 放发布时间，这一条是注册的时间 -->
-									<div id="show_time">2019-10-12</div>
-									<div id="dynamic_contact">
-										<!-- 存放文案 -->
-										<div id="show_dynamic_text"> 恭喜你成功注册了路人，
-											在这里可以查看你的个人动态哦，快向大家展示一下吧！！
-										</div>
-										<!-- 放个人圈的图片 -->
-										<div id="dynamic_photo">
-											<img id="dynamic_photoshow" >
-											<img id="dynamic_photoshow" >
-											<img id="dynamic_photoshow" >
-											<img id="dynamic_photoshow" >
-										</div>
+					<div id="friend_tag">
+						<div id="other_tag1"></div>
+						<div id="other_tag2"></div>
+						<div id="other_tag3"></div>
+						<div id="other_tag4"></div>
+						<div id="other_tag5"></div>
+					</div>
+					<img src="../img/more.png" id="more">
+					<div id="cover_scroll3">
+						<div id="friend_dynamic">
+							<div id="show_friend_dynamic">
+								<hr id="show_dynamic_line">
+								<!-- 放发布时间，这一条是注册的时间 -->
+								<div id="show_time">2019-10-12</div>
+								<div id="dynamic_contact">
+									<!-- 存放文案 -->
+									<div id="show_dynamic_text"> 恭喜你成功注册了路人，
+										在这里可以查看你的个人动态哦，快向大家展示一下吧！！
+									</div>
+									<!-- 放个人圈的图片 -->
+									<div id="dynamic_photo">
+										<img id="dynamic_photoshow" >
+										<img id="dynamic_photoshow" >
+										<img id="dynamic_photoshow" >
+										<img id="dynamic_photoshow" >
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div id="direction">
-					<img src="../img/prev.png" id= "prev" />
-					<img src="../img/next.png" id= "next" />
-				</div>
+			</div>
+			<div id="direction">
+				<img src="../img/prev.png" id= "prev" />
+				<img src="../img/next.png" id= "next" />
 			</div>
 		</div>
 		<div id="chat_about">
@@ -459,6 +476,7 @@
 				<input type="button" id="sendMsg" value="发送" />
 			</div>
 			<div id="icon">
+<<<<<<< HEAD
 				<div id="icon_close">
 					<img src="../img/close_chat.png">
 					<i>结束聊天</i>
@@ -510,6 +528,13 @@
 						<input type="button" id="report_submit" value="确定举报" />
 						<input type="button" id="report_cancel" value="取消" />
 					</div>
+=======
+				<div id="icon_time">
+					<img src="../img/time.png" >
+				</div>
+				<div id="icon_close">
+					<img src="../img/close_chat.png" >
+>>>>>>> master
 				</div>
 			</div>
 			<div id="time_chat">
@@ -527,7 +552,6 @@
 				</div>
 			</div>
 			<div id="chat_warning"></div>
-			<div id="empty_warning"></div>
 		</div>
 		<div id="choose_friend">
 			<div id="choose_main">
@@ -644,6 +668,7 @@
 			</div>
 			<div id="chat_warning"></div>
 		</div>
+<<<<<<< HEAD
 		<div id="manager_main">
 			<a href ="..//other_html/manager.html" target="_blank">
 				<img src="../img/manager.png" >
@@ -661,6 +686,9 @@
 			</span>
 		</div>
 		
+=======
+		<script type="text/javascript" src="../js/jquery_2.js"></script>
+>>>>>>> master
 		<script type="text/javascript" src="../js/jquery_1.js"></script>
 		<script type="text/javascript" src="../js/jquery_2.js"></script>
 		<script type="text/javascript" src="../js/jquery.cookie.js"></script>
