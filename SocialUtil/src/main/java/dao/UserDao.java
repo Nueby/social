@@ -133,9 +133,12 @@ public class UserDao {
 			//接受好友请求
 			case 10:	
 				String friendaccount = reqJson.getString("friendaccount");
-				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("INSERT INTO chatfriends(account,friendaccount) values (?,?)");
+				
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("update own set friendid=? where id=?");
 				ps1.setString(1, account);
 				ps1.setString(2, friendaccount);
+				ps1.executeQuery();
+				C3P0Util.release(ps1);
 			}
 			
 		} catch(Exception e) {
@@ -225,13 +228,21 @@ public class UserDao {
 				}
 				//性别
 					String reacherSex = reqJson.getString("sex");
-					tempTags.append("AND sex=" + URLEncoder.encode(reacherSex,"utf-8") );
+					if(reacherSex!="") {
+						tempTags.append("AND sex=" + URLEncoder.encode(reacherSex,"utf-8") );
+					}
+					
 				//学校
 					String reacherSchool = reqJson.getString("school");
-					tempTags.append("AND school=" + URLEncoder.encode(reacherSchool,"utf-8") );
+					if(reacherSchool!="") {
+						tempTags.append("AND school=" + URLEncoder.encode(reacherSchool,"utf-8") );
+					}
+					
 				//学院
 					String reacherCollege = reqJson.getString("college");
-					tempTags.append("AND college=" + reacherCollege );
+					if(reacherCollege!="") {
+						tempTags.append("AND college=" + reacherCollege );
+					}
 				ResultSet rs3 = stmt.executeQuery(tempTags.toString());
 				rs3.last();
 				int rows = rs3.getRow();
@@ -265,15 +276,16 @@ public class UserDao {
 				break;
 			//获取好友
 			case 5:
-				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("SELECT friendaccount FROM chatfriends WHERE account=?");
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("SELECT friendid FROM own WHERE id=?");
 				ps1.setString(1, account);
 				ResultSet rs1 = ps1.executeQuery();
 				String friendaccount="";
 				 while(rs1.next()){
 		            	//读取数据
-		            	friendaccount=rs1.getString("friendaccount");
+		            	friendaccount=rs1.getString("friendid");
 				 }
-				 resJson.put("friendaccount", friendaccount);			 
+				 resJson.put("friendid", friendaccount);	
+				 C3P0Util.release(rs1);
 			}		
 		} catch(Exception e) {
 			e.printStackTrace();

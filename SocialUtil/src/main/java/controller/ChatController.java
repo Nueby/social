@@ -30,15 +30,6 @@ public class ChatController extends HttpServlet {
 		JSONObject reqJson = (JSONObject)request.getAttribute("json");
 		JSONObject resJson = new JSONObject();
 		ChatDao.doPost(reqJson,resJson);
-		
-		//执行操作
-		int behaviour = reqJson.getInteger("behaviour");
-		switch(behaviour) {
-			//查询聊天记录
-			case 0:
-			json.put("result", ChatDao.findinfo(reqJson.getString("account"),reqJson.getString("time")));
-			break;
-		}
 		response.getWriter().write(resJson.toString());
 		response.getWriter().close();
 	}

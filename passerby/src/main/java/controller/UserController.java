@@ -47,13 +47,10 @@ public class UserController extends HttpServlet {
 		case 4:
 			json.put("result", UserDao.passwordConfirm(reqJson.getString("account"), reqJson.getString("password")));
 			break;
+		}
 		PrintWriter out = response.getWriter();
 		out.write(json.toString());
 		out.close();
-		//获取好友信息
-		case 5:
-			json = UserDao.getfriend(reqJson.getString("account"));
-			break;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,7 +61,7 @@ public class UserController extends HttpServlet {
 		switch(behaviour) {
 		//忘记密码
 		case 0:
-			json = UserDao.forgetPassowrd(reqJson.getString("account"), reqJson.getString("email"), reqJson.getString("password"));
+			json = UserDao.forgetPassowrd(reqJson.getString("account"), reqJson.getString("password"));
 			break;
 		//更改头像
 		case 1:
@@ -96,21 +93,9 @@ public class UserController extends HttpServlet {
 			break;
 		//账号邮箱匹配
 		case 8:
-			json.put("result", UserDao.change(reqJson.getString("account"), reqJson.getString("email")));
+			json.put("result", UserDao.isEmail(reqJson.getString("account"), reqJson.getString("email")));
 			break;
-		//添加好友发送好友请求
-		case 9:
-			json.put("result", UserDao.addFriend(reqJson.getString("account"), reqJson.getString("friendaccount")));
-			break;
-		
-		}
-		//添加好友接受好友请求
-				case 10:
-					json.put("result", UserDao.addFriend(reqJson.getString("account"), reqJson.getString("friendaccount")));
-					break;
-				
-		}
-		
+
 	}
 		
 		PrintWriter out = response.getWriter();

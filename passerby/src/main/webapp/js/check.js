@@ -112,7 +112,7 @@ function registerChange() {
 				},
 				dataType:"json",
 				success:function(data){
-					if(data.result == "true") {		//账号存在显示信息
+					if(data.result == true) {		//账号存在显示信息
 						$id("accountMsg").innerHTML = "*该账号已存在";
 						$("#accountMsg").css("color","red");
 						isHave = true;
@@ -182,14 +182,12 @@ function bar() {
 	    				var password = $id("password").value;
 	    				var json = {"behaviour":4,"account":account,"password":password};
 	    				$.ajax({
-	    					type:"POST",
+	    					type:"GET",
 	    					url:"/passerby/UserController.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
-	    						if(data.result == "database") {
-	    							$id("enterMsg").innerHTML = "*账号不存在";
-	    						} else if(data.result == "password") {
+	    						if(data.result == false) {
 	    							$id("enterMsg").innerHTML = "*密码错误";
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
@@ -286,25 +284,8 @@ function sendRegister() {
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
-				if(data.flag == 1) {
-					var json2 = {
-						"behaviour":"logup",
-						"account":account,
-						"edu_password":accountPassword,
-						"login_password":register_password
-					};
-					$.ajax({
-						type:"POST",
-						url:"/SocialUtil/ControllerUser.do",
-						data:JSON.stringify(json2),
-						dataType:"json",
-						success:function(data) {
-							registerMsg.innerHTML = "*注册成功";
-						},
-						error:function(err) {
-							alert(err.status);
-						}
-					})
+				if(data.result == true) {
+					registerMsg.innerHTML = "*注册成功";
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}

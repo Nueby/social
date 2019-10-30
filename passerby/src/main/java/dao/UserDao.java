@@ -40,7 +40,22 @@ public class UserDao {
 			return true;
 		}
 	}
-	
+	//检查账号邮箱是否匹配
+		public static boolean isEmail(String account,String email) {
+			try {
+				PreparedStatement ps = C3P0.getConnection().prepareStatement("SELECT email, password FROM school, user WHERE account=?");
+				ps.setString(1, account);
+				ResultSet rs = ps.executeQuery();
+				rs.first();
+				String dbemail = rs.getString(1);
+				rs.close();
+				ps.close();
+				return email==dbemail;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return true;
+			}
+		}
 	//获取信息
 	public static JSONObject getInfo(String account) {
 		JSONObject json = new JSONObject();
@@ -109,18 +124,37 @@ public class UserDao {
 	}
 	
 	//筛选
-	public static JSONObject reacher(String account, String tags) {
+	public static JSONObject reacher(String account, String tags,String sex,String school,String college) {
 		JSONObject json = new JSONObject();
 		try {
 			String reacherTags = tags;
 			String[] tagsArr = reacherTags.split("&");
 			Statement stmt = C3P0.getConnection().createStatement();
 			StringBuffer tempTags = new StringBuffer();
-			tempTags.append("SELECT id, account FROM tags WHERE");
+			tempTags.append("select id from tags full join school on tags.id=school.id");
 			for(int i = 0; i < tagsArr.length; i++) {
+				if(i != tagsArr.length)	tempTags.append(" AND ");
 				tempTags.append("tag=" + URLEncoder.encode(tagsArr[i],"utf-8"));
-				if(i != tagsArr.length - 1)	tempTags.append(" AND ");
+				
 			}
+
+			//性别
+				String reacherSex =sex;
+				if(reacherSex!="") {
+					tempTags.append("AND sex=" + URLEncoder.encode(reacherSex,"utf-8") );
+				}
+				
+			//学校
+				String reacherSchool = school;
+				if(reacherSchool!="") {
+					tempTags.append("AND school=" + URLEncoder.encode(reacherSchool,"utf-8") );
+				}
+				
+			//学院
+				String reacherCollege = college;
+				if(reacherCollege!="") {
+					tempTags.append("AND college=" + reacherCollege );
+				}
 			ResultSet rs = stmt.executeQuery(tempTags.toString());
 			rs.last();
 			int rows = rs.getRow();
@@ -159,25 +193,15 @@ public class UserDao {
 	}
 	
 	//忘记密码
-	public static JSONObject forgetPassowrd(String account, String email, String password) {
+	public static JSONObject forgetPassowrd(String account, String password) {
 		JSONObject json = new JSONObject();
 		try {
-			PreparedStatement ps = C3P0.getConnection().prepareStatement("SELECT email, password FROM school, user WHERE account=?");
-			ps.setString(1, account);
-			ResultSet rs = ps.executeQuery();
-			rs.first();
-			String dbemail = rs.getString(1);
-			rs.close();
+			PreparedStatement ps = C3P0.getConnection().prepareStatement("UPDATE user SET password=? WHERE account=?");
+			ps.setString(1, MD5.getMD5(password));
+			ps.setString(2, account);
+			if(!ps.execute()) json.put("result", "database");
+			else json.put("result","true");
 			ps.close();
-			if(!dbemail.equals(email)) json.put("result", "email");
-			else {
-				ps = C3P0.getConnection().prepareStatement("UPDATE user SET password=? WHERE account=?");
-				ps.setString(1, MD5.getMD5(password));
-				ps.setString(2, account);
-				if(!ps.execute()) json.put("result", "database");
-				else json.put("result","true");
-				ps.close();
-			}
 		} catch(Exception e) {
 			json.put("result", "database");
 			e.printStackTrace();

@@ -54,65 +54,85 @@ function getPage() {
 		}),
 		dataType: "json",
 		success: function(data) {
-			name.html(data.fakename);
-			head.src="data:img/png;base64,"+data.head;
-			school_name.html(data.school);
-			college_name.html(data.college);
-			major_name.html(data.major);
-			personal.html(data.singlesex);
-			ntags=data.tgas;
-			sex=data.sex;
-			if(ntgas!=""){
-				var begintag=new Array();
-				begintag=ntags.split("&");
-				$("#personal_tag").remove();
-				for (i=0;i<begintag.length ;i++ ){
-					tagnum=tagnum+1;
-					var tagDiv = document.createElement("div");
-					var tagShow = document.getElementById("tag_show");
-					var divVal = document.createTextNode(begintag[i].innerHTML);
-					tagDiv.appendChild(divVal);
-					tagShow.appendChild(tagDiv);
-					var newTag = tagShow.getElementsByTagName("div");
-					newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+			if(result=="true"){
+				name.html(data.fakename);
+				head.src="data:img/png;base64,"+data.head;
+				school_name.html(data.school);
+				college_name.html(data.college);
+				major_name.html(data.major);
+				personal.html(data.singlesex);
+				ntags=data.tgas;
+				sex=data.sex;
+				if(ntgas!=""){
+					var begintag=new Array();
+					begintag=ntags.split("&");
+					$("#personal_tag").remove();
+					for (i=0;i<begintag.length ;i++ ){
+						tagnum=tagnum+1;
+						var tagDiv = document.createElement("div");
+						var tagShow = document.getElementById("tag_show");
+						var divVal = document.createTextNode(begintag[i].innerHTML);
+						tagDiv.appendChild(divVal);
+						tagShow.appendChild(tagDiv);
+						var newTag = tagShow.getElementsByTagName("div");
+						newTag[tagnum].setAttribute("id","other_tag" + tagnum);
+					}
+				}
+				if(sex=="男"){
+					sex_img.src="../img/man.png";
+				}else{
+					sex_img.src="../img/woman.png";
+				}
+				
+				var circle_info=data.info;
+				if(circle_info!=""){
+					var newshow = document.createElement("div");
+					var time = document.createElement("div");
+					var dynamic_contact = document.createElement("div");
+					var dynamic_photo = document.createElement("div");
+					newshow.setAttribute("id", "show_dynamic");
+					time.setAttribute("id", "time");
+					dynamic_contact.setAttribute("id", "dynamic_contact");
+					dynamic_photo.setAttribute("id", "dynamic_photo");
+					var showVal = document.createTextNode(circle_info);
+					var timeshow=document.createTextNode(getNowDate());
+					
+					
+					dynamic_contact.appendChild(showVal);
+					time.appendChild(timeshow);
+					newshow.appendChild(time);
+					newshow.appendChild(dynamic_contact);
+					$.ajax({
+						type: "GET",
+						url: "/passerby/UserController.do",
+						data: JSON.stringify({
+							"behaviour": 2,
+							"account":account
+						}),
+						dataType: "json",
+						success: function(data) {
+							for(var i=0;i<data.picture.length;i++){
+								var circle_img=document.createElement("img");
+								circle_img.src="data:img/png;base64,"+data.picture[i];
+								dynamic_photo.appendChild(circle_img);
+								newshow.appendChild(dynamic_photo);
+							}
+							
+						},
+						error: function(err) {
+							//alert(err.status);
+						}
+					})
+					all_dynamic.appendChild(newshow);
 				}
 			}
-			if(sex=="男"){
-				sex_img.src="../img/man.png";
-			}else{
-				sex_img.src="../img/woman.png";
-			}
-			
-			var circle_info=data.info;
-			var newshow = document.createElement("div");
-			var time = document.createElement("div");
-			var dynamic_contact = document.createElement("div");
-			var dynamic_photo = document.createElement("div");
-			newshow.setAttribute("id", "show_dynamic");
-			time.setAttribute("id", "time");
-			dynamic_contact.setAttribute("id", "dynamic_contact");
-			dynamic_photo.setAttribute("id", "dynamic_photo");
-			var showVal = document.createTextNode(circle_info);
-			var timeshow=document.createTextNode(getNowDate());
-			var circle_img=document.createElement("img");
-			circle_img.src="data:img/png;base64,"+data.picture;
-			
-			dynamic_contact.appendChild(showVal);
-			time.appendChild(timeshow);
-			dynamic_photo.appendChild(circle_img);
-			
-			newshow.appendChild(time);
-			newshow.appendChild(dynamic_contact);
-			newshow.appendChild(dynamic_photo);
-			all_dynamic.appendChild(newshow);
-			
-		},
+		},	
 		error: function(err) {
 			//alert(err.status);
 		}
-	})
+	});
 }
-getPage();
+// getPage();
 
 
 //兼容浏览器获取非行内样式
@@ -225,7 +245,7 @@ $id("email_submit").onclick = function() {
 		success: function(data) {
 			if (data.msg == true) {
 				$.ajax({
-					type: "GET",
+					type: "POST",
 					url: "/passerby/UserController.do",
 					data: JSON.stringify({
 						"behaviour": 4,
@@ -287,6 +307,7 @@ $id("self_submit").onclick = function() {
 		type: "POST",
 		url: "/passerby/UserController.do",
 		data: JSON.stringify({
+			"behaviour":3,
 			"sex": $id("set_name").value,
 			"fakename":$id("radio_box").value,
 			"birthday": $id("select").value
@@ -353,7 +374,7 @@ $id("dynamic_submit").onclick = function() {
 		 if (file) {
 			reader.readAsDataURL(file);
 		 }
-		var json={"behaviour":2,"account":account,"picture":reader.split(",",2)[1],"ify":ify,"info":$id("contact").value};
+		var json={"behaviour":2,"account":account,"picture":reader.split(",",2)[1],"ify":i-1,"info":$id("contact").value};
 		function upload(){
 			var self = this;
 			$.ajax({
@@ -365,10 +386,12 @@ $id("dynamic_submit").onclick = function() {
 				processData: false,// 不处理数据
 				contentType: false, // 不设置内容类型
 				success:function(data){
-					
-				}
+					if(data.result==true){
+						
+					}
+				}	
 			});
-	}
+		}
 	}
 	$id("set_1").style.display = "none";
 	$id("contact").value = "";
@@ -384,8 +407,7 @@ $(function () {
 	$("#form1").delegate(".addImg", "click", function () {
 		if (pictureUploading) return;
 		pictureUploading = true;
-		
-		
+
 		if(picId < 4){
 			picId++;
 			$(".addImg").display="block";
@@ -673,7 +695,7 @@ $id("photo_submit").onclick = function(){
 		reader.readAsDataURL(file);
 	 }
 	//头像更改ajax
-	var json ={"behaviour":1, "head":reader.split(",",2)[1],"account":account};
+	var json ={"behaviour":1,"account":account,"head":reader.split(",",2)[1]};
 	$.ajax({
 		type: "GET",
 		url: "/passerby/UserController.do",
@@ -1037,7 +1059,7 @@ document.getElementById("icon_choose").onclick = function() {
 	document.getElementById("choose_submit").onclick = function() {
 		choose_friend.style.display = "none";
 		//筛选数据的传输
-		$.post("/SocialUtil/UserController.do", {
+		$.get("/SocialUtil/UserController.do", {
 			behaviour:3,
 			sex: sex_condition,
 			school: school_condition,
@@ -1061,31 +1083,50 @@ document.getElementById("icon_choose").onclick = function() {
 							friendtag=tags.split("&");
 							$("#personal_tag").remove();
 							for (i=0;i<friendtag.length ;i++ ){
-								$("#another_message"+j).children("friend_tag"+i).html(friendtag[i]);
+								$("#another_message"+j).children("#friend_tag"+i).html(friendtag[i]);
 							}
 						}
 						//个人圈
-						var circle_info=data.info;
-						var newshow = document.createElement("div");
-						var time = document.createElement("div");
-						var dynamic_contact = document.createElement("div");
-						var dynamic_photo = document.createElement("div");
-						newshow.setAttribute("id", "show_dynamic");
-						time.setAttribute("id", "time");
-						dynamic_contact.setAttribute("id", "dynamic_contact");
-						dynamic_photo.setAttribute("id", "dynamic_photo");
-						var showVal = document.createTextNode(circle_info);
-						var timeshow=document.createTextNode(getNowDate());
-						var circle_img=document.createElement("img");
-						circle_img.src="data:img/png;base64,"+data.picture;
-						
-						dynamic_contact.appendChild(showVal);
-						time.appendChild(timeshow);
-						dynamic_photo.appendChild(circle_img);
-						newshow.appendChild(time);
-						newshow.appendChild(dynamic_contact);
-						newshow.appendChild(dynamic_photo);
-						friend_dynamic.appendChild(newshow);
+						if(circle_info!=""){
+							var newshow = document.createElement("div");
+							var time = document.createElement("div");
+							var dynamic_contact = document.createElement("div");
+							var dynamic_photo = document.createElement("div");
+							newshow.setAttribute("id", "show_dynamic");
+							time.setAttribute("id", "time");
+							dynamic_contact.setAttribute("id", "dynamic_contact");
+							dynamic_photo.setAttribute("id", "dynamic_photo");
+							var showVal = document.createTextNode(circle_info);
+							var timeshow=document.createTextNode(getNowDate());
+							
+							
+							dynamic_contact.appendChild(showVal);
+							time.appendChild(timeshow);
+							newshow.appendChild(time);
+							newshow.appendChild(dynamic_contact);
+							$.ajax({
+								type: "GET",
+								url: "/passerby/UserController.do",
+								data: JSON.stringify({
+									"behaviour": 2,
+									"account":account
+								}),
+								dataType: "json",
+								success: function(data) {
+									for(var i=0;i<data.picture.length;i++){
+										var circle_img=document.createElement("img");
+										circle_img.src="data:img/png;base64,"+data.picture[i];
+										dynamic_photo.appendChild(circle_img);
+										newshow.appendChild(dynamic_photo);
+									}
+									
+								},
+								error: function(err) {
+									//alert(err.status);
+								}
+							})
+							$("#another_message"+j).children("#friend_dynamic").appendChild(newshow);
+						}
 					}
 				}
 			}else{
@@ -1230,6 +1271,23 @@ document.getElementById("icon_list").onclick = function() {
 	} else {
 		friend_list.style.display = "block";
 	}
+	$.ajax({
+		type: "GET",
+		url: "",
+		data: JSON.stringify({
+			"behaviour": ,
+			"account":account
+		}),
+		dataType: "json",
+		success: function(data) {
+			for(var i=0;i<data.friendcount.length;i++){
+				
+			}
+		},
+		error: function(err) {
+			//alert(err.status);
+		}
+	})
 }
 
 
@@ -1359,11 +1417,28 @@ $("#report_cancel").click(function(){
 //加好友的请求
 $("#icon_friend").click(function(){
 	$("#add_friend").show();
+	
 })
 
 //点击确定向对方发送信息
 $("#add_submit").click(function(){
 	$("#add_friend").hide();
+	$.ajax({
+		type: "GET",
+		url: "",
+		data: JSON.stringify({
+			"behaviour": ,
+			"account":account,
+			"firendaccount"friendaccount
+		}),
+		dataType: "json",
+		success: function(data) {
+			
+		},
+		error: function(err) {
+			//alert(err.status);
+		}
+	})
 })
 $("#add_cancel").click(function(){
 	$("#add_friend").hide();
