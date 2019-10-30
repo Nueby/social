@@ -8,8 +8,8 @@
 	border-bottom-left-radius: 30px;
 	border-top-right-radius: 30px;
 	position: absolute;
-	left: 600px;
-	top: 240px;
+	left: 550px;
+	top: 210px;
 	overflow:hidden;
 	background:rgba(255,255,255,.8);
 }
@@ -127,7 +127,7 @@
 	left:205px;
 	top:45px;
 }
-#another_message0 {
+#show_message {
 	background:#d2d1d1;
 	border-radius:10px;
 	height:370px;
@@ -235,6 +235,209 @@
 	top:190px;
 	left:20px;
 }
+#friend_tag0 {
+	z-index: 5;
+	height: 30px;
+	background: #eee0c8;
+	position: absolute;
+	padding-top: 5px;
+	left: 45px;
+}
+
+#friend_tag0:before,
+#friend_tag0:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag0:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #eee0c8 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #eee0c8 75%);
+}
+
+#friend_tag0:after {
+	top: 0;
+	right: -10px;
+	background-color: #eee0c8;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+
+#friend_tag1 {
+	z-index: 5;
+	height: 30px;
+	background: #cee9eb;
+	position: absolute;
+	padding-top: 5px;
+	left: 150px;
+}
+
+#friend_tag1:before,
+#friend_tag1:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag1:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #cee9eb 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #cee9eb 75%);
+}
+
+#friend_tag1:after {
+	top: 0;
+	right: -10px;
+	background-color: #cee9eb;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+#friend_tag2 {
+	z-index: 5;
+	height: 30px;
+	background: #ececd4;
+	position: absolute;
+	padding-top: 5px;
+	top: 65px;
+	left: 80px;
+}
+
+#friend_tag2:before,
+#friend_tag2:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag2:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #ececd4 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #ececd4 75%);
+}
+
+#friend_tag2:after {
+	top: 0;
+	right: -10px;
+	background-color: #ececd4;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+#friend_tag3 {
+	z-index: 5;
+	height: 30px;
+	background: #b6f3b1;
+	position: absolute;
+	padding-top: 5px;
+	left: 180px;
+	top: 65px;
+}
+
+#friend_tag3:before,
+#friend_tag3:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag3:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-35deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #b6f3b1 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #b6f3b1 75%);
+}
+
+#friend_tag3:after {
+	top: 0;
+	right: -10px;
+	background-color: #b6f3b1;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
+#friend_tag4 {
+	z-index: 5;
+	height: 30px;
+	background: #f6f6f6;
+	position: absolute;
+	padding-top: 5px;
+	top: 120px;
+	left: 130px;
+}
+
+#friend_tag4:before,
+#friend_tag4:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 35px;
+	background-size: 20px 10px;
+}
+
+#friend_tag4:before {
+	top: 0;
+	left: -10px;
+	background-color: lightgrey;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, #f6f6f6 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, transparent 75%, #f6f6f6 75%);
+}
+
+#friend_tag4:after {
+	top: 0;
+	right: -10px;
+	background-color: #f6f6f6;
+	background-position: 100% 35%;
+	background-image: linear-gradient(-45deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-135deg, lightgrey 25%, transparent 25%, transparent),
+		linear-gradient(-45deg, transparent 75%, lightgrey 75%),
+		linear-gradient(-135deg, transparent 75%, lightgrey 75%);
+}
+
 #direction{
 	position:absolute;
 	bottom:10px;
@@ -267,7 +470,7 @@
 	right:30px;
 	cursor:pointer;
 }
-#another_message0:hover #chat{
+#show_message:hover #chat{
 	transform: translateY(-15px);
 }
 #another_message1:hover #chat{
@@ -279,13 +482,9 @@
 #choose_friend{
 	background:white;
 	width:450px;
+	top:0;
 	position:absolute;
-<<<<<<< HEAD
 	left:735px;
-=======
-	top:10px;
-	left:856px;
->>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;
@@ -313,7 +512,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top:229px;
+	top:209px;
 	right:41px;
 	padding:0;
 	border-top:8px solid #FFF;
@@ -329,7 +528,7 @@
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	top: 231px;
+	top: 211px;
 	right:40px;
 	padding:0;
 	border-top:9px solid #ccc;
@@ -373,7 +572,6 @@
 }
 #choose_school span{
 	padding-left:10px;
-	margin-top:5px;
 	font-size:17px;
 	float:left;
 	margin-right:20px;
@@ -398,12 +596,12 @@
 	margin-top:5px;
 }
 #school_choose li:hover{
-	background:greenyellow;
+	background:#eeee9e;
 }
 #more_school{
 	position:absolute;
 	right:20px;
-	bottom:145px;
+	bottom:130px;
 	cursor:pointer;
 	z-index:101;
 }
@@ -411,7 +609,6 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
-	margin-top:10px;
 }
 #choose_college span{
 	padding-left:10px;	
@@ -441,12 +638,12 @@
 	margin-top:5px;
 }
 #college_choose li:hover{
-	background:#df64c9;
+	background:#f0ace7;
 }
 #more_college{
 	position:absolute;
 	right:5px;
-	bottom:99px;
+	bottom:92px;
 	cursor:pointer;
 	z-index:100;
 }
@@ -454,7 +651,6 @@
 	width:400px;
 	height:35px;
 	overflow:hidden;
-	margin-top:10px;
 }
 #choose_other span{
 	padding-left:10px;	
@@ -502,7 +698,6 @@
 	margin-top:15px;
 	background:rgba(0,0,0,.3);
 }
-<<<<<<< HEAD
 #friend_list{
 	height:400px;
 	width:80px;
@@ -566,20 +761,6 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow:hidden;
-=======
-#chat_about1{
-	width:800px;
-	height:560px;
-	border:1px solid black;
-	margin:0 auto;
-	display:none;
-	z-index:999;
-	background:lightgrey;
-	position:absolute;
-	top:90px;
-	left:350px;
-	border-radius:15px;
->>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }
 #chat_about{
 	width:800px;
@@ -624,6 +805,21 @@
 	padding-top:10px;
 	padding-left:10px;
 	display:none;
+	z-index:10;
+}
+#empty_warning{
+	position:absolute;
+	top:0px;
+	left:300px;
+	font-size:17px;
+	height:40px;
+	background:lightgrey;
+	border-radius:3px;
+	padding-top:10px;
+	padding-left:10px;
+	display:none;
+	z-index:10;
+	color:red;
 }
 #new_white_dashed{
 	border: 2px dashed white;
@@ -653,7 +849,6 @@
 	float:right;
 	width:40px;
 }
-<<<<<<< HEAD
 #icon_time{
 	float:right;
 	width:40px;
@@ -717,27 +912,21 @@
 #icon_report:hover i{
 	visibility: visible;
 }
-=======
->>>>>>> master
 #icon_time img{
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
 #icon_close img{
-<<<<<<< HEAD
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
 #icon_change img{
-=======
->>>>>>> master
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
-<<<<<<< HEAD
 #icon_report img{
 	height:30px;
 	width:30px;
@@ -799,8 +988,6 @@
 	cursor:pointer;
 	margin-left:35px;
 }
-=======
->>>>>>> master
 #friend{
 	padding-top:50px;
 }
@@ -845,7 +1032,7 @@
 	border-radius:20px;
 	width:50px;
 	height:30px;
-	bottom:30px;
+	top:500px;
 	right:45px;
 }
 #time_chat{
@@ -1053,7 +1240,6 @@
 	position:absolute;
 	width:160px;
 	display:none;
-<<<<<<< HEAD
 	z-index:50;
 }
 #email_main:hover #email_tip{
@@ -1092,6 +1278,4 @@
 }
 #back_main:hover #back_tip{
 	display:block;
-=======
->>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }

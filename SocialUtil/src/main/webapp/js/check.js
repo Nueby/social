@@ -103,25 +103,23 @@ function registerChange() {
 			isHave = true;
 		} else {
 			account = register_text.value;
-			var json = {"behaviour":0,"account":account};
+			var json = {"behaviour":"check","account":account};
 			$.ajax({
 				type:"GET",
 				url:"/SocialUtil/ControllerUser.do",
-				data: JSON.stringify(json),
+				data: json,
 				dataType:"json",
 				success:function(data){
 					if(data.result) {		//账号存在显示信息
 						$id("accountMsg").innerHTML = "*该账号已存在";
-						$("#accountMsg").css("color","red");
 						isHave = true;
 					} else {		//账号不存在显示信息
-						$id("accountMsg").innerHTML = "*该账号可使用";
-						$("#accountMsg").css("color","green");
+						$id("accountMsg").innerHTML = "";
 						isHave = false;
 					}
 				},
 				error:function(err) {
-					alert(err.status);
+					//alert(err.status);
 				}
 			})
 		}
@@ -164,7 +162,8 @@ function bar() {
         startX = event.clientX;
     }
 	
-    //设置滑块鼠标点击取消事件,改变标志位，重置偏移
+    //设置滑块鼠标点击取消事件,改变标志位，重置偏移量 
+	
     touch_bar.onmouseup = function(ev) {
     	var distance = parseInt(touch_bar.style.left);
     	var json = {"distance":distance};
@@ -178,24 +177,25 @@ function bar() {
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
-	    				var json = {"behaviour":4,"account":account,"password":password};
+	    				var json = {"behaviour":"login","account":account,"password":password};
 	    				$.ajax({
 	    					type:"POST",
 	    					url:"/SocialUtil/ControllerUser.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
-	    						if(data.result == "database") {
+	    						if(data.result == "account") {
 	    							$id("enterMsg").innerHTML = "*账号不存在";
 	    						} else if(data.result == "password") {
 	    							$id("enterMsg").innerHTML = "*密码错误";
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
 	    							window.location.href = "/SocialUtil/other_html/main.html";
+									$("#loading").show();
 	    						}
 	    					},
 	    					error:function(err) {
-	    						alert(err.status);
+	    						//alert(err.status);
 	    					}
 	    				})
     				} else {
@@ -207,7 +207,7 @@ function bar() {
     			}
     		},
     		error:function(err) {
-    			alert(err.status);
+    			//alert(err.status);
     		}
     	})
         isTouch = false;
@@ -231,10 +231,7 @@ function bar() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
-<<<<<<< HEAD
 		$("#loading").show();
-=======
->>>>>>> master
 	}
 	
  
@@ -257,7 +254,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+			//alert(err.status);
 		}
 	})
 }
@@ -269,7 +266,6 @@ function sendRegister() {
 	var accountPassword = $id("accountPassword").value;
 	var register_password = $id("register_password").value;
 	var confirm = $id("confirm").value;
-	var school=$id("select").value;
 	if(isHave) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
 	} else if(accountPassword == "") {
@@ -280,17 +276,13 @@ function sendRegister() {
 		registerMsg.innerHTML = "*两次密码不一致";
 	} else {
 		//跨域
-		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":school};
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
 			url:"/SocialUtil/RegisterController.do",
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
-<<<<<<< HEAD
-				if(data.result == true) {
-					registerMsg.innerHTML = "*注册成功";
-=======
 				if(data.flag == 1) {
 					var json2 = {
 						"behaviour":"logup",
@@ -307,16 +299,15 @@ function sendRegister() {
 							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
-							alert(err.status);
+							//alert(err.status);
 						}
 					})
->>>>>>> master
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
 			},
 			error:function(err) {
-				alert(err.status);
+				//alert(err.status);
 			}
 		})
 	}
@@ -326,7 +317,6 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
-<<<<<<< HEAD
 
 
 
@@ -340,5 +330,3 @@ $(document).ready(function() {
 		downTime: 100
 	});
 });
-=======
->>>>>>> master
