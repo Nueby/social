@@ -165,7 +165,7 @@ function bar() {
     	var json = {"distance":distance};
     	$.ajax({
     		type:"post",
-    		url:"/passerby/SlipVerificationCodeController.do",
+    		url:"/SocialUtil/SlipVerificationCodeController.do",
     		data:JSON.stringify(json),
     		dataType:"json",
     		success:function(data) {
@@ -173,10 +173,10 @@ function bar() {
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
-	    				var json = {"behaviour":4,"account":account,"password":password};
+	    				var json = {"behaviour":"login","account":account,"password":password};
 	    				$.ajax({
 	    					type:"POST",
-	    					url:"/passerby/UserController.do",
+	    					url:"/SocialUtil/ControllerUser.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
@@ -227,7 +227,7 @@ function bar() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
-		$("#loading").show();
+		//$("#loading").show();
 	}
     //重置偏移量
     touch_bar.style.left = "0px";
@@ -272,7 +272,7 @@ function sendRegister() {
 		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
-			url:"/passerby/RegisterController.do",
+			url:"/SocialUtil/RegisterController.do",
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
@@ -292,7 +292,7 @@ function sendRegister() {
 							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
-							alert(err.status);
+							//alert(err.status);
 						}
 					})
 				} else {
