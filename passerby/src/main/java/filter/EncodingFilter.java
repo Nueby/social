@@ -31,7 +31,10 @@ public class EncodingFilter implements Filter {
 		response.setContentType("application/json");
 		//获取json数据
 		Map<String, String[]> jsonMap = request.getParameterMap();
-		JSONObject json = JSONObject.parseObject(JSONObject.toJSONString(jsonMap));
+		JSONObject json = new JSONObject();
+		for(String s : jsonMap.keySet()) {
+			json.put(s, jsonMap.get(s));
+		}
 		request.setAttribute("json", json);
 		//释放过滤器
 		chain.doFilter(request, response);
