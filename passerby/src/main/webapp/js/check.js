@@ -103,27 +103,23 @@ function registerChange() {
 			isHave = true;
 		} else {
 			account = register_text.value;
+			var json = {"behaviour":"check","account":account};
 			$.ajax({
 				type:"GET",
-				url:"/passerby/UserController.do",
-				data: {
-					"behaviour":0,
-					"account":account
-				},
+				url:"/SocialUtil/ControllerUser.do",
+				data: json,
 				dataType:"json",
 				success:function(data){
-					if(data.result == "true") {		//账号存在显示信息
+					if(data.result) {		//账号存在显示信息
 						$id("accountMsg").innerHTML = "*该账号已存在";
-						$("#accountMsg").css("color","red");
 						isHave = true;
 					} else {		//账号不存在显示信息
-						$id("accountMsg").innerHTML = "*该账号可使用";
-						$("#accountMsg").css("color","green");
+						$id("accountMsg").innerHTML = "";
 						isHave = false;
 					}
 				},
 				error:function(err) {
-					alert(err.status);
+					//alert(err.status);
 				}
 			})
 		}
@@ -158,50 +154,44 @@ function bar() {
 				$id("smallPic").style.marginLeft = touch_bar.style.left;
         }
     } 
-	
     //设置滑块点击事件,改变标志位，并重置偏移量 
-	
     touch_bar.onmousedown = function(ev) {
         isTouch = true;
         startX = event.clientX;
     }
-	
-    //设置滑块鼠标点击取消事件,改变标志位，重置偏移
+    //设置滑块鼠标点击取消事件,改变标志位，重置偏移量 
     touch_bar.onmouseup = function(ev) {
     	var distance = parseInt(touch_bar.style.left);
+    	var json = {"distance":distance};
     	$.ajax({
     		type:"post",
-    		url:"/passerby/SlipVerificationCodeController.do",
-    		data:{
-    			"distance":distance
-    		},
+    		url:"/SocialUtil/SlipVerificationCodeController.do",
+    		data:JSON.stringify(json),
     		dataType:"json",
     		success:function(data) {
     			if(data.verification == true) {		//验证成功
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
+	    				var json = {"behaviour":"login","account":account,"password":password};
 	    				$.ajax({
-	    					type:"get",
-	    					url:"/passerby/UserController.do",
-	    					data: {
-	    						"behaviour":4,
-	    						"account":account,
-	    						"password":password
-	    					},
+	    					type:"POST",
+	    					url:"/SocialUtil/ControllerUser.do",
+	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
-	    						if(data.result == "database") {
+	    						if(data.result == "account") {
 	    							$id("enterMsg").innerHTML = "*账号不存在";
 	    						} else if(data.result == "password") {
 	    							$id("enterMsg").innerHTML = "*密码错误";
 	    						} else {		//登录成功
 	    							$.cookie("socialUtilAccount",account);
-	    							window.location.href = "/passerby/other_html/main.html";
+	    							window.location.href = "/SocialUtil/other_html/main.html";
+									$("#loading").show();
 	    						}
 	    					},
 	    					error:function(err) {
-	    						alert(err.status);
+	    						//alert(err.status);
 	    					}
 	    				})
     				} else {
@@ -213,7 +203,7 @@ function bar() {
     			}
     		},
     		error:function(err) {
-    			alert(err.status);
+    			//alert(err.status);
     		}
     	})
         isTouch = false;
@@ -225,7 +215,7 @@ function bar() {
 	
     //设置滑块鼠标移出事件,改变标志位，并重置偏移量
 
-    touch_bar.onmouseout = function(ev) {
+    touch_bar.onmouseleave = function() {
         isTouch = false;
         startX = 0;
         touch_bar.style.left = "0px";
@@ -233,24 +223,21 @@ function bar() {
 		$id("check_img").style.display = "none";
     }
 	
-	touch_bar.onmouseenter = function(ev) {
+	touch_bar.onmouseenter = function() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
 		//$("#loading").show();
 	}
-	
- 
     //重置偏移量
     touch_bar.style.left = "0px";
     bg_new.style.width = "0px";
 }
-
 //获取滑动验证图片
 function getPic() {
 	$.ajax({
 		type:"GET",
-		url:"/passerby/SlipVerificationCodeController.do",
+		url:"/SocialUtil/SlipVerificationCodeController.do",
 		data:{},
 		dataType:"json",
 		success:function(data) {
@@ -260,7 +247,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+			//alert(err.status);
 		}
 	})
 }
@@ -269,10 +256,9 @@ function getPic() {
 function sendRegister() {
 	var registerMsg = $id("registerMsg");
 	var account = $id("register_text").value;
-	var accountPassword = $id("text_password").value;
+	var accountPassword = $id("accountPassword").value;
 	var register_password = $id("register_password").value;
 	var confirm = $id("confirm").value;
-	var school=$id("select").value;
 	if(isHave) {
 		registerMsg.innerHTML = "<p style='color:#F00;'>*账号不符合要求</p>";
 	} else if(accountPassword == "") {
@@ -283,38 +269,38 @@ function sendRegister() {
 		registerMsg.innerHTML = "*两次密码不一致";
 	} else {
 		//跨域
-		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":school};
+		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
-			url:"/passerby/RegisterController.do",
-			data:json,
+			url:"/SocialUtil/RegisterController.do",
+			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
 				if(data.flag == 1) {
-//					var json2 = {
-//						"behaviour":"logup",
-//						"account":account,
-//						"edu_password":accountPassword,
-//						"login_password":register_password
-//					};
-//					$.ajax({
-//						type:"POST",
-//						url:"/passerby/UserController.do",
-//						data:JSON.stringify(json2),
-//						dataType:"json",
-//						success:function(data) {
+					var json2 = {
+						"behaviour":"logup",
+						"account":account,
+						"edu_password":accountPassword,
+						"login_password":register_password
+					};
+					$.ajax({
+						type:"POST",
+						url:"/SocialUtil/ControllerUser.do",
+						data:JSON.stringify(json2),
+						dataType:"json",
+						success:function(data) {
 							registerMsg.innerHTML = "*注册成功";
-//						},
-//						error:function(err) {
-//							alert(err.status);
-//						}
-//					})
+						},
+						error:function(err) {
+							//alert(err.status);
+						}
+					})
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
 			},
 			error:function(err) {
-				alert(err.status);
+				//alert(err.status);
 			}
 		})
 	}
@@ -324,6 +310,7 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
+
 
 
 //字体跳动效果

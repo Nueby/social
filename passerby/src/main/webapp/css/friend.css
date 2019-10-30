@@ -942,10 +942,10 @@
 	background:lightgrey;
 	width:300px;
 	border-radius:10px;
-	top:50px;
-	right:200px;
+	top:200px;
+	right:600px;
 	position:absolute;
-	z-index:999;
+	z-index:1000;
 	display:none;
 }
 #report_introduce{
@@ -1159,8 +1159,8 @@
 #chat_page{
 	position:absolute;
 	background:grey;
-	top:150px;
-	left:300px;
+	top:100px;
+	left:400px;
 	z-index:1000;
 	border-radius:30px;
 	display:none;
@@ -1339,5 +1339,18 @@
 	color:white;
 }
 #email_close:hover{
+	background:grey;
+}
+#email_back{
+	background:rgba(0,0,0,5);
+	padding:5px 12px;
+	border-radius:16px;
+	position:absolute;
+	bottom:25px;
+	left:230px;
+	color:white;
+	display:none;
+}
+#email_back:hover{
 	background:grey;
 }
