@@ -227,7 +227,7 @@ function bar() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
-		//$("#loading").show();
+		$("#loading").show();
 	}
     //重置偏移量
     touch_bar.style.left = "0px";

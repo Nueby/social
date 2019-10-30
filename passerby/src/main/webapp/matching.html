@@ -6,8 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="css/Sign_in.css"/>	
 	</head>
 	<body onload="load()">
-		<div id="background"></div>
 		<div id="main">
+			<div id="background"></div>
 			<div id="title">
 				<i id="title_left">登录 </i>
 				<i id="line">|</i>
@@ -35,7 +35,7 @@
 					</a>
 					<div id="enterMsg"></div>
 				</form>
-				<a href="other_html/manager.html" id="manager" target="_blank">
+				<a href="../other_html/manager.html" id="manager">
 					点击这里进入管理员系统
 				</a>
 			</div>
@@ -53,7 +53,7 @@
 					<input type="text" id="register_text" placeholder="请输入学号" />
 					<div id="accountMsg"></div>
 					<i id="icon_secret"></i>
-					<input type="text" id="text_password" placeholder="请输入学号密码" />
+					<input type="password" id="text_password" placeholder="请输入学号密码" />
 					<i id="icon_password_secret"></i>
 					<input type="password" id="register_password" placeholder="请输入密码"/>
 					<i id="icon_password_confirm"></i>
@@ -64,8 +64,7 @@
 			</div>
 		</div>
 		<div id="loading">
-			<img src="img/loading.gif" />
-			<p id="roloadText">Loading...</p>
+			
 		</div>
 		<script type="text/javascript" src="js/jquery_1.js"></script>
 		<script type="text/javascript" src="js/jquery_2.js"></script>

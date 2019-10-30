@@ -1525,3 +1525,22 @@ $("#email_back").click(function(){
 	$("#email_close").show();
 	$("#email_content").css({"overflow":"hidden"});
 })
+// <<<<<<< HEAD
+// =======
+// function lookEmail(){ 
+// 	if($("#email_close").val() == "关闭"){
+// 		$("#email_close").click(function(){
+// 			$("#email_contact").hide();
+// 			$("#email_look").css({"height":"100px"});
+// 			$("#email_content").css({"overflow":"hidden"});
+// 		})
+// 	}else if($("#email_close").val() == "返回"){
+// 		$("#email_close").click(function(){
+// 			$("#email_look").css({"height":"100px"});
+// 			$("#icon_emailmore").show();
+// 			$("#email_close").val("关闭");
+// 			$("#email_content").css({"overflow":"hidden"});
+// 		})
+// 	}
+// }
+// >>>>>>> parent of d59a6cc... 10/29/23:38
