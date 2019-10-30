@@ -133,9 +133,9 @@ public class UserDao {
 			//接受好友请求
 			case 10:	
 				String friendaccount = reqJson.getString("friendaccount");
-				PreparedStatement ps = C3P0Util.getConnection().prepareStatement("INSERT INTO chatfriends(account,friendaccount) values (?,?)");
-				ps.setString(1, account);
-				ps.setString(2, friendaccount);
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("INSERT INTO chatfriends(account,friendaccount) values (?,?)");
+				ps1.setString(1, account);
+				ps1.setString(2, friendaccount);
 			}
 			
 		} catch(Exception e) {
@@ -265,13 +265,13 @@ public class UserDao {
 				break;
 			//获取好友
 			case 5:
-				PreparedStatement ps = C3P0Util.getConnection().prepareStatement("SELECT friendaccount FROM chatfriends WHERE account=?");
-				ps.setString(1, account);
-				ResultSet rs = ps.executeQuery();
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("SELECT friendaccount FROM chatfriends WHERE account=?");
+				ps1.setString(1, account);
+				ResultSet rs1 = ps1.executeQuery();
 				String friendaccount="";
-				 while(rs.next()){
+				 while(rs1.next()){
 		            	//读取数据
-		            	friendaccount=rs.getString("friendaccount");
+		            	friendaccount=rs1.getString("friendaccount");
 				 }
 				 resJson.put("friendaccount", friendaccount);			 
 			}		
