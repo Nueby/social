@@ -258,6 +258,7 @@ li {
 #add_container div{
 	float:left;
 	margin-left:15px;
+<<<<<<< HEAD
 }
 #add_container img{
 	height: 60px;
@@ -280,6 +281,36 @@ li {
 	opacity:0;
 }
 #dynamic_img3 {
+=======
+}
+#add_container img{
+	height: 60px;
+	width: 60px;
+}
+#dynamic_img1 {
+>>>>>>> parent of b00e900... 10/29/22:56
+	height: 60px;
+	width: 60px;
+	cursor: pointer;
+	position: absolute;
+	z-index: 25;
+	opacity:0;
+}
+<<<<<<< HEAD
+#dynamic_img4 {
+=======
+#dynamic_img2 {
+>>>>>>> parent of b00e900... 10/29/22:56
+	height: 60px;
+	width: 60px;
+	cursor: pointer;
+	position: absolute;
+	z-index: 25;
+	opacity:0;
+}
+<<<<<<< HEAD
+=======
+#dynamic_img3 {
 	height: 60px;
 	width: 60px;
 	cursor: pointer;
@@ -295,6 +326,7 @@ li {
 	z-index: 25;
 	opacity:0;
 }
+>>>>>>> parent of b00e900... 10/29/22:56
 #add2{
 	opacity:0;
 }
@@ -376,6 +408,7 @@ li {
 	top: 250px;
 	left: 500px;
 }
+<<<<<<< HEAD
 
 #set_top{
 	margin-top:15px;
@@ -446,13 +479,47 @@ li {
 	font-size:16px;
 	position:relative;
 	top:25px;
+=======
+#set_icon_email{
+	width:70px;
+	height:70px;
+	position:absolute;
+	margin-left:15px;
+	top:20px;
+}
+#set_icon_password{
+	width:70px;
+	height:70px;
+	position:absolute;
+	margin-left:15px;
+	
+}
+#change_email{
+	width:250px;
+	margin-left:90px;
+	margin-top:25px;
+}
+#change_password{
+	width:250px;
+	margin-left:90px;
+	margin-top:28px;
+}
+#email_title{
+	position:absolute;
+>>>>>>> parent of b00e900... 10/29/22:56
 }
 #email_input{
 	margin-left:90px;
 }
+<<<<<<< HEAD
 #new_email {
 	width: 200px;
 	height: 25px;
+=======
+#new_email{
+	width:200px;
+	height:25px;
+>>>>>>> parent of b00e900... 10/29/22:56
 	border: 3px solid rgba(0, 0, 0, .3);
 }
 #get_code_email{
@@ -461,6 +528,7 @@ li {
 	margin-top:20px;
 	border: 3px solid rgba(0, 0, 0, .3);
 }
+<<<<<<< HEAD
 
 #time_get {
 	background: rgba(0, 0, 0, .4);
@@ -484,6 +552,25 @@ li {
 	font-size:16px;
 	position:relative;
 	top:25px;
+=======
+#time_get{
+	background:rgba(0,0,0,.4);
+	border-radius:5px;
+	font-size:13px;
+	height:25px;
+	width:70px;
+	cursor:pointer;
+	position:absolute;
+	right:50px;
+	top:95px;
+	color:white;
+}
+#password_input{
+	margin-left:90px;
+}
+#password_title{
+	position:absolute;
+>>>>>>> parent of b00e900... 10/29/22:56
 }
 #old_password{
 	height:25px;
@@ -502,6 +589,7 @@ li {
 	width:200px;
 	border: 3px solid rgba(0, 0, 0, .3);
 }
+<<<<<<< HEAD
 
 #email_submit {
 	width: 60px;
@@ -512,6 +600,18 @@ li {
 	background: #020202;
 	cursor: pointer;
 	color: white;
+=======
+#email_submit{
+	width:60px;
+	height:32px;
+	margin-left:160px;
+	margin-top:25px;
+	margin-bottom:10px;
+	border-radius:20px;
+	background:#020202;
+	cursor:pointer;
+	color:white;
+>>>>>>> parent of b00e900... 10/29/22:56
 }
 #email_warning{
 	color:red;
@@ -686,6 +786,7 @@ select {
 	border-radius:20px;
 	font-size:17px;
 	cursor:pointer;
+<<<<<<< HEAD
 }
 #photo_submit:hover{
 	background:lightgrey;
@@ -695,9 +796,21 @@ select {
 	font-size:15px;
 	padding-left:20px;
 }
+=======
+}
+#photo_submit:hover{
+	background:lightgrey;
+}
+#photo_warning{
+	color:red;
+	font-size:15px;
+	padding-left:20px;
+}
+>>>>>>> parent of b00e900... 10/29/22:56
 #basic {
 	position: relative;
 }
+<<<<<<< HEAD
 #name {
 	font-size: 20px;
 	position: absolute;
@@ -707,6 +820,13 @@ select {
 	text-overflow: ellipsis;
 	overflow:hidden;
 	width:150px;
+=======
+#name{
+	font-size:20px;
+	position:absolute;
+	top:15px;
+	left:100px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }
 
 #sex img{

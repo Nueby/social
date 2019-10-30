@@ -280,7 +280,12 @@
 	background:white;
 	width:450px;
 	position:absolute;
+<<<<<<< HEAD
 	left:735px;
+=======
+	top:10px;
+	left:856px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 	border:3px solid rgba(0,0,0,.2);
 	border-radius:20px;
 	display:none;
@@ -497,6 +502,7 @@
 	margin-top:15px;
 	background:rgba(0,0,0,.3);
 }
+<<<<<<< HEAD
 #friend_list{
 	height:400px;
 	width:80px;
@@ -560,6 +566,20 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow:hidden;
+=======
+#chat_about1{
+	width:800px;
+	height:560px;
+	border:1px solid black;
+	margin:0 auto;
+	display:none;
+	z-index:999;
+	background:lightgrey;
+	position:absolute;
+	top:90px;
+	left:350px;
+	border-radius:15px;
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 }
 #chat_about{
 	width:800px;
@@ -633,6 +653,7 @@
 	float:right;
 	width:40px;
 }
+<<<<<<< HEAD
 #icon_time{
 	float:right;
 	width:40px;
@@ -696,21 +717,27 @@
 #icon_report:hover i{
 	visibility: visible;
 }
+=======
+>>>>>>> master
 #icon_time img{
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
 #icon_close img{
+<<<<<<< HEAD
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
 #icon_change img{
+=======
+>>>>>>> master
 	height:30px;
 	width:30px;
 	cursor:pointer;
 }
+<<<<<<< HEAD
 #icon_report img{
 	height:30px;
 	width:30px;
@@ -772,6 +799,8 @@
 	cursor:pointer;
 	margin-left:35px;
 }
+=======
+>>>>>>> master
 #friend{
 	padding-top:50px;
 }
@@ -1024,6 +1053,7 @@
 	position:absolute;
 	width:160px;
 	display:none;
+<<<<<<< HEAD
 	z-index:50;
 }
 #email_main:hover #email_tip{
@@ -1062,6 +1092,7 @@
 }
 #back_main:hover #back_tip{
 	display:block;
+<<<<<<< HEAD
 }
 #black_dashed{
 	width:470px;
@@ -1136,4 +1167,8 @@
 }
 #email_back:hover{
 	background:grey;
+=======
+=======
+>>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
+>>>>>>> parent of b00e900... 10/29/22:56
 }
