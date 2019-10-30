@@ -3,16 +3,32 @@
 	<head>
 		<meta charset="utf-8">
 		<title>passer-By管理系统</title>
+		<link rel="stylesheet" type="text/css" href="../css/manager.css"/>
+		<script type="text/javascript" src="../js/jquery_2.js"></script>
+		<script type="text/javascript" src="../js/jquery_1.js"></script>
 	</head>
 	<body>
-		<div id="">
+		<div id="sign_in">
 			
 		</div>
-<<<<<<< HEAD
+		<div id="header">
+			<!-- <div id="logo">
+				<img src="../img/logo.png" >
+			</div> -->
+			<div id="header_right">
+				<div id="manager_photo">
+					<img src="../img/timg.jpg">
+				</div>
+				<div id="hello">
+					<span>您好,</span>
+					<span id="manager_name">admin</span>
+				</div>
+				<a href="main.html"id="back_macthing">退出</a>
+			</div>
+		</div>
 		<div id="navigation">
 			<ul class="nav">
 				<li>目录</li>
-				<li id="chat_manager">聊天记录管理</li>
 				<li id="personal_imformation">
 					个人信息查看
 				</li>
@@ -27,57 +43,6 @@
 					</ul>
 				</li>
 			</ul>
-		</div>
-		<!-- 聊天记录查看界面 -->
-		<div id="record_page">
-			<table border="1" rules="cols" frame="none" id="chat_record" number="0">
-				<tr>
-					<th>昵称</th>
-					<th>ID</th>
-					<th>聊天时间</th>
-					<th>具体</th>
-				</tr>
-				<tr>
-					<td id="chater_name">123</td>
-					<td id="chat_id">181549135</td>
-					<td id="chat_time">2019.3.2</td>
-					<td id="check">查看</td>
-				</tr>	
-				<tr>
-					<td id="chater_name">555</td>
-					<td id="chat_id">181549144</td>
-					<td id="chat_time">2019.3.2</td>
-					<td id="check">查看</td>
-				</tr>	
-			</table>
-			<div id="jump_page">
-				<span id="left_arrow">&lt;</span>
-				<span id="page_num">1</span><span id="page_total">/1</span>
-				<span id="right_arrow">&gt;</span>
-				<input type="text" id="page_text"/>
-				<input type="button" id="page_jump" value="跳转"/>
-			</div>
-			<div id="outrecord">
-				<div id="record_contact">
-					<div id="other">
-						<span id="other_id">
-							181549144:
-						</span>
-						<span id="other_talk">
-							22222
-						</span>
-					</div>
-					<div id="self">
-						<span id="self_talk">
-							22222
-						</span>
-						<span id="self_id">
-							:181549135
-						</span>
-					</div>
-					<input type="button" id="record_cancel" value="退出" />
-				</div>
-			</div>
 		</div>
 		
 		<!-- 个人信息查看界面 -->
@@ -131,6 +96,16 @@
 					<td id="handle_seal">封号</td>
 					<td id="handle_warning">警告</td>
 				</tr>
+				<tr>
+					<td id="be_reported">123</td>
+					<td id="report">222</td>
+					<td id="report_time">2019.3.2</td>
+					<td id="report_number">0</td>
+					<td id="report_contact">言语辱骂</td>
+					<td id="report_chat">查看</td>
+					<td id="handle_seal">封号</td>
+					<td id="handle_warning">警告</td>
+				</tr>
 			</table>
 			<div id="jump_page">
 				<span id="left_arrow">&lt;</span>
@@ -140,10 +115,35 @@
 				<input type="button" id="page_jump" value="跳转"/>
 			</div>
 			<div id="seal">
-				
+				<p id="seal_title">您确定要封号吗，请思考清楚!!!</p>
+				<button type="button" id="seal_submit">确定</button>
+				<button type="button" id="seal_cancel">取消</button>
 			</div>
-			<div id="">
-				
+			<div id="warning">
+				<p id="warning_title">要现在发送警告信息吗？</p>
+				<button type="button" id="warning_submit">确定</button>
+				<button type="button" id="warning_cancel">取消</button>
+			</div>
+			<div id="outrecord">
+				<div id="record_contact">
+					<div id="other">
+						<span id="other_id">
+							181549144:
+						</span>
+						<span id="other_talk">
+							22222
+						</span>
+					</div>
+					<div id="self">
+						<span id="self_talk">
+							22222
+						</span>
+						<span id="self_id">
+							:181549135
+						</span>
+					</div>
+					<input type="button" id="record_cancel" value="退出" />
+				</div>
 			</div>
 		</div>
 		<div id="linechart_show">
@@ -153,7 +153,5 @@
 			<canvas id="ciclechart" width="700" height="500"></canvas>
 		</div>
 		<script type="text/javascript" src="../js/manager.js"></script>
-=======
->>>>>>> 1b94c59f814da3000f5903b32cdc256e1d8604f9
 	</body>
 </html>

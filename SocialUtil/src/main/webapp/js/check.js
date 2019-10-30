@@ -103,14 +103,16 @@ function registerChange() {
 			isHave = true;
 		} else {
 			account = register_text.value;
-			var json = {"behaviour":0,"account":account};
 			$.ajax({
 				type:"GET",
-				url:"/SocialUtil/ControllerUser.do",
-				data: JSON.stringify(json),
+				url:"/passerby/UserController.do",
+				data: {
+					"behaviour":0,
+					"account":account
+				},
 				dataType:"json",
 				success:function(data){
-					if(data.result) {		//账号存在显示信息
+					if(data.result == true) {		//账号存在显示信息
 						$id("accountMsg").innerHTML = "*该账号已存在";
 						$("#accountMsg").css("color","red");
 						isHave = true;
@@ -156,15 +158,12 @@ function bar() {
 				$id("smallPic").style.marginLeft = touch_bar.style.left;
         }
     } 
-	
     //设置滑块点击事件,改变标志位，并重置偏移量 
-	
     touch_bar.onmousedown = function(ev) {
         isTouch = true;
         startX = event.clientX;
     }
-	
-    //设置滑块鼠标点击取消事件,改变标志位，重置偏移
+    //设置滑块鼠标点击取消事件,改变标志位，重置偏移量 
     touch_bar.onmouseup = function(ev) {
     	var distance = parseInt(touch_bar.style.left);
     	var json = {"distance":distance};
@@ -174,52 +173,51 @@ function bar() {
     		data:JSON.stringify(json),
     		dataType:"json",
     		success:function(data) {
-    			if(data.verification == true) {		//验证成功
-    				if($id("text").value != "") {
-	    				var account = $id("text").value;
-	    				var password = $id("password").value;
-	    				var json = {"behaviour":4,"account":account,"password":password};
-	    				$.ajax({
-	    					type:"POST",
-	    					url:"/SocialUtil/ControllerUser.do",
-	    					data:JSON.stringify(json),
-	    					dataType:"json",
-	    					success:function(data) {
-	    						if(data.result == "database") {
-	    							$id("enterMsg").innerHTML = "*账号不存在";
-	    						} else if(data.result == "password") {
-	    							$id("enterMsg").innerHTML = "*密码错误";
-	    						} else {		//登录成功
-	    							$.cookie("socialUtilAccount",account);
-	    							window.location.href = "/SocialUtil/other_html/main.html";
-	    						}
-	    					},
-	    					error:function(err) {
-	    						alert(err.status);
-	    					}
-	    				})
-    				} else {
-    					$id("enterMsg").innerHTML = "*账号不能为空";
-    				}
-    			} else {		//验证失败
-    				getPic();
-    				$id("enterMsg").innerHTML = "*验证失败";
-    			}
-    		},
-    		error:function(err) {
-    			alert(err.status);
-    		}
-    	})
-        isTouch = false;
-        startX = 0;
-        touch_bar.style.left = "0px";
-        bg_new.style.width = "0px";
-        $id("smallPic").style.marginLeft = touch_bar.style.left;
-    }
+				if(data.verification == true) {		//验证成功
+					if($id("text").value != "") {
+						var account = $id("text").value;
+						var password = $id("password").value;
+						var json = {"behaviour":4,"account":account,"password":password};
+						$.ajax({
+							type:"GET",
+							url:"/passerby/UserController.do",
+							data:JSON.stringify(json),
+							dataType:"json",
+							success:function(data) {
+								if(data.result == false) {
+									$id("enterMsg").innerHTML = "*密码错误";
+								} else {		//登录成功
+									$.cookie("socialUtilAccount",account);
+									window.location.href = "/passerby/other_html/main.html";
+									$("#loading").show();
+								}
+							},
+							error:function(err) {
+								alert(err.status);
+							}
+						})
+					} else {
+						$id("enterMsg").innerHTML = "*账号不能为空";
+					}
+				} else {		//验证失败
+					getPic();
+					$id("enterMsg").innerHTML = "*验证失败";
+				}
+			},
+			error:function(err) {
+				alert(err.status);
+			}
+		})
+		isTouch = false;
+		startX = 0;
+		touch_bar.style.left = "0px";
+		bg_new.style.width = "0px";
+		$id("smallPic").style.marginLeft = touch_bar.style.left;
+	}
 	
     //设置滑块鼠标移出事件,改变标志位，并重置偏移量
 
-    touch_bar.onmouseout = function(ev) {
+    touch_bar.onmouseleave = function() {
         isTouch = false;
         startX = 0;
         touch_bar.style.left = "0px";
@@ -227,22 +225,16 @@ function bar() {
 		$id("check_img").style.display = "none";
     }
 	
-	touch_bar.onmouseenter = function(ev) {
+	touch_bar.onmouseenter = function() {
 		$id("big_img").innerHTML = "<img src=data:image/png;base64," + big + " width='300px' height='205px'/>";
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
-<<<<<<< HEAD
-		$("#loading").show();
-=======
->>>>>>> master
+		//$("#loading").show();
 	}
-	
- 
     //重置偏移量
     touch_bar.style.left = "0px";
     bg_new.style.width = "0px";
 }
-
 //获取滑动验证图片
 function getPic() {
 	$.ajax({
@@ -257,7 +249,7 @@ function getPic() {
 			havePic = true;
 		},
 		error:function(err) {
-			alert(err.status);
+		    alert(err.status);
 		}
 	})
 }
@@ -283,34 +275,12 @@ function sendRegister() {
 		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","password":register_password,"school":school};
 		$.ajax({
 			type:"POST",
-			url:"/SocialUtil/RegisterController.do",
+			url:"/passerby/RegisterController.do",
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
-<<<<<<< HEAD
 				if(data.result == true) {
 					registerMsg.innerHTML = "*注册成功";
-=======
-				if(data.flag == 1) {
-					var json2 = {
-						"behaviour":"logup",
-						"account":account,
-						"edu_password":accountPassword,
-						"login_password":register_password
-					};
-					$.ajax({
-						type:"POST",
-						url:"/SocialUtil/ControllerUser.do",
-						data:JSON.stringify(json2),
-						dataType:"json",
-						success:function(data) {
-							registerMsg.innerHTML = "*注册成功";
-						},
-						error:function(err) {
-							alert(err.status);
-						}
-					})
->>>>>>> master
 				} else {
 					registerMsg.innerHTML = "*学号信息错误";
 				}
@@ -326,7 +296,6 @@ function sendRegister() {
 function registerOnclick() {
 	$id("submit").onclick = sendRegister;
 }
-<<<<<<< HEAD
 
 
 
@@ -340,5 +309,3 @@ $(document).ready(function() {
 		downTime: 100
 	});
 });
-=======
->>>>>>> master
