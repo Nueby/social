@@ -1271,23 +1271,7 @@ document.getElementById("icon_list").onclick = function() {
 	} else {
 		friend_list.style.display = "block";
 	}
-	$.ajax({
-		type: "GET",
-		url: "",
-		data: JSON.stringify({
-			"behaviour": ,
-			"account":account
-		}),
-		dataType: "json",
-		success: function(data) {
-			for(var i=0;i<data.friendcount.length;i++){
-				
-			}
-		},
-		error: function(err) {
-			//alert(err.status);
-		}
-	})
+	
 }
 
 
@@ -1427,9 +1411,9 @@ $("#add_submit").click(function(){
 		type: "GET",
 		url: "",
 		data: JSON.stringify({
-			"behaviour": ,
-			"account":account,
-			"firendaccount"friendaccount
+			"behaviour":3,
+			"account":account
+//			"firendaccount":friendaccount
 		}),
 		dataType: "json",
 		success: function(data) {
