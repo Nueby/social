@@ -61,7 +61,7 @@ public class RegisterDao {
 				ps.setString(4, MD5.getMD5(edupassword));
 				if(!ps.execute()) json.put("result",false);
 				//school表
-				ps = C3P0.getConnection().prepareStatement("INSERT INTO school(id,account) values(?,?)");
+				ps = C3P0.getConnection().prepareStatement("INSERT INFO school(id,account) values(?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, account);
 				if(!ps.execute()) json.put("result",false);
@@ -71,12 +71,12 @@ public class RegisterDao {
 				String headDir = path + "head/";		//文件夹路径
 				File dir = new File(headDir);
 				if(!dir.exists()) dir.mkdir();
-				String head = (headDir + account + ".png").replace("\\", "/");
+				String head = (headDir + account + ".png").replaceAll("\\", "/");
 				//个人圈图片
-				String picture = (path + "ownPicture/" + account + "/").replace("\\", "/");	//文件夹路径
+				String picture = (path + "ownPicture/" + account + "/").replaceAll("\\", "/");	//文件夹路径
 				File dir2 = new File(picture);
 				if(!dir2.exists()) dir.mkdirs();
-				ps = C3P0.getConnection().prepareStatement("INSERT INTO own(id,head,good,picture) values(?,?,?,?)");
+				ps = C3P0.getConnection().prepareStatement("INSERT INFO own(id,head,good,picture) values(?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2,head);
 				ps.setInt(3, 0);
