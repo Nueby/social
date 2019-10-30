@@ -172,9 +172,14 @@ body{
 }
 
 #bg_bar {
+<<<<<<< HEAD
 	position:absolute;
 	top:400px;
 	left:150px;
+=======
+	margin-top: 120px;
+	margin-left: 150px;
+>>>>>>> parent of d59a6cc... 10/29/23:38
 	width: 300px;
 	height: 40px;
 	border-radius: 38px;
@@ -214,6 +219,7 @@ body{
     justify-content: center;
 }
 #forget{
+<<<<<<< HEAD
 	bottom:80px;
 	left:250px;
 	color:black;
@@ -222,6 +228,12 @@ body{
 #forget:hover{
 	color:red;
 	text-decoration:none;
+=======
+	color:black;
+	position:absolute;
+	left:270px;
+	top:480px;
+>>>>>>> parent of d59a6cc... 10/29/23:38
 }
 #select{
 	width:300px;
