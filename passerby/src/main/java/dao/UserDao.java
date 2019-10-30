@@ -146,7 +146,7 @@ public class UserDao {
 	public static boolean passwordConfirm(String account, String password) {
 		String dbpassword = null;
 		try {
-			PreparedStatement ps = C3P0.getConnection().prepareStatement("SELECT password FROM user WHERE account=?");
+			PreparedStatement ps = C3P0.getConnection().prepareStatement("SELCET passsword FROM user WHERE account=?");
 			ps.setString(1, account);
 			ResultSet rs = ps.executeQuery();
 			rs.first();

@@ -165,7 +165,7 @@ function bar() {
     	var json = {"distance":distance};
     	$.ajax({
     		type:"post",
-    		url:"/SocialUtil/SlipVerificationCodeController.do",
+    		url:"/passerby/SlipVerificationCodeController.do",
     		data:JSON.stringify(json),
     		dataType:"json",
     		success:function(data) {
@@ -173,10 +173,10 @@ function bar() {
     				if($id("text").value != "") {
 	    				var account = $id("text").value;
 	    				var password = $id("password").value;
-	    				var json = {"behaviour":"login","account":account,"password":password};
+	    				var json = {"behaviour":4,"account":account,"password":password};
 	    				$.ajax({
 	    					type:"POST",
-	    					url:"/SocialUtil/ControllerUser.do",
+	    					url:"/passerby/UserController.do",
 	    					data:JSON.stringify(json),
 	    					dataType:"json",
 	    					success:function(data) {
@@ -272,7 +272,7 @@ function sendRegister() {
 		var json = {"method":"authUser","xh":account+"","pwd":accountPassword+"","school":"广东金融学院"};
 		$.ajax({
 			type:"POST",
-			url:"/SocialUtil/RegisterController.do",
+			url:"/passerby/RegisterController.do",
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
@@ -292,7 +292,7 @@ function sendRegister() {
 							registerMsg.innerHTML = "*注册成功";
 						},
 						error:function(err) {
-							//alert(err.status);
+							alert(err.status);
 						}
 					})
 				} else {
