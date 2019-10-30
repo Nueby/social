@@ -41,16 +41,19 @@ class UserController extends HttpServlet {
 			break;
 		//筛选
 		case 3:
-			json = UserDao.reacher(reqJson.getString("account"), reqJson.getString("tags"));
+			json = UserDao.reacher(reqJson.getString("account"), reqJson.getString("tags"),reqJson.getString("sex"),reqJson.getString("school"),reqJson.getString("college"));
 			break;
 		//密码验证
 		case 4:
 			json.put("result", UserDao.passwordConfirm(reqJson.getString("account"), reqJson.getString("password")));
 			break;
-		}
 		PrintWriter out = response.getWriter();
 		out.write(json.toString());
 		out.close();
+		//获取好友信息
+		case 5:
+			json = UserDao.getfriend(reqJson.getString("account"));
+			break;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +94,25 @@ class UserController extends HttpServlet {
 		case 7:
 			json.put("result", UserDao.changeTags(reqJson.getString("account"), reqJson.getString("tags")));
 			break;
+		//账号邮箱匹配
+		case 8:
+			json.put("result", UserDao.change(reqJson.getString("account"), reqJson.getString("email")));
+			break;
+		//添加好友发送好友请求
+		case 9:
+			json.put("result", UserDao.addFriend(reqJson.getString("account"), reqJson.getString("friendaccount")));
+			break;
+		
 		}
+		//添加好友接受好友请求
+				case 10:
+					json.put("result", UserDao.addFriend(reqJson.getString("account"), reqJson.getString("friendaccount")));
+					break;
+				
+		}
+		
+	}
+		
 		PrintWriter out = response.getWriter();
 		out.write(json.toString());
 		out.close();

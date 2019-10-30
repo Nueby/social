@@ -118,7 +118,7 @@ public class UserDao {
 					new Tags(user.getId(), tag).insert();
 				}
 				resJson.put("result", "true");
-			//账号密码匹配
+			//账号邮箱匹配
 			case 8:
 				if(school.getEmail().equals(reqJson.getString("email"))) {
 					resJson.put("result", "email");
@@ -126,7 +126,18 @@ public class UserDao {
 					resJson.put("result","noemail");
 				}
 				break;
+			//添加好友
+			//发送好友请求
+			case 9:
+				
+			//接受好友请求
+			case 10:	
+				String friendaccount = reqJson.getString("friendaccount");
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("INSERT INTO chatfriends(account,friendaccount) values (?,?)");
+				ps1.setString(1, account);
+				ps1.setString(2, friendaccount);
 			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			resJson.put("result","false");
@@ -252,6 +263,17 @@ public class UserDao {
 				if(MD5.getMD5(reqJson.getString("password")).equals(user.getPassword())) resJson.put("result","true");
 				else resJson.put("result","password");
 				break;
+			//获取好友
+			case 5:
+				PreparedStatement ps1 = C3P0Util.getConnection().prepareStatement("SELECT friendaccount FROM chatfriends WHERE account=?");
+				ps1.setString(1, account);
+				ResultSet rs1 = ps1.executeQuery();
+				String friendaccount="";
+				 while(rs1.next()){
+		            	//读取数据
+		            	friendaccount=rs1.getString("friendaccount");
+				 }
+				 resJson.put("friendaccount", friendaccount);			 
 			}		
 		} catch(Exception e) {
 			e.printStackTrace();

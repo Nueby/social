@@ -169,7 +169,7 @@ function bar() {
     	var json = {"distance":distance};
     	$.ajax({
     		type:"post",
-    		url:"/SocialUtil/SlipVerificationCodeController.do",
+    		url:"/passerby/SlipVerificationCodeController.do",
     		data:JSON.stringify(json),
     		dataType:"json",
     		success:function(data) {
@@ -230,6 +230,7 @@ function bar() {
 		$id("small_img").innerHTML = "<img id='smallPic' src=data:image/png;base64," + small + " width='60px' style='margin-top:" + posY + "px'/>";
 		$id("check_img").style.display = "block";
 		//$("#loading").show();
+		$("#loading").show();
 	}
     //重置偏移量
     touch_bar.style.left = "0px";
@@ -279,6 +280,8 @@ function sendRegister() {
 			data:JSON.stringify(json),
 			dataType:"json",
 			success:function(data) {
+				if(data.result == true) {
+					registerMsg.innerHTML = "*注册成功";
 				if(data.result == true) {
 					registerMsg.innerHTML = "*注册成功";
 				} else {
