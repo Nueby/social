@@ -206,6 +206,7 @@ document.getElementById("self").onclick = function() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 //展开修改邮箱或者密码内容
@@ -218,6 +219,8 @@ $("#icon_passwordchange").click(function(){
 	$("#change_passwordmore").hide();
 })
 
+=======
+>>>>>>> parent of b00e900... 10/29/22:56
 =======
 >>>>>>> parent of b00e900... 10/29/22:56
 =======
@@ -1624,6 +1627,7 @@ function getNowDate(){
 $("#email_main").click(function(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$("#email_contact").show();
 })
 $("#icon_emailmore").click(function(){
@@ -1655,6 +1659,10 @@ $("#email_back").click(function(){
 	
 })
 >>>>>>> parent of b00e900... 10/29/22:56
+=======
+	
+})
+>>>>>>> parent of b00e900... 10/29/22:56
 
 function getNowFormatDate() {
 	var date = new Date();
@@ -1665,6 +1673,9 @@ function getNowFormatDate() {
 	if (month >= 1 && month <= 9) {
 		month = "0" + month;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of b00e900... 10/29/22:56
 	}
 	if (strDate >= 0 && strDate <= 9) {
 		strDate = "0" + strDate;
@@ -1672,6 +1683,7 @@ function getNowFormatDate() {
 	var currentdate = year + seperator1 + month + seperator1 + strDate;
 	return currentdate;
 }
+<<<<<<< HEAD
 >>>>>>> parent of b00e900... 10/29/22:56
 =======
 	}
@@ -1681,4 +1693,6 @@ function getNowFormatDate() {
 	var currentdate = year + seperator1 + month + seperator1 + strDate;
 	return currentdate;
 }
+>>>>>>> parent of b00e900... 10/29/22:56
+=======
 >>>>>>> parent of b00e900... 10/29/22:56
