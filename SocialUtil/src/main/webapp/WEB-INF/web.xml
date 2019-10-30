@@ -15,6 +15,12 @@
   	<url-pattern>*.do</url-pattern>
   </filter-mapping>
   <servlet>
+  	<servlet-name>SlipVerificationCode</servlet-name>
+  	<display-name>SlipVerificationCode</display-name>
+  	<description></description>
+  	<servlet-class>controller.SlipVerificationCode</servlet-class>
+  </servlet>
+  <servlet>
   	<servlet-name>SlipVerificationCodeController</servlet-name>
   	<display-name>SlipVerificationCodeController</display-name>
   	<description></description>
@@ -33,17 +39,27 @@
   	<servlet-class>controller.RegisterController</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>UserController</servlet-name>
-  	<display-name>UserController</display-name>
+  	<servlet-name>ControllerUser</servlet-name>
+  	<display-name>ControllerUser</display-name>
   	<description></description>
-  	<servlet-class>controller.UserController</servlet-class>
+  	<servlet-class>controller.ControllerUser</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>ChatController</servlet-name>
-  	<display-name>ChatController</display-name>
+  	<servlet-name>ControllerSchool</servlet-name>
+  	<display-name>ControllerSchool</display-name>
   	<description></description>
-  	<servlet-class>controller.ChatController</servlet-class>
+  	<servlet-class>controller.ControllerSchool</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ControllerPageInfo</servlet-name>
+  	<display-name>ControllerPageInfo</display-name>
+  	<description></description>
+  	<servlet-class>controller.ControllerPageInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SlipVerificationCode</servlet-name>
+  	<url-pattern>/SlipVerificationCode.do</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>SlipVerificationCodeController</servlet-name>
   	<url-pattern>/SlipVerificationCodeController.do</url-pattern>
@@ -57,11 +73,15 @@
   	<url-pattern>/RegisterController.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/UserController.do</url-pattern>
+  	<servlet-name>ControllerUser</servlet-name>
+  	<url-pattern>/ControllerUser.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>ChatController</servlet-name>
-  	<url-pattern>/ChatController.do</url-pattern>
+  	<servlet-name>ControllerSchool</servlet-name>
+  	<url-pattern>/ControllerSchool.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControllerPageInfo</servlet-name>
+  	<url-pattern>/ControllerPageInfo.do</url-pattern>
   </servlet-mapping>
 </web-app>
