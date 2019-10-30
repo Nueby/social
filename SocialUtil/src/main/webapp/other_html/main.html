@@ -29,34 +29,46 @@
 			</div>
 			<div id="set_2">
 				<div id="dashed">
-					<img src="../img/email_2.png" id="set_icon_email">
-					<div id="change_email">
+					<div id="set_top">
+						<img src="../img/email_2.png" id="set_icon_email">
 						<span id="email_title">
 							修改邮箱：
 						</span>
-						<div id="email_input">
-							<input type="text" id="new_email" placeholder="输入新邮箱"/>
-							<div id="email_warning"></div>
-							<input type="text" id="get_code_email" placeholder="输入动态验证码" />
-							<div id="time_get">
-								获取验证码
+						<div id="change_emailmore">
+							<p id="more_title">点击展开</p>
+							<img src="../img/more.png" id="icon_emailchange">
+						</div>
+						<div id="change_email">
+							<div id="email_input">
+								<input type="text" id="new_email" placeholder="输入新邮箱"/>
+								<div id="email_warning"></div>
+								<input type="text" id="get_code_email" placeholder="输入动态验证码" />
+								<div id="time_get">
+									获取验证码
+								</div>
+								<div id="email_warning"></div>
 							</div>
-							<div id="email_warning"></div>
 						</div>
 					</div>
-					<img src="../img/password.png" id="set_icon_password">
-					<div id="change_password">
+					<div id="set_bottom">
+						<img src="../img/password.png" id="set_icon_password">
 						<span id="password_title">
 							修改密码：
 						</span>
-						<div id="password_input">
-							<input type="password" id="old_password" placeholder="输入旧密码" />
-							<input type="password" id="new_password" placeholder="输入新密码" />
-							<input type="password" id="confirm_password" placeholder="确认新密码" />
-							<div id="input_warning"></div>
+						<div id="change_passwordmore">
+							<p id="password_title_more">点击展开</p>
+							<img src="../img/more.png" id="icon_passwordchange">
 						</div>
+						<div id="change_password">
+							<div id="password_input">
+								<input type="password" id="old_password" placeholder="输入旧密码" />
+								<input type="password" id="new_password" placeholder="输入新密码" />
+								<input type="password" id="confirm_password" placeholder="确认新密码" />
+								<div id="input_warning"></div>
+							</div>
+						</div>
+						<input type="button" id="email_submit" value="确定" />
 					</div>
-					<input type="button" id="email_submit" value="确定" />
 				</div>
 			</div>
 			<!-- 修改个人和学校信息 -->
@@ -475,38 +487,6 @@
 					<i>在这里举报</i>
 				</div>	
 			</div>
-			<div id="report_choose">
-				<div id="dashed">
-					<div id="report_introduce">
-						<input type="checkbox" id="check1"/>
-						<span id="report_title">言语侮辱</span>
-					</div>
-					<div id="report_introduce">
-						<input type="checkbox" id="check2"/>
-						<span id="report_title">挑逗信息</span>
-					</div>
-					<div id="report_introduce">
-						<input type="checkbox" id="check3"/>
-						<span id="report_title">海王</span>
-					</div>
-					<div id="report_introduce">
-						<input type="checkbox" id="check4"/>
-						<span id="report_title">垃圾广告</span>
-					</div>
-					<div id="report_introduce">
-						<input type="checkbox" id="check5"/>
-						<span id="report_title">恶意骚扰</span>
-					</div>
-					<div id="report_introduce">
-						<input type="checkbox" id="check6"/>
-						<span id="report_title">信息诈骗</span>
-					</div>
-					<div id="report_button">
-						<input type="button" id="report_submit" value="确定举报" />
-						<input type="button" id="report_cancel" value="取消" />
-					</div>
-				</div>
-			</div>
 			<div id="time_chat">
 				300
 			</div>
@@ -616,6 +596,9 @@
 			</div>
 		</div>
 		<div id="chat_page">
+			<div id="chat_empty_warning">
+				
+			</div>
 			<img src="../img/name_show.png" id="name_show">
 			<div id="friend_name_show">
 				<span id="show_name">26168</span>
@@ -646,6 +629,55 @@
 			<span id="email_tip">
 				这里可以查看你的邮件
 			</span>
+		</div>
+		<div id="report_choose">
+			<div id="dashed">
+				<div id="report_introduce">
+					<input type="checkbox" id="check1"/>
+					<span id="report_title">言语侮辱</span>
+				</div>
+				<div id="report_introduce">
+					<input type="checkbox" id="check2"/>
+					<span id="report_title">挑逗信息</span>
+				</div>
+				<div id="report_introduce">
+					<input type="checkbox" id="check3"/>
+					<span id="report_title">海王</span>
+				</div>
+				<div id="report_introduce">
+					<input type="checkbox" id="check4"/>
+					<span id="report_title">垃圾广告</span>
+				</div>
+				<div id="report_introduce">
+					<input type="checkbox" id="check5"/>
+					<span id="report_title">恶意骚扰</span>
+				</div>
+				<div id="report_introduce">
+					<input type="checkbox" id="check6"/>
+					<span id="report_title">信息诈骗</span>
+				</div>
+				<div id="report_button">
+					<input type="button" id="report_submit" value="确定举报" />
+					<input type="button" id="report_cancel" value="取消" />
+				</div>
+			</div>
+		</div>
+		<div id="email_contact">
+			<div id="black_dashed">
+				<div id="email_look">
+					<p id="look_hello">
+						亲爱的
+						<span id="look_name">xxx</span>
+					    用户
+					</p>
+					<p id="email_content">
+						感谢你使用Passer-by，希望你能有良好的体验！！！！
+					</p>
+					<img src="../img/more.png" id="icon_emailmore" title="点击显示更多内容">
+				</div>
+				<input type="button" id="email_close" value="关闭" />
+				<button type="button" id="email_back">返回</button>
+			</div>
 		</div>
 		<div id="manager_main">
 			<a href ="..//other_html/manager.html" target="_blank">

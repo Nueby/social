@@ -338,42 +338,80 @@ li {
 	left: 500px;
 }
 
+#set_top{
+	margin-top:15px;
+	margin-left:20px;
+}
+#set_bottom{
+	margin-top:50px;
+	margin-left:20px;
+}
 #set_icon_email {
 	width: 70px;
 	height: 70px;
-	position: absolute;
-	margin-left: 15px;
-	top: 20px;
+	float:left;
 }
 
 #set_icon_password {
 	width: 70px;
 	height: 70px;
-	position: absolute;
-	margin-left: 15px;
-
+	float:left;
 }
-
 #change_email {
 	width: 250px;
-	margin-left: 90px;
-	margin-top: 25px;
+	margin-left: 60px;
+	display:none;
+	transition:all .5s;
 }
-
+#change_emailmore{
+	float:right;
+	width:120px;
+	margin-top:10px;
+}
+#change_passwordmore{
+	float:right;
+	width:120px;
+	margin-top:10px;
+}
+#more_title{
+	color:grey;
+	font-size:14px;
+	float:left;
+}
+#password_title_more{
+	color:grey;
+	font-size:14px;
+	float:left;
+}
+#icon_emailchange{
+	width:50px;
+	height:50px;
+	cursor:pointer;
+	float:left;
+}
+#icon_passwordchange{
+	width:50px;
+	height:50px;
+	cursor:pointer;
+	float:left;
+}
 #change_password {
 	width: 250px;
 	margin-left: 90px;
 	margin-top: 28px;
+	display:none;
+	transition:all .5s;
 }
 
 #email_title {
-	position: absolute;
+	font-size:16px;
+	position:relative;
+	top:25px;
 }
 
 #email_input {
 	margin-left: 90px;
 }
-
 #new_email {
 	width: 200px;
 	height: 25px;
@@ -395,17 +433,20 @@ li {
 	padding:4px;
 	cursor: pointer;
 	position: absolute;
-	left: 330px;
-	top: 95px;
+	left: 315px;
+	top: 105px;
 	color: white;
 }
 
 #password_input {
-	margin-left: 90px;
+	margin-left: 60px;
+	margin-top:-25px
 }
 
 #password_title {
-	position: absolute;
+	font-size:16px;
+	position:relative;
+	top:25px;
 }
 
 #old_password {
@@ -432,7 +473,6 @@ li {
 	width: 60px;
 	height: 32px;
 	margin-left: 160px;
-	margin-top: 25px;
 	margin-bottom: 10px;
 	border-radius: 20px;
 	background: #020202;

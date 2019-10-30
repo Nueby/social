@@ -37,6 +37,7 @@ function divNone(){
 	$("#cover_scroll2").hide();
 	$("#cover_scroll3").hide();
 	$("#friend_list").hide();
+	$("#email_contact").hide();
 }
 
 //获取学校信息
@@ -166,16 +167,19 @@ document.getElementById("dynamic").onclick = function() {
 	$("#set_1").show();
 	$("#set_2").hide();
 	$("#set_3").hide();
+	$("#email_contact").hide();
 }
 document.getElementById("modify_contact").onclick = function() {
 	$("#set_2").show();
 	$("#set_1").hide();
 	$("#set_3").hide();
+	$("#email_contact").hide();
 }
 document.getElementById("self").onclick = function() {
 	$("#set_3").show();
 	$("#set_1").hide();
 	$("#set_2").hide();
+	$("#email_contact").hide();
 }
 
 //显示数据
@@ -217,7 +221,23 @@ $id("dynamic_submit").onclick = function() {
 	// }
 }
 
+
+//展开修改邮箱或者密码内容
+$("#icon_emailchange").click(function(){
+	$("#change_email").show();
+	$("#change_emailmore").hide();
+})
+$("#icon_passwordchange").click(function(){
+	$("#change_password").show();
+	$("#change_passwordmore").hide();
+})
+
+
 $id("email_submit").onclick = function() {
+	$("#change_password").hide();
+	$("#change_passwordmore").show();
+	$("#change_email").hide();
+	$("#change_emailmore").show();
 	$id("set_2").style.display = "none";
 	$id("new_email").value = "";
 	$id("get_code_email").value = "";
@@ -248,6 +268,7 @@ $id("email_submit").onclick = function() {
 		}
 	})
 }
+
 
 function changePassword() {
 	$.ajax({
@@ -1355,7 +1376,6 @@ function sendNews() {
 	var sendMsg = document.getElementById("sendMsg");
 	var txt = document.getElementById("txt");
 	var talk_contact = document.getElementById("talk_contact");
-	var contact = talk_contact.getElementsByTagName("p");
 	sendMsg.onclick = function() {
 		if (txt.value == "") {
 			$("#empty_warning").html("不能发送空内容");
@@ -1381,7 +1401,6 @@ function sendNews() {
 			myImg.style.top = "0";
 			myImg.style.margin = "8px 10px 0 10px";
 			var stringFilter = StringFilter(txt.value);
-			// var Val = StringValFilter(stringFilter);
 			newTxt.innerHTML = stringFilter;
 			talk_contact.appendChild(myImg);
 			talk_contact.appendChild(newTxt);
@@ -1391,6 +1410,52 @@ function sendNews() {
 	}
 }
 sendNews();
+
+
+
+//好友的聊天界面
+$("#icon_page_close").click(function(){
+	$("#chat_page").hide();
+})
+$("#icon_page_report").click(function(){
+	$("#report_choose").show();
+})
+//好友的信息发送
+$("#page_sendMsg").click(function(){
+	var txt = document.getElementById("page_txt");
+	var talk_contact = document.getElementById("talk_page_contact");
+	if (txt.value == "") {
+			$("#chat_empty_warning").html("不能发送空内容");
+			$("#chat_empty_warning").show();
+	} else {
+		$("#chat_empty_warning").hide();
+		//个人头像
+		var myImg = document.createElement("img");
+		var newTxt = document.createElement("p");
+		newTxt.style.lineHeight = "20px";
+		newTxt.style.padding = "5px";
+		newTxt.style.borderRadius = "5px";
+		newTxt.style.backgroundColor = "yellowgreen";
+		newTxt.style.float = "right";
+		newTxt.style.fontSize = "15px";
+		myImg.style.float = "right";
+		myImg.style.height = "40px";
+		myImg.style.width = "40px";
+		myImg.style.borderRadius = "50%";
+		myImg.style.border = "2px solid rgba(0,0,0,.3)";
+		myImg.style.clear = "both";
+		myImg.style.position = "relative";
+		myImg.style.top = "0";
+		myImg.style.margin = "8px 10px 0 10px";
+		var stringFilter = StringFilter(txt.value);
+		newTxt.innerHTML = stringFilter;
+		talk_contact.appendChild(myImg);
+		talk_contact.appendChild(newTxt);
+		txt.value = "";
+		newTxt.scrollIntoView();
+	}
+})
+
 
 //获取当前时间的函数
 //个人圈的发布时候要给时间，举报信息要给时间后台记录
@@ -1427,7 +1492,36 @@ function getNowDate(){
 }
 
 
+//退出登录和进入管理院界面
+$("#manager_main").click(function(){
+	divNone();
+})
+$("#back_main").click(function(){
+	divNone();
+})
+
 //收邮件的页面显示
 $("#email_main").click(function(){
-	
+	$("#email_contact").show();
+})
+$("#icon_emailmore").click(function(){
+	$("#email_look").css({"height":"300px"});
+	$("#icon_emailmore").hide();
+	$("#email_content").css({"overflow":"visible"});
+	$("#email_back").show();
+	$("#email_close").hide();
+})
+$("#email_close").click(function(){
+	$("#email_contact").hide();
+	$("#email_look").css({"height":"100px"});
+	$("#email_content").css({"overflow":"hidden"});
+	$("#email_back").hide();
+	$("#email_close").show();
+})
+$("#email_back").click(function(){
+	$("#email_look").css({"height":"100px"});
+	$("#icon_emailmore").show();
+	$("#email_back").hide();
+	$("#email_close").show();
+	$("#email_content").css({"overflow":"hidden"});
 })

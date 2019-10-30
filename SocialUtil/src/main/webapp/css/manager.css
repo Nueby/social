@@ -50,7 +50,7 @@ body{
 }
 .nav{
 	width:200px;
-	height:680px;
+	height:650px;
 }
 .nav li{
 	line-height:80px;
@@ -109,22 +109,7 @@ th{
 td{
 	height:35px;
 }
-#record_page{
-	width:1200px;
-	height:630px;
-	margin-top:10px;
-	margin-left:230px;
-	background:white;
-	position:relative;
-	border-radius:10px;
-}
-#chat_record{
-	position:absolute;
-	margin-top:20px;
-	margin-left:100px;
-	width:1000px;
-	text-align:center;
-}
+
 #check{
 	color:blue;
 	cursor:pointer;
@@ -190,7 +175,6 @@ td{
 	background:white;
 	position:relative;
 	border-radius:10px;
-	display:none;
 }
 #imformation_check{
 	position:absolute;
@@ -276,6 +260,60 @@ td{
 	position:absolute;
 	bottom:20px;
 	right:250px;
+}
+#seal{
+	background:rgba(0,0,0,.2);
+	border:2px solid rgba(0,0,0,.5);
+	position:absolute;
+	top:200px;
+	left:450px;
+	border-radius:15px;
+	display:none;
+}
+#seal_title{
+	padding:20px 50px 30px 50px;
+	color:red;
+}
+#seal_submit{
+	padding:5px 15px;
+	background:rgba(0,0,0,6);
+	border-radius:15px;
+	color:white;
+	margin:10px 0 20px 30px;
+}
+#seal_cancel{
+	padding:5px 15px;
+	background:rgba(0,0,0,6);
+	border-radius:15px;
+	color:white;
+	margin:10px 0 20px 120px;
+}
+#warning{
+	background:rgba(0,0,0,.2);
+	border:2px solid rgba(0,0,0,.5);
+	position:absolute;
+	top:200px;
+	left:450px;
+	border-radius:15px;
+	display:none;
+}
+#warning_title{
+	padding:20px 50px 30px 50px;
+	color:red;
+}
+#warning_submit{
+	padding:5px 15px;
+	background:rgba(0,0,0,6);
+	border-radius:15px;
+	color:white;
+	margin:10px 0 20px 30px;
+}
+#warning_cancel{
+	padding:5px 15px;
+	background:rgba(0,0,0,6);
+	border-radius:15px;
+	color:white;
+	margin:10px 0 20px 80px;
 }
 #linechart_show{
 	position:relative;
